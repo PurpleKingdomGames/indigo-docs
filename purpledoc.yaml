@@ -1,0 +1,23 @@
+# Indigo purpledoc config
+inputs:
+  staticSite: website
+outputs:
+  destination: docs
+website:
+  title: Indigo
+  description: An FP game engine for Scala.
+  topNavLogo:
+    image: indigo_logo_solid_text.svg
+    width: 150.0
+    height: 50.0
+  logo:
+    image: indigo_logo.svg
+  latestRelease: 0.17.0
+  baseUrl: https://purplekingdomgames.github.io/indigo-docs/
+repo:
+  name: Github
+  url: https://github.com/PurpleKingdomGames/indigo-docs
+  editBaseUrl: https://github.com/PurpleKingdomGames/indigo-docs/blob/main
+discord:
+  name: Discord
+  url: https://discord.gg/b5CD47g
