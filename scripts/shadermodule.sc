@@ -36,7 +36,7 @@ trait ShaderModule extends MillIndigo {
   def makeIndigoOptions(title: String): IndigoOptions =
     IndigoOptions.defaults
       .withTitle(title)
-      .withWindowSize(400, 400)
+      .withWindowSize(550, 400)
       .withAssetDirectory(os.RelPath.rel / "assets")
       .withBackgroundColor("black")
 

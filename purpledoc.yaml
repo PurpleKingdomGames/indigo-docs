@@ -14,6 +14,7 @@ website:
     image: indigo_logo.svg
   latestRelease: 0.17.0
   baseUrl: https://purplekingdomgames.github.io/indigo-docs/
+  # baseUrl: http://127.0.0.1:8080/
 repo:
   name: Github
   url: https://github.com/PurpleKingdomGames/indigo-docs

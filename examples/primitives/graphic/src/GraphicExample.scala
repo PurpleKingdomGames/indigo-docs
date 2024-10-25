@@ -9,6 +9,7 @@ object GraphicExample extends IndigoSandbox[Unit, Unit]:
 
   val config: GameConfig =
     GameConfig.default.noResize
+      .withViewport(550, 400)
 
   val assets: Set[AssetType] =
     Set(AssetType.Image(AssetName("graphics"), AssetPath("assets/graphics.png")))
