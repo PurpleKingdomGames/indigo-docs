@@ -8,7 +8,7 @@ import scala.scalajs.js.annotation._
 object GraphicExample extends IndigoSandbox[Unit, Unit]:
 
   val config: GameConfig =
-    defaultGameConfig
+    GameConfig.default.noResize
 
   val assets: Set[AssetType] =
     Set(AssetType.Image(AssetName("graphics"), AssetPath("assets/graphics.png")))
