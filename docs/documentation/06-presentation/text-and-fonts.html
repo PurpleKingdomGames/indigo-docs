@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Typelevel Laika + Helium Theme" />
+  <title>Text & Fonts</title>
+  
+  
+  <meta name="description" content="An FP game engine for Scala."/>
+  
+  
+  
+  <link rel="icon" sizes="32x32" type="image/png" href="../../img/favicon.png"/>
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:500">
+  
+  <link rel="stylesheet" type="text/css" href="../../helium/site/icofont.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../helium/site/laika-helium.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/custom.css" />
+  <script src="../../helium/site/laika-helium.js"></script>
+  
+  
+  <script> /* for avoiding page load transitions */ </script>
+</head>
+
+  <body>
+
+    <header id="top-bar" class="light-default dark-default">
+
+  <div class="row">
+    <a id="nav-icon">
+      <i class="icofont-laika navigationMenu" title="Navigation">&#xefa2;</i>
+    </a>
+    
+    
+  </div>
+
+  <a class="image-link" href="../"><img src="../../img/indigo_logo_solid_text.svg" alt="An FP game engine for Scala." title="Indigo" width="150" height="50"></a>
+
+  <div class="row links">
+    
+    <a class="button-link" href="https://purplekingdomgames.github.io/indigo-docs/demos">Live Demos</a>
+    
+    <a class="button-link" href="https://discord.gg/b5CD47g">Discord</a>
+    
+    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigo-docs">Github</a>
+    
+  </div>  
+
+</header>
+    
+    <nav id="sidebar">
+
+  <div class="row">
+    
+    <a class="button-link" href="https://purplekingdomgames.github.io/indigo-docs/demos">Live Demos</a>
+    
+    <a class="button-link" href="https://discord.gg/b5CD47g">Discord</a>
+    
+    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigo-docs">Github</a>
+    
+  </div>
+
+  <ul class="nav-list">
+    <li class="level1 nav-node"><a href="../">Indigo</a></li>
+    <li class="level2 nav-header">Physics</li>
+    <li class="level3 nav-leaf"><a href="../11-physics/physics-overview.html">Physics Overview</a></li>
+    <li class="level2 nav-header">Presentation</li>
+    <li class="level3 nav-leaf"><a href="materials.html">Materials</a></li>
+    <li class="level3 nav-leaf"><a href="primitives.html">Primitives &amp; Building Blocks</a></li>
+    <li class="level3 nav-leaf"><a href="lighting.html">Lighting</a></li>
+    <li class="level3 nav-leaf"><a href="clones-and-mutants.html">Clones &amp; Mutants</a></li>
+    <li class="level3 nav-leaf"><a href="boundaries.html">Boundaries</a></li>
+    <li class="level3 nav-leaf"><a href="shapes.html">Shapes</a></li>
+    <li class="level3 nav-leaf"><a href="scene-update-fragment.html">SceneUpdateFragment</a></li>
+    <li class="level3 nav-leaf"><a href="layers.html">Layers</a></li>
+    <li class="level3 nav-leaf"><a href="audio.html">Audio</a></li>
+    <li class="level3 active nav-leaf"><a href="#">Text &amp; Fonts</a></li>
+    <li class="level3 nav-leaf"><a href="animation.html">Animation</a></li>
+    <li class="level3 nav-leaf"><a href="cameras.html">Cameras</a></li>
+    <li class="level3 nav-leaf"><a href="depth.html">Depth</a></li>
+    <li class="level2 nav-header">Platform &amp; IO</li>
+    <li class="level3 nav-leaf"><a href="../05-platform/input-handling.html">Input Handling</a></li>
+    <li class="level3 nav-leaf"><a href="../05-platform/importers.html">File Importers</a></li>
+    <li class="level3 nav-leaf"><a href="../05-platform/logging.html">Logging</a></li>
+    <li class="level3 nav-leaf"><a href="../05-platform/configuration.html">Game Configuration</a></li>
+    <li class="level3 nav-leaf"><a href="../05-platform/loading-and-saving-data.html">Loading &amp; Saving Data</a></li>
+    <li class="level3 nav-leaf"><a href="../05-platform/cross-platform-publishing.html">Cross Platform Publishing</a></li>
+    <li class="level3 nav-leaf"><a href="../05-platform/networking.html">Networking</a></li>
+    <li class="level3 nav-leaf"><a href="../05-platform/assets.html">Assets &amp; Asset Loading</a></li>
+    <li class="level2 nav-header">Setup &amp; Configuration</li>
+    <li class="level3 nav-leaf"><a href="../01-quickstart/project-templates.html">Mill &amp; SBT Templates</a></li>
+    <li class="level3 nav-leaf"><a href="../01-quickstart/extensions-and-libs.html">Extensions, Libraries, and Related Projects</a></li>
+    <li class="level3 nav-leaf"><a href="../01-quickstart/quickstart.html">Quick start</a></li>
+    <li class="level3 nav-leaf"><a href="../01-quickstart/hello-indigo.html">Hello, Indigo!</a></li>
+    <li class="level3 nav-leaf"><a href="../01-quickstart/examples.html">Examples, Demos, and References</a></li>
+    <li class="level2 nav-header">Time</li>
+    <li class="level3 nav-leaf"><a href="../08-time/time-varying-values.html">Time Varying Values</a></li>
+    <li class="level3 nav-leaf"><a href="../08-time/signals.html">Signals &amp; Signal Functions</a></li>
+    <li class="level3 nav-leaf"><a href="../08-time/gametime.html">GameTime</a></li>
+    <li class="level2 nav-header">Gameloop</li>
+    <li class="level3 nav-leaf"><a href="../03-gameloop/events.html">Events</a></li>
+    <li class="level3 nav-leaf"><a href="../03-gameloop/outcome.html">Outcome Type</a></li>
+    <li class="level3 nav-leaf"><a href="../03-gameloop/frame-context.html">Frame context</a></li>
+    <li class="level2 nav-header">Organisation</li>
+    <li class="level3 nav-leaf"><a href="../04-organisation/scene-management.html">What are Scenes?</a></li>
+    <li class="level3 nav-leaf"><a href="../04-organisation/game-entry-points.html">Game Entry Points</a></li>
+    <li class="level3 nav-leaf"><a href="../04-organisation/subsystems.html">What SubSystems are</a></li>
+    <li class="level3 nav-leaf"><a href="../04-organisation/boot-and-start-up.html">Boot &amp; Start Up</a></li>
+    <li class="level2 nav-header">Guides</li>
+    <li class="level3 nav-leaf"><a href="../02-guides/howto-indigo-game.html">Converting <code>IndigoSandbox</code> to <code>IndigoGame</code></a></li>
+    <li class="level3 nav-leaf"><a href="../02-guides/howto-hello-indigo-tyrian.html">How to make a responsive UI using Tyrian</a></li>
+    <li class="level3 nav-leaf"><a href="../02-guides/howto-custom-entity.html">How to make a custom entity</a></li>
+    <li class="level3 nav-leaf"><a href="../02-guides/howto-fire-shader.html">How to write a fire shader</a></li>
+    <li class="level2 nav-header">UI Components</li>
+    <li class="level3 nav-leaf"><a href="../09-uicomponents/radio-button.html">Radio Buttons</a></li>
+    <li class="level3 nav-leaf"><a href="../09-uicomponents/ui-components.html">UI Components</a></li>
+    <li class="level3 nav-leaf"><a href="../09-uicomponents/hit-area.html">Hit Areas</a></li>
+    <li class="level3 nav-leaf"><a href="../09-uicomponents/button.html">Buttons</a></li>
+    <li class="level3 nav-leaf"><a href="../09-uicomponents/input-field.html">Input Fields</a></li>
+    <li class="level2 nav-header">Misc</li>
+    <li class="level3 nav-leaf"><a href="../10-information/antipatterns.html">Anti-Patterns</a></li>
+    <li class="level3 nav-leaf"><a href="../10-information/prior-art.html">Prior Art</a></li>
+    <li class="level3 nav-leaf"><a href="../10-information/model-viewmodel-view.html">Model, ViewModel, &amp; View</a></li>
+    <li class="level3 nav-leaf"><a href="../10-information/performance.html">Performance</a></li>
+    <li class="level3 nav-leaf"><a href="../10-information/motivation-and-constraints.html">Motivation &amp; Constraints</a></li>
+    <li class="level3 nav-leaf"><a href="../10-information/pathfinding.html">Path finding</a></li>
+    <li class="level3 nav-leaf"><a href="../10-information/glossary.html">Glossary</a></li>
+    <li class="level3 nav-leaf"><a href="../10-information/alternatives.html">Alternatives to Indigo</a></li>
+    <li class="level3 nav-leaf"><a href="../10-information/rendering-technology.html">Rendering Technology</a></li>
+    <li class="level3 nav-leaf"><a href="../10-information/key-concepts.html">Key Concepts</a></li>
+    <li class="level2 nav-header">Shaders</li>
+    <li class="level3 nav-leaf"><a href="../07-shaders/constants.html">Shader Constants, Variables, and Outputs</a></li>
+    <li class="level3 nav-leaf"><a href="../07-shaders/shaders-overview.html">Shaders Overview</a></li>
+    <li class="level3 nav-leaf"><a href="../07-shaders/blending.html">Blending</a></li>
+    <li class="level3 nav-leaf"><a href="../07-shaders/premultiplied-alpha.html">Premultiplied Alpha</a></li>
+    <li class="level1 nav-node"><a href="../../examples/">Examples</a></li>
+    <li class="level2 nav-node"><a href="../../examples/primitives/">Primitives</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/primitives/graphic/">Graphic</a></li>
+  </ul>
+
+</nav>
+
+    <div id="container">
+
+      
+<nav id="page-nav">
+  <p class="header"><a href="#">Text &amp; Fonts</a></p>
+
+  <ul class="nav-list">
+    <li class="level1 nav-node"><a href="#textbox"><code>TextBox</code></a></li>
+    <li class="level2 nav-leaf"><a href="#loading-a-font">Loading a font</a></li>
+    <li class="level2 nav-leaf"><a href="#using-a-textbox">Using a <code>TextBox</code></a></li>
+    <li class="level1 nav-node"><a href="#the-text-primitive">The Text Primitive</a></li>
+    <li class="level2 nav-leaf"><a href="#allowing-fonts-without-supporting-fonts">Allowing fonts without supporting fonts</a></li>
+    <li class="level2 nav-leaf"><a href="#setting-up-fonts-manually">Setting up fonts manually</a></li>
+  </ul>
+
+  <p class="footer"></p>
+</nav>
+
+
+      <main class="content">
+
+        <h1 id="text-fonts" class="title">Text &amp; Fonts</h1>
+        <p>There are two way to add text in Indigo, each with their own set of trade offs.</p>
+        <ol class="arabic">
+          <li><code>TextBox</code> - is text as you&#39;d expect it, easy to use and with full font support, but is generally lower quality.</li>
+          <li><code>Text</code> - is a graphical primitive that gives high rendering fidelity but requires a lot of set up.</li>
+        </ol>
+        <p>If you&#39;re new to Indigo and just want to get some text on the screen quickly, you are strongly advised to use a <code>TextBox</code>.</p>
+        
+        <h2 id="textbox" class="section"><a class="anchor-link left" href="#textbox"><i class="icofont-laika link">&#xef71;</i></a><code>TextBox</code></h2>
+        <blockquote>This is a new feature and there are bound to be issues with it. Please report any problems you find.</blockquote>
+        <p>The <code>TextBox</code> primitive works by utilising the browsers ability to render fonts. This provides a huge amount of power and flexibility, but it also inherits the shortcomings of that process, which chiefly are:</p>
+        <ol class="arabic">
+          <li>There is no way to disable anti-aliasing, which means that text being shown on a magnified pixelated layer is likely to look poor. (On the other hand, on a nice HD UI layer your text will look crisp!)</li>
+          <li>There is no inbuilt support for multi-line text, and measuring text has some cost associated with it. We may try to add wrapping in the future, but for now if you want to wrap text you&#39;ll need to do measure the text using the <code>BoundaryLocator</code>, and insert line breaks manually.</li>
+        </ol>
+        <p><strong>However</strong> by comparison to the <code>Text</code> primitive, getting up and running with <code>TextBox</code> is far quicker and easier because there is no set up to do.</p>
+        
+        <h3 id="loading-a-font" class="section"><a class="anchor-link left" href="#loading-a-font"><i class="icofont-laika link">&#xef71;</i></a>Loading a font</h3>
+        <p>You can use system fonts, but if you&#39;re keen on using something specific then there is a new <code>Font</code> <code>AssetType</code>, which works the same as loading any other kind of asset:</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">indigo</span><span>.*
+
+</span><span class="type-name">AssetType</span><span>.</span><span class="type-name">Font</span><span>(</span><span class="type-name">AssetName</span><span>(</span><span class="string-literal">&quot;My Font&quot;</span><span>), </span><span class="type-name">AssetPath</span><span>(</span><span class="string-literal">&quot;assets/my-favourite-font.woff2&quot;</span><span>))</span></code></pre>
+        <p>And is used as follows:</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="comment">// FontFamily(&quot;My Font&quot;) aligns to the loaded asset name AssetName(&quot;My Font&quot;)
+</span><span class="type-name">TextBox</span><span>(</span><span class="string-literal">&quot;Indigo... with fonts?&quot;</span><span>, </span><span class="number-literal">200</span><span>, </span><span class="number-literal">30</span><span>).</span><span class="identifier">withFontFamily</span><span>(</span><span class="type-name">FontFamily</span><span>(</span><span class="string-literal">&quot;My Font&quot;</span><span>))</span></code></pre>
+        <p>There are things to be aware of with fonts, but the rules for fonts in Indigo are identical to the rules for loading fonts into browsers generally.</p>
+        
+        <h3 id="using-a-textbox" class="section"><a class="anchor-link left" href="#using-a-textbox"><i class="icofont-laika link">&#xef71;</i></a>Using a <code>TextBox</code></h3>
+        <p>As with all the APIs in Indigo, the available features of the <code>TextBox</code> type are all easily discoverable via your favorite IDE, but here is an example to get you started:</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">TextBox</span><span>(</span><span class="string-literal">&quot;Hello, World!&quot;</span><span>, </span><span class="number-literal">200</span><span>, </span><span class="number-literal">30</span><span>)
+  .</span><span class="identifier">withFontFamily</span><span>(</span><span class="type-name">FontFamily</span><span>.</span><span class="identifier">cursive</span><span>)
+  .</span><span class="identifier">withColor</span><span>(</span><span class="type-name">RGBA</span><span>.</span><span class="type-name">White</span><span>)
+  .</span><span class="identifier">withFontSize</span><span>(</span><span class="type-name">Pixels</span><span>(</span><span class="number-literal">16</span><span>))
+  .</span><span class="identifier">withStroke</span><span>(</span><span class="type-name">TextStroke</span><span>(</span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Red</span><span>, </span><span class="type-name">Pixels</span><span>(</span><span class="number-literal">1</span><span>)))
+  .</span><span class="identifier">italic</span><span>
+  .</span><span class="identifier">alignRight</span></code></pre>
+        
+        <h2 id="the-text-primitive" class="section"><a class="anchor-link left" href="#the-text-primitive"><i class="icofont-laika link">&#xef71;</i></a>The Text Primitive</h2>
+        <p>The alternative to <code>TextBox</code> is the <code>Text</code> primitive, which renders text using what are known as bitmap fonts, i.e, an image containing all the characters and data structure explaining where they are.</p>
+        <p>You can create a Text node using one of it&#39;s constructors and manipulate its properties with fluent API methods like this:</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Text</span><span>(</span><span class="string-literal">&quot;Hello, world!</span><span class="escape-sequence">\n</span><span class="string-literal">This is some text!&quot;</span><span>, </span><span class="type-name">FontKey</span><span>(</span><span class="string-literal">&quot;my font&quot;</span><span>), </span><span class="type-name">Material</span><span>.</span><span class="type-name">Bitmap</span><span>(</span><span class="type-name">AssetName</span><span>(</span><span class="string-literal">&quot;my font sheet&quot;</span><span>))).</span><span class="identifier">alignRight</span></code></pre>
+        <p>Easy enough, and note that you can use newlines ...but if indigo doesn&#39;t support fonts for <code>Text</code>, what is the <code>fontKey</code> in reference to?</p>
+        
+        <h3 id="allowing-fonts-without-supporting-fonts" class="section"><a class="anchor-link left" href="#allowing-fonts-without-supporting-fonts"><i class="icofont-laika link">&#xef71;</i></a>Allowing fonts without supporting fonts</h3>
+        <p>A very early design decision from back when Indigo was ruthlessly focused on the pixel art market, was that we didn&#39;t need real font support. Pixel art fonts tend to be blocky and mono-space.</p>
+        <p>Inspiration came from early versions of Flash where selected font glyphs were rendered into images at specific sizes during the Flash build. We went one step further and decided, in the name of <em>not</em> getting bogged down in the world of font rendering, that you&#39;d have to provide your font glyph images - not unlike an animation sprite sheet - pre-rendered and then tell us where all the characters were.</p>
+        <p>It&#39;s inconvenient and a bit simplistic, but it works, and the results look good even when magnified for pixel art!</p>
+        
+        <h3 id="setting-up-fonts-manually" class="section"><a class="anchor-link left" href="#setting-up-fonts-manually"><i class="icofont-laika link">&#xef71;</i></a>Setting up fonts manually</h3>
+        <p>At the beginning of your (<code>IndigoSandbox</code>) game definition, you were given a couple of blanks to fill in that looked like this:</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">fonts</span><span>: </span><span class="type-name">Set</span><span>[</span><span class="type-name">FontInfo</span><span>] =
+  </span><span class="type-name">Set</span><span>()
+
+</span><span class="keyword">val</span><span> </span><span class="identifier">assets</span><span>: </span><span class="type-name">Set</span><span>[</span><span class="type-name">AssetType</span><span>] =
+  </span><span class="type-name">Set</span><span>()</span></code></pre>
+        <p>What you need to do, one way or another, is provide an image that represents your font characters, and the <code>FontInfo</code> that tells indigo how to render each character.</p>
+        <p>The image might look like this:</p>
+        <p><img src="../../img/font-example.png" alt="Font sheet example"></p>
+        <p>Which you would load in the usual way:</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">indigo</span><span>.*
+
+</span><span class="keyword">val</span><span> </span><span class="identifier">imageAsset</span><span> = </span><span class="type-name">AssetName</span><span>(</span><span class="string-literal">&quot;my font image&quot;</span><span>)
+
+</span><span class="keyword">val</span><span> </span><span class="identifier">assets</span><span>: </span><span class="type-name">Set</span><span>[</span><span class="type-name">AssetType</span><span>] =
+  </span><span class="type-name">Set</span><span>(</span><span class="type-name">AssetType</span><span>.</span><span class="type-name">Image</span><span>(</span><span class="identifier">imageAsset</span><span>, </span><span class="type-name">AssetPath</span><span>(</span><span class="string-literal">&quot;assets/my-font.png&quot;</span><span>)))</span></code></pre>
+        <p>And the associated <code>FontInfo</code> definition would be as follows, where the <code>FontChar</code> contains the character to match, and an image crop rectangle:</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">fontKey</span><span>: </span><span class="type-name">FontKey</span><span> = </span><span class="type-name">FontKey</span><span>(</span><span class="string-literal">&quot;my font&quot;</span><span>)
+
+</span><span class="keyword">val</span><span> </span><span class="identifier">fontInfo</span><span>: </span><span class="type-name">FontInfo</span><span> =
+  </span><span class="type-name">FontInfo</span><span>(</span><span class="identifier">fontKey</span><span>, </span><span class="number-literal">320</span><span>, </span><span class="number-literal">230</span><span>, </span><span class="type-name">FontChar</span><span>(</span><span class="string-literal">&quot;?&quot;</span><span>, </span><span class="number-literal">47</span><span>, </span><span class="number-literal">26</span><span>, </span><span class="number-literal">11</span><span>, </span><span class="number-literal">12</span><span>))
+    .</span><span class="identifier">addChar</span><span>(</span><span class="type-name">FontChar</span><span>(</span><span class="string-literal">&quot;A&quot;</span><span>, </span><span class="number-literal">2</span><span>, </span><span class="number-literal">39</span><span>, </span><span class="number-literal">10</span><span>, </span><span class="number-literal">12</span><span>))
+    .</span><span class="identifier">addChar</span><span>(</span><span class="type-name">FontChar</span><span>(</span><span class="string-literal">&quot;B&quot;</span><span>, </span><span class="number-literal">14</span><span>, </span><span class="number-literal">39</span><span>, </span><span class="number-literal">9</span><span>, </span><span class="number-literal">12</span><span>))
+    .</span><span class="identifier">addChar</span><span>(</span><span class="type-name">FontChar</span><span>(</span><span class="string-literal">&quot;C&quot;</span><span>, </span><span class="number-literal">25</span><span>, </span><span class="number-literal">39</span><span>, </span><span class="number-literal">10</span><span>, </span><span class="number-literal">12</span><span>))
+    .</span><span class="identifier">addChar</span><span>(</span><span class="type-name">FontChar</span><span>(</span><span class="string-literal">&quot;D&quot;</span><span>, </span><span class="number-literal">37</span><span>, </span><span class="number-literal">39</span><span>, </span><span class="number-literal">9</span><span>, </span><span class="number-literal">12</span><span>))
+    .</span><span class="identifier">addChar</span><span>(</span><span class="type-name">FontChar</span><span>(</span><span class="string-literal">&quot;E&quot;</span><span>, </span><span class="number-literal">49</span><span>, </span><span class="number-literal">39</span><span>, </span><span class="number-literal">9</span><span>, </span><span class="number-literal">12</span><span>))
+    </span><span class="comment">// etc.</span></code></pre>
+        <p>The eagle eyed among you may have noticed two things:</p>
+        <ol class="arabic">
+          <li>That our <code>fontKey</code> has appeared, and it ties the <code>Text</code> primitive to a specific <code>FontInfo</code> instance.</li>
+          <li>The &quot;character&quot; to match is represented by a <code>String</code> rather than a <code>Char</code>... this is because of the way JavaScript represents it, an implementation leak if you will.</li>
+        </ol>
+        <p>That all works fine, it&#39;s just a very boring job.</p>
+
+        
+<hr class="footer-rule"/>
+<footer>
+  Site generated by <a href="https://typelevel.org/Laika/">Laika</a> with the Helium theme.
+</footer>
+
+
+      </main>
+
+    </div>
+
+  </body>
+
+</html>

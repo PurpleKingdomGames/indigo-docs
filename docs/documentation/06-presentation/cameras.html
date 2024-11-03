@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Typelevel Laika + Helium Theme" />
+  <title>Cameras</title>
+  
+  
+  <meta name="description" content="An FP game engine for Scala."/>
+  
+  
+  
+  <link rel="icon" sizes="32x32" type="image/png" href="../../img/favicon.png"/>
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:500">
+  
+  <link rel="stylesheet" type="text/css" href="../../helium/site/icofont.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../helium/site/laika-helium.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/custom.css" />
+  <script src="../../helium/site/laika-helium.js"></script>
+  
+  
+  <script> /* for avoiding page load transitions */ </script>
+</head>
+
+  <body>
+
+    <header id="top-bar" class="light-default dark-default">
+
+  <div class="row">
+    <a id="nav-icon">
+      <i class="icofont-laika navigationMenu" title="Navigation">&#xefa2;</i>
+    </a>
+    
+    
+  </div>
+
+  <a class="image-link" href="../"><img src="../../img/indigo_logo_solid_text.svg" alt="An FP game engine for Scala." title="Indigo" width="150" height="50"></a>
+
+  <div class="row links">
+    
+    <a class="button-link" href="https://purplekingdomgames.github.io/indigo-docs/demos">Live Demos</a>
+    
+    <a class="button-link" href="https://discord.gg/b5CD47g">Discord</a>
+    
+    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigo-docs">Github</a>
+    
+  </div>  
+
+</header>
+    
+    <nav id="sidebar">
+
+  <div class="row">
+    
+    <a class="button-link" href="https://purplekingdomgames.github.io/indigo-docs/demos">Live Demos</a>
+    
+    <a class="button-link" href="https://discord.gg/b5CD47g">Discord</a>
+    
+    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigo-docs">Github</a>
+    
+  </div>
+
+  <ul class="nav-list">
+    <li class="level1 nav-node"><a href="../">Indigo</a></li>
+    <li class="level2 nav-header">Physics</li>
+    <li class="level3 nav-leaf"><a href="../11-physics/physics-overview.html">Physics Overview</a></li>
+    <li class="level2 nav-header">Presentation</li>
+    <li class="level3 nav-leaf"><a href="materials.html">Materials</a></li>
+    <li class="level3 nav-leaf"><a href="primitives.html">Primitives &amp; Building Blocks</a></li>
+    <li class="level3 nav-leaf"><a href="lighting.html">Lighting</a></li>
+    <li class="level3 nav-leaf"><a href="clones-and-mutants.html">Clones &amp; Mutants</a></li>
+    <li class="level3 nav-leaf"><a href="boundaries.html">Boundaries</a></li>
+    <li class="level3 nav-leaf"><a href="shapes.html">Shapes</a></li>
+    <li class="level3 nav-leaf"><a href="scene-update-fragment.html">SceneUpdateFragment</a></li>
+    <li class="level3 nav-leaf"><a href="layers.html">Layers</a></li>
+    <li class="level3 nav-leaf"><a href="audio.html">Audio</a></li>
+    <li class="level3 nav-leaf"><a href="text-and-fonts.html">Text &amp; Fonts</a></li>
+    <li class="level3 nav-leaf"><a href="animation.html">Animation</a></li>
+    <li class="level3 active nav-leaf"><a href="#">Cameras</a></li>
+    <li class="level3 nav-leaf"><a href="depth.html">Depth</a></li>
+    <li class="level2 nav-header">Platform &amp; IO</li>
+    <li class="level3 nav-leaf"><a href="../05-platform/input-handling.html">Input Handling</a></li>
+    <li class="level3 nav-leaf"><a href="../05-platform/importers.html">File Importers</a></li>
+    <li class="level3 nav-leaf"><a href="../05-platform/logging.html">Logging</a></li>
+    <li class="level3 nav-leaf"><a href="../05-platform/configuration.html">Game Configuration</a></li>
+    <li class="level3 nav-leaf"><a href="../05-platform/loading-and-saving-data.html">Loading &amp; Saving Data</a></li>
+    <li class="level3 nav-leaf"><a href="../05-platform/cross-platform-publishing.html">Cross Platform Publishing</a></li>
+    <li class="level3 nav-leaf"><a href="../05-platform/networking.html">Networking</a></li>
+    <li class="level3 nav-leaf"><a href="../05-platform/assets.html">Assets &amp; Asset Loading</a></li>
+    <li class="level2 nav-header">Setup &amp; Configuration</li>
+    <li class="level3 nav-leaf"><a href="../01-quickstart/project-templates.html">Mill &amp; SBT Templates</a></li>
+    <li class="level3 nav-leaf"><a href="../01-quickstart/extensions-and-libs.html">Extensions, Libraries, and Related Projects</a></li>
+    <li class="level3 nav-leaf"><a href="../01-quickstart/quickstart.html">Quick start</a></li>
+    <li class="level3 nav-leaf"><a href="../01-quickstart/hello-indigo.html">Hello, Indigo!</a></li>
+    <li class="level3 nav-leaf"><a href="../01-quickstart/examples.html">Examples, Demos, and References</a></li>
+    <li class="level2 nav-header">Time</li>
+    <li class="level3 nav-leaf"><a href="../08-time/time-varying-values.html">Time Varying Values</a></li>
+    <li class="level3 nav-leaf"><a href="../08-time/signals.html">Signals &amp; Signal Functions</a></li>
+    <li class="level3 nav-leaf"><a href="../08-time/gametime.html">GameTime</a></li>
+    <li class="level2 nav-header">Gameloop</li>
+    <li class="level3 nav-leaf"><a href="../03-gameloop/events.html">Events</a></li>
+    <li class="level3 nav-leaf"><a href="../03-gameloop/outcome.html">Outcome Type</a></li>
+    <li class="level3 nav-leaf"><a href="../03-gameloop/frame-context.html">Frame context</a></li>
+    <li class="level2 nav-header">Organisation</li>
+    <li class="level3 nav-leaf"><a href="../04-organisation/scene-management.html">What are Scenes?</a></li>
+    <li class="level3 nav-leaf"><a href="../04-organisation/game-entry-points.html">Game Entry Points</a></li>
+    <li class="level3 nav-leaf"><a href="../04-organisation/subsystems.html">What SubSystems are</a></li>
+    <li class="level3 nav-leaf"><a href="../04-organisation/boot-and-start-up.html">Boot &amp; Start Up</a></li>
+    <li class="level2 nav-header">Guides</li>
+    <li class="level3 nav-leaf"><a href="../02-guides/howto-indigo-game.html">Converting <code>IndigoSandbox</code> to <code>IndigoGame</code></a></li>
+    <li class="level3 nav-leaf"><a href="../02-guides/howto-hello-indigo-tyrian.html">How to make a responsive UI using Tyrian</a></li>
+    <li class="level3 nav-leaf"><a href="../02-guides/howto-custom-entity.html">How to make a custom entity</a></li>
+    <li class="level3 nav-leaf"><a href="../02-guides/howto-fire-shader.html">How to write a fire shader</a></li>
+    <li class="level2 nav-header">UI Components</li>
+    <li class="level3 nav-leaf"><a href="../09-uicomponents/radio-button.html">Radio Buttons</a></li>
+    <li class="level3 nav-leaf"><a href="../09-uicomponents/ui-components.html">UI Components</a></li>
+    <li class="level3 nav-leaf"><a href="../09-uicomponents/hit-area.html">Hit Areas</a></li>
+    <li class="level3 nav-leaf"><a href="../09-uicomponents/button.html">Buttons</a></li>
+    <li class="level3 nav-leaf"><a href="../09-uicomponents/input-field.html">Input Fields</a></li>
+    <li class="level2 nav-header">Misc</li>
+    <li class="level3 nav-leaf"><a href="../10-information/antipatterns.html">Anti-Patterns</a></li>
+    <li class="level3 nav-leaf"><a href="../10-information/prior-art.html">Prior Art</a></li>
+    <li class="level3 nav-leaf"><a href="../10-information/model-viewmodel-view.html">Model, ViewModel, &amp; View</a></li>
+    <li class="level3 nav-leaf"><a href="../10-information/performance.html">Performance</a></li>
+    <li class="level3 nav-leaf"><a href="../10-information/motivation-and-constraints.html">Motivation &amp; Constraints</a></li>
+    <li class="level3 nav-leaf"><a href="../10-information/pathfinding.html">Path finding</a></li>
+    <li class="level3 nav-leaf"><a href="../10-information/glossary.html">Glossary</a></li>
+    <li class="level3 nav-leaf"><a href="../10-information/alternatives.html">Alternatives to Indigo</a></li>
+    <li class="level3 nav-leaf"><a href="../10-information/rendering-technology.html">Rendering Technology</a></li>
+    <li class="level3 nav-leaf"><a href="../10-information/key-concepts.html">Key Concepts</a></li>
+    <li class="level2 nav-header">Shaders</li>
+    <li class="level3 nav-leaf"><a href="../07-shaders/constants.html">Shader Constants, Variables, and Outputs</a></li>
+    <li class="level3 nav-leaf"><a href="../07-shaders/shaders-overview.html">Shaders Overview</a></li>
+    <li class="level3 nav-leaf"><a href="../07-shaders/blending.html">Blending</a></li>
+    <li class="level3 nav-leaf"><a href="../07-shaders/premultiplied-alpha.html">Premultiplied Alpha</a></li>
+    <li class="level1 nav-node"><a href="../../examples/">Examples</a></li>
+    <li class="level2 nav-node"><a href="../../examples/primitives/">Primitives</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/primitives/graphic/">Graphic</a></li>
+  </ul>
+
+</nav>
+
+    <div id="container">
+
+      
+<nav id="page-nav">
+  <p class="header"><a href="#">Cameras</a></p>
+
+  <ul class="nav-list">
+    <li class="level1 nav-leaf"><a href="#types-of-camera">Types of camera</a></li>
+    <li class="level1 nav-leaf"><a href="#using-cameras">Using cameras</a></li>
+  </ul>
+
+  <p class="footer"></p>
+</nav>
+
+
+      <main class="content">
+
+        <h1 id="cameras" class="title">Cameras</h1>
+        <p>When you look at a scene rendered by Indigo, you are looking through a default camera.</p>
+        <p>This camera produces a viewport with pixel coordinates that start at (0,0) in the top left and proceed down and right to the width and height specified in the game config.</p>
+        <p>The default camera is always at 1:1 scale (regardless of magnification), and is never rotated.</p>
+        <p>Adding a big background to the scene at coordinates (0,0) places it at the top left and as much of it as possible will be drawn into the viewport.</p>
+        <p>What if you want to pan across that background? Perhaps to follow a little character as they wander across the world?</p>
+        <p>Well, one solution is to keep the character in the middle of the screen and update the coordinates of everything in the background all the time, to create the appearance of the character moving forward.</p>
+        <p>That&#39;s a valid approach, but it adds a bit of complexity. While the character might be in the scene&#39;s model correctly, the translation from model to view is a bit tricky.</p>
+        <p>The alternative is to render the scene more in line with the model, and have a camera follow the character around, removing a fair bit of programming complexity.</p>
+        
+        <h2 id="types-of-camera" class="section"><a class="anchor-link left" href="#types-of-camera"><i class="icofont-laika link">&#xef71;</i></a>Types of camera</h2>
+        <p>There are two types of camera built into Indigo: &#39;Fixed&#39; and &#39;Look at&#39;.</p>
+        <p>Fixed cameras are very much the same as the Indigo default camera, except that you can zoom and rotate them. Placing a <code>Camera.Fixed</code> at position (10, 10), effectively moves (10,10) to (0,0) for rendering purposes.</p>
+        <p>Here is an example of a fixed camera, positioned at (10, 10), zoomed in by a factor of 2, and rotated by 45 degrees:</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">indigo</span><span>.*</span></code></pre>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Camera</span><span>.</span><span class="type-name">Fixed</span><span>(</span><span class="type-name">Point</span><span>(</span><span class="number-literal">10</span><span>, </span><span class="number-literal">10</span><span>), </span><span class="type-name">Zoom</span><span>.</span><span class="identifier">x2</span><span>, </span><span class="type-name">Radians</span><span>.</span><span class="identifier">fromDegrees</span><span>(</span><span class="number-literal">45</span><span>))</span></code></pre>
+        <p><code>Camera.LookAt</code> works differently, in that targeting a &#39;look at&#39; camera at (10,10) centers position (10,10) on the screen. Here is the same camera but as a &#39;look at&#39;, which centers the <code>target</code> position on the screen.</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Camera</span><span>.</span><span class="type-name">LookAt</span><span>(</span><span class="type-name">Point</span><span>(</span><span class="number-literal">10</span><span>, </span><span class="number-literal">10</span><span>), </span><span class="type-name">Zoom</span><span>.</span><span class="identifier">x2</span><span>, </span><span class="type-name">Radians</span><span>.</span><span class="identifier">fromDegrees</span><span>(</span><span class="number-literal">45</span><span>))</span></code></pre>
+        
+        <h2 id="using-cameras" class="section"><a class="anchor-link left" href="#using-cameras"><i class="icofont-laika link">&#xef71;</i></a>Using cameras</h2>
+        <p>Cameras can be optionally added to your <code>SceneUpdateFragment</code>s or <code>Layer</code>s, e.g.:</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Layer</span><span>.</span><span class="identifier">empty</span><span>
+  .</span><span class="identifier">withCamera</span><span>(</span><span class="type-name">Camera</span><span>.</span><span class="type-name">LookAt</span><span>(</span><span class="type-name">Point</span><span>(</span><span class="number-literal">10</span><span>, </span><span class="number-literal">10</span><span>), </span><span class="type-name">Zoom</span><span>.</span><span class="identifier">x2</span><span>, </span><span class="type-name">Radians</span><span>.</span><span class="identifier">fromDegrees</span><span>(</span><span class="number-literal">45</span><span>)))</span></code></pre>
+        <p>Which camera is used follows some simple fall back logic:</p>
+        <ol class="arabic">
+          <li>If a camera is defined for the current <code>Layer</code>, use that one.</li>
+          <li>Otherwise, if a camera is defined for the <code>SceneUpdateFragment</code>, use that one</li>
+          <li>Otherwise, fall back to the default camera.</li>
+        </ol>
+        <p>Cameras are affected by <code>Layer</code> and <code>SceneUpdateFragment</code> composition, <strong><em>and they behave differently.</em></strong></p>
+        <ul>
+          <li>In scene update fragments, the <strong>last added</strong> camera is the one that will be used.</li>
+          <li>In layers, that the <strong>earliest defined</strong> camera is assumed to be desired one, and is retained.</li>
+        </ul>
+        <p>In this example, the camera in <code>sceneB</code> looking at position <code>Point(20, 20)</code> is retained:</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">sceneA</span><span> = </span><span class="type-name">SceneUpdateFragment</span><span>.</span><span class="identifier">empty</span><span>.</span><span class="identifier">withCamera</span><span>(</span><span class="type-name">Camera</span><span>.</span><span class="type-name">LookAt</span><span>(</span><span class="type-name">Point</span><span>(</span><span class="number-literal">10</span><span>, </span><span class="number-literal">10</span><span>)))
+</span><span class="keyword">val</span><span> </span><span class="identifier">sceneB</span><span> = </span><span class="type-name">SceneUpdateFragment</span><span>.</span><span class="identifier">empty</span><span>.</span><span class="identifier">withCamera</span><span>(</span><span class="type-name">Camera</span><span>.</span><span class="type-name">LookAt</span><span>(</span><span class="type-name">Point</span><span>(</span><span class="number-literal">20</span><span>, </span><span class="number-literal">20</span><span>)))</span></code></pre>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span>(</span><span class="identifier">sceneA</span><span> |+| </span><span class="identifier">sceneB</span><span>).</span><span class="identifier">camera</span></code></pre>
+        <p>..where as here, the camera in <code>layerA</code> looking at position <code>Point(10, 10)</code> is selected.</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">layerA</span><span> = </span><span class="type-name">Layer</span><span>.</span><span class="identifier">empty</span><span>.</span><span class="identifier">withCamera</span><span>(</span><span class="type-name">Camera</span><span>.</span><span class="type-name">LookAt</span><span>(</span><span class="type-name">Point</span><span>(</span><span class="number-literal">10</span><span>, </span><span class="number-literal">10</span><span>)))
+</span><span class="keyword">val</span><span> </span><span class="identifier">layerB</span><span> = </span><span class="type-name">Layer</span><span>.</span><span class="identifier">empty</span><span>.</span><span class="identifier">withCamera</span><span>(</span><span class="type-name">Camera</span><span>.</span><span class="type-name">LookAt</span><span>(</span><span class="type-name">Point</span><span>(</span><span class="number-literal">20</span><span>, </span><span class="number-literal">20</span><span>)))</span></code></pre>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span>(</span><span class="identifier">layerA</span><span> |+| </span><span class="identifier">layerB</span><span>).</span><span class="identifier">camera</span></code></pre>
+        <blockquote><code>Layer</code>s and <code>SceneUpdateFragments</code> without cameras that are added to scenes with cameras retain the defined one.</blockquote>
+        <p>Why the difference in behavior? There is an assumed difference in intent - whether this was the right decision or not is debatable - but nonetheless, the assumptions are as follows:</p>
+        <ul>
+          <li><code>SceneUpdateFragment</code> - there is only ultimately one, and the idea is that you are &quot;building up&quot; to a renderable result. Hence the latest is assumed to be the intended one.</li>
+          <li><code>Layer</code> - a common pattern is to define empty placeholder layers and use them as rendering destinations. So rather than &quot;building up&quot; you are &quot;squashing down.&quot;</li>
+        </ul>
+
+        
+<hr class="footer-rule"/>
+<footer>
+  Site generated by <a href="https://typelevel.org/Laika/">Laika</a> with the Helium theme.
+</footer>
+
+
+      </main>
+
+    </div>
+
+  </body>
+
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Typelevel Laika + Helium Theme" />
+  <title>Boundaries</title>
+  
+  
+  <meta name="description" content="An FP game engine for Scala."/>
+  
+  
+  
+  <link rel="icon" sizes="32x32" type="image/png" href="../../img/favicon.png"/>
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:500">
+  
+  <link rel="stylesheet" type="text/css" href="../../helium/site/icofont.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../helium/site/laika-helium.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/custom.css" />
+  <script src="../../helium/site/laika-helium.js"></script>
+  
+  
+  <script> /* for avoiding page load transitions */ </script>
+</head>
+
+  <body>
+
+    <header id="top-bar" class="light-default dark-default">
+
+  <div class="row">
+    <a id="nav-icon">
+      <i class="icofont-laika navigationMenu" title="Navigation">&#xefa2;</i>
+    </a>
+    
+    
+  </div>
+
+  <a class="image-link" href="../"><img src="../../img/indigo_logo_solid_text.svg" alt="An FP game engine for Scala." title="Indigo" width="150" height="50"></a>
+
+  <div class="row links">
+    
+    <a class="button-link" href="https://purplekingdomgames.github.io/indigo-docs/demos">Live Demos</a>
+    
+    <a class="button-link" href="https://discord.gg/b5CD47g">Discord</a>
+    
+    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigo-docs">Github</a>
+    
+  </div>  
+
+</header>
+    
+    <nav id="sidebar">
+
+  <div class="row">
+    
+    <a class="button-link" href="https://purplekingdomgames.github.io/indigo-docs/demos">Live Demos</a>
+    
+    <a class="button-link" href="https://discord.gg/b5CD47g">Discord</a>
+    
+    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigo-docs">Github</a>
+    
+  </div>
+
+  <ul class="nav-list">
+    <li class="level1 nav-node"><a href="../">Indigo</a></li>
+    <li class="level2 nav-header">Physics</li>
+    <li class="level3 nav-leaf"><a href="../11-physics/physics-overview.html">Physics Overview</a></li>
+    <li class="level2 nav-header">Presentation</li>
+    <li class="level3 nav-leaf"><a href="materials.html">Materials</a></li>
+    <li class="level3 nav-leaf"><a href="primitives.html">Primitives &amp; Building Blocks</a></li>
+    <li class="level3 nav-leaf"><a href="lighting.html">Lighting</a></li>
+    <li class="level3 nav-leaf"><a href="clones-and-mutants.html">Clones &amp; Mutants</a></li>
+    <li class="level3 active nav-leaf"><a href="#">Boundaries</a></li>
+    <li class="level3 nav-leaf"><a href="shapes.html">Shapes</a></li>
+    <li class="level3 nav-leaf"><a href="scene-update-fragment.html">SceneUpdateFragment</a></li>
+    <li class="level3 nav-leaf"><a href="layers.html">Layers</a></li>
+    <li class="level3 nav-leaf"><a href="audio.html">Audio</a></li>
+    <li class="level3 nav-leaf"><a href="text-and-fonts.html">Text &amp; Fonts</a></li>
+    <li class="level3 nav-leaf"><a href="animation.html">Animation</a></li>
+    <li class="level3 nav-leaf"><a href="cameras.html">Cameras</a></li>
+    <li class="level3 nav-leaf"><a href="depth.html">Depth</a></li>
+    <li class="level2 nav-header">Platform &amp; IO</li>
+    <li class="level3 nav-leaf"><a href="../05-platform/input-handling.html">Input Handling</a></li>
+    <li class="level3 nav-leaf"><a href="../05-platform/importers.html">File Importers</a></li>
+    <li class="level3 nav-leaf"><a href="../05-platform/logging.html">Logging</a></li>
+    <li class="level3 nav-leaf"><a href="../05-platform/configuration.html">Game Configuration</a></li>
+    <li class="level3 nav-leaf"><a href="../05-platform/loading-and-saving-data.html">Loading &amp; Saving Data</a></li>
+    <li class="level3 nav-leaf"><a href="../05-platform/cross-platform-publishing.html">Cross Platform Publishing</a></li>
+    <li class="level3 nav-leaf"><a href="../05-platform/networking.html">Networking</a></li>
+    <li class="level3 nav-leaf"><a href="../05-platform/assets.html">Assets &amp; Asset Loading</a></li>
+    <li class="level2 nav-header">Setup &amp; Configuration</li>
+    <li class="level3 nav-leaf"><a href="../01-quickstart/project-templates.html">Mill &amp; SBT Templates</a></li>
+    <li class="level3 nav-leaf"><a href="../01-quickstart/extensions-and-libs.html">Extensions, Libraries, and Related Projects</a></li>
+    <li class="level3 nav-leaf"><a href="../01-quickstart/quickstart.html">Quick start</a></li>
+    <li class="level3 nav-leaf"><a href="../01-quickstart/hello-indigo.html">Hello, Indigo!</a></li>
+    <li class="level3 nav-leaf"><a href="../01-quickstart/examples.html">Examples, Demos, and References</a></li>
+    <li class="level2 nav-header">Time</li>
+    <li class="level3 nav-leaf"><a href="../08-time/time-varying-values.html">Time Varying Values</a></li>
+    <li class="level3 nav-leaf"><a href="../08-time/signals.html">Signals &amp; Signal Functions</a></li>
+    <li class="level3 nav-leaf"><a href="../08-time/gametime.html">GameTime</a></li>
+    <li class="level2 nav-header">Gameloop</li>
+    <li class="level3 nav-leaf"><a href="../03-gameloop/events.html">Events</a></li>
+    <li class="level3 nav-leaf"><a href="../03-gameloop/outcome.html">Outcome Type</a></li>
+    <li class="level3 nav-leaf"><a href="../03-gameloop/frame-context.html">Frame context</a></li>
+    <li class="level2 nav-header">Organisation</li>
+    <li class="level3 nav-leaf"><a href="../04-organisation/scene-management.html">What are Scenes?</a></li>
+    <li class="level3 nav-leaf"><a href="../04-organisation/game-entry-points.html">Game Entry Points</a></li>
+    <li class="level3 nav-leaf"><a href="../04-organisation/subsystems.html">What SubSystems are</a></li>
+    <li class="level3 nav-leaf"><a href="../04-organisation/boot-and-start-up.html">Boot &amp; Start Up</a></li>
+    <li class="level2 nav-header">Guides</li>
+    <li class="level3 nav-leaf"><a href="../02-guides/howto-indigo-game.html">Converting <code>IndigoSandbox</code> to <code>IndigoGame</code></a></li>
+    <li class="level3 nav-leaf"><a href="../02-guides/howto-hello-indigo-tyrian.html">How to make a responsive UI using Tyrian</a></li>
+    <li class="level3 nav-leaf"><a href="../02-guides/howto-custom-entity.html">How to make a custom entity</a></li>
+    <li class="level3 nav-leaf"><a href="../02-guides/howto-fire-shader.html">How to write a fire shader</a></li>
+    <li class="level2 nav-header">UI Components</li>
+    <li class="level3 nav-leaf"><a href="../09-uicomponents/radio-button.html">Radio Buttons</a></li>
+    <li class="level3 nav-leaf"><a href="../09-uicomponents/ui-components.html">UI Components</a></li>
+    <li class="level3 nav-leaf"><a href="../09-uicomponents/hit-area.html">Hit Areas</a></li>
+    <li class="level3 nav-leaf"><a href="../09-uicomponents/button.html">Buttons</a></li>
+    <li class="level3 nav-leaf"><a href="../09-uicomponents/input-field.html">Input Fields</a></li>
+    <li class="level2 nav-header">Misc</li>
+    <li class="level3 nav-leaf"><a href="../10-information/antipatterns.html">Anti-Patterns</a></li>
+    <li class="level3 nav-leaf"><a href="../10-information/prior-art.html">Prior Art</a></li>
+    <li class="level3 nav-leaf"><a href="../10-information/model-viewmodel-view.html">Model, ViewModel, &amp; View</a></li>
+    <li class="level3 nav-leaf"><a href="../10-information/performance.html">Performance</a></li>
+    <li class="level3 nav-leaf"><a href="../10-information/motivation-and-constraints.html">Motivation &amp; Constraints</a></li>
+    <li class="level3 nav-leaf"><a href="../10-information/pathfinding.html">Path finding</a></li>
+    <li class="level3 nav-leaf"><a href="../10-information/glossary.html">Glossary</a></li>
+    <li class="level3 nav-leaf"><a href="../10-information/alternatives.html">Alternatives to Indigo</a></li>
+    <li class="level3 nav-leaf"><a href="../10-information/rendering-technology.html">Rendering Technology</a></li>
+    <li class="level3 nav-leaf"><a href="../10-information/key-concepts.html">Key Concepts</a></li>
+    <li class="level2 nav-header">Shaders</li>
+    <li class="level3 nav-leaf"><a href="../07-shaders/constants.html">Shader Constants, Variables, and Outputs</a></li>
+    <li class="level3 nav-leaf"><a href="../07-shaders/shaders-overview.html">Shaders Overview</a></li>
+    <li class="level3 nav-leaf"><a href="../07-shaders/blending.html">Blending</a></li>
+    <li class="level3 nav-leaf"><a href="../07-shaders/premultiplied-alpha.html">Premultiplied Alpha</a></li>
+    <li class="level1 nav-node"><a href="../../examples/">Examples</a></li>
+    <li class="level2 nav-node"><a href="../../examples/primitives/">Primitives</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/primitives/graphic/">Graphic</a></li>
+  </ul>
+
+</nav>
+
+    <div id="container">
+
+      
+<nav id="page-nav">
+  <p class="header"><a href="#">Boundaries</a></p>
+
+  <ul class="nav-list">
+    <li class="level1 nav-leaf"><a href="#the-fast-the-slow-and-the-unavailable">The fast, the slow, and the unavailable</a></li>
+  </ul>
+
+  <p class="footer"></p>
+</nav>
+
+
+      <main class="content">
+
+        <h1 id="boundaries" class="title">Boundaries</h1>
+        <p>A curious quirk of the way Indigo works is that it seems unusual to need to find the boundary / bounding box of a rendered element. Usually you are telling something how big it needs to be rather than asking it how big or small it actually is.</p>
+        <p>Nonetheless, Indigo does have a facility for discovering the dimensions of a scene node called the &#39;Boundary Locator&#39; which can be found on the <code>FrameContext[_]</code> instance.</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">indigo</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">indigo</span><span>.</span><span class="identifier">platform</span><span>.</span><span class="identifier">assets</span><span>.</span><span class="type-name">DynamicText</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">indigo</span><span>.</span><span class="identifier">shared</span><span>.</span><span class="type-name">AnimationsRegister</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">indigo</span><span>.</span><span class="identifier">shared</span><span>.</span><span class="type-name">FontRegister</span><span>
+</span><span class="keyword">val</span><span> </span><span class="identifier">boundaryLocator</span><span> = </span><span class="keyword">new</span><span> </span><span class="type-name">BoundaryLocator</span><span>(</span><span class="keyword">new</span><span> </span><span class="type-name">AnimationsRegister</span><span>, </span><span class="keyword">new</span><span> </span><span class="type-name">FontRegister</span><span>, </span><span class="keyword">new</span><span> </span><span class="type-name">DynamicText</span><span>)
+</span><span class="keyword">val</span><span> </span><span class="identifier">context</span><span> = </span><span class="keyword">new</span><span> </span><span class="type-name">FrameContext</span><span>(</span><span class="type-name">GameTime</span><span>.</span><span class="identifier">zero</span><span>, </span><span class="type-name">Dice</span><span>.</span><span class="identifier">fromSeed</span><span>(</span><span class="number-literal">1l</span><span>), </span><span class="type-name">InputState</span><span>.</span><span class="keyword">default</span><span>, </span><span class="identifier">boundaryLocator</span><span>, ())</span></code></pre>
+        <p>The boundary locator has a few methods on it, but the two main ones are <code>findBounds</code> and <code>measureText</code>.</p>
+        <p><code>findBounds</code> finds the bounds of any scene node you give it.</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">graphic</span><span> = </span><span class="type-name">Graphic</span><span>(</span><span class="number-literal">32</span><span>, </span><span class="number-literal">32</span><span>, </span><span class="type-name">Material</span><span>.</span><span class="type-name">Bitmap</span><span>(</span><span class="type-name">AssetName</span><span>(</span><span class="string-literal">&quot;my graphic&quot;</span><span>)))
+</span><span class="identifier">context</span><span>.</span><span class="identifier">boundaryLocator</span><span>.</span><span class="identifier">findBounds</span><span>(</span><span class="identifier">graphic</span><span>)</span></code></pre>
+        <p><code>measureText</code> is used specifically to find the real size of the text in a <code>TextBox</code>. This is costly as it requires rendering the text with all it&#39;s font properties in the background.</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">tb</span><span> = </span><span class="type-name">TextBox</span><span>(</span><span class="string-literal">&quot;hello, world!&quot;</span><span>)
+</span><span class="identifier">context</span><span>.</span><span class="identifier">boundaryLocator</span><span>.</span><span class="identifier">measureText</span><span>(</span><span class="identifier">tb</span><span>)</span></code></pre>
+        
+        <h2 id="the-fast-the-slow-and-the-unavailable" class="section"><a class="anchor-link left" href="#the-fast-the-slow-and-the-unavailable"><i class="icofont-laika link">&#xef71;</i></a>The fast, the slow, and the unavailable</h2>
+        <p>Measuring the bounds of something is assumed to mean more than just reading it&#39;s size property, and takes into account scaling and rotation. This means that measuring the real size of scene entities ranges from being fairly easy to we-won&#39;t-even-try hard.</p>
+        <p>Below is a guide. &#39;Unavailable&#39; means we cannot sensible work this out for you:</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Scene node</th>
+              <th>Cheap</th>
+              <th>Expensive</th>
+              <th>Unavailable</th>
+              <th>Comments</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>CloneBatch</code></td>
+              <td>-</td>
+              <td>-</td>
+              <td>X</td>
+              <td>
+              </td>
+            </tr>
+            <tr>
+              <td><code>CloneTiles</code></td>
+              <td>-</td>
+              <td>-</td>
+              <td>X</td>
+              <td>
+              </td>
+            </tr>
+            <tr>
+              <td><code>EntityNode</code></td>
+              <td>X</td>
+              <td>-</td>
+              <td>-</td>
+              <td>
+              </td>
+            </tr>
+            <tr>
+              <td><code>Graphic</code></td>
+              <td>X</td>
+              <td>-</td>
+              <td>-</td>
+              <td>
+              </td>
+            </tr>
+            <tr>
+              <td><code>Group</code></td>
+              <td>-</td>
+              <td>X</td>
+              <td>-</td>
+              <td>Calculated from the calculated bounds of all child nodes. Can be very expensive!</td>
+            </tr>
+            <tr>
+              <td><code>Mutants</code></td>
+              <td>-</td>
+              <td>-</td>
+              <td>X</td>
+              <td>
+              </td>
+            </tr>
+            <tr>
+              <td><code>Shape</code></td>
+              <td>X</td>
+              <td>-</td>
+              <td>-</td>
+              <td>
+              </td>
+            </tr>
+            <tr>
+              <td><code>Sprite</code></td>
+              <td>X</td>
+              <td>-</td>
+              <td>-</td>
+              <td>
+              </td>
+            </tr>
+            <tr>
+              <td><code>Text</code></td>
+              <td>-</td>
+              <td>X</td>
+              <td>-</td>
+              <td>
+              </td>
+            </tr>
+            <tr>
+              <td><code>TextBox</code></td>
+              <td>X</td>
+              <td>-</td>
+              <td>-</td>
+              <td>Note that this is the given bounds. Use <code>measureText</code> to find the real bounds.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        
+<hr class="footer-rule"/>
+<footer>
+  Site generated by <a href="https://typelevel.org/Laika/">Laika</a> with the Helium theme.
+</footer>
+
+
+      </main>
+
+    </div>
+
+  </body>
+
+</html>
