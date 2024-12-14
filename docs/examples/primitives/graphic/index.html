@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="generator" content="Typelevel Laika + Helium Theme" />
-  <title>Graphic</title>
+  <title>The Graphic Primitive</title>
   
   
   <meta name="description" content="An FP game engine for Scala."/>
@@ -141,8 +141,10 @@
     <li class="level2 nav-header">Physics</li>
     <li class="level3 nav-leaf"><a href="../../../documentation/11-physics/physics-overview.html">Physics Overview</a></li>
     <li class="level1 nav-node"><a href="../../">Examples</a></li>
+    <li class="level2 nav-node"><a href="../../importers/">Importers</a></li>
+    <li class="level3 nav-leaf"><a href="../../importers/tiled-loaded/">Loading Tiled maps at runtime</a></li>
     <li class="level2 nav-node"><a href="../">Primitives</a></li>
-    <li class="level3 active nav-leaf"><a href="#">Graphic</a></li>
+    <li class="level3 active nav-leaf"><a href="#">The Graphic Primitive</a></li>
   </ul>
 
 </nav>
@@ -151,7 +153,7 @@
 
       
 <nav id="page-nav">
-  <p class="header"><a href="#">Graphic</a></p>
+  <p class="header"><a href="#">The Graphic Primitive</a></p>
 
   <ul class="nav-list">
     <li class="level1 nav-leaf"><a href="#example-links">Example Links</a></li>
@@ -163,7 +165,10 @@
 
       <main class="content">
 
-        <h1 id="graphic" class="title">Graphic</h1>
+        <h1 id="the-graphic-primitive" class="title">The Graphic Primitive</h1>
+        <p>Indigo has a number of primitives that all serve the same purpose, which is to help you tell Indigo how to fill a space on the screen.</p>
+        <p>The graphic primitive is probably the simplest, its job is to take a texture and render it. Depending on the material type you choose, you can achieve different effects, but materials apply to most primitives universally.</p>
+        <p>Graphic&#39;s special ability is that it can crop images.</p>
         
         <h2 id="example-links" class="section"><a class="anchor-link left" href="#example-links"><i class="icofont-laika link">&#xef71;</i></a>Example Links</h2>
         <ul>
@@ -172,6 +177,31 @@
         <ul>
           <li><a href="https://purplekingdomgames.github.io/indigo-docs//demos/examples/primitives/graphic/">Live demo</a></li>
         </ul>
+        <p>This example shows how to create a simple graphic and display it on the screen. It demonstrates
+        a number of transformations.</p>
+        <p>The graphic in this example has been setup using an ImageEffects material that allows you to
+        set properties like transparency (alpha). However you have also use the Bitmap material for
+        simpler rendering use cases.</p>
+        <p>The graphic also has a reference point set, which is used to determine the origin of the
+        graphic. By default the origin is in the top left corner of the graphic, meaning that if you
+        do <code>graphic.moveTo(10, 10)</code>, the graphics top left will be placed at 10, 10. If you set the
+        reference point to the center of the graphic, then the center of the graphic will be placed at
+        pixel coordinates (10, 10). In the example below, the reference point is set to (48, 48), so
+        that if we did the <code>moveTo</code> again it would place the graphic at (10, 10), offset by 48 pixels
+        in both directions. This is very handy for placing characters in a game. If you set the
+        reference point to be at their feet, the character will &#39;stand&#39; on the moveTo coordinate.</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">graphic</span><span>: </span><span class="type-name">Graphic</span><span>[</span><span class="type-name">Material</span><span>.</span><span class="type-name">ImageEffects</span><span>] =
+  </span><span class="type-name">Graphic</span><span>(</span><span class="number-literal">0</span><span>, </span><span class="number-literal">0</span><span>, </span><span class="number-literal">256</span><span>, </span><span class="number-literal">256</span><span>, </span><span class="number-literal">1</span><span>, </span><span class="type-name">Material</span><span>.</span><span class="type-name">ImageEffects</span><span>(</span><span class="type-name">Assets</span><span>.</span><span class="identifier">assets</span><span>.</span><span class="identifier">graphics</span><span>))
+    .</span><span class="identifier">withRef</span><span>(</span><span class="number-literal">48</span><span>, </span><span class="number-literal">48</span><span>)</span></code></pre>
+        <p>This is another graphic that is based on the first graphic, but has had some transformations
+        including graphic&#39;s party piece, the <code>crop</code>. Setting the crop allows you to take a sub-section
+        of the image and display it.</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">basic</span><span>: </span><span class="type-name">Graphic</span><span>[</span><span class="type-name">Material</span><span>.</span><span class="type-name">ImageEffects</span><span>] =
+  </span><span class="identifier">graphic</span><span>
+    .</span><span class="identifier">withCrop</span><span>(</span><span class="number-literal">128</span><span>, </span><span class="number-literal">0</span><span>, </span><span class="number-literal">96</span><span>, </span><span class="number-literal">96</span><span>)
+    .</span><span class="identifier">moveTo</span><span>(</span><span class="number-literal">200</span><span>, </span><span class="number-literal">200</span><span>)
+    .</span><span class="identifier">scaleBy</span><span>(</span><span class="number-literal">1.5</span><span>, </span><span class="number-literal">1.5</span><span>)
+    .</span><span class="identifier">withRef</span><span>(</span><span class="number-literal">96</span><span>, </span><span class="number-literal">96</span><span>)</span></code></pre>
 
         
 <hr class="footer-rule"/>
