@@ -6,7 +6,7 @@ import mill.scalajslib.api._
 import $ivy.`io.indigoengine::mill-indigo:0.17.0`, millindigo._
 import $ivy.`org.typelevel::scalac-options:0.1.7`, org.typelevel.scalacoptions._
 
-trait ShaderModule extends MillIndigo {
+trait GameModule extends MillIndigo {
   def scalaVersion   = "3.5.0"
   def scalaJSVersion = "1.17.0"
 
