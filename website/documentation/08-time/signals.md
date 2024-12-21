@@ -195,6 +195,16 @@ Want to jump to random "frames" in the animation?
 Want to squidge (technical term) backwards and forwards through the animation?
 `Signal.SmoothPulse.flatMap(signal.at(total time * _))`
 
+To be reusable the reference start time of a signal is Seconds(0) by default.
+So, when you want to use a signal relative to the current game time (e.g., start the signal from the current time as the new "zero point"), you need to adjust the signal's time reference:
+
+```scala
+import indigo.*
+
+val signal = Signal.Lerp(Point(0, 0), Point(100, 100), Seconds(2.0))
+val relativeToCurrentTimeSignal = signal.wrapTime(context.gameTime.running)
+```
+
 ## Testing
 
 Since the animation is now captured as a pure function based on time, you can now test your animation!
