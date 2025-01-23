@@ -18,9 +18,9 @@ object GraphicExample extends IndigoSandbox[Unit, Unit]:
   val assets: Set[AssetType] =
     Assets.assets.assetSet
 
-  val fonts: Set[FontInfo]       = Set()
-  val animations: Set[Animation] = Set()
-  val shaders: Set[Shader]       = Set()
+  val fonts: Set[FontInfo]        = Set()
+  val animations: Set[Animation]  = Set()
+  val shaders: Set[ShaderProgram] = Set()
 
   def setup(assetCollection: AssetCollection, dice: Dice): Outcome[Startup[Unit]] =
     Outcome(Startup.Success(()))
@@ -28,7 +28,7 @@ object GraphicExample extends IndigoSandbox[Unit, Unit]:
   def initialModel(startupData: Unit): Outcome[Unit] =
     Outcome(())
 
-  def updateModel(context: FrameContext[Unit], model: Unit): GlobalEvent => Outcome[Unit] =
+  def updateModel(context: Context[Unit], model: Unit): GlobalEvent => Outcome[Unit] =
     _ => Outcome(model)
 
   /** The graphic in this example has been setup using an ImageEffects material that allows you to
@@ -63,7 +63,7 @@ object GraphicExample extends IndigoSandbox[Unit, Unit]:
       .withRef(96, 96)
   // ```
 
-  def present(context: FrameContext[Unit], model: Unit): Outcome[SceneUpdateFragment] =
+  def present(context: Context[Unit], model: Unit): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment.empty
         .addLayer(

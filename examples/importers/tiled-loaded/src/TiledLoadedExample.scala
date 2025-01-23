@@ -49,9 +49,9 @@ object TiledLoadedExample extends IndigoSandbox[TiledMap, Model]:
   val assets: Set[AssetType] =
     Assets.assets.assetSet
 
-  val fonts: Set[FontInfo]       = Set()
-  val animations: Set[Animation] = Set()
-  val shaders: Set[Shader]       = Set()
+  val fonts: Set[FontInfo]        = Set()
+  val animations: Set[Animation]  = Set()
+  val shaders: Set[ShaderProgram] = Set()
 
   /** ### Loading the data
     *
@@ -103,7 +103,7 @@ object TiledLoadedExample extends IndigoSandbox[TiledMap, Model]:
     )
   // ```
 
-  def updateModel(context: FrameContext[TiledMap], model: Model): GlobalEvent => Outcome[Model] =
+  def updateModel(context: Context[TiledMap], model: Model): GlobalEvent => Outcome[Model] =
     _ => Outcome(model)
 
   /** ### Rendering the tilemap
@@ -116,7 +116,7 @@ object TiledLoadedExample extends IndigoSandbox[TiledMap, Model]:
     * use of the custom version we made earlier.
     */
   // ```scala
-  def present(context: FrameContext[TiledMap], model: Model): Outcome[SceneUpdateFragment] =
+  def present(context: Context[TiledMap], model: Model): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment(
         model.tiledMap.toGroup(Assets.assets.terrain)

@@ -3,12 +3,12 @@ import mill.scalalib._
 import mill.scalajslib._
 import mill.scalajslib.api._
 
-import $ivy.`io.indigoengine::mill-indigo:0.17.0`, millindigo._
+import $ivy.`io.indigoengine::mill-indigo:0.18.0`, millindigo._
 import $ivy.`org.typelevel::scalac-options:0.1.7`, org.typelevel.scalacoptions._
 
 trait GameModule extends MillIndigo {
-  def scalaVersion   = "3.5.0"
-  def scalaJSVersion = "1.17.0"
+  def scalaVersion   = "3.6.2"
+  def scalaJSVersion = "1.18.1"
 
   override def scalacOptions = T {
     val flags = super.scalacOptions() ++
@@ -50,43 +50,7 @@ trait GameModule extends MillIndigo {
       .generateConfig("Config", indigoOptions)
       .listAssets("Assets", indigoOptions.assets)
 
-  def buildGame() =
-    T.command {
-      T {
-        compile()
-        fastLinkJS()
-        indigoBuild()()
-      }
-    }
-
-  def buildGameFull() =
-    T.command {
-      T {
-        compile()
-        fullLinkJS()
-        indigoBuildFull()()
-      }
-    }
-
-  def runGame() =
-    T.command {
-      T {
-        compile()
-        fastLinkJS()
-        indigoRun()()
-      }
-    }
-
-  def runGameFull() =
-    T.command {
-      T {
-        compile()
-        fullLinkJS()
-        indigoRunFull()()
-      }
-    }
-
-  val indigoVersion = "0.17.0"
+  val indigoVersion = "0.18.0"
 
   def ivyDeps =
     Agg(
@@ -97,7 +61,7 @@ trait GameModule extends MillIndigo {
 
   object test extends ScalaJSTests {
     def ivyDeps = Agg(
-      ivy"org.scalameta::munit::0.7.29"
+      ivy"org.scalameta::munit::1.0.4"
     )
 
     override def moduleKind = T(mill.scalajslib.api.ModuleKind.CommonJSModule)
