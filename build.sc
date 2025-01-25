@@ -19,6 +19,25 @@ object examples extends mill.Module {
 
   }
 
+  object materials extends mill.Module {
+
+    object bitmap extends gamemodule.GameModule {
+      val indigoOptions: IndigoOptions =
+        makeIndigoOptions("Bitmap Material Example")
+    }
+
+    object filltypes extends gamemodule.GameModule {
+      val indigoOptions: IndigoOptions =
+        makeIndigoOptions("Fill Types Example")
+    }
+
+    object imageeffects extends gamemodule.GameModule {
+      val indigoOptions: IndigoOptions =
+        makeIndigoOptions("ImageEffects Material Example")
+    }
+
+  }
+
   object physics extends mill.Module {
 
     object basics extends gamemodule.GameModule {
