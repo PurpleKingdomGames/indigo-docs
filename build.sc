@@ -38,4 +38,13 @@ object examples extends mill.Module {
 
   }
 
+  object shaders extends mill.Module {
+
+    object basic extends gamemodule.GameModule {
+      val indigoOptions: IndigoOptions =
+        makeIndigoOptions("Basic Custom Shader")
+    }
+
+  }
+
 }

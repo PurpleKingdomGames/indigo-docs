@@ -1,6 +1,10 @@
 # Shaders Overview
 
-> Please be aware that these docs are out of date, as they do not yet include information about Ultraviolet, our shader library.
+**WARNING!**
+
+Please be aware that these docs are out of date, as they do not yet include information about Ultraviolet, our shader library.
+
+Please refer to examples on this site, and the [Ultraviolet documentation](https://ultraviolet.indigoengine.io/) site for more accurate, up to date information.
 
 ## What is a shader?
 
