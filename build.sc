@@ -66,4 +66,13 @@ object examples extends mill.Module {
 
   }
 
+  object ui extends mill.Module {
+
+    object button extends gamemodule.GameModule {
+      val indigoOptions: IndigoOptions =
+        makeIndigoOptions("UI Components - Button")
+    }
+
+  }
+
 }
