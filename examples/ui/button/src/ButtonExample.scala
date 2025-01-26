@@ -143,6 +143,10 @@ object ButtonExample extends IndigoSandbox[Unit, Model]:
     * component hierarchy, but also information about the grid size the UI is operating on (normally
     * 1x1, this feature is really for use cases like ASCII / terminal UIs) and the magnification of
     * the UI.
+    *
+    * The `UIContext` also provides the top level position of the component hierarchy, so to move
+    * the group and so the button to a new position, we need to tell the `UIContext` to move the
+    * bounds by the desired amount using `moveBoundsBy`.
     */
   // ``` scala
   def updateModel(context: Context[Unit], model: Model): GlobalEvent => Outcome[Model] =
@@ -151,7 +155,7 @@ object ButtonExample extends IndigoSandbox[Unit, Model]:
       Outcome(model)
 
     case e =>
-      val ctx = UIContext(context.forSubSystems, Size(1), 1)
+      val ctx = UIContext(context.forSubSystems, Size(1), 1).moveBoundsBy(Coords(50, 50))
 
       model.components.update(ctx)(e).map { cl =>
         model.copy(components = cl)
@@ -165,7 +169,9 @@ object ButtonExample extends IndigoSandbox[Unit, Model]:
     */
   // ``` scala
   def present(context: Context[Unit], model: Model): Outcome[SceneUpdateFragment] =
+    val ctx = UIContext(context.forSubSystems, Size(1), 1).moveBoundsBy(Coords(50, 50))
+
     model.components
-      .present(UIContext(context.forSubSystems, Size(1), 1))
+      .present(ctx)
       .map(l => SceneUpdateFragment(l))
   // ```
