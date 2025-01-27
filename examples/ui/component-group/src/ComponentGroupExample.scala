@@ -6,6 +6,7 @@ package indigoexamples
   */
 
 import indigo.*
+import indigo.syntax.*
 
 // Before we do anything else, we'll need some additional imports:
 // ``` scala
@@ -23,7 +24,10 @@ import generated.Assets
 
 import scala.scalajs.js.annotation.*
 
-/** ### Defining a custom button
+/** ### Defining some custom components
+  *
+  * We're going to need a couple of components to go in our component group. We'll define a button
+  * and a label.
   *
   * To keep the code nice and tidy, we'll define our custom button in a separate object.
   *
@@ -88,26 +92,51 @@ object CustomComponents:
       .onClick(Log("Button clicked"))
       .onPress(Log("Button pressed"))
       .onRelease(Log("Button released"))
+
+  val customLabel: Label[Unit] =
+    Label[Unit](
+      "Another label",
+      (_, label) => Bounds(0, 0, 150, 12)
+    ) { case (offset, label, dimensions) =>
+      Outcome(
+        Layer(
+          TextBox(label)
+            .withColor(RGBA.White)
+            .moveTo(offset.unsafeToPoint)
+            .withSize(dimensions.unsafeToSize)
+            .withFontSize(12.pixels)
+        )
+      )
+    }
 // ```
 
 final case class Log(message: String) extends GlobalEvent
 
 /** ### Setting up the Model
   *
-  * Here we initialise our model with the custom button in it.
+  * The model contains the component group. Component groups define collections of components, and
+  * how they should be laid out. They have various options that affect their layout behaviour, such
+  * as using a fixed, or inherited size. They can also apply padding and information about what to
+  * do if the content overflows the size of the group.
+  *
+  * Here we initialise our model with the component group, and add our custom button to it. Note
+  * that _anything_ can be added as a component, as long as a `Component` instance exists for it.
   */
 // ``` scala
-final case class Model(button: Button[Unit])
+final case class Model(components: ComponentGroup[Unit])
 object Model:
 
   val initial: Model =
     Model(
-      CustomComponents.customButton
+      ComponentGroup(BoundsMode.fixed(200, 300))
+        .withLayout(ComponentLayout.Horizontal(Padding(10), Overflow.Wrap))
+        .add(CustomComponents.customButton)
+        .add(CustomComponents.customLabel)
     )
 // ```
 
 @JSExportTopLevel("IndigoGame")
-object ButtonExample extends IndigoSandbox[Unit, Model]:
+object ComponentGroupExample extends IndigoSandbox[Unit, Model]:
 
   val config: GameConfig =
     Config.config.noResize
@@ -152,21 +181,21 @@ object ButtonExample extends IndigoSandbox[Unit, Model]:
     case e =>
       val ctx = UIContext(context.forSubSystems, Size(1), 1).moveBoundsBy(Coords(50, 50))
 
-      model.button.update(ctx)(e).map { b =>
-        model.copy(button = b)
+      model.components.update(ctx)(e).map { cl =>
+        model.copy(components = cl)
       }
   // ```
 
-  /** ### Presenting the Button
+  /** ### Presenting the component group
     *
-    * To render the button we need to call the `present` method with, once again, and instance of
-    * UIContext, and provide the results to a SceneUpdateFragment.
+    * The component groups knows how to render everything, we just need to call the `present` method
+    * with, once again, and instance of UIContext, and provide the results to a SceneUpdateFragment.
     */
   // ``` scala
   def present(context: Context[Unit], model: Model): Outcome[SceneUpdateFragment] =
     val ctx = UIContext(context.forSubSystems, Size(1), 1).moveBoundsBy(Coords(50, 50))
 
-    model.button
+    model.components
       .present(ctx)
       .map(l => SceneUpdateFragment(l))
   // ```

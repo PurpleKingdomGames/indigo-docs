@@ -1,6 +1,6 @@
-# UI Components: Button
+# UI Components: Label
 
-This example shows how to set up a lone `Button` using Indigo's general UI system. 
+This example shows how to set up a `Label` using Indigo's general UI system.
 
 ## A word on appearance
 
