@@ -155,6 +155,9 @@
     <li class="level3 nav-leaf"><a href="../../shaders/basic/">A basic custom shader</a></li>
     <li class="level2 nav-node"><a href="../">Ui</a></li>
     <li class="level3 active nav-leaf"><a href="#">UI Components: Button</a></li>
+    <li class="level3 nav-leaf"><a href="../component-group/">UI Components: Component Group</a></li>
+    <li class="level3 nav-leaf"><a href="../component-list/">UI Components: Component List</a></li>
+    <li class="level3 nav-leaf"><a href="../label/">UI Components: Label</a></li>
   </ul>
 
 </nav>
@@ -183,7 +186,7 @@
       <main class="content">
 
         <h1 id="ui-components-button" class="title">UI Components: Button</h1>
-        <p>This example shows how to set up a lone button using Indigo&#39;s general UI system. The component UI system provides out of the box functionality for standard requirements like re-flowing / responsively positioned UI elements. Indigo&#39;s UI system is <em>not</em> as clever as using something like HTML, but should satisfy many common use cases.</p>
+        <p>This example shows how to set up a lone <code>Button</code> using Indigo&#39;s general UI system. </p>
         
         <h2 id="a-word-on-appearance" class="section"><a class="anchor-link left" href="#a-word-on-appearance"><i class="icofont-laika link">&#xef71;</i></a>A word on appearance</h2>
         <p>Indigo&#39;s UI component system is a generic UI layout system, and as such does not come with any specific rendering / look-and-feel helpers. In this example, the component&#39;s visuals will be constructed using simple primitives like shapes and text boxes, but the look and feel are only limited by what you can get Indigo to render.</p>
@@ -268,12 +271,14 @@
       .</span><span class="identifier">onRelease</span><span>(</span><span class="type-name">Log</span><span>(</span><span class="string-literal">&quot;Button released&quot;</span><span>))</span></code></pre>
         
         <h3 id="setting-up-the-model" class="section"><a class="anchor-link left" href="#setting-up-the-model"><i class="icofont-laika link">&#xef71;</i></a>Setting up the Model</h3>
-        <p>The model in this example contains a component group. Component groups define collections of
-        components, and how they should be laid out. They have various options that affect their layout
-        behaviour, such as using a fixed, or inherited size. They can also apply padding and information
-        about what to do if the content overflows the size of the group.</p>
-        <p>Here we initialise our model with the component group, and add our custom button to it. Note
-        that <em>anything</em> can be added as a component, as long as a <code>Component</code> instance exists for it.</p>
+        <p>Here we initialise our model with the custom button in it.</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">final</span><span> </span><span class="keyword">case</span><span> </span><span class="keyword">class</span><span> </span><span class="type-name">Model</span><span>(</span><span class="identifier">button</span><span>: </span><span class="type-name">Button</span><span>[</span><span class="type-name">Unit</span><span>])
+</span><span class="keyword">object</span><span> </span><span class="type-name">Model</span><span>:
+
+  </span><span class="keyword">val</span><span> </span><span class="identifier">initial</span><span>: </span><span class="type-name">Model</span><span> =
+    </span><span class="type-name">Model</span><span>(
+      </span><span class="type-name">CustomComponents</span><span>.</span><span class="identifier">customButton</span><span>
+    )</span></code></pre>
         
         <h3 id="updating-the-model" class="section"><a class="anchor-link left" href="#updating-the-model"><i class="icofont-laika link">&#xef71;</i></a>Updating the Model</h3>
         <p>We do two things here, first we handle the logging of messages when the button is clicked -
@@ -296,17 +301,17 @@
     </span><span class="keyword">case</span><span> </span><span class="identifier">e</span><span> =&gt;
       </span><span class="keyword">val</span><span> </span><span class="identifier">ctx</span><span> = </span><span class="type-name">UIContext</span><span>(</span><span class="identifier">context</span><span>.</span><span class="identifier">forSubSystems</span><span>, </span><span class="type-name">Size</span><span>(</span><span class="number-literal">1</span><span>), </span><span class="number-literal">1</span><span>).</span><span class="identifier">moveBoundsBy</span><span>(</span><span class="type-name">Coords</span><span>(</span><span class="number-literal">50</span><span>, </span><span class="number-literal">50</span><span>))
 
-      </span><span class="identifier">model</span><span>.</span><span class="identifier">components</span><span>.</span><span class="identifier">update</span><span>(</span><span class="identifier">ctx</span><span>)(</span><span class="identifier">e</span><span>).</span><span class="identifier">map</span><span> { </span><span class="identifier">cl</span><span> =&gt;
-        </span><span class="identifier">model</span><span>.</span><span class="identifier">copy</span><span>(</span><span class="identifier">components</span><span> = </span><span class="identifier">cl</span><span>)
+      </span><span class="identifier">model</span><span>.</span><span class="identifier">button</span><span>.</span><span class="identifier">update</span><span>(</span><span class="identifier">ctx</span><span>)(</span><span class="identifier">e</span><span>).</span><span class="identifier">map</span><span> { </span><span class="identifier">b</span><span> =&gt;
+        </span><span class="identifier">model</span><span>.</span><span class="identifier">copy</span><span>(</span><span class="identifier">button</span><span> = </span><span class="identifier">b</span><span>)
       }</span></code></pre>
         
         <h3 id="presenting-the-button" class="section"><a class="anchor-link left" href="#presenting-the-button"><i class="icofont-laika link">&#xef71;</i></a>Presenting the Button</h3>
-        <p>The component groups knows how to render everything, we just need to call the <code>present</code> method
-        with, once again, and instance of UIContext, and provide the results to a SceneUpdateFragment.</p>
+        <p>To render the button we need to call the <code>present</code> method with, once again, and instance of
+        UIContext, and provide the results to a SceneUpdateFragment.</p>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span>  </span><span class="keyword">def</span><span> </span><span class="declaration-name">present</span><span>(</span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>[</span><span class="type-name">Unit</span><span>], </span><span class="identifier">model</span><span>: </span><span class="type-name">Model</span><span>): </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">SceneUpdateFragment</span><span>] =
     </span><span class="keyword">val</span><span> </span><span class="identifier">ctx</span><span> = </span><span class="type-name">UIContext</span><span>(</span><span class="identifier">context</span><span>.</span><span class="identifier">forSubSystems</span><span>, </span><span class="type-name">Size</span><span>(</span><span class="number-literal">1</span><span>), </span><span class="number-literal">1</span><span>).</span><span class="identifier">moveBoundsBy</span><span>(</span><span class="type-name">Coords</span><span>(</span><span class="number-literal">50</span><span>, </span><span class="number-literal">50</span><span>))
 
-    </span><span class="identifier">model</span><span>.</span><span class="identifier">components</span><span>
+    </span><span class="identifier">model</span><span>.</span><span class="identifier">button</span><span>
       .</span><span class="identifier">present</span><span>(</span><span class="identifier">ctx</span><span>)
       .</span><span class="identifier">map</span><span>(</span><span class="identifier">l</span><span> =&gt; </span><span class="type-name">SceneUpdateFragment</span><span>(</span><span class="identifier">l</span><span>))</span></code></pre>
 
