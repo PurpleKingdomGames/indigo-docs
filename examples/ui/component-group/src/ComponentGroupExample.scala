@@ -1,6 +1,6 @@
 package indigoexamples
 
-/** ## How to set up a custom button
+/** ## How to set up a component group
   *
   * ### Imports
   */

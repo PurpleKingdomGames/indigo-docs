@@ -1,4 +1,4 @@
-# UI Components: Component Group
+# UI Components: Component List
 
 Component groups and component lists are containers for other components. The difference between the two is that a component group is a known collection of components that can be dynamically sized; while a component list is a dynamic collection of components with more limited layout options.
 
