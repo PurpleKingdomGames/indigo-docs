@@ -88,6 +88,16 @@ object examples extends mill.Module {
         makeIndigoOptions("UI Components - Label")
     }
 
+    object hitarea extends gamemodule.GameModule {
+      val indigoOptions: IndigoOptions =
+        makeIndigoOptions("UI Components - HitArea")
+    }
+
+    object input extends gamemodule.GameModule {
+      val indigoOptions: IndigoOptions =
+        makeIndigoOptions("UI Components - Input")
+    }
+
   }
 
 }
