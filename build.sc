@@ -98,6 +98,21 @@ object examples extends mill.Module {
         makeIndigoOptions("UI Components - Input")
     }
 
+    // TODO: MaskedPane
+
+    // TODO: Radio Buttons
+
+    // TODO: ScrollPane
+
+    object switch extends gamemodule.GameModule {
+      val indigoOptions: IndigoOptions =
+        makeIndigoOptions("UI Components - Switch")
+    }
+    
+    // TODO: TextArea
+    
+    // TODO: Windows
+
   }
 
 }
