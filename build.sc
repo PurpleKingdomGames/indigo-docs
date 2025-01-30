@@ -108,9 +108,12 @@ object examples extends mill.Module {
       val indigoOptions: IndigoOptions =
         makeIndigoOptions("UI Components - Switch")
     }
-    
-    // TODO: TextArea
-    
+
+    object textarea extends gamemodule.GameModule {
+      val indigoOptions: IndigoOptions =
+        makeIndigoOptions("UI Components - TextArea")
+    }
+
     // TODO: Windows
 
   }
