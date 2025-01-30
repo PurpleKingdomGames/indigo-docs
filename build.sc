@@ -100,7 +100,10 @@ object examples extends mill.Module {
 
     // TODO: MaskedPane
 
-    // TODO: Radio Buttons
+    object radiobuttons extends gamemodule.GameModule {
+      val indigoOptions: IndigoOptions =
+        makeIndigoOptions("UI Components - Radio buttons")
+    }
 
     // TODO: ScrollPane
 
