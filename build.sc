@@ -98,7 +98,10 @@ object examples extends mill.Module {
         makeIndigoOptions("UI Components - Input")
     }
 
-    // TODO: MaskedPane
+    object maskedpane extends gamemodule.GameModule {
+      val indigoOptions: IndigoOptions =
+        makeIndigoOptions("UI Components - MaskedPane")
+    }
 
     object radiobuttons extends gamemodule.GameModule {
       val indigoOptions: IndigoOptions =
