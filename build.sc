@@ -83,7 +83,10 @@ object examples extends mill.Module {
         makeIndigoOptions("UI Components - ComponentList")
     }
 
-    // TODO: Custom component
+    object custom extends gamemodule.GameModule {
+      val indigoOptions: IndigoOptions =
+        makeIndigoOptions("UI Components - Custom Components")
+    }
 
     object label extends gamemodule.GameModule {
       val indigoOptions: IndigoOptions =
