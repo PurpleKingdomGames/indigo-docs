@@ -1,6 +1,6 @@
 # UI Components: Masked Pane
 
-This example shows how to set up a `Masked Pane` using Indigo's general UI system.
+This example shows how to set up a `MaskedPane` using Indigo's general UI system.
 
 ## What is a 'Masked Pane'
 
