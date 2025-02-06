@@ -10,6 +10,13 @@ import indigoplugin._
 
 object examples extends mill.Module {
 
+  // This is the root directory of the workspace / project.
+  private val workspaceDir: os.Path =
+    sys.env
+      .get("MILL_WORKSPACE_ROOT")
+      .map(os.Path(_))
+      .getOrElse(os.pwd)
+
   object importers extends mill.Module {
 
     object `tiled-loaded` extends gamemodule.GameModule {
@@ -53,6 +60,34 @@ object examples extends mill.Module {
     object graphic extends gamemodule.GameModule {
       val indigoOptions: IndigoOptions =
         makeIndigoOptions("Graphic Example")
+    }
+
+    object text extends gamemodule.GameModule {
+      val indigoOptions: IndigoOptions =
+        makeIndigoOptions("Text Example")
+
+      /** The generator includes the usual config and asset listing generation, but also includes a
+        * font embedding step. It reads a font file from somewhere in your file system and outputs
+        * the rendered font to you asset directory. If you need more variations of size or style
+        * then you need to add another embedding step.
+        */
+      override def indigoGenerators: IndigoGenerators =
+        IndigoGenerators("generated")
+          .generateConfig("Config", indigoOptions)
+          .embedFont(
+            moduleName = "KiwiSodaFont",
+            font = workspaceDir / "generator-data" / "KiwiSoda.ttf",
+            fontOptions = FontOptions(
+              fontKey = "KiwiSoda",
+              fontSize = 16,
+              charSet = CharSet.ASCII,
+              color = RGB.White,
+              antiAlias = false,
+              maxCharactersPerLine = 16
+            ),
+            imageOut = workspaceDir / "assets" / "generated"
+          )
+          .listAssets("Assets", indigoOptions.assets)
     }
 
   }

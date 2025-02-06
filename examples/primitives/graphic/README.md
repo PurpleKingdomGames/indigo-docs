@@ -1,4 +1,4 @@
-# The Graphic Primitive
+# Graphic
 
 Indigo has a number of primitives that all serve the same purpose, which is to help you tell Indigo how to fill a space on the screen.
 
