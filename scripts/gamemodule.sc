@@ -3,8 +3,10 @@ import mill.scalalib._
 import mill.scalajslib._
 import mill.scalajslib.api._
 
-import $ivy.`io.indigoengine::mill-indigo:0.18.0`, millindigo._
+import $ivy.`io.indigoengine::mill-indigo:0.18.1-SNAPSHOT`, millindigo.MillIndigo
 import $ivy.`org.typelevel::scalac-options:0.1.7`, org.typelevel.scalacoptions._
+
+import indigoplugin._
 
 trait GameModule extends MillIndigo {
   def scalaVersion   = "3.6.2"
@@ -45,12 +47,32 @@ trait GameModule extends MillIndigo {
         case _                                             => false
       }
 
+  // This is the root directory of the Mill workspace / project.
+  private val workspaceDir: os.Path =
+    sys.env
+      .get("MILL_WORKSPACE_ROOT")
+      .map(os.Path(_))
+      .getOrElse(os.pwd)
+
   def indigoGenerators: IndigoGenerators =
     IndigoGenerators("generated")
       .generateConfig("Config", indigoOptions)
+      .embedFont(
+        moduleName = "DefaultFont",
+        font = workspaceDir / "generator-data" / "Minecraft.ttf",
+        fontOptions = FontOptions(
+          fontKey = "DefaultFont",
+          fontSize = 16,
+          charSet = CharSet.ASCII,
+          color = RGB.White,
+          antiAlias = false,
+          maxCharactersPerLine = 16
+        ),
+        imageOut = workspaceDir / "assets" / "generated"
+      )
       .listAssets("Assets", indigoOptions.assets)
 
-  val indigoVersion = "0.18.0"
+  val indigoVersion = "0.18.1-SNAPSHOT"
 
   def ivyDeps =
     Agg(

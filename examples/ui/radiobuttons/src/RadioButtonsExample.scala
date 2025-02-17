@@ -4,14 +4,19 @@ import indigo.*
 import indigo.syntax.*
 import indigoextras.ui.*
 import indigoextras.ui.syntax.*
-import indigo.shared.subsystems.SubSystemContext.*
 
-import generated.Config
-import generated.Assets
+import generated.*
 
 import scala.scalajs.js.annotation.*
 
 object CustomComponents:
+
+  val text =
+    Text(
+      "",
+      DefaultFont.fontKey,
+      Assets.assets.generated.DefaultFontMaterial
+    )
 
   val component: ComponentList[Int] =
     ComponentList(Dimensions(200, 150)) { (_: Int) =>
@@ -20,55 +25,52 @@ object CustomComponents:
           ComponentGroup(BoundsMode.fixed(200, 30))
             .withLayout(ComponentLayout.Horizontal(Padding.right(10)))
             .add(
-              Switch[Int, Int](BoundsType.fixed(20, 20))(
-                (coords, bounds, _) =>
+              Switch[Int](BoundsType.fixed[Int](20, 20))(
+                (ctx, switch) =>
                   Outcome(
                     Layer(
                       Shape
                         .Circle(
-                          bounds.unsafeToRectangle.toIncircle,
+                          switch.bounds.unsafeToRectangle.toIncircle,
                           Fill.Color(RGBA.Green.mix(RGBA.Black)),
                           Stroke(1, RGBA.Green)
                         )
-                        .moveTo(coords.unsafeToPoint + Point(10))
+                        .moveTo(ctx.parent.coords.unsafeToPoint + Point(10))
                     )
                   ),
-                (coords, bounds, _) =>
+                (ctx, switch) =>
                   Outcome(
                     Layer(
                       Shape
                         .Circle(
-                          bounds.unsafeToRectangle.toIncircle,
+                          switch.bounds.unsafeToRectangle.toIncircle,
                           Fill.Color(RGBA.Red.mix(RGBA.Black)),
                           Stroke(1, RGBA.Red)
                         )
-                        .moveTo(coords.unsafeToPoint + Point(10))
+                        .moveTo(ctx.parent.coords.unsafeToPoint + Point(10))
                     )
                   )
               )
-                .onSwitch { value =>
+                .onSwitch { (ctx, switch) =>
                   Batch(
                     Log("Selected: " + i),
                     ChangeValue(i)
                   )
                 }
-                .withAutoToggle { (_, ref) =>
-                  if ref == i then Option(SwitchState.On) else Option(SwitchState.Off)
+                .withAutoToggle { (ctx, switch) =>
+                  if ctx.reference == i then Option(SwitchState.On) else Option(SwitchState.Off)
                 }
             )
             .add(
               Label[Int](
                 "Radio " + i,
                 (_, label) => Bounds(0, 0, 150, 18)
-              ) { case (offset, label, dimensions) =>
+              ) { case (ctx, label) =>
                 Outcome(
                   Layer(
-                    TextBox(label)
-                      .withColor(RGBA.White)
-                      .moveTo(offset.unsafeToPoint)
-                      .withSize(dimensions.unsafeToSize)
-                      .withFontFamily(FontFamily.monospace)
-                      .withFontSize(16.pixels)
+                    text
+                      .withText(label.text(ctx))
+                      .moveTo(ctx.parent.coords.unsafeToPoint)
                   )
                 )
               }
@@ -95,9 +97,9 @@ object RadioButtonsExample extends IndigoSandbox[Unit, Model]:
     Config.config.noResize
 
   val assets: Set[AssetType] =
-    Assets.assets.assetSet
+    Assets.assets.assetSet ++ Assets.assets.generated.assetSet
 
-  val fonts: Set[FontInfo]        = Set()
+  val fonts: Set[FontInfo]        = Set(DefaultFont.fontInfo)
   val animations: Set[Animation]  = Set()
   val shaders: Set[ShaderProgram] = Set()
 
@@ -116,8 +118,8 @@ object RadioButtonsExample extends IndigoSandbox[Unit, Model]:
       Outcome(model.copy(num = value))
 
     case e =>
-      val ctx = UIContext(context.forSubSystems, Size(1), 1)
-        .moveBoundsBy(Coords(50, 50))
+      val ctx = UIContext(context)
+        .moveParentBy(Coords(50, 50))
         .copy(reference = model.num)
 
       model.component.update(ctx)(e).map { c =>
@@ -125,8 +127,8 @@ object RadioButtonsExample extends IndigoSandbox[Unit, Model]:
       }
 
   def present(context: Context[Unit], model: Model): Outcome[SceneUpdateFragment] =
-    val ctx = UIContext(context.forSubSystems, Size(1), 1)
-      .moveBoundsBy(Coords(50, 50))
+    val ctx = UIContext(context)
+      .moveParentBy(Coords(50, 50))
       .copy(reference = model.num)
 
     model.component

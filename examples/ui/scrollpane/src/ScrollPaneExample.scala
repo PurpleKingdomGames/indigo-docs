@@ -4,12 +4,9 @@ package indigoexamples
   */
 
 import indigo.*
-import indigo.syntax.*
 import indigoextras.ui.*
 import indigoextras.ui.syntax.*
-import indigo.shared.subsystems.SubSystemContext.*
-import generated.Config
-import generated.Assets
+import generated.*
 
 import scala.scalajs.js.annotation.*
 
@@ -28,62 +25,64 @@ import scala.scalajs.js.annotation.*
 // ```scala
 object CustomComponents:
 
-  val labelBounds = Bounds(0, 0, 300, 70)
+  val labelBounds = Bounds(0, 0, 100, 16)
+
+  val text =
+    Text(
+      "",
+      DefaultFont.fontKey,
+      Assets.assets.generated.DefaultFontMaterial
+    )
 
   val label: Label[Int] =
     Label[Int](
-      "Count: 0",
-      (_, label) => labelBounds
-    ) { case (offset, label, dimensions) =>
+      "placeholder, will be replaced",
+      (_, _) => labelBounds
+    ) { case (ctx, label) =>
       Outcome(
         Layer(
-          TextBox(label)
-            .withColor(RGBA.White)
-            .moveTo(offset.unsafeToPoint)
-            .withSize(dimensions.unsafeToSize)
-            .withFontSize(64.pixels)
+          text
+            .withText(label.text(ctx))
+            .moveTo(ctx.parent.coords.unsafeToPoint)
         )
       )
     }
-      .withText((i: Int) => "Count: " + i)
+      .withText(ctx => "Count: " + ctx.reference)
 
   val scrollButton: Button[Unit] =
-    Button[Unit](Bounds(16, 16)) { (coords, bounds, _) =>
+    Button[Unit](Bounds(16, 16)) { (ctx, btn) =>
       Outcome(
         Layer(
           Shape
             .Box(
-              bounds.unsafeToRectangle,
+              ctx.parent.bounds.unsafeToRectangle,
               Fill.Color(RGBA.Magenta.mix(RGBA.Black)),
               Stroke(1, RGBA.Magenta)
             )
-            .moveTo(coords.unsafeToPoint)
         )
       )
     }
-      .presentDown { (coords, bounds, _) =>
+      .presentDown { (ctx, btn) =>
         Outcome(
           Layer(
             Shape
               .Box(
-                bounds.unsafeToRectangle,
+                ctx.parent.bounds.unsafeToRectangle,
                 Fill.Color(RGBA.Cyan.mix(RGBA.Black)),
                 Stroke(1, RGBA.Cyan)
               )
-              .moveTo(coords.unsafeToPoint)
           )
         )
       }
-      .presentOver((coords, bounds, _) =>
+      .presentOver((ctx, btn) =>
         Outcome(
           Layer(
             Shape
               .Box(
-                bounds.unsafeToRectangle,
+                ctx.parent.bounds.unsafeToRectangle,
                 Fill.Color(RGBA.Yellow.mix(RGBA.Black)),
                 Stroke(1, RGBA.Yellow)
               )
-              .moveTo(coords.unsafeToPoint)
           )
         )
       )
@@ -119,12 +118,12 @@ object Model:
 object ScrollPaneExample extends IndigoSandbox[Unit, Model]:
 
   val config: GameConfig =
-    Config.config.noResize
+    Config.config.noResize.withMagnification(2)
 
   val assets: Set[AssetType] =
-    Assets.assets.assetSet
+    Assets.assets.assetSet ++ Assets.assets.generated.assetSet
 
-  val fonts: Set[FontInfo]       = Set()
+  val fonts: Set[FontInfo]       = Set(DefaultFont.fontInfo)
   val animations: Set[Animation] = Set()
 
   /** When using masked and scroll panes, you need to remember to register the shaders they use. The
@@ -144,8 +143,9 @@ object ScrollPaneExample extends IndigoSandbox[Unit, Model]:
 
   def updateModel(context: Context[Unit], model: Model): GlobalEvent => Outcome[Model] =
     case e =>
-      val ctx = UIContext(context.forSubSystems, Size(1), 1)
-        .moveBoundsBy(Coords(50, 50))
+      val ctx = UIContext(context)
+        .withMagnification(2)
+        .moveParentBy(Coords(50, 50))
         .copy(reference = model.count)
 
       model.component.update(ctx)(e).map { c =>
@@ -160,8 +160,9 @@ object ScrollPaneExample extends IndigoSandbox[Unit, Model]:
     */
   // ```scala
   def present(context: Context[Unit], model: Model): Outcome[SceneUpdateFragment] =
-    val ctx = UIContext(context.forSubSystems, Size(1), 1)
-      .moveBoundsBy(Coords(50, 50))
+    val ctx = UIContext(context)
+      .withMagnification(2)
+      .moveParentBy(Coords(50, 50))
       .copy(reference = model.count)
 
     val labelBounds =

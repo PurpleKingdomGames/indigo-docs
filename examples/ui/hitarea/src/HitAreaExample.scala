@@ -3,7 +3,6 @@ package indigoexamples
 import indigo.*
 import indigoextras.ui.*
 import indigoextras.ui.syntax.*
-import indigo.shared.subsystems.SubSystemContext.*
 
 import generated.Config
 import generated.Assets
@@ -54,16 +53,16 @@ object HitAreaExample extends IndigoSandbox[Unit, Model]:
       Outcome(model)
 
     case e =>
-      val ctx = UIContext(context.forSubSystems, Size(1), 1)
-        .moveBoundsBy(Coords(50, 50))
+      val ctx = UIContext(context)
+        .moveParentBy(Coords(50, 50))
 
       model.component.update(ctx)(e).map { c =>
         model.copy(component = c)
       }
 
   def present(context: Context[Unit], model: Model): Outcome[SceneUpdateFragment] =
-    val ctx = UIContext(context.forSubSystems, Size(1), 1)
-      .moveBoundsBy(Coords(50, 50))
+    val ctx = UIContext(context)
+      .moveParentBy(Coords(50, 50))
 
     model.component
       .present(ctx)
