@@ -11,7 +11,6 @@ package indigoexamples
 
 import indigo.*
 import indigoextras.ui.*
-import indigo.shared.subsystems.SubSystemContext.*
 
 import generated.Config
 import generated.Assets
@@ -80,7 +79,7 @@ final case class ColourfulCircle(colour: RGBA, bounds: Bounds)
 object ColourfulCircle:
 
   given Component[ColourfulCircle, Unit]:
-    def bounds(reference: Unit, model: ColourfulCircle): Bounds =
+    def bounds(context: UIContext[Unit], model: ColourfulCircle): Bounds =
       model.bounds
 
     def updateModel(
@@ -105,16 +104,15 @@ object ColourfulCircle:
               ),
               Fill.Color(model.colour)
             )
-            .moveTo(context.bounds.center.unsafeToPoint)
+            .moveTo(context.parent.bounds.center.unsafeToPoint)
         )
       )
 
     def refresh(
-        reference: Unit,
-        model: ColourfulCircle,
-        parentDimensions: Dimensions
+        context: UIContext[Unit],
+        model: ColourfulCircle
     ): ColourfulCircle =
-      model.copy(bounds = model.bounds.resize(parentDimensions))
+      model.copy(bounds = model.bounds.resize(context.parent.bounds.dimensions))
 // ```
 
 object CustomUI:
@@ -180,7 +178,7 @@ object CustomComponentExample extends IndigoDemo[BootData, StartUpData, Model, V
             snapGrid = Size(1),
             extractReference = _ => (),
             startUpData = (),
-            layerKey = BindingKey("windows")
+            layerKey = LayerKey("windows")
           )
             .register(CustomUI.window.moveTo(15, 15))
             .open(CustomUI.window.id)
@@ -219,6 +217,6 @@ object CustomComponentExample extends IndigoDemo[BootData, StartUpData, Model, V
   ): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment(
-        BindingKey("windows") -> Layer.Stack.empty
+        LayerKey("windows") -> Layer.Stack.empty
       )
     )

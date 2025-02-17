@@ -34,7 +34,7 @@ object GraphicExample extends IndigoSandbox[Unit, Unit]:
   def present(context: Context[Unit], model: Unit): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment(
-        Graphic(0, 0, 64, 64, 1, Material.Bitmap(Assets.assets.nineslice))
+        Graphic(0, 0, 64, 64, Material.Bitmap(Assets.assets.nineslice))
           .moveTo(10, 10)
       )
     )

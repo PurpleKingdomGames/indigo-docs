@@ -1,34 +1,27 @@
 package indigoexamples
 
 import indigo.*
-import indigo.syntax.*
 import indigoextras.ui.*
 import indigoextras.ui.syntax.*
-import indigo.shared.subsystems.SubSystemContext.*
 
-import generated.Config
-import generated.Assets
+import generated.*
 
 import scala.scalajs.js.annotation.*
 
 object CustomComponents:
 
   val component: TextArea[Unit] =
-    TextArea[Unit]("This is just,\nsome text.", (_, _) => Bounds(0, 0, 150, 20)) {
-      (coords, lines, dimensions) =>
-        Outcome(
-          Layer(
-            lines.zipWithIndex.toBatch.map { case (line, i) =>
-              TextBox(line)
-                .withColor(RGBA.White)
-                .moveTo(coords.unsafeToPoint)
-                .withSize(dimensions.unsafeToSize)
-                .withFontSize(20.pixels)
-                .moveTo(coords.unsafeToPoint)
-                .moveBy(0, 20 * i)
-            }
+    TextArea[Unit]("This is just,\nsome text.", (_, _) => Bounds(0, 0, 150, 20)) { (ctx, textArea) =>
+      Outcome(
+        Layer(
+          Text(
+            textArea.text(ctx).mkString("\n"),
+            DefaultFont.fontKey,
+            Assets.assets.generated.DefaultFontMaterial
           )
+            .moveTo(ctx.parent.coords.unsafeToPoint)
         )
+      )
     }
 
 final case class Model(component: TextArea[Unit])
@@ -44,9 +37,9 @@ object TextAreaExample extends IndigoSandbox[Unit, Model]:
     Config.config.noResize
 
   val assets: Set[AssetType] =
-    Assets.assets.assetSet
+    Assets.assets.assetSet ++ Assets.assets.generated.assetSet
 
-  val fonts: Set[FontInfo]        = Set()
+  val fonts: Set[FontInfo]        = Set(DefaultFont.fontInfo)
   val animations: Set[Animation]  = Set()
   val shaders: Set[ShaderProgram] = Set()
 
@@ -58,16 +51,16 @@ object TextAreaExample extends IndigoSandbox[Unit, Model]:
 
   def updateModel(context: Context[Unit], model: Model): GlobalEvent => Outcome[Model] =
     case e =>
-      val ctx = UIContext(context.forSubSystems, Size(1), 1)
-        .moveBoundsBy(Coords(50, 50))
+      val ctx = UIContext(context)
+        .moveParentBy(Coords(50, 50))
 
       model.component.update(ctx)(e).map { c =>
         model.copy(component = c)
       }
 
   def present(context: Context[Unit], model: Model): Outcome[SceneUpdateFragment] =
-    val ctx = UIContext(context.forSubSystems, Size(1), 1)
-      .moveBoundsBy(Coords(50, 50))
+    val ctx = UIContext(context)
+      .moveParentBy(Coords(50, 50))
 
     model.component
       .present(ctx)

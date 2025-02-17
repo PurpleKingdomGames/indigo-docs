@@ -1,13 +1,10 @@
 package indigoexamples
 
 import indigo.*
-import indigo.syntax.*
 import indigoextras.ui.*
 import indigoextras.ui.syntax.*
-import indigo.shared.subsystems.SubSystemContext.*
 
-import generated.Config
-import generated.Assets
+import generated.*
 
 import scala.scalajs.js.annotation.*
 
@@ -21,27 +18,26 @@ object CustomComponents:
       )
     )
 
-  private def present: (Coords, Bounds, Input, Seconds) => Outcome[Layer] =
-    (offset, bounds, input, runningTime) =>
-
+  private def present: (UIContext[Unit], Input[Unit]) => Outcome[Layer] =
+    (ctx, input) =>
       val cursor: Batch[SceneNode] =
         if input.hasFocus then
           input.cursor.blinkRate match
             case None =>
-              drawCursor(offset, input.cursor.position)
+              drawCursor(ctx.parent.coords, input.cursor.position)
 
             case Some(blinkRate) =>
               Signal
                 .Pulse(blinkRate)
-                .map(p => if (runningTime - input.cursor.lastModified < Seconds(0.5)) true else p)
+                .map(p => if (ctx.frame.time.running - input.cursor.lastModified < Seconds(0.5)) true else p)
                 .map {
                   case false =>
                     Batch.empty
 
                   case true =>
-                    drawCursor(offset, input.cursor.position)
+                    drawCursor(ctx.parent.coords, input.cursor.position)
                 }
-                .at(runningTime)
+                .at(ctx.frame.time.running)
         else Batch.empty
 
       val border =
@@ -49,31 +45,27 @@ object CustomComponents:
           Batch(
             Shape
               .Box(
-                bounds.unsafeToRectangle,
+                ctx.parent.bounds.unsafeToRectangle,
                 Fill.None,
                 Stroke(1, RGBA.Green)
               )
-              .moveTo(offset.unsafeToPoint)
+              .moveTo(ctx.parent.coords.unsafeToPoint)
           )
         else Batch.empty
 
       Outcome(
         Layer(
           Batch(
-            TextBox(input.text)
-              .withColor(RGBA.White)
-              .moveTo(offset.unsafeToPoint)
-              .withSize(bounds.dimensions.unsafeToSize)
-              .withFontSize(20.pixels)
-              .withFontFamily(FontFamily.monospace)
+            Text(input.text, DefaultFont.fontKey, Assets.assets.generated.DefaultFontMaterial)
+              .moveTo(ctx.parent.coords.unsafeToPoint)
           ) ++ cursor ++ border
         )
       )
 
-  val component: Input =
+  val component: Input[Unit] =
     Input(Dimensions(200, 40))(present).withText("Hello, world!")
 
-final case class Model(component: Input)
+final case class Model(component: Input[Unit])
 object Model:
 
   val initial: Model =
@@ -90,9 +82,9 @@ object HitAreaExample extends IndigoSandbox[Unit, Model]:
     Config.config.noResize
 
   val assets: Set[AssetType] =
-    Assets.assets.assetSet
+    Assets.assets.assetSet ++ Assets.assets.generated.assetSet
 
-  val fonts: Set[FontInfo]        = Set()
+  val fonts: Set[FontInfo]        = Set(DefaultFont.fontInfo)
   val animations: Set[Animation]  = Set()
   val shaders: Set[ShaderProgram] = Set()
 
@@ -108,16 +100,16 @@ object HitAreaExample extends IndigoSandbox[Unit, Model]:
       Outcome(model)
 
     case e =>
-      val ctx = UIContext(context.forSubSystems, Size(1), 1)
-        .moveBoundsBy(Coords(50, 50))
+      val ctx = UIContext(context)
+        .moveParentBy(Coords(50, 50))
 
       model.component.update(ctx)(e).map { c =>
         model.copy(component = c)
       }
 
   def present(context: Context[Unit], model: Model): Outcome[SceneUpdateFragment] =
-    val ctx = UIContext(context.forSubSystems, Size(1), 1)
-      .moveBoundsBy(Coords(50, 50))
+    val ctx = UIContext(context)
+      .moveParentBy(Coords(50, 50))
 
     model.component
       .present(ctx)

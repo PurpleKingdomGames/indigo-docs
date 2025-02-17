@@ -5,6 +5,7 @@ import indigo.syntax.*
 import indigo.physics.*
 import generated.Config
 import generated.Assets
+import generated.DefaultFont
 
 import scala.scalajs.js.annotation.*
 
@@ -134,9 +135,9 @@ object BasicPhysicsExample extends IndigoSandbox[Unit, Model]:
     Config.config.noResize
 
   val assets: Set[AssetType] =
-    Assets.assets.assetSet
+    Assets.assets.assetSet ++ Assets.assets.generated.assetSet
 
-  val fonts: Set[FontInfo]        = Set()
+  val fonts: Set[FontInfo]        = Set(DefaultFont.fontInfo)
   val animations: Set[Animation]  = Set()
   val shaders: Set[ShaderProgram] = Set()
 
@@ -167,10 +168,11 @@ object BasicPhysicsExample extends IndigoSandbox[Unit, Model]:
   // ```
 
   val message =
-    TextBox("Press SPACE to pause/unpause")
-      .withFontFamily(FontFamily.monospace)
-      .withFontSize(20.pixels)
-      .withColor(RGBA.White)
+    Text(
+      "Press SPACE to pause/unpause",
+      DefaultFont.fontKey,
+      Assets.assets.generated.DefaultFontMaterial
+    )
 
   /** Finally we'll present the simulation using the `world.present` function, which will
     * conveniently allow us to render all the colliders in the simulation. In this case we'll
@@ -203,13 +205,10 @@ object BasicPhysicsExample extends IndigoSandbox[Unit, Model]:
             .Pulse(1.seconds)
             .map { show =>
               if show then
-                val bounds = context.services.bounds
-                  .measureText(message)
+                val bounds = context.services.bounds.find(message).getOrElse(Rectangle.zero)
 
                 Batch(
-                  message
-                    .withSize(bounds.size)
-                    .moveTo((800 - bounds.width) / 2, 600 - bounds.height - 10)
+                  message.moveTo((800 - bounds.width) / 2, 600 - bounds.height - 10)
                 )
               else Batch.empty
             }

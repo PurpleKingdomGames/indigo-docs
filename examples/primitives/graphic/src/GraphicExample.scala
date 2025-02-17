@@ -46,7 +46,7 @@ object GraphicExample extends IndigoSandbox[Unit, Unit]:
     */
   // ```scala
   val graphic: Graphic[Material.ImageEffects] =
-    Graphic(0, 0, 256, 256, 1, Material.ImageEffects(Assets.assets.graphics))
+    Graphic(0, 0, 256, 256, Material.ImageEffects(Assets.assets.graphics))
       .withRef(48, 48)
   // ```
 

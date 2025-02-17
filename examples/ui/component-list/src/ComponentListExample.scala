@@ -14,13 +14,7 @@ import indigoextras.ui.*
 import indigoextras.ui.syntax.*
 // ```
 
-// And until issue [#814](https://github.com/PurpleKingdomGames/indigo/issues/814) is resolved, we'll also need this import for convenience:
-// ``` scala
-import indigo.shared.subsystems.SubSystemContext.*
-// ```
-
-import generated.Config
-import generated.Assets
+import generated.*
 
 import scala.scalajs.js.annotation.*
 
@@ -36,20 +30,25 @@ import scala.scalajs.js.annotation.*
 // ``` scala
 object CustomComponents:
 
+  val text =
+    Text(
+      "",
+      DefaultFont.fontKey,
+      Assets.assets.generated.DefaultFontMaterial
+    )
+
   val listOfLabels: ComponentList[Int] =
     ComponentList(Dimensions(200, 80)) { (labelCount: Int) =>
       (1 to labelCount).toBatch.map { i =>
         ComponentId("lbl" + i) -> Label[Int](
           "Custom label " + i,
           (_, label) => Bounds(0, 0, 250, 20)
-        ) { case (offset, label, dimensions) =>
+        ) { case (ctx, label) =>
           Outcome(
             Layer(
-              TextBox(label)
-                .withColor(RGBA.White)
-                .moveTo(offset.unsafeToPoint)
-                .withSize(dimensions.unsafeToSize)
-                .withFontSize(20.pixels)
+              text
+                .withText(label.text(ctx))
+                .moveTo(ctx.parent.coords.unsafeToPoint)
             )
           )
         }
@@ -80,9 +79,9 @@ object ComponentListExample extends IndigoSandbox[Unit, Model]:
     Config.config.noResize
 
   val assets: Set[AssetType] =
-    Assets.assets.assetSet
+    Assets.assets.assetSet ++ Assets.assets.generated.assetSet
 
-  val fonts: Set[FontInfo]        = Set()
+  val fonts: Set[FontInfo]        = Set(DefaultFont.fontInfo)
   val animations: Set[Animation]  = Set()
   val shaders: Set[ShaderProgram] = Set()
 
@@ -104,7 +103,7 @@ object ComponentListExample extends IndigoSandbox[Unit, Model]:
     *
     * The `UIContext` also provides the top level position of the component hierarchy, so to move
     * the group and so the button to a new position, we need to tell the `UIContext` to move the
-    * bounds by the desired amount using `moveBoundsBy`.
+    * bounds by the desired amount using `moveParentBy`.
     *
     * In this example we need to update the context with the model value, and supply it along with
     * the event to the component list's update method.
@@ -112,8 +111,8 @@ object ComponentListExample extends IndigoSandbox[Unit, Model]:
   // ``` scala
   def updateModel(context: Context[Unit], model: Model): GlobalEvent => Outcome[Model] =
     case e =>
-      val ctx = UIContext(context.forSubSystems, Size(1), 1)
-        .moveBoundsBy(Coords(50, 50))
+      val ctx = UIContext(context)
+        .moveParentBy(Coords(50, 50))
         .copy(reference = model.numOfLabels)
 
       model.components.update(ctx)(e).map { cl =>
@@ -128,8 +127,8 @@ object ComponentListExample extends IndigoSandbox[Unit, Model]:
     */
   // ``` scala
   def present(context: Context[Unit], model: Model): Outcome[SceneUpdateFragment] =
-    val ctx = UIContext(context.forSubSystems, Size(1), 1)
-      .moveBoundsBy(Coords(50, 50))
+    val ctx = UIContext(context)
+      .moveParentBy(Coords(50, 50))
       .copy(reference = model.numOfLabels)
 
     model.components
