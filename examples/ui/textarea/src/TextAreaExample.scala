@@ -10,15 +10,29 @@ import scala.scalajs.js.annotation.*
 
 object CustomComponents:
 
+  val text =
+    Text(
+      "",
+      DefaultFont.fontKey,
+      Assets.assets.generated.DefaultFontMaterial
+    )
+
   val component: TextArea[Unit] =
-    TextArea[Unit]("This is just,\nsome text.", (_, _) => Bounds(0, 0, 150, 20)) { (ctx, textArea) =>
+    TextArea[Unit](
+      "This is just,\nsome text.",
+      (ctx, txt) => Bounds(ctx.services.bounds.get(text.withText(txt)))
+    ) { (ctx, textArea) =>
       Outcome(
         Layer(
-          Text(
-            textArea.text(ctx).mkString("\n"),
-            DefaultFont.fontKey,
-            Assets.assets.generated.DefaultFontMaterial
-          )
+          text
+            .withText(textArea.text(ctx))
+            .moveTo(ctx.parent.coords.unsafeToPoint),
+          Shape
+            .Box(
+              textArea.bounds(ctx).unsafeToRectangle,
+              Fill.None,
+              Stroke(1, RGBA.Green)
+            )
             .moveTo(ctx.parent.coords.unsafeToPoint)
         )
       )
