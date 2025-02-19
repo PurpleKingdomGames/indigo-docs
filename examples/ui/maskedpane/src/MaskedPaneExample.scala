@@ -4,12 +4,9 @@ package indigoexamples
   */
 
 import indigo.*
-import indigo.syntax.*
 import indigoextras.ui.*
 import indigoextras.ui.syntax.*
-import indigo.shared.subsystems.SubSystemContext.*
-import generated.Config
-import generated.Assets
+import generated.*
 
 import scala.scalajs.js.annotation.*
 
@@ -17,33 +14,39 @@ import scala.scalajs.js.annotation.*
   * separate object.
   *
   * As well as the masked pane, we also need something to put in it. In this case, we're going to
-  * make a masked pane that is half the size of a label, so that you can see the masking in action.
+  * make a masked pane that is smaller than the label, so that you can see the masking in action. To
+  * do that, we're going to use fixed sizes for the label and the mask, which isn't what you'd
+  * normally do.
   */
 // ```scala
 object CustomComponents:
 
-  val labelBounds = Bounds(0, 0, 150, 20)
+  val labelBounds = Bounds(0, 0, 100, 16)
+
+  val text =
+    Text(
+      "",
+      DefaultFont.fontKey,
+      Assets.assets.generated.DefaultFontMaterial
+    )
 
   val label: Label[Int] =
     Label[Int](
-      "Count: 0",
-      (_, label) => labelBounds
-    ) { case (offset, label, dimensions) =>
+      "",
+      (ctx, label: String) => labelBounds
+    ) { case (ctx, label) =>
       Outcome(
         Layer(
-          TextBox(label)
-            .withColor(RGBA.White)
-            .moveTo(offset.unsafeToPoint)
-            .withSize(dimensions.unsafeToSize)
-            .withFontSize(20.pixels)
+          text
+            .withText(label.text(ctx))
+            .moveTo(ctx.parent.coords.unsafeToPoint)
         )
       )
     }
-      .withText((i: Int) => "Count: " + i)
+      .withText(ctx => "Count: " + ctx.reference)
 
   val pane: MaskedPane[Label[Int], Int] =
     MaskedPane(
-      BindingKey("masked pane"),
       labelBounds.dimensions / 2,
       label
     )
@@ -62,12 +65,12 @@ object Model:
 object MaskedPaneExample extends IndigoSandbox[Unit, Model]:
 
   val config: GameConfig =
-    Config.config.noResize
+    Config.config.noResize.withMagnification(2)
 
   val assets: Set[AssetType] =
-    Assets.assets.assetSet
+    Assets.assets.assetSet ++ Assets.assets.generated.assetSet
 
-  val fonts: Set[FontInfo]       = Set()
+  val fonts: Set[FontInfo]       = Set(DefaultFont.fontInfo)
   val animations: Set[Animation] = Set()
 
   /** When using masked and scroll panes, you need to remember to register the shaders they use. The
@@ -87,8 +90,9 @@ object MaskedPaneExample extends IndigoSandbox[Unit, Model]:
 
   def updateModel(context: Context[Unit], model: Model): GlobalEvent => Outcome[Model] =
     case e =>
-      val ctx = UIContext(context.forSubSystems, Size(1), 1)
-        .moveBoundsBy(Coords(50, 50))
+      val ctx = UIContext(context)
+        .withMagnification(2)
+        .moveParentBy(Coords(50, 50))
         .copy(reference = model.count)
 
       model.component.update(ctx)(e).map { c =>
@@ -103,8 +107,9 @@ object MaskedPaneExample extends IndigoSandbox[Unit, Model]:
     */
   // ```scala
   def present(context: Context[Unit], model: Model): Outcome[SceneUpdateFragment] =
-    val ctx = UIContext(context.forSubSystems, Size(1), 1)
-      .moveBoundsBy(Coords(50, 50))
+    val ctx = UIContext(context)
+      .withMagnification(2)
+      .moveParentBy(Coords(50, 50))
       .copy(reference = model.count)
 
     val labelBounds =

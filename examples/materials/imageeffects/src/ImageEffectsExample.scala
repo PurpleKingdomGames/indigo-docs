@@ -47,7 +47,7 @@ object ImageEffectsExample extends IndigoSandbox[Unit, Unit]:
     Assets.assets.junctionboxAlbedoMaterial.toImageEffects
 
   val graphic: Graphic[Material.ImageEffects] =
-    Graphic(Rectangle(0, 0, 40, 40), 1, material)
+    Graphic(Rectangle(0, 0, 40, 40), material)
       .withRef(20, 20)
 
   val viewCenter: Point = (Point(550, 400) / 4) + Point(0, -25)

@@ -3,7 +3,6 @@ package indigoexamples
 import indigo.*
 import indigoextras.ui.*
 import indigoextras.ui.syntax.*
-import indigo.shared.subsystems.SubSystemContext.*
 
 import generated.Config
 import generated.Assets
@@ -13,33 +12,33 @@ import scala.scalajs.js.annotation.*
 object CustomComponents:
 
   val component: Switch[Unit] =
-    Switch[Unit, Unit](BoundsType.fixed(40, 40))(
-      (coords, bounds, _) =>
+    Switch[Unit](Bounds(40, 40))(
+      (ctx, switch) =>
         Outcome(
           Layer(
             Shape
               .Box(
-                bounds.unsafeToRectangle,
+                switch.bounds.unsafeToRectangle,
                 Fill.Color(RGBA.Green.mix(RGBA.Black)),
                 Stroke(1, RGBA.Green)
               )
-              .moveTo(coords.unsafeToPoint)
+              .moveTo(ctx.parent.coords.unsafeToPoint)
           )
         ),
-      (coords, bounds, _) =>
+      (ctx, switch) =>
         Outcome(
           Layer(
             Shape
               .Box(
-                bounds.unsafeToRectangle,
+                switch.bounds.unsafeToRectangle,
                 Fill.Color(RGBA.Red.mix(RGBA.Black)),
                 Stroke(1, RGBA.Red)
               )
-              .moveTo(coords.unsafeToPoint)
+              .moveTo(ctx.parent.coords.unsafeToPoint)
           )
         )
     )
-      .onSwitch(value => Batch(Log("Switched to: " + value)))
+      .onSwitch((ctx, switch) => Batch(Log("Switched to: " + switch.state)))
       .switchOn
 
 final case class Log(message: String) extends GlobalEvent
@@ -77,14 +76,14 @@ object SwitchExample extends IndigoSandbox[Unit, Model]:
       Outcome(model)
 
     case e =>
-      val ctx = UIContext(context.forSubSystems, Size(1), 1).moveBoundsBy(Coords(50, 50))
+      val ctx = UIContext(context).moveParentBy(Coords(50, 50))
 
       model.button.update(ctx)(e).map { b =>
         model.copy(button = b)
       }
 
   def present(context: Context[Unit], model: Model): Outcome[SceneUpdateFragment] =
-    val ctx = UIContext(context.forSubSystems, Size(1), 1).moveBoundsBy(Coords(50, 50))
+    val ctx = UIContext(context).moveParentBy(Coords(50, 50))
 
     model.button
       .present(ctx)

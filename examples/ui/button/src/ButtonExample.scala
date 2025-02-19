@@ -13,11 +13,6 @@ import indigoextras.ui.*
 import indigoextras.ui.syntax.*
 // ```
 
-// And until issue [#814](https://github.com/PurpleKingdomGames/indigo/issues/814) is resolved, we'll also need this import for convenience:
-// ``` scala
-import indigo.shared.subsystems.SubSystemContext.*
-// ```
-
 import generated.Config
 import generated.Assets
 
@@ -46,42 +41,42 @@ import scala.scalajs.js.annotation.*
 object CustomComponents:
 
   val customButton: Button[Unit] =
-    Button[Unit](Bounds(32, 32)) { (coords, bounds, _) =>
+    Button[Unit](Bounds(32, 32)) { (ctx, btn) =>
       Outcome(
         Layer(
           Shape
             .Box(
-              bounds.unsafeToRectangle,
+              btn.bounds.unsafeToRectangle,
               Fill.Color(RGBA.Magenta.mix(RGBA.Black)),
               Stroke(1, RGBA.Magenta)
             )
-            .moveTo(coords.unsafeToPoint)
+            .moveTo(ctx.parent.coords.unsafeToPoint)
         )
       )
     }
-      .presentDown { (coords, bounds, _) =>
+      .presentDown { (ctx, btn) =>
         Outcome(
           Layer(
             Shape
               .Box(
-                bounds.unsafeToRectangle,
+                btn.bounds.unsafeToRectangle,
                 Fill.Color(RGBA.Cyan.mix(RGBA.Black)),
                 Stroke(1, RGBA.Cyan)
               )
-              .moveTo(coords.unsafeToPoint)
+              .moveTo(ctx.parent.coords.unsafeToPoint)
           )
         )
       }
-      .presentOver((coords, bounds, _) =>
+      .presentOver((ctx, btn) =>
         Outcome(
           Layer(
             Shape
               .Box(
-                bounds.unsafeToRectangle,
+                btn.bounds.unsafeToRectangle,
                 Fill.Color(RGBA.Yellow.mix(RGBA.Black)),
                 Stroke(1, RGBA.Yellow)
               )
-              .moveTo(coords.unsafeToPoint)
+              .moveTo(ctx.parent.coords.unsafeToPoint)
           )
         )
       )
@@ -141,7 +136,7 @@ object ButtonExample extends IndigoSandbox[Unit, Model]:
     *
     * The `UIContext` also provides the top level position of the component hierarchy, so to move
     * the group and so the button to a new position, we need to tell the `UIContext` to move the
-    * bounds by the desired amount using `moveBoundsBy`.
+    * bounds by the desired amount using `moveParentBy`.
     */
   // ``` scala
   def updateModel(context: Context[Unit], model: Model): GlobalEvent => Outcome[Model] =
@@ -150,7 +145,9 @@ object ButtonExample extends IndigoSandbox[Unit, Model]:
       Outcome(model)
 
     case e =>
-      val ctx = UIContext(context.forSubSystems, Size(1), 1).moveBoundsBy(Coords(50, 50))
+      val ctx = UIContext(context)
+        .moveParentBy(Coords(50, 50))
+      // .resizeParentTo(model.button.bounds.dimensions)
 
       model.button.update(ctx)(e).map { b =>
         model.copy(button = b)
@@ -164,7 +161,9 @@ object ButtonExample extends IndigoSandbox[Unit, Model]:
     */
   // ``` scala
   def present(context: Context[Unit], model: Model): Outcome[SceneUpdateFragment] =
-    val ctx = UIContext(context.forSubSystems, Size(1), 1).moveBoundsBy(Coords(50, 50))
+    val ctx = UIContext(context)
+      .moveParentBy(Coords(50, 50))
+    // .resizeParentTo(model.button.bounds.dimensions)
 
     model.button
       .present(ctx)

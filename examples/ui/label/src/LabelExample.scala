@@ -6,7 +6,6 @@ package indigoexamples
   */
 
 import indigo.*
-import indigo.syntax.*
 
 // Before we do anything else, we'll need some additional imports:
 // ``` scala
@@ -14,13 +13,7 @@ import indigoextras.ui.*
 import indigoextras.ui.syntax.*
 // ```
 
-// And until issue [#814](https://github.com/PurpleKingdomGames/indigo/issues/814) is resolved, we'll also need this import for convenience:
-// ``` scala
-import indigo.shared.subsystems.SubSystemContext.*
-// ```
-
-import generated.Config
-import generated.Assets
+import generated.*
 
 import scala.scalajs.js.annotation.*
 
@@ -38,22 +31,26 @@ import scala.scalajs.js.annotation.*
 // ``` scala
 object CustomComponents:
 
+  val text =
+    Text(
+      "",
+      DefaultFont.fontKey,
+      Assets.assets.generated.DefaultFontMaterial
+    )
+
   val customLabel: Label[Int] =
     Label[Int](
-      "Count: 0",
-      (_, label) => Bounds(0, 0, 150, 20)
-    ) { case (offset, label, dimensions) =>
+      ctx => "Count: " + ctx.reference,
+      (ctx, label) => Bounds(ctx.services.bounds.get(text.withText(label)))
+    ) { case (ctx, label) =>
       Outcome(
         Layer(
-          TextBox(label)
-            .withColor(RGBA.White)
-            .moveTo(offset.unsafeToPoint)
-            .withSize(dimensions.unsafeToSize)
-            .withFontSize(20.pixels)
+          text
+            .withText(label.text(ctx))
+            .moveTo(ctx.parent.coords.unsafeToPoint)
         )
       )
     }
-      .withText((i: Int) => "Count: " + i)
 // ```
 
 /** ### Setting up the Model
@@ -78,10 +75,13 @@ object LabelExample extends IndigoSandbox[Unit, Model]:
   val config: GameConfig =
     Config.config.noResize
 
+  // We need to register the font assets and font info for the `Text` instance to work.
+  // ```scala
   val assets: Set[AssetType] =
-    Assets.assets.assetSet
+    Assets.assets.assetSet ++ Assets.assets.generated.assetSet
 
-  val fonts: Set[FontInfo]        = Set()
+  val fonts: Set[FontInfo] = Set(DefaultFont.fontInfo)
+  // ```
   val animations: Set[Animation]  = Set()
   val shaders: Set[ShaderProgram] = Set()
 
@@ -99,8 +99,8 @@ object LabelExample extends IndigoSandbox[Unit, Model]:
   // ``` scala
   def updateModel(context: Context[Unit], model: Model): GlobalEvent => Outcome[Model] =
     case e =>
-      val ctx = UIContext(context.forSubSystems, Size(1), 1)
-        .moveBoundsBy(Coords(50, 50))
+      val ctx = UIContext(context)
+        .moveParentBy(Coords(50, 50))
         .copy(reference = model.count)
 
       model.label.update(ctx)(e).map { l =>
@@ -115,8 +115,8 @@ object LabelExample extends IndigoSandbox[Unit, Model]:
     */
   // ``` scala
   def present(context: Context[Unit], model: Model): Outcome[SceneUpdateFragment] =
-    val ctx = UIContext(context.forSubSystems, Size(1), 1)
-      .moveBoundsBy(Coords(50, 50))
+    val ctx = UIContext(context)
+      .moveParentBy(Coords(50, 50))
       .copy(reference = model.count)
 
     model.label

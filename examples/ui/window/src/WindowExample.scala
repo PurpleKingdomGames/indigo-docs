@@ -6,10 +6,8 @@ package indigoexamples
 import indigo.*
 import indigo.syntax.*
 import indigoextras.ui.*
-import indigo.shared.subsystems.SubSystemContext.*
 
-import generated.Config
-import generated.Assets
+import generated.*
 
 import scala.scalajs.js.annotation.*
 
@@ -145,46 +143,48 @@ object CustomUI:
 
   // The chrome components and the content itself have been made in exactly the same way as the components presented in the other examples.
 
+  val text =
+    Text(
+      "",
+      DefaultFont.fontKey,
+      Assets.assets.generated.DefaultFontMaterial
+    )
+
   def content: MaskedPane[Label[Int], Int] =
     val label: Label[Int] =
       Label[Int](
         "Count: 0",
-        (_, label) => Bounds(0, 0, 300, 100)
-      ) { case (offset, label, dimensions) =>
+        (ctx, label) => Bounds(0, 0, 300, 100)
+      ) { case (ctx, label) =>
         Outcome(
           Layer(
-            TextBox(label)
-              .withColor(RGBA.White)
-              .moveTo(offset.unsafeToPoint)
-              .withSize(dimensions.unsafeToSize)
-              .withFontSize(50.pixels)
+            text
+              .withText(label.text(ctx))
+              .moveTo(ctx.parent.coords.unsafeToPoint)
           )
         )
       }
-        .withText((i: Int) => "Count: " + i)
+        .withText((ctx: UIContext[Int]) => "Count: " + ctx.reference)
 
     MaskedPane(
-      BindingKey("masked pane"),
       BoundsMode.offset(-2, -22),
       label
     )
 
   def titleBar(title: String): Button[Int] =
-    Button[Int](Bounds(Dimensions(0))) { (coords, bounds, _) =>
+    Button[Int](Bounds(Dimensions(0))) { (ctx, btn) =>
       Outcome(
         Layer(
           Shape
             .Box(
-              bounds.unsafeToRectangle,
+              btn.bounds.unsafeToRectangle,
               Fill.Color(RGBA.SlateGray.mix(RGBA.Yellow).mix(RGBA.Black)),
               Stroke(1, RGBA.White)
             )
-            .moveTo(coords.unsafeToPoint),
-          TextBox(title)
-            .withColor(RGBA.White)
-            .withSize(bounds.unsafeToRectangle.size)
-            .withFontSize(12.pixels)
-            .moveTo(coords.unsafeToPoint + Point(4, 2))
+            .moveTo(ctx.parent.coords.unsafeToPoint),
+          text
+            .withText(title)
+            .moveTo(ctx.parent.coords.unsafeToPoint + Point(4, 2))
         )
       )
     }
@@ -220,43 +220,43 @@ object CustomUI:
     }
 
   def makeButton(size: Size)(extraNodes: Point => Batch[SceneNode]): Button[Int] =
-    Button[Int](Bounds(Dimensions(size))) { (coords, bounds, _) =>
+    Button[Int](Bounds(Dimensions(size))) { (ctx, btn) =>
       Outcome(
         Layer(
           Shape
             .Box(
-              bounds.unsafeToRectangle,
+              btn.bounds.unsafeToRectangle,
               Fill.Color(RGBA.Magenta.mix(RGBA.Black)),
               Stroke(1, RGBA.Magenta)
             )
-            .moveTo(coords.unsafeToPoint)
-        ).addNodes(extraNodes(coords.unsafeToPoint))
+            .moveTo(ctx.parent.coords.unsafeToPoint)
+        ).addNodes(extraNodes(ctx.parent.coords.unsafeToPoint))
       )
     }
-      .presentDown { (coords, bounds, _) =>
+      .presentDown { (ctx, btn) =>
         Outcome(
           Layer(
             Shape
               .Box(
-                bounds.unsafeToRectangle,
+                btn.bounds.unsafeToRectangle,
                 Fill.Color(RGBA.Cyan.mix(RGBA.Black)),
                 Stroke(1, RGBA.Cyan)
               )
-              .moveTo(coords.unsafeToPoint)
-          ).addNodes(extraNodes(coords.unsafeToPoint))
+              .moveTo(ctx.parent.coords.unsafeToPoint)
+          ).addNodes(extraNodes(ctx.parent.coords.unsafeToPoint))
         )
       }
-      .presentOver((coords, bounds, _) =>
+      .presentOver((ctx, btn) =>
         Outcome(
           Layer(
             Shape
               .Box(
-                bounds.unsafeToRectangle,
+                btn.bounds.unsafeToRectangle,
                 Fill.Color(RGBA.Yellow.mix(RGBA.Black)),
                 Stroke(1, RGBA.Yellow)
               )
-              .moveTo(coords.unsafeToPoint)
-          ).addNodes(extraNodes(coords.unsafeToPoint))
+              .moveTo(ctx.parent.coords.unsafeToPoint)
+          ).addNodes(extraNodes(ctx.parent.coords.unsafeToPoint))
         )
       )
 
@@ -318,7 +318,8 @@ object WindowExample extends IndigoDemo[BootData, StartUpData, Model, ViewModel]
         Config.config.noResize,
         BootData.empty
       )
-        .withAssets(Assets.assets.assetSet)
+        .withFonts(DefaultFont.fontInfo)
+        .withAssets(Assets.assets.assetSet ++ Assets.assets.generated.assetSet)
         .withShaders(indigoextras.ui.shaders.all)
         .withSubSystems(
           WindowManager[Unit, Model, Int](
@@ -327,7 +328,7 @@ object WindowExample extends IndigoDemo[BootData, StartUpData, Model, ViewModel]
             snapGrid = Size(1),
             extractReference = _.num,
             startUpData = (),
-            layerKey = BindingKey("windows")
+            layerKey = LayerKey("windows")
           )
             .register(CustomUI.window.moveTo(15, 15))
             .open(CustomUI.window.id)
@@ -380,7 +381,7 @@ object WindowExample extends IndigoDemo[BootData, StartUpData, Model, ViewModel]
   ): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment(
-        BindingKey("windows") -> Layer.Stack.empty
+        LayerKey("windows") -> Layer.Stack.empty
       )
     )
   // ```
