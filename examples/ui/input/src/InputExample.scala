@@ -10,10 +10,20 @@ import scala.scalajs.js.annotation.*
 
 object CustomComponents:
 
-  private def drawCursor(offset: Coords, position: Int): Batch[SceneNode] =
+  private val text =
+    Text("", DefaultFont.fontKey, Assets.assets.generated.DefaultFontMaterial)
+
+  private def drawCursor(ctx: UIContext[Unit], input: Input[Unit]): Batch[SceneNode] =
+    val pt =
+      ctx.services.bounds
+        .get(
+          text.withText(input.text.take(input.cursor.position))
+        )
+        .topRight + Point(0, -4)
+
     Batch(
       Shape.Box(
-        Rectangle(offset.unsafeToPoint + Point(position * 10, 0), Size(2, 20)),
+        Rectangle(ctx.parent.coords.unsafeToPoint + pt, Size(2, 20)),
         Fill.Color(RGBA.Green)
       )
     )
@@ -24,18 +34,20 @@ object CustomComponents:
         if input.hasFocus then
           input.cursor.blinkRate match
             case None =>
-              drawCursor(ctx.parent.coords, input.cursor.position)
+              drawCursor(ctx, input)
 
             case Some(blinkRate) =>
               Signal
                 .Pulse(blinkRate)
-                .map(p => if (ctx.frame.time.running - input.cursor.lastModified < Seconds(0.5)) true else p)
+                .map(p =>
+                  if (ctx.frame.time.running - input.cursor.lastModified < Seconds(0.5)) true else p
+                )
                 .map {
                   case false =>
                     Batch.empty
 
                   case true =>
-                    drawCursor(ctx.parent.coords, input.cursor.position)
+                    drawCursor(ctx, input)
                 }
                 .at(ctx.frame.time.running)
         else Batch.empty
@@ -56,14 +68,21 @@ object CustomComponents:
       Outcome(
         Layer(
           Batch(
-            Text(input.text, DefaultFont.fontKey, Assets.assets.generated.DefaultFontMaterial)
+            text
+              .withText(input.text)
               .moveTo(ctx.parent.coords.unsafeToPoint)
           ) ++ cursor ++ border
         )
       )
 
   val component: Input[Unit] =
-    Input(Dimensions(200, 40))(present).withText("Hello, world!")
+    Input(
+      Dimensions(200, 40),
+      (ctx: UIContext[Unit], inputText: String) =>
+        ctx.services.bounds.get(text.withText(inputText)).width
+    )(present)
+      .withText("Hello, world!")
+      .withCursorBlinkRate(Seconds(0.3))
 
 final case class Model(component: Input[Unit])
 object Model:
