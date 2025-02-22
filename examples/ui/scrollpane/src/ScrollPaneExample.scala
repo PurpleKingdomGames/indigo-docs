@@ -4,6 +4,7 @@ package indigoexamples
   */
 
 import indigo.*
+import indigo.syntax.*
 import indigoextras.ui.*
 import indigoextras.ui.syntax.*
 import generated.*
@@ -25,7 +26,7 @@ import scala.scalajs.js.annotation.*
 // ```scala
 object CustomComponents:
 
-  val labelBounds = Bounds(0, 0, 100, 16)
+  val scrollPaneBounds = Bounds(0, 0, 200, 100)
 
   val text =
     Text(
@@ -34,20 +35,24 @@ object CustomComponents:
       Assets.assets.generated.DefaultFontMaterial
     )
 
-  val label: Label[Int] =
-    Label[Int](
-      "placeholder, will be replaced",
-      (_, _) => labelBounds
-    ) { case (ctx, label) =>
-      Outcome(
-        Layer(
-          text
-            .withText(label.text(ctx))
-            .moveTo(ctx.parent.coords.unsafeToPoint)
-        )
-      )
+  val listOfLabels: ComponentList[Int] =
+    ComponentList(Dimensions(200, 200)) { (ctx: UIContext[Int]) =>
+      (1 to ctx.reference).toBatch.map { i =>
+        ComponentId("lbl" + i) -> Label[Int](
+          "Custom label " + i,
+          (_, label) => Bounds(0, 0, 250, 20)
+        ) { case (ctx, label) =>
+          Outcome(
+            Layer(
+              text
+                .withText(label.text(ctx))
+                .moveTo(ctx.parent.coords.unsafeToPoint)
+            )
+          )
+        }
+      }
     }
-      .withText(ctx => "Count: " + ctx.reference)
+      .withLayout(ComponentLayout.Vertical(Padding(10)))
 
   val scrollButton: Button[Unit] =
     Button[Unit](Bounds(16, 16)) { (ctx, btn) =>
@@ -55,7 +60,10 @@ object CustomComponents:
         Layer(
           Shape
             .Box(
-              ctx.parent.bounds.unsafeToRectangle,
+              Rectangle(
+                ctx.parent.bounds.unsafeToRectangle.position,
+                btn.bounds.dimensions.unsafeToSize
+              ),
               Fill.Color(RGBA.Magenta.mix(RGBA.Black)),
               Stroke(1, RGBA.Magenta)
             )
@@ -67,7 +75,10 @@ object CustomComponents:
           Layer(
             Shape
               .Box(
-                ctx.parent.bounds.unsafeToRectangle,
+                Rectangle(
+                  ctx.parent.bounds.unsafeToRectangle.position,
+                  btn.bounds.dimensions.unsafeToSize
+                ),
                 Fill.Color(RGBA.Cyan.mix(RGBA.Black)),
                 Stroke(1, RGBA.Cyan)
               )
@@ -79,7 +90,10 @@ object CustomComponents:
           Layer(
             Shape
               .Box(
-                ctx.parent.bounds.unsafeToRectangle,
+                Rectangle(
+                  ctx.parent.bounds.unsafeToRectangle.position,
+                  btn.bounds.dimensions.unsafeToSize
+                ),
                 Fill.Color(RGBA.Yellow.mix(RGBA.Black)),
                 Stroke(1, RGBA.Yellow)
               )
@@ -87,11 +101,11 @@ object CustomComponents:
         )
       )
 
-  val pane: ScrollPane[Label[Int], Int] =
+  val pane: ScrollPane[ComponentList[Int], Int] =
     ScrollPane(
       BindingKey("scroll pane"),
-      labelBounds.dimensions.withHeight(labelBounds.dimensions.height / 2),
-      label,
+      scrollPaneBounds.dimensions,
+      listOfLabels,
       scrollButton
     )
       .withScrollBackground { bounds =>
@@ -105,12 +119,12 @@ object CustomComponents:
       }
 // ```
 
-final case class Model(count: Int, component: ScrollPane[Label[Int], Int])
+final case class Model(count: Int, component: ScrollPane[ComponentList[Int], Int])
 object Model:
 
   val initial: Model =
     Model(
-      42,
+      4,
       CustomComponents.pane
     )
 
@@ -152,11 +166,8 @@ object ScrollPaneExample extends IndigoSandbox[Unit, Model]:
         model.copy(component = c)
       }
 
-  /** For the present function, we're going to render something slightly more elaborate than usual.
-    *
-    * Rendering a scroll pane is the same as rendering any other component, but so that you can see
-    * where the label and the mask are, we're also going to render a couple of shapes illustrating
-    * their boundaries.
+  /** Rendering a scroll pane is the same as rendering any other component, but so that you can see
+    * where the scroll pane is, we're also going to render a shapes around it as a border.
     */
   // ```scala
   def present(context: Context[Unit], model: Model): Outcome[SceneUpdateFragment] =
@@ -165,24 +176,14 @@ object ScrollPaneExample extends IndigoSandbox[Unit, Model]:
       .moveParentBy(Coords(50, 50))
       .copy(reference = model.count)
 
-    val labelBounds =
-      CustomComponents.labelBounds.unsafeToRectangle.moveBy(50, 50)
-
-    val labelBorder =
+    val scrollPaneBorder =
       Shape.Box(
-        labelBounds,
-        Fill.None,
-        Stroke(1, RGBA.Green)
-      )
-
-    val maskBorder =
-      Shape.Box(
-        labelBounds.resize(labelBounds.size.width, labelBounds.size.height / 2),
+        CustomComponents.scrollPaneBounds.unsafeToRectangle.moveTo(ctx.parent.coords.unsafeToPoint),
         Fill.None,
         Stroke(1, RGBA.Cyan)
       )
 
     model.component
       .present(ctx)
-      .map(c => SceneUpdateFragment(c).addLayer(labelBorder, maskBorder))
+      .map(c => SceneUpdateFragment(c).addLayer(scrollPaneBorder))
   // ```
