@@ -19,7 +19,7 @@ object CustomComponents:
     )
 
   val component: ComponentList[Int] =
-    ComponentList(Dimensions(200, 150)) { (_: Int) =>
+    ComponentList(Dimensions(200, 150)) { (_: UIContext[Int]) =>
       (1 to 3).toBatch.map { i =>
         ComponentId("radio-" + i) ->
           ComponentGroup(BoundsMode.fixed(200, 30))
