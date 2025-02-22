@@ -38,8 +38,8 @@ object CustomComponents:
     )
 
   val listOfLabels: ComponentList[Int] =
-    ComponentList(Dimensions(200, 80)) { (labelCount: Int) =>
-      (1 to labelCount).toBatch.map { i =>
+    ComponentList(Dimensions(200, 80)) { (ctx: UIContext[Int]) =>
+      (1 to ctx.reference).toBatch.map { i =>
         ComponentId("lbl" + i) -> Label[Int](
           "Custom label " + i,
           (_, label) => Bounds(0, 0, 250, 20)
