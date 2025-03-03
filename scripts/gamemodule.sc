@@ -66,7 +66,7 @@ trait GameModule extends MillIndigo {
           charSet = CharSet.ASCII,
           color = RGB.White,
           antiAlias = false,
-          maxCharactersPerLine = 16
+          layout = FontLayout.default
         ),
         imageOut = workspaceDir / "assets" / "generated"
       )
