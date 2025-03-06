@@ -3,7 +3,7 @@ import mill.scalalib._
 import mill.scalajslib._
 import mill.scalajslib.api._
 
-import $ivy.`io.indigoengine::mill-indigo:0.18.1-SNAPSHOT`, millindigo.MillIndigo
+import $ivy.`io.indigoengine::mill-indigo:0.19.0`, millindigo.MillIndigo
 import $ivy.`org.typelevel::scalac-options:0.1.7`, org.typelevel.scalacoptions._
 
 import indigoplugin._
@@ -72,7 +72,7 @@ trait GameModule extends MillIndigo {
       )
       .listAssets("Assets", indigoOptions.assets)
 
-  val indigoVersion = "0.18.1-SNAPSHOT"
+  val indigoVersion = "0.19.0"
 
   def ivyDeps =
     Agg(
