@@ -245,7 +245,7 @@
         <pre><code class="nohighlight"><span class="keyword">object</span><span> </span><span class="type-name">ColourfulCircle</span><span>:
 
   </span><span class="identifier">given</span><span> </span><span class="type-name">Component</span><span>[</span><span class="type-name">ColourfulCircle</span><span>, </span><span class="type-name">Unit</span><span>]:
-    </span><span class="keyword">def</span><span> </span><span class="declaration-name">bounds</span><span>(</span><span class="identifier">reference</span><span>: </span><span class="type-name">Unit</span><span>, </span><span class="identifier">model</span><span>: </span><span class="type-name">ColourfulCircle</span><span>): </span><span class="type-name">Bounds</span><span> =
+    </span><span class="keyword">def</span><span> </span><span class="declaration-name">bounds</span><span>(</span><span class="identifier">context</span><span>: </span><span class="type-name">UIContext</span><span>[</span><span class="type-name">Unit</span><span>], </span><span class="identifier">model</span><span>: </span><span class="type-name">ColourfulCircle</span><span>): </span><span class="type-name">Bounds</span><span> =
       </span><span class="identifier">model</span><span>.</span><span class="identifier">bounds</span><span>
 
     </span><span class="keyword">def</span><span> </span><span class="declaration-name">updateModel</span><span>(
@@ -270,16 +270,15 @@
               ),
               </span><span class="type-name">Fill</span><span>.</span><span class="type-name">Color</span><span>(</span><span class="identifier">model</span><span>.</span><span class="identifier">colour</span><span>)
             )
-            .</span><span class="identifier">moveTo</span><span>(</span><span class="identifier">context</span><span>.</span><span class="identifier">bounds</span><span>.</span><span class="identifier">center</span><span>.</span><span class="identifier">unsafeToPoint</span><span>)
+            .</span><span class="identifier">moveTo</span><span>(</span><span class="identifier">context</span><span>.</span><span class="identifier">parent</span><span>.</span><span class="identifier">bounds</span><span>.</span><span class="identifier">center</span><span>.</span><span class="identifier">unsafeToPoint</span><span>)
         )
       )
 
     </span><span class="keyword">def</span><span> </span><span class="declaration-name">refresh</span><span>(
-        </span><span class="identifier">reference</span><span>: </span><span class="type-name">Unit</span><span>,
-        </span><span class="identifier">model</span><span>: </span><span class="type-name">ColourfulCircle</span><span>,
-        </span><span class="identifier">parentDimensions</span><span>: </span><span class="type-name">Dimensions</span><span>
+        </span><span class="identifier">context</span><span>: </span><span class="type-name">UIContext</span><span>[</span><span class="type-name">Unit</span><span>],
+        </span><span class="identifier">model</span><span>: </span><span class="type-name">ColourfulCircle</span><span>
     ): </span><span class="type-name">ColourfulCircle</span><span> =
-      </span><span class="identifier">model</span><span>.</span><span class="identifier">copy</span><span>(</span><span class="identifier">bounds</span><span> = </span><span class="identifier">model</span><span>.</span><span class="identifier">bounds</span><span>.</span><span class="identifier">resize</span><span>(</span><span class="identifier">parentDimensions</span><span>))</span></code></pre>
+      </span><span class="identifier">model</span><span>.</span><span class="identifier">copy</span><span>(</span><span class="identifier">bounds</span><span> = </span><span class="identifier">model</span><span>.</span><span class="identifier">bounds</span><span>.</span><span class="identifier">resize</span><span>(</span><span class="identifier">context</span><span>.</span><span class="identifier">parent</span><span>.</span><span class="identifier">bounds</span><span>.</span><span class="identifier">dimensions</span><span>))</span></code></pre>
         
         <h3 id="using-our-custom-component" class="section"><a class="anchor-link left" href="#using-our-custom-component"><i class="icofont-laika link">&#xef71;</i></a>Using our custom component</h3>
         <p>With our custom component defined, we can now use it by adding it to a <code>ComponentGroup</code> (or a

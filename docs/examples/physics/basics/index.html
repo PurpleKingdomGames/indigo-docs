@@ -339,13 +339,10 @@
             .</span><span class="type-name">Pulse</span><span>(</span><span class="number-literal">1</span><span>.</span><span class="identifier">seconds</span><span>)
             .</span><span class="identifier">map</span><span> { </span><span class="identifier">show</span><span> =&gt;
               </span><span class="keyword">if</span><span> </span><span class="identifier">show</span><span> </span><span class="identifier">then</span><span>
-                </span><span class="keyword">val</span><span> </span><span class="identifier">bounds</span><span> = </span><span class="identifier">context</span><span>.</span><span class="identifier">services</span><span>.</span><span class="identifier">bounds</span><span>
-                  .</span><span class="identifier">measureText</span><span>(</span><span class="identifier">message</span><span>)
+                </span><span class="keyword">val</span><span> </span><span class="identifier">bounds</span><span> = </span><span class="identifier">context</span><span>.</span><span class="identifier">services</span><span>.</span><span class="identifier">bounds</span><span>.</span><span class="identifier">find</span><span>(</span><span class="identifier">message</span><span>).</span><span class="identifier">getOrElse</span><span>(</span><span class="type-name">Rectangle</span><span>.</span><span class="identifier">zero</span><span>)
 
                 </span><span class="type-name">Batch</span><span>(
-                  </span><span class="identifier">message</span><span>
-                    .</span><span class="identifier">withSize</span><span>(</span><span class="identifier">bounds</span><span>.</span><span class="identifier">size</span><span>)
-                    .</span><span class="identifier">moveTo</span><span>((</span><span class="number-literal">800</span><span> - </span><span class="identifier">bounds</span><span>.</span><span class="identifier">width</span><span>) / </span><span class="number-literal">2</span><span>, </span><span class="number-literal">600</span><span> - </span><span class="identifier">bounds</span><span>.</span><span class="identifier">height</span><span> - </span><span class="number-literal">10</span><span>)
+                  </span><span class="identifier">message</span><span>.</span><span class="identifier">moveTo</span><span>((</span><span class="number-literal">800</span><span> - </span><span class="identifier">bounds</span><span>.</span><span class="identifier">width</span><span>) / </span><span class="number-literal">2</span><span>, </span><span class="number-literal">600</span><span> - </span><span class="identifier">bounds</span><span>.</span><span class="identifier">height</span><span> - </span><span class="number-literal">10</span><span>)
                 )
               </span><span class="keyword">else</span><span> </span><span class="type-name">Batch</span><span>.</span><span class="identifier">empty</span><span>
             }

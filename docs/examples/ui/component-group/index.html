@@ -212,8 +212,6 @@
         <p>Before we do anything else, we&#39;ll need some additional imports:</p>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">indigoextras</span><span>.</span><span class="identifier">ui</span><span>.*
 </span><span class="keyword">import</span><span> </span><span class="identifier">indigoextras</span><span>.</span><span class="identifier">ui</span><span>.</span><span class="identifier">syntax</span><span>.*</span></code></pre>
-        <p>And until issue <a href="https://github.com/PurpleKingdomGames/indigo/issues/814">#814</a> is resolved, we&#39;ll also need this import for convenience:</p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">indigo</span><span>.</span><span class="identifier">shared</span><span>.</span><span class="identifier">subsystems</span><span>.</span><span class="type-name">SubSystemContext</span><span>.*</span></code></pre>
         
         <h3 id="defining-some-custom-components" class="section"><a class="anchor-link left" href="#defining-some-custom-components"><i class="icofont-laika link">&#xef71;</i></a>Defining some custom components</h3>
         <p>We&#39;re going to need a couple of components to go in our component group. We&#39;ll define a button
@@ -236,42 +234,42 @@
         <pre><code class="nohighlight"><span class="keyword">object</span><span> </span><span class="type-name">CustomComponents</span><span>:
 
   </span><span class="keyword">val</span><span> </span><span class="identifier">customButton</span><span>: </span><span class="type-name">Button</span><span>[</span><span class="type-name">Unit</span><span>] =
-    </span><span class="type-name">Button</span><span>[</span><span class="type-name">Unit</span><span>](</span><span class="type-name">Bounds</span><span>(</span><span class="number-literal">32</span><span>, </span><span class="number-literal">32</span><span>)) { (</span><span class="identifier">coords</span><span>, </span><span class="identifier">bounds</span><span>, </span><span class="identifier">_</span><span>) =&gt;
+    </span><span class="type-name">Button</span><span>[</span><span class="type-name">Unit</span><span>](</span><span class="type-name">Bounds</span><span>(</span><span class="number-literal">32</span><span>, </span><span class="number-literal">32</span><span>)) { (</span><span class="identifier">ctx</span><span>, </span><span class="identifier">btn</span><span>) =&gt;
       </span><span class="type-name">Outcome</span><span>(
         </span><span class="type-name">Layer</span><span>(
           </span><span class="type-name">Shape</span><span>
             .</span><span class="type-name">Box</span><span>(
-              </span><span class="identifier">bounds</span><span>.</span><span class="identifier">unsafeToRectangle</span><span>,
+              </span><span class="identifier">btn</span><span>.</span><span class="identifier">bounds</span><span>.</span><span class="identifier">unsafeToRectangle</span><span>,
               </span><span class="type-name">Fill</span><span>.</span><span class="type-name">Color</span><span>(</span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Magenta</span><span>.</span><span class="identifier">mix</span><span>(</span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Black</span><span>)),
               </span><span class="type-name">Stroke</span><span>(</span><span class="number-literal">1</span><span>, </span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Magenta</span><span>)
             )
-            .</span><span class="identifier">moveTo</span><span>(</span><span class="identifier">coords</span><span>.</span><span class="identifier">unsafeToPoint</span><span>)
+            .</span><span class="identifier">moveTo</span><span>(</span><span class="identifier">ctx</span><span>.</span><span class="identifier">parent</span><span>.</span><span class="identifier">coords</span><span>.</span><span class="identifier">unsafeToPoint</span><span>)
         )
       )
     }
-      .</span><span class="identifier">presentDown</span><span> { (</span><span class="identifier">coords</span><span>, </span><span class="identifier">bounds</span><span>, </span><span class="identifier">_</span><span>) =&gt;
+      .</span><span class="identifier">presentDown</span><span> { (</span><span class="identifier">ctx</span><span>, </span><span class="identifier">btn</span><span>) =&gt;
         </span><span class="type-name">Outcome</span><span>(
           </span><span class="type-name">Layer</span><span>(
             </span><span class="type-name">Shape</span><span>
               .</span><span class="type-name">Box</span><span>(
-                </span><span class="identifier">bounds</span><span>.</span><span class="identifier">unsafeToRectangle</span><span>,
+                </span><span class="identifier">btn</span><span>.</span><span class="identifier">bounds</span><span>.</span><span class="identifier">unsafeToRectangle</span><span>,
                 </span><span class="type-name">Fill</span><span>.</span><span class="type-name">Color</span><span>(</span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Cyan</span><span>.</span><span class="identifier">mix</span><span>(</span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Black</span><span>)),
                 </span><span class="type-name">Stroke</span><span>(</span><span class="number-literal">1</span><span>, </span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Cyan</span><span>)
               )
-              .</span><span class="identifier">moveTo</span><span>(</span><span class="identifier">coords</span><span>.</span><span class="identifier">unsafeToPoint</span><span>)
+              .</span><span class="identifier">moveTo</span><span>(</span><span class="identifier">ctx</span><span>.</span><span class="identifier">parent</span><span>.</span><span class="identifier">coords</span><span>.</span><span class="identifier">unsafeToPoint</span><span>)
           )
         )
       }
-      .</span><span class="identifier">presentOver</span><span>((</span><span class="identifier">coords</span><span>, </span><span class="identifier">bounds</span><span>, </span><span class="identifier">_</span><span>) =&gt;
+      .</span><span class="identifier">presentOver</span><span>((</span><span class="identifier">ctx</span><span>, </span><span class="identifier">btn</span><span>) =&gt;
         </span><span class="type-name">Outcome</span><span>(
           </span><span class="type-name">Layer</span><span>(
             </span><span class="type-name">Shape</span><span>
               .</span><span class="type-name">Box</span><span>(
-                </span><span class="identifier">bounds</span><span>.</span><span class="identifier">unsafeToRectangle</span><span>,
+                </span><span class="identifier">btn</span><span>.</span><span class="identifier">bounds</span><span>.</span><span class="identifier">unsafeToRectangle</span><span>,
                 </span><span class="type-name">Fill</span><span>.</span><span class="type-name">Color</span><span>(</span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Yellow</span><span>.</span><span class="identifier">mix</span><span>(</span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Black</span><span>)),
                 </span><span class="type-name">Stroke</span><span>(</span><span class="number-literal">1</span><span>, </span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Yellow</span><span>)
               )
-              .</span><span class="identifier">moveTo</span><span>(</span><span class="identifier">coords</span><span>.</span><span class="identifier">unsafeToPoint</span><span>)
+              .</span><span class="identifier">moveTo</span><span>(</span><span class="identifier">ctx</span><span>.</span><span class="identifier">parent</span><span>.</span><span class="identifier">coords</span><span>.</span><span class="identifier">unsafeToPoint</span><span>)
           )
         )
       )
@@ -279,18 +277,23 @@
       .</span><span class="identifier">onPress</span><span>(</span><span class="type-name">Log</span><span>(</span><span class="string-literal">&quot;Button pressed&quot;</span><span>))
       .</span><span class="identifier">onRelease</span><span>(</span><span class="type-name">Log</span><span>(</span><span class="string-literal">&quot;Button released&quot;</span><span>))
 
+  </span><span class="keyword">val</span><span> </span><span class="identifier">text</span><span> =
+    </span><span class="type-name">Text</span><span>(
+      </span><span class="string-literal">&quot;&quot;</span><span>,
+      </span><span class="type-name">DefaultFont</span><span>.</span><span class="identifier">fontKey</span><span>,
+      </span><span class="type-name">Assets</span><span>.</span><span class="identifier">assets</span><span>.</span><span class="identifier">generated</span><span>.</span><span class="type-name">DefaultFontMaterial</span><span>
+    )
+
   </span><span class="keyword">val</span><span> </span><span class="identifier">customLabel</span><span>: </span><span class="type-name">Label</span><span>[</span><span class="type-name">Unit</span><span>] =
     </span><span class="type-name">Label</span><span>[</span><span class="type-name">Unit</span><span>](
-      </span><span class="string-literal">&quot;Another label&quot;</span><span>,
+      </span><span class="string-literal">&quot;A label&quot;</span><span>,
       (</span><span class="identifier">_</span><span>, </span><span class="identifier">label</span><span>) =&gt; </span><span class="type-name">Bounds</span><span>(</span><span class="number-literal">0</span><span>, </span><span class="number-literal">0</span><span>, </span><span class="number-literal">150</span><span>, </span><span class="number-literal">12</span><span>)
-    ) { </span><span class="keyword">case</span><span> (</span><span class="identifier">offset</span><span>, </span><span class="identifier">label</span><span>, </span><span class="identifier">dimensions</span><span>) =&gt;
+    ) { </span><span class="keyword">case</span><span> (</span><span class="identifier">ctx</span><span>, </span><span class="identifier">label</span><span>) =&gt;
       </span><span class="type-name">Outcome</span><span>(
         </span><span class="type-name">Layer</span><span>(
-          </span><span class="type-name">TextBox</span><span>(</span><span class="identifier">label</span><span>)
-            .</span><span class="identifier">withColor</span><span>(</span><span class="type-name">RGBA</span><span>.</span><span class="type-name">White</span><span>)
-            .</span><span class="identifier">moveTo</span><span>(</span><span class="identifier">offset</span><span>.</span><span class="identifier">unsafeToPoint</span><span>)
-            .</span><span class="identifier">withSize</span><span>(</span><span class="identifier">dimensions</span><span>.</span><span class="identifier">unsafeToSize</span><span>)
-            .</span><span class="identifier">withFontSize</span><span>(</span><span class="number-literal">12</span><span>.</span><span class="identifier">pixels</span><span>)
+          </span><span class="identifier">text</span><span>
+            .</span><span class="identifier">withText</span><span>(</span><span class="identifier">label</span><span>.</span><span class="identifier">text</span><span>(</span><span class="identifier">ctx</span><span>))
+            .</span><span class="identifier">moveTo</span><span>(</span><span class="identifier">ctx</span><span>.</span><span class="identifier">parent</span><span>.</span><span class="identifier">coords</span><span>.</span><span class="identifier">unsafeToPoint</span><span>)
         )
       )
     }</span></code></pre>
@@ -325,14 +328,14 @@
         the UI.</p>
         <p>The <code>UIContext</code> also provides the top level position of the component hierarchy, so to move
         the group and so the button to a new position, we need to tell the <code>UIContext</code> to move the
-        bounds by the desired amount using <code>moveBoundsBy</code>.</p>
+        bounds by the desired amount using <code>moveParentBy</code>.</p>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span>  </span><span class="keyword">def</span><span> </span><span class="declaration-name">updateModel</span><span>(</span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>[</span><span class="type-name">Unit</span><span>], </span><span class="identifier">model</span><span>: </span><span class="type-name">Model</span><span>): </span><span class="type-name">GlobalEvent</span><span> =&gt; </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">Model</span><span>] =
     </span><span class="keyword">case</span><span> </span><span class="type-name">Log</span><span>(</span><span class="identifier">message</span><span>) =&gt;
       </span><span class="identifier">println</span><span>(</span><span class="identifier">message</span><span>)
       </span><span class="type-name">Outcome</span><span>(</span><span class="identifier">model</span><span>)
 
     </span><span class="keyword">case</span><span> </span><span class="identifier">e</span><span> =&gt;
-      </span><span class="keyword">val</span><span> </span><span class="identifier">ctx</span><span> = </span><span class="type-name">UIContext</span><span>(</span><span class="identifier">context</span><span>.</span><span class="identifier">forSubSystems</span><span>, </span><span class="type-name">Size</span><span>(</span><span class="number-literal">1</span><span>), </span><span class="number-literal">1</span><span>).</span><span class="identifier">moveBoundsBy</span><span>(</span><span class="type-name">Coords</span><span>(</span><span class="number-literal">50</span><span>, </span><span class="number-literal">50</span><span>))
+      </span><span class="keyword">val</span><span> </span><span class="identifier">ctx</span><span> = </span><span class="type-name">UIContext</span><span>(</span><span class="identifier">context</span><span>).</span><span class="identifier">moveParentBy</span><span>(</span><span class="type-name">Coords</span><span>(</span><span class="number-literal">50</span><span>, </span><span class="number-literal">50</span><span>))
 
       </span><span class="identifier">model</span><span>.</span><span class="identifier">components</span><span>.</span><span class="identifier">update</span><span>(</span><span class="identifier">ctx</span><span>)(</span><span class="identifier">e</span><span>).</span><span class="identifier">map</span><span> { </span><span class="identifier">cl</span><span> =&gt;
         </span><span class="identifier">model</span><span>.</span><span class="identifier">copy</span><span>(</span><span class="identifier">components</span><span> = </span><span class="identifier">cl</span><span>)
@@ -342,7 +345,7 @@
         <p>The component groups knows how to render everything, we just need to call the <code>present</code> method
         with, once again, and instance of UIContext, and provide the results to a SceneUpdateFragment.</p>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span>  </span><span class="keyword">def</span><span> </span><span class="declaration-name">present</span><span>(</span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>[</span><span class="type-name">Unit</span><span>], </span><span class="identifier">model</span><span>: </span><span class="type-name">Model</span><span>): </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">SceneUpdateFragment</span><span>] =
-    </span><span class="keyword">val</span><span> </span><span class="identifier">ctx</span><span> = </span><span class="type-name">UIContext</span><span>(</span><span class="identifier">context</span><span>.</span><span class="identifier">forSubSystems</span><span>, </span><span class="type-name">Size</span><span>(</span><span class="number-literal">1</span><span>), </span><span class="number-literal">1</span><span>).</span><span class="identifier">moveBoundsBy</span><span>(</span><span class="type-name">Coords</span><span>(</span><span class="number-literal">50</span><span>, </span><span class="number-literal">50</span><span>))
+    </span><span class="keyword">val</span><span> </span><span class="identifier">ctx</span><span> = </span><span class="type-name">UIContext</span><span>(</span><span class="identifier">context</span><span>).</span><span class="identifier">moveParentBy</span><span>(</span><span class="type-name">Coords</span><span>(</span><span class="number-literal">50</span><span>, </span><span class="number-literal">50</span><span>))
 
     </span><span class="identifier">model</span><span>.</span><span class="identifier">components</span><span>
       .</span><span class="identifier">present</span><span>(</span><span class="identifier">ctx</span><span>)

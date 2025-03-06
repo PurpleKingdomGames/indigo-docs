@@ -346,7 +346,8 @@
       </span><span class="type-name">Config</span><span>.</span><span class="identifier">config</span><span>.</span><span class="identifier">noResize</span><span>,
       </span><span class="type-name">BootData</span><span>.</span><span class="identifier">empty</span><span>
     )
-      .</span><span class="identifier">withAssets</span><span>(</span><span class="type-name">Assets</span><span>.</span><span class="identifier">assets</span><span>.</span><span class="identifier">assetSet</span><span>)
+      .</span><span class="identifier">withFonts</span><span>(</span><span class="type-name">DefaultFont</span><span>.</span><span class="identifier">fontInfo</span><span>)
+      .</span><span class="identifier">withAssets</span><span>(</span><span class="type-name">Assets</span><span>.</span><span class="identifier">assets</span><span>.</span><span class="identifier">assetSet</span><span> ++ </span><span class="type-name">Assets</span><span>.</span><span class="identifier">assets</span><span>.</span><span class="identifier">generated</span><span>.</span><span class="identifier">assetSet</span><span>)
       .</span><span class="identifier">withShaders</span><span>(</span><span class="identifier">indigoextras</span><span>.</span><span class="identifier">ui</span><span>.</span><span class="identifier">shaders</span><span>.</span><span class="identifier">all</span><span>)
       .</span><span class="identifier">withSubSystems</span><span>(
         </span><span class="type-name">WindowManager</span><span>[</span><span class="type-name">Unit</span><span>, </span><span class="type-name">Model</span><span>, </span><span class="type-name">Int</span><span>](
@@ -355,7 +356,7 @@
           </span><span class="identifier">snapGrid</span><span> = </span><span class="type-name">Size</span><span>(</span><span class="number-literal">1</span><span>),
           </span><span class="identifier">extractReference</span><span> = </span><span class="identifier">_</span><span>.</span><span class="identifier">num</span><span>,
           </span><span class="identifier">startUpData</span><span> = (),
-          </span><span class="identifier">layerKey</span><span> = </span><span class="type-name">BindingKey</span><span>(</span><span class="string-literal">&quot;windows&quot;</span><span>)
+          </span><span class="identifier">layerKey</span><span> = </span><span class="type-name">LayerKey</span><span>(</span><span class="string-literal">&quot;windows&quot;</span><span>)
         )
           .</span><span class="identifier">register</span><span>(</span><span class="type-name">CustomUI</span><span>.</span><span class="identifier">window</span><span>.</span><span class="identifier">moveTo</span><span>(</span><span class="number-literal">15</span><span>, </span><span class="number-literal">15</span><span>))
           .</span><span class="identifier">open</span><span>(</span><span class="type-name">CustomUI</span><span>.</span><span class="identifier">window</span><span>.</span><span class="identifier">id</span><span>)
@@ -379,7 +380,7 @@
 ): </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">SceneUpdateFragment</span><span>] =
   </span><span class="type-name">Outcome</span><span>(
     </span><span class="type-name">SceneUpdateFragment</span><span>(
-      </span><span class="type-name">BindingKey</span><span>(</span><span class="string-literal">&quot;windows&quot;</span><span>) -&gt; </span><span class="type-name">Layer</span><span>.</span><span class="type-name">Stack</span><span>.</span><span class="identifier">empty</span><span>
+      </span><span class="type-name">LayerKey</span><span>(</span><span class="string-literal">&quot;windows&quot;</span><span>) -&gt; </span><span class="type-name">Layer</span><span>.</span><span class="type-name">Stack</span><span>.</span><span class="identifier">empty</span><span>
     )
   )</span></code></pre>
 
