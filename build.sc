@@ -83,7 +83,7 @@ object examples extends mill.Module {
               charSet = CharSet.ASCII,
               color = RGB.White,
               antiAlias = false,
-              maxCharactersPerLine = 16
+              layout = FontLayout.normal
             ),
             imageOut = workspaceDir / "assets" / "generated"
           )
