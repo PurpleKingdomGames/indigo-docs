@@ -2,11 +2,10 @@
 
 This example shows how to include text in Indigo.
 
-There are in fact a few methods:
+There are in fact two methods:
 
 1. Using the `Text` primitive shown here.
-2. Using the `TextBox` primitive (not recommended, likely to be removed)
-3. Using the [Roguelike-Starterkit](https://github.com/PurpleKingdomGames/roguelike-starterkit) for terminal style text and graphics.
+2. Using the [Roguelike-Starterkit](https://github.com/PurpleKingdomGames/roguelike-starterkit) for terminal style text and graphics.
 
 Indigo does not yet feature 'real' font support, i.e. text rendered on your graphics hardware.
 
