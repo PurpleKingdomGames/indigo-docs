@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Typelevel Laika + Helium Theme" />
+  <title>Rendering Technology</title>
+  
+  
+  <meta name="description" content="An FP game engine for Scala."/>
+  
+  
+  
+  <link rel="icon" sizes="32x32" type="image/png" href="../../img/favicon.png"/>
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:500">
+  
+  <link rel="stylesheet" type="text/css" href="../../helium/site/icofont.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../helium/site/laika-helium.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/custom.css" />
+  <script src="../../helium/site/laika-helium.js"></script>
+  
+  
+  <script> /* for avoiding page load transitions */ </script>
+</head>
+
+  <body>
+
+    <header id="top-bar" class="light-default dark-default">
+
+  <div class="row">
+    <a id="nav-icon">
+      <i class="icofont-laika navigationMenu" title="Navigation">&#xefa2;</i>
+    </a>
+    
+    
+  </div>
+
+  <a class="image-link" href="../"><img src="../../img/indigo_logo_solid_text.svg" alt="An FP game engine for Scala." title="Indigo" width="150" height="50"></a>
+
+  <div class="row links">
+    
+    <a class="button-link" href="https://purplekingdomgames.github.io/indigo-docs/demos">Live Demos</a>
+    
+    <a class="button-link" href="https://discord.gg/b5CD47g">Discord</a>
+    
+    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigo">Github</a>
+    
+  </div>  
+
+</header>
+    
+    <nav id="sidebar">
+
+  <div class="row">
+    
+    <a class="button-link" href="https://purplekingdomgames.github.io/indigo-docs/demos">Live Demos</a>
+    
+    <a class="button-link" href="https://discord.gg/b5CD47g">Discord</a>
+    
+    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigo">Github</a>
+    
+  </div>
+
+  <ul class="nav-list">
+    <li class="level1 nav-node"><a href="../">Indigo</a></li>
+    <li class="level2 nav-header">Indigo</li>
+    <li class="level3 nav-leaf"><a href="../key-concepts/making-games-testable.html">Making games testable</a></li>
+    <li class="level3 nav-leaf"><a href="../key-concepts/model-viewmodel-view.html">Model, ViewModel, &amp; View</a></li>
+    <li class="level3 nav-leaf"><a href="../key-concepts/performance.html">Performance</a></li>
+    <li class="level2 nav-header">General information</li>
+    <li class="level3 nav-leaf"><a href="motivation-and-constraints.html">Motivation &amp; Constraints</a></li>
+    <li class="level3 nav-leaf"><a href="prior-art.html">Prior Art</a></li>
+    <li class="level3 active nav-leaf"><a href="#">Rendering Technology</a></li>
+    <li class="level2 nav-header">Quick start</li>
+    <li class="level3 nav-leaf"><a href="../quickstart/examples.html">Examples, Demos, and References</a></li>
+    <li class="level3 nav-leaf"><a href="../quickstart/extensions-and-libs.html">Extensions, Libraries, and Related Projects</a></li>
+    <li class="level3 nav-leaf"><a href="../quickstart/quickstart.html">Quick start</a></li>
+    <li class="level1 nav-node"><a href="../../examples/">Examples</a></li>
+    <li class="level2 nav-node"><a href="../../examples/importers/">Importers</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/importers/tiled-loaded/">Loading Tiled maps at runtime</a></li>
+    <li class="level2 nav-node"><a href="../../examples/materials/">Materials</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/materials/bitmap/">Bitmap material</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/materials/filltypes/">Fill Types</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/materials/imageeffects/">ImageEffects material</a></li>
+    <li class="level2 nav-node"><a href="../../examples/physics/">Physics</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/physics/basics/">Basic Physics Example</a></li>
+    <li class="level2 nav-node"><a href="../../examples/primitives/">Primitives</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/primitives/graphic/">Graphic</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/primitives/text/">Text</a></li>
+    <li class="level2 nav-node"><a href="../../examples/shaders/">Shaders</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/shaders/basic/">A basic custom shader</a></li>
+    <li class="level2 nav-node"><a href="../../examples/ui/">Ui</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/button/">UI Components: Button</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/component-group/">UI Components: Component Group</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/component-list/">UI Components: Component List</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/custom/">UI Components: Custom Components</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/hitarea/">UI Components: HitArea</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/input/">UI Components: Input</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/label/">UI Components: Label</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/maskedpane/">UI Components: Masked Pane</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/radiobuttons/">UI Components: Radio buttons</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/scrollpane/">UI Components: Scroll Pane</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/switch/">UI Components: Switch</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/textarea/">UI Components: TextArea</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/window/">UI Components: Windows</a></li>
+  </ul>
+
+</nav>
+
+    <div id="container">
+
+      
+<nav id="page-nav">
+  <p class="header"><a href="#">Rendering Technology</a></p>
+
+  <ul class="nav-list">
+    <li class="level1 nav-leaf"><a href="#indigo-uses-webgl-2-0">Indigo uses WebGL 2.0</a></li>
+    <li class="level1 nav-leaf"><a href="#ultraviolet-and-glsl">Ultraviolet and GLSL</a></li>
+  </ul>
+
+  <p class="footer"></p>
+</nav>
+
+
+      <main class="content">
+
+        <h1 id="rendering-technology" class="title">Rendering Technology</h1>
+        <p>At the time of writing, there are five options for rendering 2D graphics into a browser page, if you are so inclined:</p>
+        <ol class="arabic">
+          <li>HTML + CSS + SVG</li>
+          <li>Canvas APIs (2D)</li>
+          <li>WebGL 1.0</li>
+          <li>WebGL 2.0</li>
+          <li>WebGPU</li>
+        </ol>
+        
+        <h2 id="indigo-uses-webgl-2-0" class="section"><a class="anchor-link left" href="#indigo-uses-webgl-2-0"><i class="icofont-laika link">&#xef71;</i></a>Indigo uses WebGL 2.0</h2>
+        <p>Indigo&#39;s primary rendering technology is WebGL 2.0, the most modern 3D rendering api available to the majority of browsers.</p>
+        <p>By default, Indigo will attempt to detect whether WebGL 2.0 is supported, and if not, will fall back to a WebGL 1.0 renderer. You can also force it to use one or the other.</p>
+        <p>The WebGL 1.0 renderer has been reduced to the bare minimum so that all maintenance efforts can go into the WebGL 2.0 version. The anticipated use of this renderer is to act as nothing more than a simple fall back, so you can message your players that there has been some sort of problem rendering with WebGL 2.0. That said, the WebGL 1.0 renderer does work and being so simple is very fast! You could use it as your primary renderer if you don&#39;t need anything fancy!</p>
+        <p>Renderer detection can be done by listening for the <code>RendererDetails</code> event.</p>
+        
+        <h2 id="ultraviolet-and-glsl" class="section"><a class="anchor-link left" href="#ultraviolet-and-glsl"><i class="icofont-laika link">&#xef71;</i></a>Ultraviolet and GLSL</h2>
+        <p>Shaders for WebGL 1.0 / 2.0 are written using a language called GLSL, versions 100 and 300 respectively. You can use GLSL shaders with Indigo, however it is recommended that you use our library, <a href="https://github.com/PurpleKingdomGames/ultraviolet">Ultraviolet</a>, which allows you to write your shaders directly in Scala.</p>
+
+        
+<hr class="footer-rule"/>
+<footer>
+  Site generated by <a href="https://typelevel.org/Laika/">Laika</a> with the Helium theme.
+</footer>
+
+
+      </main>
+
+    </div>
+
+  </body>
+
+</html>

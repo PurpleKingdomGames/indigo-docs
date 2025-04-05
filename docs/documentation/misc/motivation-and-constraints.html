@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Typelevel Laika + Helium Theme" />
+  <title>Motivation & Constraints</title>
+  
+  
+  <meta name="description" content="An FP game engine for Scala."/>
+  
+  
+  
+  <link rel="icon" sizes="32x32" type="image/png" href="../../img/favicon.png"/>
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:500">
+  
+  <link rel="stylesheet" type="text/css" href="../../helium/site/icofont.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../helium/site/laika-helium.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/custom.css" />
+  <script src="../../helium/site/laika-helium.js"></script>
+  
+  
+  <script> /* for avoiding page load transitions */ </script>
+</head>
+
+  <body>
+
+    <header id="top-bar" class="light-default dark-default">
+
+  <div class="row">
+    <a id="nav-icon">
+      <i class="icofont-laika navigationMenu" title="Navigation">&#xefa2;</i>
+    </a>
+    
+    
+  </div>
+
+  <a class="image-link" href="../"><img src="../../img/indigo_logo_solid_text.svg" alt="An FP game engine for Scala." title="Indigo" width="150" height="50"></a>
+
+  <div class="row links">
+    
+    <a class="button-link" href="https://purplekingdomgames.github.io/indigo-docs/demos">Live Demos</a>
+    
+    <a class="button-link" href="https://discord.gg/b5CD47g">Discord</a>
+    
+    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigo">Github</a>
+    
+  </div>  
+
+</header>
+    
+    <nav id="sidebar">
+
+  <div class="row">
+    
+    <a class="button-link" href="https://purplekingdomgames.github.io/indigo-docs/demos">Live Demos</a>
+    
+    <a class="button-link" href="https://discord.gg/b5CD47g">Discord</a>
+    
+    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigo">Github</a>
+    
+  </div>
+
+  <ul class="nav-list">
+    <li class="level1 nav-node"><a href="../">Indigo</a></li>
+    <li class="level2 nav-header">Indigo</li>
+    <li class="level3 nav-leaf"><a href="../key-concepts/making-games-testable.html">Making games testable</a></li>
+    <li class="level3 nav-leaf"><a href="../key-concepts/model-viewmodel-view.html">Model, ViewModel, &amp; View</a></li>
+    <li class="level3 nav-leaf"><a href="../key-concepts/performance.html">Performance</a></li>
+    <li class="level2 nav-header">General information</li>
+    <li class="level3 active nav-leaf"><a href="#">Motivation &amp; Constraints</a></li>
+    <li class="level3 nav-leaf"><a href="prior-art.html">Prior Art</a></li>
+    <li class="level3 nav-leaf"><a href="rendering-technology.html">Rendering Technology</a></li>
+    <li class="level2 nav-header">Quick start</li>
+    <li class="level3 nav-leaf"><a href="../quickstart/examples.html">Examples, Demos, and References</a></li>
+    <li class="level3 nav-leaf"><a href="../quickstart/extensions-and-libs.html">Extensions, Libraries, and Related Projects</a></li>
+    <li class="level3 nav-leaf"><a href="../quickstart/quickstart.html">Quick start</a></li>
+    <li class="level1 nav-node"><a href="../../examples/">Examples</a></li>
+    <li class="level2 nav-node"><a href="../../examples/importers/">Importers</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/importers/tiled-loaded/">Loading Tiled maps at runtime</a></li>
+    <li class="level2 nav-node"><a href="../../examples/materials/">Materials</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/materials/bitmap/">Bitmap material</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/materials/filltypes/">Fill Types</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/materials/imageeffects/">ImageEffects material</a></li>
+    <li class="level2 nav-node"><a href="../../examples/physics/">Physics</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/physics/basics/">Basic Physics Example</a></li>
+    <li class="level2 nav-node"><a href="../../examples/primitives/">Primitives</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/primitives/graphic/">Graphic</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/primitives/text/">Text</a></li>
+    <li class="level2 nav-node"><a href="../../examples/shaders/">Shaders</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/shaders/basic/">A basic custom shader</a></li>
+    <li class="level2 nav-node"><a href="../../examples/ui/">Ui</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/button/">UI Components: Button</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/component-group/">UI Components: Component Group</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/component-list/">UI Components: Component List</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/custom/">UI Components: Custom Components</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/hitarea/">UI Components: HitArea</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/input/">UI Components: Input</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/label/">UI Components: Label</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/maskedpane/">UI Components: Masked Pane</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/radiobuttons/">UI Components: Radio buttons</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/scrollpane/">UI Components: Scroll Pane</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/switch/">UI Components: Switch</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/textarea/">UI Components: TextArea</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/window/">UI Components: Windows</a></li>
+  </ul>
+
+</nav>
+
+    <div id="container">
+
+      
+<nav id="page-nav">
+  <p class="header"><a href="#">Motivation &amp; Constraints</a></p>
+
+  <ul class="nav-list">
+    <li class="level1 nav-leaf"><a href="#motivation">Motivation</a></li>
+    <li class="level1 nav-leaf"><a href="#creative-constraints">Creative Constraints</a></li>
+    <li class="level1 nav-leaf"><a href="#the-influence-of-pixel-art">The influence of Pixel Art</a></li>
+  </ul>
+
+  <p class="footer"></p>
+</nav>
+
+
+      <main class="content">
+
+        <h1 id="motivation-constraints" class="title">Motivation &amp; Constraints</h1>
+        
+        <h2 id="motivation" class="section"><a class="anchor-link left" href="#motivation"><i class="icofont-laika link">&#xef71;</i></a>Motivation</h2>
+        <p>There were two questions driving Indigo&#39;s development:</p>
+        <ol class="arabic">
+          <li>Building games is hard, and testing games is harder... but does it have to be?</li>
+          <li>Can we build a game engine for functional programmers that is fun, productive, and reasonably easy to pick up?</li>
+        </ol>
+        <p>The reason testing games is hard is the perception that they are random, and their behavior is non-deterministic by default, but this doesn&#39;t have to be the case.</p>
+        <p>Indigo encodes the idea of a frame update into one single, pure, stateless, immutable function. The new frame is always predictably the direct outcome of the values it was supplied at the beginning of the update. Even apparently random elements are in fact pseudo-random.</p>
+        <blockquote>Of course, this depends on the game programmer! If they put a <code>Random</code> in the middle there isn&#39;t much we can do about it! (Use a propagated <code>Dice</code> instance instead!)</blockquote>
+        
+        <h2 id="creative-constraints" class="section"><a class="anchor-link left" href="#creative-constraints"><i class="icofont-laika link">&#xef71;</i></a>Creative Constraints</h2>
+        <p>Why is indigo the way it is? Why isn&#39;t there proper font rendering for example?</p>
+        <p>Building a game engine is hard, and takes a long time. There is a piece of general wisdom in the gaming community that can be summarised as:</p>
+        <blockquote>Never build your own game engine.</blockquote>
+        <p>Why not? Well a lot of people who decide to build game engines actually start out intending to build a game. They then get bogged down in building an engine instead because it takes absolutely ages, and never get around to building their game.</p>
+        <p>There is only one reason to build a game engine that people seem to agree on: There isn&#39;t already another one out there that does the very <em>very</em> specific thing you wanted an engine to do!</p>
+        <p>So in order to make building Indigo possible, we cut the scope. What is the smallest amount of functionality we&#39;d need to build an engine we&#39;d be happy to use? A few of those constraints included:</p>
+        <ol class="arabic">
+          <li>Scala only - A full FP language with a Mac / Linux (and yes, Windows) friendly ecosystem.</li>
+          <li>2D only - with pixel art as a first class citizen specifically.</li>
+          <li>Browser only - adding platforms adds complexity, lets just make it work first.</li>
+        </ol>
+        <p>Some of the initial constraints were relaxed, and some features that might be considered unnecessary were added just for fun, but if you look at indigo and wonder why something that might be standard in other engines isn&#39;t present, it is probably just because it wasn&#39;t considered part of a minimal spec!</p>
+        
+        <h2 id="the-influence-of-pixel-art" class="section"><a class="anchor-link left" href="#the-influence-of-pixel-art"><i class="icofont-laika link">&#xef71;</i></a>The influence of Pixel Art</h2>
+        <p>Indigo is a 2D game engine that is particularly aimed at Pixel Art (although normal graphics are an option). Why Pixel Art?</p>
+        <p>Pixel Art is a very accessible art form. The tools are good and inexpensive, the notion of &#39;good&#39; pixel art encompasses a wide range of styles and levels of complexity.</p>
+        <p>Like any other artistic medium you could choose, it can be done poorly and look cheap, or it can be done brilliantly and be every bit as expressive and evocative as any other style of art.</p>
+        <p>The difference is that the barrier to entry is lower. Amazing and low cost tools like <a href="https://www.aseprite.org/">Aseprite</a> and <a href="https://www.mapeditor.org/">Tiled</a> help put good game art within the reach of the many, not the few.</p>
+        <p>Pixel Art is commercially viable too! There are many many commercially successful pixel art games released every year! Games like <a href="https://store.steampowered.com/app/606150/Moonlighter/">Moonlighter</a>, <a href="https://store.steampowered.com/app/504230/Celeste/">Celeste</a>, and <a href="https://store.steampowered.com/app/588650/Dead_Cells/">Dead Cells</a> to name but a few.</p>
+        <p>If you want to make a AAA title with photo-realistic graphics or even a super-slick 2D games and you have the resources to do that, there are better engines out there for the job! Pixel art requires us to build games that are <em>good games to play</em> in spite of a limited visual style, games that draw people in because they are engaging, not because you can see every wrinkle on a characters face.</p>
+        <p>Not unlike board games. Board games are fun, aren&#39;t they?</p>
+        <p>Forcing the engine to be aimed at pixel art, however, has influenced how it works:</p>
+        <ol class="arabic">
+          <li>Magnification. You design and code it to work as if it was on a 1 to 1 pixel scale, increase the magnification and everything goes with it. For instance, mouse positions and clicks are rescaled to remain accurate to your graphics. You can even dynamically set different magnifications per game layer, allowing for instance, an HD UI over a chunky pixel game.</li>
+          <li>Pixel perfect rendering. The whole engine works on whole pixels, and the shaders are written to render beautifully crisp, whole pixels at any scale. You don&#39;t have to do anything clever to get perfect results.</li>
+        </ol>
+
+        
+<hr class="footer-rule"/>
+<footer>
+  Site generated by <a href="https://typelevel.org/Laika/">Laika</a> with the Helium theme.
+</footer>
+
+
+      </main>
+
+    </div>
+
+  </body>
+
+</html>

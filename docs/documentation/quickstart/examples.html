@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Typelevel Laika + Helium Theme" />
+  <title>Examples, Demos, and References</title>
+  
+  
+  <meta name="description" content="An FP game engine for Scala."/>
+  
+  
+  
+  <link rel="icon" sizes="32x32" type="image/png" href="../../img/favicon.png"/>
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:500">
+  
+  <link rel="stylesheet" type="text/css" href="../../helium/site/icofont.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../helium/site/laika-helium.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/custom.css" />
+  <script src="../../helium/site/laika-helium.js"></script>
+  
+  
+  <script> /* for avoiding page load transitions */ </script>
+</head>
+
+  <body>
+
+    <header id="top-bar" class="light-default dark-default">
+
+  <div class="row">
+    <a id="nav-icon">
+      <i class="icofont-laika navigationMenu" title="Navigation">&#xefa2;</i>
+    </a>
+    
+    
+  </div>
+
+  <a class="image-link" href="../"><img src="../../img/indigo_logo_solid_text.svg" alt="An FP game engine for Scala." title="Indigo" width="150" height="50"></a>
+
+  <div class="row links">
+    
+    <a class="button-link" href="https://purplekingdomgames.github.io/indigo-docs/demos">Live Demos</a>
+    
+    <a class="button-link" href="https://discord.gg/b5CD47g">Discord</a>
+    
+    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigo">Github</a>
+    
+  </div>  
+
+</header>
+    
+    <nav id="sidebar">
+
+  <div class="row">
+    
+    <a class="button-link" href="https://purplekingdomgames.github.io/indigo-docs/demos">Live Demos</a>
+    
+    <a class="button-link" href="https://discord.gg/b5CD47g">Discord</a>
+    
+    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigo">Github</a>
+    
+  </div>
+
+  <ul class="nav-list">
+    <li class="level1 nav-node"><a href="../">Indigo</a></li>
+    <li class="level2 nav-header">Indigo</li>
+    <li class="level3 nav-leaf"><a href="../key-concepts/making-games-testable.html">Making games testable</a></li>
+    <li class="level3 nav-leaf"><a href="../key-concepts/model-viewmodel-view.html">Model, ViewModel, &amp; View</a></li>
+    <li class="level3 nav-leaf"><a href="../key-concepts/performance.html">Performance</a></li>
+    <li class="level2 nav-header">General information</li>
+    <li class="level3 nav-leaf"><a href="../misc/motivation-and-constraints.html">Motivation &amp; Constraints</a></li>
+    <li class="level3 nav-leaf"><a href="../misc/prior-art.html">Prior Art</a></li>
+    <li class="level3 nav-leaf"><a href="../misc/rendering-technology.html">Rendering Technology</a></li>
+    <li class="level2 nav-header">Quick start</li>
+    <li class="level3 active nav-leaf"><a href="#">Examples, Demos, and References</a></li>
+    <li class="level3 nav-leaf"><a href="extensions-and-libs.html">Extensions, Libraries, and Related Projects</a></li>
+    <li class="level3 nav-leaf"><a href="quickstart.html">Quick start</a></li>
+    <li class="level1 nav-node"><a href="../../examples/">Examples</a></li>
+    <li class="level2 nav-node"><a href="../../examples/importers/">Importers</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/importers/tiled-loaded/">Loading Tiled maps at runtime</a></li>
+    <li class="level2 nav-node"><a href="../../examples/materials/">Materials</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/materials/bitmap/">Bitmap material</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/materials/filltypes/">Fill Types</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/materials/imageeffects/">ImageEffects material</a></li>
+    <li class="level2 nav-node"><a href="../../examples/physics/">Physics</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/physics/basics/">Basic Physics Example</a></li>
+    <li class="level2 nav-node"><a href="../../examples/primitives/">Primitives</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/primitives/graphic/">Graphic</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/primitives/text/">Text</a></li>
+    <li class="level2 nav-node"><a href="../../examples/shaders/">Shaders</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/shaders/basic/">A basic custom shader</a></li>
+    <li class="level2 nav-node"><a href="../../examples/ui/">Ui</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/button/">UI Components: Button</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/component-group/">UI Components: Component Group</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/component-list/">UI Components: Component List</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/custom/">UI Components: Custom Components</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/hitarea/">UI Components: HitArea</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/input/">UI Components: Input</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/label/">UI Components: Label</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/maskedpane/">UI Components: Masked Pane</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/radiobuttons/">UI Components: Radio buttons</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/scrollpane/">UI Components: Scroll Pane</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/switch/">UI Components: Switch</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/textarea/">UI Components: TextArea</a></li>
+    <li class="level3 nav-leaf"><a href="../../examples/ui/window/">UI Components: Windows</a></li>
+  </ul>
+
+</nav>
+
+    <div id="container">
+
+      
+<nav id="page-nav">
+  <p class="header"><a href="#">Examples, Demos, and References</a></p>
+
+  <ul class="nav-list">
+    <li class="level1 nav-leaf"><a href="#examples">Examples</a></li>
+    <li class="level1 nav-node"><a href="#demos-references">Demos &amp; References</a></li>
+    <li class="level2 nav-leaf"><a href="#roguelike">Roguelike</a></li>
+    <li class="level2 nav-leaf"><a href="#roguelike-tutorial">Roguelike-Tutorial</a></li>
+    <li class="level2 nav-leaf"><a href="#the-cursed-pirate">The Cursed Pirate</a></li>
+    <li class="level2 nav-leaf"><a href="#snake">Snake!</a></li>
+    <li class="level2 nav-leaf"><a href="#snake-in-five-minutes">Snake! In five minutes!</a></li>
+    <li class="level2 nav-leaf"><a href="#pong">Pong!</a></li>
+    <li class="level2 nav-leaf"><a href="#shaders">Shaders</a></li>
+  </ul>
+
+  <p class="footer"></p>
+</nav>
+
+
+      <main class="content">
+
+        <h1 id="examples-demos-and-references" class="title">Examples, Demos, and References</h1>
+        <p>At various points in Indigo&#39;s development, little games and examples have been made. These help drive out requirements, test the feel of the engine against real examples and help ensure the build is stable.</p>
+        <p>They are not always very polished, but they are small and reasonably easy to follow.</p>
+        
+        <h2 id="examples" class="section"><a class="anchor-link left" href="#examples"><i class="icofont-laika link">&#xef71;</i></a>Examples</h2>
+        <p>This documentation site contains examples that, while not exhaustive, are guaranteed to be up to date with the published version of Indigo highlighted in the docs themselves. As such, they are the best source of information on Indigo&#39;s features and how they work.</p>
+        
+        <h2 id="demos-references" class="section"><a class="anchor-link left" href="#demos-references"><i class="icofont-laika link">&#xef71;</i></a>Demos &amp; References</h2>
+        <p>A slightly random collection of open source projects and demos you can use for reference. Be aware that unlike the examples in these docs, they will gradually fall out of date.</p>
+        
+        <h3 id="roguelike" class="section"><a class="anchor-link left" href="#roguelike"><i class="icofont-laika link">&#xef71;</i></a>Roguelike</h3>
+        <p>An implementation of a Roguelike, this was an evolution of the Roguelike Tutorial work below.</p>
+        <p>Please visit the repo for a playable link: <a href="https://github.com/davesmith00000/roguelike"><a href="https://github.com/davesmith00000/roguelike">https://github.com/davesmith00000/roguelike</a></a></p>
+        
+        <h3 id="roguelike-tutorial" class="section"><a class="anchor-link left" href="#roguelike-tutorial"><i class="icofont-laika link">&#xef71;</i></a>Roguelike-Tutorial</h3>
+        <p>An attempt to follow the official roguelike tutorials using Scala and Indigo. Check out the repo README for more details.</p>
+        <p>Please visit the repo for playable links: <a href="https://github.com/davesmith00000/roguelike-tutorial"><a href="https://github.com/davesmith00000/roguelike-tutorial">https://github.com/davesmith00000/roguelike-tutorial</a></a></p>
+        
+        <h3 id="the-cursed-pirate" class="section"><a class="anchor-link left" href="#the-cursed-pirate"><i class="icofont-laika link">&#xef71;</i></a>The Cursed Pirate</h3>
+        <p>A tiny little/limited platformer like demo originally built as a demo for a meetup talk:</p>
+        <p>Please visit the repo for a playable link: <a href="https://github.com/PurpleKingdomGames/pirate-demo"><a href="https://github.com/PurpleKingdomGames/pirate-demo">https://github.com/PurpleKingdomGames/pirate-demo</a></a></p>
+        
+        <h3 id="snake" class="section"><a class="anchor-link left" href="#snake"><i class="icofont-laika link">&#xef71;</i></a>Snake!</h3>
+        <p>The original &quot;does this thing work&quot; Indigo demo. A 1-bit Snake implementation.</p>
+        <p>Please visit the repo for a playable link: <a href="https://github.com/PurpleKingdomGames/snake-demo"><a href="https://github.com/PurpleKingdomGames/snake-demo">https://github.com/PurpleKingdomGames/snake-demo</a></a></p>
+        
+        <h3 id="snake-in-five-minutes" class="section"><a class="anchor-link left" href="#snake-in-five-minutes"><i class="icofont-laika link">&#xef71;</i></a>Snake! In five minutes!</h3>
+        <p>Another snake game, in the fewest number of lines possible!</p>
+        <p>Please visit the repo for a playable link: <a href="https://github.com/davesmith00000/snake-in-5-minutes-port"><a href="https://github.com/davesmith00000/snake-in-5-minutes-port">https://github.com/davesmith00000/snake-in-5-minutes-port</a></a></p>
+        
+        <h3 id="pong" class="section"><a class="anchor-link left" href="#pong"><i class="icofont-laika link">&#xef71;</i></a>Pong!</h3>
+        <p>A version of the classic Pong! game, created to test Indigo&#39;s new (and rather basic!) physics engine.</p>
+        <p>Please visit the repo for a playable link: <a href="https://github.com/davesmith00000/pong"><a href="https://github.com/davesmith00000/pong">https://github.com/davesmith00000/pong</a></a></p>
+        
+        <h3 id="shaders" class="section"><a class="anchor-link left" href="#shaders"><i class="icofont-laika link">&#xef71;</i></a>Shaders</h3>
+        <p>Please visit the <a href="https://ultraviolet.indigoengine.io/">Ultraviolet docs</a> and check out the examples with code and live demos!</p>
+
+        
+<hr class="footer-rule"/>
+<footer>
+  Site generated by <a href="https://typelevel.org/Laika/">Laika</a> with the Helium theme.
+</footer>
+
+
+      </main>
+
+    </div>
+
+  </body>
+
+</html>
