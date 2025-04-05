@@ -6,13 +6,11 @@ They are not always very polished, but they are small and reasonably easy to fol
 
 ## Examples
 
-Examples can all be found in the [indigo-examples](https://github.com/PurpleKingdomGames/indigo-examples) repo.
-
-Please visit the [repo](https://github.com/PurpleKingdomGames/indigo-examples) for more information.
+This documentation site contains examples that, while not exhaustive, are guaranteed to be up to date with the published version of Indigo highlighted in the docs themselves. As such, they are the best source of information on Indigo's features and how they work.
 
 ## Demos & References
 
-A slightly random collection of open source projects and demos you can use for reference.
+A slightly random collection of open source projects and demos you can use for reference. Be aware that unlike the examples in these docs, they will gradually fall out of date.
 
 ### Roguelike
 
@@ -52,6 +50,4 @@ Please visit the repo for a playable link: [https://github.com/davesmith00000/po
 
 ### Shaders
 
-A small work in progress selection of shaders written in Ultraviolet for Indigo.
-
-Please visit the repo for a viewable link: [https://github.com/davesmith00000/shaders](https://github.com/davesmith00000/shaders)
+Please visit the [Ultraviolet docs](https://ultraviolet.indigoengine.io/) and check out the examples with code and live demos!
