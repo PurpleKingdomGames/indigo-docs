@@ -228,7 +228,7 @@
       }
 
     </span><span class="type-name">World</span><span>
-      .</span><span class="identifier">empty</span><span>[</span><span class="type-name">MyTag</span><span>](</span><span class="type-name">SimulationSettings</span><span>(</span><span class="type-name">BoundingBox</span><span>(</span><span class="number-literal">0</span><span>, </span><span class="number-literal">0</span><span>, </span><span class="number-literal">800</span><span>, </span><span class="number-literal">600</span><span>)))
+      .</span><span class="identifier">empty</span><span>[</span><span class="type-name">MyTag</span><span>]
       .</span><span class="identifier">addForces</span><span>(</span><span class="type-name">Vector2</span><span>(</span><span class="number-literal">0</span><span>, </span><span class="number-literal">600</span><span>))
       .</span><span class="identifier">withResistance</span><span>(</span><span class="type-name">Resistance</span><span>(</span><span class="number-literal">0.01</span><span>))
       .</span><span class="identifier">withColliders</span><span>(</span><span class="identifier">staticCircles</span><span>)
@@ -265,17 +265,17 @@
     </span><span class="type-name">Outcome</span><span>(
       </span><span class="type-name">SceneUpdateFragment</span><span>(
         </span><span class="identifier">model</span><span>.</span><span class="identifier">world</span><span>.</span><span class="identifier">present</span><span> {
-          </span><span class="keyword">case</span><span> </span><span class="type-name">Collider</span><span>.</span><span class="type-name">Circle</span><span>(</span><span class="identifier">_</span><span>, </span><span class="identifier">bounds</span><span>, </span><span class="identifier">_</span><span>, </span><span class="identifier">_</span><span>, </span><span class="identifier">_</span><span>, </span><span class="identifier">_</span><span>, </span><span class="identifier">_</span><span>, </span><span class="identifier">_</span><span>, </span><span class="identifier">_</span><span>, </span><span class="identifier">_</span><span>) =&gt;
+          </span><span class="keyword">case</span><span> </span><span class="identifier">c</span><span>: </span><span class="type-name">Collider</span><span>.</span><span class="type-name">Circle</span><span>[</span><span class="identifier">_</span><span>] =&gt;
             </span><span class="type-name">Shape</span><span>.</span><span class="type-name">Circle</span><span>(
-              </span><span class="identifier">bounds</span><span>.</span><span class="identifier">position</span><span>.</span><span class="identifier">toPoint</span><span>,
-              </span><span class="identifier">bounds</span><span>.</span><span class="identifier">radius</span><span>.</span><span class="identifier">toInt</span><span>,
+              </span><span class="identifier">c</span><span>.</span><span class="identifier">bounds</span><span>.</span><span class="identifier">position</span><span>.</span><span class="identifier">toPoint</span><span>,
+              </span><span class="identifier">c</span><span>.</span><span class="identifier">bounds</span><span>.</span><span class="identifier">radius</span><span>.</span><span class="identifier">toInt</span><span>,
               </span><span class="type-name">Fill</span><span>.</span><span class="type-name">Color</span><span>(</span><span class="type-name">RGBA</span><span>.</span><span class="type-name">White</span><span>.</span><span class="identifier">withAlpha</span><span>(</span><span class="number-literal">0.2</span><span>)),
               </span><span class="type-name">Stroke</span><span>(</span><span class="number-literal">1</span><span>, </span><span class="type-name">RGBA</span><span>.</span><span class="type-name">White</span><span>)
             )
 
-          </span><span class="keyword">case</span><span> </span><span class="type-name">Collider</span><span>.</span><span class="type-name">Box</span><span>(</span><span class="identifier">_</span><span>, </span><span class="identifier">bounds</span><span>, </span><span class="identifier">_</span><span>, </span><span class="identifier">_</span><span>, </span><span class="identifier">_</span><span>, </span><span class="identifier">_</span><span>, </span><span class="identifier">_</span><span>, </span><span class="identifier">_</span><span>, </span><span class="identifier">_</span><span>, </span><span class="identifier">_</span><span>) =&gt;
+          </span><span class="keyword">case</span><span> </span><span class="identifier">c</span><span>: </span><span class="type-name">Collider</span><span>.</span><span class="type-name">Box</span><span>[</span><span class="identifier">_</span><span>] =&gt;
             </span><span class="type-name">Shape</span><span>.</span><span class="type-name">Box</span><span>(
-              </span><span class="identifier">bounds</span><span>.</span><span class="identifier">toRectangle</span><span>,
+              </span><span class="identifier">c</span><span>.</span><span class="identifier">bounds</span><span>.</span><span class="identifier">toRectangle</span><span>,
               </span><span class="type-name">Fill</span><span>.</span><span class="type-name">Color</span><span>(</span><span class="type-name">RGBA</span><span>.</span><span class="type-name">White</span><span>.</span><span class="identifier">withAlpha</span><span>(</span><span class="number-literal">0.2</span><span>)),
               </span><span class="type-name">Stroke</span><span>(</span><span class="number-literal">1</span><span>, </span><span class="type-name">RGBA</span><span>.</span><span class="type-name">White</span><span>)
             )

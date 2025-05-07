@@ -252,7 +252,7 @@
       </span><span class="type-name">Outcome</span><span>(</span><span class="identifier">model</span><span>)
 
     </span><span class="keyword">case</span><span> </span><span class="identifier">e</span><span> =&gt;
-      </span><span class="keyword">val</span><span> </span><span class="identifier">ctx</span><span> = </span><span class="type-name">UIContext</span><span>(</span><span class="identifier">context</span><span>)
+      </span><span class="keyword">val</span><span> </span><span class="identifier">ctx</span><span> = </span><span class="type-name">UIContext</span><span>(</span><span class="identifier">context</span><span>, </span><span class="number-literal">1</span><span>)
         .</span><span class="identifier">moveParentBy</span><span>(</span><span class="type-name">Coords</span><span>(</span><span class="number-literal">50</span><span>, </span><span class="number-literal">50</span><span>))
       </span><span class="comment">// .resizeParentTo(model.button.bounds.dimensions)
 </span><span>
@@ -264,7 +264,7 @@
         <p>To render the button we need to call the <code>present</code> method with, once again, and instance of
         UIContext, and provide the results to a SceneUpdateFragment.</p>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span>  </span><span class="keyword">def</span><span> </span><span class="declaration-name">present</span><span>(</span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>[</span><span class="type-name">Unit</span><span>], </span><span class="identifier">model</span><span>: </span><span class="type-name">Model</span><span>): </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">SceneUpdateFragment</span><span>] =
-    </span><span class="keyword">val</span><span> </span><span class="identifier">ctx</span><span> = </span><span class="type-name">UIContext</span><span>(</span><span class="identifier">context</span><span>)
+    </span><span class="keyword">val</span><span> </span><span class="identifier">ctx</span><span> = </span><span class="type-name">UIContext</span><span>(</span><span class="identifier">context</span><span>, </span><span class="number-literal">1</span><span>)
       .</span><span class="identifier">moveParentBy</span><span>(</span><span class="type-name">Coords</span><span>(</span><span class="number-literal">50</span><span>, </span><span class="number-literal">50</span><span>))
     </span><span class="comment">// .resizeParentTo(model.button.bounds.dimensions)
 </span><span>
