@@ -114,7 +114,7 @@ object Model:
       }
 
     World
-      .empty[MyTag](SimulationSettings(BoundingBox(0, 0, 800, 600)))
+      .empty[MyTag]
       .addForces(Vector2(0, 600))
       .withResistance(Resistance(0.01))
       .withColliders(staticCircles)
@@ -186,17 +186,17 @@ object BasicPhysicsExample extends IndigoSandbox[Unit, Model]:
     Outcome(
       SceneUpdateFragment(
         model.world.present {
-          case Collider.Circle(_, bounds, _, _, _, _, _, _, _, _) =>
+          case c: Collider.Circle[_] =>
             Shape.Circle(
-              bounds.position.toPoint,
-              bounds.radius.toInt,
+              c.bounds.position.toPoint,
+              c.bounds.radius.toInt,
               Fill.Color(RGBA.White.withAlpha(0.2)),
               Stroke(1, RGBA.White)
             )
 
-          case Collider.Box(_, bounds, _, _, _, _, _, _, _, _) =>
+          case c: Collider.Box[_] =>
             Shape.Box(
-              bounds.toRectangle,
+              c.bounds.toRectangle,
               Fill.Color(RGBA.White.withAlpha(0.2)),
               Stroke(1, RGBA.White)
             )

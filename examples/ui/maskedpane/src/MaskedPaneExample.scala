@@ -90,7 +90,7 @@ object MaskedPaneExample extends IndigoSandbox[Unit, Model]:
 
   def updateModel(context: Context[Unit], model: Model): GlobalEvent => Outcome[Model] =
     case e =>
-      val ctx = UIContext(context)
+      val ctx = UIContext(context, 1)
         .withMagnification(2)
         .moveParentBy(Coords(50, 50))
         .copy(reference = model.count)
@@ -107,7 +107,7 @@ object MaskedPaneExample extends IndigoSandbox[Unit, Model]:
     */
   // ```scala
   def present(context: Context[Unit], model: Model): Outcome[SceneUpdateFragment] =
-    val ctx = UIContext(context)
+    val ctx = UIContext(context, 1)
       .withMagnification(2)
       .moveParentBy(Coords(50, 50))
       .copy(reference = model.count)

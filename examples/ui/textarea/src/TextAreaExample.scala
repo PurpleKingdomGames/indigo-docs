@@ -65,7 +65,7 @@ object TextAreaExample extends IndigoSandbox[Unit, Model]:
 
   def updateModel(context: Context[Unit], model: Model): GlobalEvent => Outcome[Model] =
     case e =>
-      val ctx = UIContext(context)
+      val ctx = UIContext(context, 1)
         .moveParentBy(Coords(50, 50))
 
       model.component.update(ctx)(e).map { c =>
@@ -73,7 +73,7 @@ object TextAreaExample extends IndigoSandbox[Unit, Model]:
       }
 
   def present(context: Context[Unit], model: Model): Outcome[SceneUpdateFragment] =
-    val ctx = UIContext(context)
+    val ctx = UIContext(context, 1)
       .moveParentBy(Coords(50, 50))
 
     model.component

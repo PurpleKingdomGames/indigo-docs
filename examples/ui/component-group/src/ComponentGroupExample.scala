@@ -177,7 +177,7 @@ object ComponentGroupExample extends IndigoSandbox[Unit, Model]:
       Outcome(model)
 
     case e =>
-      val ctx = UIContext(context).moveParentBy(Coords(50, 50))
+      val ctx = UIContext(context, 1).moveParentBy(Coords(50, 50))
 
       model.components.update(ctx)(e).map { cl =>
         model.copy(components = cl)
@@ -191,7 +191,7 @@ object ComponentGroupExample extends IndigoSandbox[Unit, Model]:
     */
   // ``` scala
   def present(context: Context[Unit], model: Model): Outcome[SceneUpdateFragment] =
-    val ctx = UIContext(context).moveParentBy(Coords(50, 50))
+    val ctx = UIContext(context, 1).moveParentBy(Coords(50, 50))
 
     model.components
       .present(ctx)

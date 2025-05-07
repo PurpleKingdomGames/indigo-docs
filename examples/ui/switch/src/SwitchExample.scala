@@ -76,14 +76,14 @@ object SwitchExample extends IndigoSandbox[Unit, Model]:
       Outcome(model)
 
     case e =>
-      val ctx = UIContext(context).moveParentBy(Coords(50, 50))
+      val ctx = UIContext(context, 1).moveParentBy(Coords(50, 50))
 
       model.button.update(ctx)(e).map { b =>
         model.copy(button = b)
       }
 
   def present(context: Context[Unit], model: Model): Outcome[SceneUpdateFragment] =
-    val ctx = UIContext(context).moveParentBy(Coords(50, 50))
+    val ctx = UIContext(context, 1).moveParentBy(Coords(50, 50))
 
     model.button
       .present(ctx)

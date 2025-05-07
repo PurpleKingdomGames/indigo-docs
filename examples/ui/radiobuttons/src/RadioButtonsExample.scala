@@ -118,7 +118,7 @@ object RadioButtonsExample extends IndigoSandbox[Unit, Model]:
       Outcome(model.copy(num = value))
 
     case e =>
-      val ctx = UIContext(context)
+      val ctx = UIContext(context, 1)
         .moveParentBy(Coords(50, 50))
         .copy(reference = model.num)
 
@@ -127,7 +127,7 @@ object RadioButtonsExample extends IndigoSandbox[Unit, Model]:
       }
 
   def present(context: Context[Unit], model: Model): Outcome[SceneUpdateFragment] =
-    val ctx = UIContext(context)
+    val ctx = UIContext(context, 1)
       .moveParentBy(Coords(50, 50))
       .copy(reference = model.num)
 

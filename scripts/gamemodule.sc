@@ -3,12 +3,12 @@ import mill.scalalib._
 import mill.scalajslib._
 import mill.scalajslib.api._
 
-import $ivy.`io.indigoengine::mill-indigo:0.20.0`, indigoplugin._
+import $ivy.`io.indigoengine::mill-indigo:0.21.0`, indigoplugin._
 import $ivy.`org.typelevel::scalac-options:0.1.7`, org.typelevel.scalacoptions._
 
 trait GameModule extends MillIndigo {
-  def scalaVersion   = "3.6.3"
-  def scalaJSVersion = "1.18.2"
+  def scalaVersion   = "3.6.4"
+  def scalaJSVersion = "1.19.0"
 
   override def scalacOptions = T {
     val flags = super.scalacOptions() ++
@@ -70,7 +70,7 @@ trait GameModule extends MillIndigo {
       )
       .listAssets("Assets", indigoOptions.assets)
 
-  val indigoVersion = "0.20.0"
+  val indigoVersion = "0.21.0"
 
   def ivyDeps =
     Agg(
@@ -81,7 +81,7 @@ trait GameModule extends MillIndigo {
 
   object test extends ScalaJSTests {
     def ivyDeps = Agg(
-      ivy"org.scalameta::munit::1.1.0"
+      ivy"org.scalameta::munit::1.1.1"
     )
 
     override def moduleKind = T(mill.scalajslib.api.ModuleKind.CommonJSModule)

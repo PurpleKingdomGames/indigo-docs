@@ -145,7 +145,7 @@ object ButtonExample extends IndigoSandbox[Unit, Model]:
       Outcome(model)
 
     case e =>
-      val ctx = UIContext(context)
+      val ctx = UIContext(context, 1)
         .moveParentBy(Coords(50, 50))
       // .resizeParentTo(model.button.bounds.dimensions)
 
@@ -161,7 +161,7 @@ object ButtonExample extends IndigoSandbox[Unit, Model]:
     */
   // ``` scala
   def present(context: Context[Unit], model: Model): Outcome[SceneUpdateFragment] =
-    val ctx = UIContext(context)
+    val ctx = UIContext(context, 1)
       .moveParentBy(Coords(50, 50))
     // .resizeParentTo(model.button.bounds.dimensions)
 
