@@ -94,6 +94,11 @@ object examples extends mill.Module {
 
   object scenes extends mill.Module {
 
+    object minimal extends gamemodule.GameModule {
+      val indigoOptions: IndigoOptions =
+        makeIndigoOptions("Minimal Scene Example")
+    }
+
     object `scene-management` extends gamemodule.GameModule {
       val indigoOptions: IndigoOptions =
         makeIndigoOptions("Scene Management")
