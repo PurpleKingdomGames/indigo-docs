@@ -10,6 +10,34 @@ import indigoplugin._
 
 object examples extends mill.Module {
 
+  object `actors-and-performers` extends mill.Module {
+
+    object actors extends gamemodule.GameModule {
+      val indigoOptions: IndigoOptions =
+        makeIndigoOptions("Actors Example")
+          .withWindowSize(800, 600)
+    }
+
+    object `actors-with-physics` extends gamemodule.GameModule {
+      val indigoOptions: IndigoOptions =
+        makeIndigoOptions("Actors with Physics Example")
+          .withWindowSize(800, 600)
+    }
+
+    object performers extends gamemodule.GameModule {
+      val indigoOptions: IndigoOptions =
+        makeIndigoOptions("Performers Example")
+          .withWindowSize(800, 600)
+    }
+
+    object `performers-with-physics` extends gamemodule.GameModule {
+      val indigoOptions: IndigoOptions =
+        makeIndigoOptions("Performers with Physics Example")
+          .withWindowSize(800, 600)
+    }
+
+  }
+
   // This is the root directory of the workspace / project.
   private val workspaceDir: os.Path =
     sys.env

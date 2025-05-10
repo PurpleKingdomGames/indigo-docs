@@ -13,7 +13,7 @@ website:
     height: 50.0
   logo:
     image: indigo_logo.svg
-  latestRelease: 0.21.0
+  latestRelease: 0.21.1
   baseUrl: https://purplekingdomgames.github.io/indigo-docs/
   # baseUrl: http://127.0.0.1:8080/
 docsRepo:
