@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Typelevel Laika + Helium Theme" />
+  <title>Snake In 5 Minutes</title>
+  
+  
+  <meta name="description" content="An FP game engine for Scala."/>
+  
+  
+  
+  <link rel="icon" sizes="32x32" type="image/png" href="../../img/favicon.png"/>
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:500">
+  
+  <link rel="stylesheet" type="text/css" href="../../helium/site/icofont.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../helium/site/laika-helium.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/custom.css" />
+  <script src="../../helium/site/laika-helium.js"></script>
+  
+  
+  <script> /* for avoiding page load transitions */ </script>
+</head>
+
+  <body>
+
+    <header id="top-bar" class="light-default dark-default">
+
+  <div class="row">
+    <a id="nav-icon">
+      <i class="icofont-laika navigationMenu" title="Navigation">&#xefa2;</i>
+    </a>
+    
+    
+  </div>
+
+  <a class="image-link" href="../../documentation/"><img src="../../img/indigo_logo_solid_text.svg" alt="An FP game engine for Scala." title="Indigo" width="150" height="50"></a>
+
+  <div class="row links">
+    
+    <a class="button-link" href="https://purplekingdomgames.github.io/indigo-docs/_live_demos">Live Demos</a>
+    
+    <a class="button-link" href="https://discord.gg/b5CD47g">Discord</a>
+    
+    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigo">Github</a>
+    
+  </div>  
+
+</header>
+    
+    <nav id="sidebar">
+
+  <div class="row">
+    
+    <a class="button-link" href="https://purplekingdomgames.github.io/indigo-docs/_live_demos">Live Demos</a>
+    
+    <a class="button-link" href="https://discord.gg/b5CD47g">Discord</a>
+    
+    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigo">Github</a>
+    
+  </div>
+
+  <ul class="nav-list">
+    <li class="level1 nav-node"><a href="../../documentation/">Indigo</a></li>
+    <li class="level2 nav-header">Indigo</li>
+    <li class="level3 nav-leaf"><a href="../../documentation/key-concepts/model-viewmodel-view.html">Model, ViewModel, &amp; View</a></li>
+    <li class="level3 nav-leaf"><a href="../../documentation/key-concepts/performance.html">Performance</a></li>
+    <li class="level3 nav-leaf"><a href="../../documentation/key-concepts/making-games-testable.html">Making games testable</a></li>
+    <li class="level2 nav-header">Shaders</li>
+    <li class="level3 nav-leaf"><a href="../../documentation/shaders/shaders.html">Shaders</a></li>
+    <li class="level2 nav-header">Quick start</li>
+    <li class="level3 nav-leaf"><a href="../../documentation/quickstart/extensions-and-libs.html">Extensions, Libraries, and Related Projects</a></li>
+    <li class="level3 nav-leaf"><a href="../../documentation/quickstart/quickstart.html">Quick start</a></li>
+    <li class="level3 nav-leaf"><a href="../../documentation/quickstart/examples.html">Examples, Demos, and References</a></li>
+    <li class="level2 nav-header">General information</li>
+    <li class="level3 nav-leaf"><a href="../../documentation/misc/prior-art.html">Prior Art</a></li>
+    <li class="level3 nav-leaf"><a href="../../documentation/misc/motivation-and-constraints.html">Motivation &amp; Constraints</a></li>
+    <li class="level3 nav-leaf"><a href="../../documentation/misc/rendering-technology.html">Rendering Technology</a></li>
+    <li class="level1 nav-node"><a href="../">Demos</a></li>
+    <li class="level2 active nav-leaf"><a href="#">Snake In 5 Minutes</a></li>
+    <li class="level2 nav-leaf"><a href="../the-cursed-pirate/">The Cursed Pirate!</a></li>
+    <li class="level1 nav-node"><a href="../../guides/">Guides</a></li>
+    <li class="level2 nav-node"><a href="../../guides/actors/">Actors</a></li>
+    <li class="level3 nav-leaf"><a href="../../guides/actors/actors-with-physics/">How to use physics with actors</a></li>
+    <li class="level2 nav-node"><a href="../../guides/importers/">Importers</a></li>
+    <li class="level3 nav-leaf"><a href="../../guides/importers/tiled-loaded/">Loading Tiled maps at runtime</a></li>
+    <li class="level2 nav-node"><a href="../../guides/scenes/">Scenes</a></li>
+    <li class="level3 nav-leaf"><a href="../../guides/scenes/scene-management/">Managing scenes</a></li>
+    <li class="level2 nav-node"><a href="../../guides/ui/">Ui</a></li>
+    <li class="level3 nav-leaf"><a href="../../guides/ui/radiobuttons/">How to make radio buttons</a></li>
+    <li class="level1 nav-node"><a href="../../features/">Features</a></li>
+    <li class="level2 nav-node"><a href="../../features/actors-and-performers/">Actors-and-performers</a></li>
+    <li class="level3 nav-leaf"><a href="../../features/actors-and-performers/performers/">Performers</a></li>
+    <li class="level3 nav-leaf"><a href="../../features/actors-and-performers/performers-with-physics/">Performers &amp; Physics</a></li>
+    <li class="level3 nav-leaf"><a href="../../features/actors-and-performers/actors/">Actors</a></li>
+    <li class="level2 nav-node"><a href="../../features/physics/">Physics</a></li>
+    <li class="level3 nav-leaf"><a href="../../features/physics/basics/">Basic Physics Example</a></li>
+    <li class="level2 nav-node"><a href="../../features/shaders/">Shaders</a></li>
+    <li class="level3 nav-leaf"><a href="../../features/shaders/basic/">A basic custom shader</a></li>
+    <li class="level2 nav-node"><a href="../../features/primitives/">Primitives</a></li>
+    <li class="level3 nav-leaf"><a href="../../features/primitives/text/">Text</a></li>
+    <li class="level3 nav-leaf"><a href="../../features/primitives/graphic/">Graphic</a></li>
+    <li class="level2 nav-node"><a href="../../features/materials/">Materials</a></li>
+    <li class="level3 nav-leaf"><a href="../../features/materials/imageeffects/">ImageEffects material</a></li>
+    <li class="level3 nav-leaf"><a href="../../features/materials/bitmap/">Bitmap material</a></li>
+    <li class="level3 nav-leaf"><a href="../../features/materials/filltypes/">Fill Types</a></li>
+    <li class="level2 nav-node"><a href="../../features/scenes/">Scenes</a></li>
+    <li class="level3 nav-leaf"><a href="../../features/scenes/minimal/">Minimal scene example</a></li>
+    <li class="level2 nav-node"><a href="../../features/ui/">Ui</a></li>
+    <li class="level3 nav-leaf"><a href="../../features/ui/hitarea/">UI Components: HitArea</a></li>
+    <li class="level3 nav-leaf"><a href="../../features/ui/custom/">UI Components: Custom Components</a></li>
+    <li class="level3 nav-leaf"><a href="../../features/ui/switch/">UI Components: Switch</a></li>
+    <li class="level3 nav-leaf"><a href="../../features/ui/scrollpane/">UI Components: Scroll Pane</a></li>
+    <li class="level3 nav-leaf"><a href="../../features/ui/component-group/">UI Components: Component Group</a></li>
+    <li class="level3 nav-leaf"><a href="../../features/ui/window/">UI Components: Windows</a></li>
+    <li class="level3 nav-leaf"><a href="../../features/ui/component-list/">UI Components: Component List</a></li>
+    <li class="level3 nav-leaf"><a href="../../features/ui/button/">UI Components: Button</a></li>
+    <li class="level3 nav-leaf"><a href="../../features/ui/textarea/">UI Components: TextArea</a></li>
+    <li class="level3 nav-leaf"><a href="../../features/ui/label/">UI Components: Label</a></li>
+    <li class="level3 nav-leaf"><a href="../../features/ui/input/">UI Components: Input</a></li>
+    <li class="level3 nav-leaf"><a href="../../features/ui/maskedpane/">UI Components: Masked Pane</a></li>
+  </ul>
+
+</nav>
+
+    <div id="container">
+
+      
+<nav id="page-nav">
+  <p class="header"><a href="#">Snake In 5 Minutes</a></p>
+
+  <ul class="nav-list">
+    <li class="level1 nav-leaf"><a href="#input-lag">Input Lag</a></li>
+    <li class="level1 nav-leaf"><a href="#details">Details</a></li>
+    <li class="level1 nav-leaf"><a href="#original-html-js-source-code">Original HTML/JS source code</a></li>
+    <li class="level1 nav-leaf"><a href="#example-links">Example Links</a></li>
+  </ul>
+
+  <p class="footer"></p>
+</nav>
+
+
+      <main class="content">
+
+        <h1 id="snake-in-5-minutes" class="title">Snake In 5 Minutes</h1>
+        <p><img src="../../img/snake-in-5-minutes.png" alt="Snake in 5 Minutes"></p>
+        <p>This version of Snake is a port of a version of Snake written in JavaScript in <em>5 minutes</em>, checkout the video - you&#39;ve got 5 minutes right?</p>
+        <p><a href="https://www.youtube.com/watch?v=xGmXxpIj6vs"><a href="https://www.youtube.com/watch?v=xGmXxpIj6vs">https://www.youtube.com/watch?v=xGmXxpIj6vs</a></a></p>
+        <p>Not only that but the author, <a href="https://twitter.com/ChrisDeLeon">Chris DeLeon</a> of <a href="https://twitter.com/HomeTeamGameDev">HomeTeam GameDev</a>, also kindly <a href="https://pastebin.com/Z3zhb7cY">posted the source code</a> - all 69 lines of it! I&#39;ve included it below for reference.</p>
+        <p>The JS below is not supposed to be good code as Chris points out in his video, it is not designed to be readable or extensible or bug free or anything like that - it&#39;s just bashing out a prototype in 5 minutes.</p>
+        <p><strong><em>But it&#39;s still bloody impressive!</em></strong></p>
+        <p>Anyway, ignoring the insane time factor, I found the terseness of it really interesting and wondered what it would look like if it was ported to <a href="https://indigoengine.io/">Indigo</a>.</p>
+        
+        <h3 id="input-lag" class="section"><a class="anchor-link left" href="#input-lag"><i class="icofont-laika link">&#xef71;</i></a>Input Lag</h3>
+        <p>One difference you might notice between the two is that the Indigo version appears to have input lag, or conversely, the JS version feels more responsive ...and that&#39;s because it is.</p>
+        <p>In the JS version, the velocity values are updated outside of the game loop instantly on keyboard event. You can do that sort of thing with a mutable model, but do watch out for <a href="https://www.youtube.com/watch?v=DfLvDFxcAIA">accidental concurrency</a>.</p>
+        <p>Indigo on the other hand is only processing those events at the next frame update every 15th of a second - 66 milliseconds - a huge amount of time between pressing the key and responding! Speculatively, the solution would probably be to increase the games frame rate to 60 FPS, but throttle snake model updates to happen every 15 FPS.</p>
+        
+        <h2 id="details" class="section"><a class="anchor-link left" href="#details"><i class="icofont-laika link">&#xef71;</i></a>Details</h2>
+        <p>Porting it wasn&#39;t completely straight forward, the main things to do were:</p>
+        <ol class="arabic">
+          <li>Decoupling the view from the model - not so hard just required a bit of care.</li>
+          <li>Adapting the logic to an immutable functional style.</li>
+          <li>Some renaming and better use of types.</li>
+        </ol>
+        <p>Considerably more than five minutes was spent porting this from JS. :-)</p>
+        
+        <h2 id="original-html-js-source-code" class="section"><a class="anchor-link left" href="#original-html-js-source-code"><i class="icofont-laika link">&#xef71;</i></a>Original HTML/JS source code</h2>
+        <pre><code class="nohighlight"><span>&lt;</span><span class="identifier">canvas</span><span> </span><span class="identifier">id</span><span>=</span><span class="string-literal">&quot;gc&quot;</span><span> </span><span class="identifier">width</span><span>=</span><span class="string-literal">&quot;400&quot;</span><span> </span><span class="identifier">height</span><span>=</span><span class="string-literal">&quot;400&quot;</span><span>&gt;&lt;/</span><span class="identifier">canvas</span><span>&gt;
+&lt;</span><span class="identifier">script</span><span>&gt;
+</span><span class="identifier">window</span><span>.</span><span class="identifier">onload</span><span>=</span><span class="keyword">function</span><span>() {
+	</span><span class="identifier">canv</span><span>=</span><span class="identifier">document</span><span>.</span><span class="identifier">getElementById</span><span>(</span><span class="string-literal">&quot;gc&quot;</span><span>);
+	</span><span class="identifier">ctx</span><span>=</span><span class="identifier">canv</span><span>.</span><span class="identifier">getContext</span><span>(</span><span class="string-literal">&quot;2d&quot;</span><span>);
+	</span><span class="identifier">document</span><span>.</span><span class="identifier">addEventListener</span><span>(</span><span class="string-literal">&quot;keydown&quot;</span><span>,</span><span class="identifier">keyPush</span><span>);
+	</span><span class="identifier">setInterval</span><span>(</span><span class="identifier">game</span><span>,</span><span class="number-literal">1000</span><span>/</span><span class="number-literal">15</span><span>);
+}
+</span><span class="identifier">px</span><span>=</span><span class="identifier">py</span><span>=</span><span class="number-literal">10</span><span>;
+</span><span class="identifier">gs</span><span>=</span><span class="identifier">tc</span><span>=</span><span class="number-literal">20</span><span>;
+</span><span class="identifier">ax</span><span>=</span><span class="identifier">ay</span><span>=</span><span class="number-literal">15</span><span>;
+</span><span class="identifier">xv</span><span>=</span><span class="identifier">yv</span><span>=</span><span class="number-literal">0</span><span>;
+</span><span class="identifier">trail</span><span>=[];
+</span><span class="identifier">tail</span><span> = </span><span class="number-literal">5</span><span>;
+</span><span class="keyword">function</span><span> </span><span class="identifier">game</span><span>() {
+	</span><span class="identifier">px</span><span>+=</span><span class="identifier">xv</span><span>;
+	</span><span class="identifier">py</span><span>+=</span><span class="identifier">yv</span><span>;
+	</span><span class="keyword">if</span><span>(</span><span class="identifier">px</span><span>&lt;</span><span class="number-literal">0</span><span>) {
+		</span><span class="identifier">px</span><span>= </span><span class="identifier">tc</span><span>-</span><span class="number-literal">1</span><span>;
+	}
+	</span><span class="keyword">if</span><span>(</span><span class="identifier">px</span><span>&gt;</span><span class="identifier">tc</span><span>-</span><span class="number-literal">1</span><span>) {
+		</span><span class="identifier">px</span><span>= </span><span class="number-literal">0</span><span>;
+	}
+	</span><span class="keyword">if</span><span>(</span><span class="identifier">py</span><span>&lt;</span><span class="number-literal">0</span><span>) {
+		</span><span class="identifier">py</span><span>= </span><span class="identifier">tc</span><span>-</span><span class="number-literal">1</span><span>;
+	}
+	</span><span class="keyword">if</span><span>(</span><span class="identifier">py</span><span>&gt;</span><span class="identifier">tc</span><span>-</span><span class="number-literal">1</span><span>) {
+		</span><span class="identifier">py</span><span>= </span><span class="number-literal">0</span><span>;
+	}
+	</span><span class="identifier">ctx</span><span>.</span><span class="identifier">fillStyle</span><span>=</span><span class="string-literal">&quot;black&quot;</span><span>;
+	</span><span class="identifier">ctx</span><span>.</span><span class="identifier">fillRect</span><span>(</span><span class="number-literal">0</span><span>,</span><span class="number-literal">0</span><span>,</span><span class="identifier">canv</span><span>.</span><span class="identifier">width</span><span>,</span><span class="identifier">canv</span><span>.</span><span class="identifier">height</span><span>);
+
+	</span><span class="identifier">ctx</span><span>.</span><span class="identifier">fillStyle</span><span>=</span><span class="string-literal">&quot;lime&quot;</span><span>;
+	</span><span class="keyword">for</span><span>(</span><span class="keyword">var</span><span> </span><span class="identifier">i</span><span>=</span><span class="number-literal">0</span><span>;</span><span class="identifier">i</span><span>&lt;</span><span class="identifier">trail</span><span>.</span><span class="identifier">length</span><span>;</span><span class="identifier">i</span><span>++) {
+		</span><span class="identifier">ctx</span><span>.</span><span class="identifier">fillRect</span><span>(</span><span class="identifier">trail</span><span>[</span><span class="identifier">i</span><span>].</span><span class="identifier">x</span><span>*</span><span class="identifier">gs</span><span>,</span><span class="identifier">trail</span><span>[</span><span class="identifier">i</span><span>].</span><span class="identifier">y</span><span>*</span><span class="identifier">gs</span><span>,</span><span class="identifier">gs</span><span>-</span><span class="number-literal">2</span><span>,</span><span class="identifier">gs</span><span>-</span><span class="number-literal">2</span><span>);
+		</span><span class="keyword">if</span><span>(</span><span class="identifier">trail</span><span>[</span><span class="identifier">i</span><span>].</span><span class="identifier">x</span><span>==</span><span class="identifier">px</span><span> &amp;&amp; </span><span class="identifier">trail</span><span>[</span><span class="identifier">i</span><span>].</span><span class="identifier">y</span><span>==</span><span class="identifier">py</span><span>) {
+			</span><span class="identifier">tail</span><span> = </span><span class="number-literal">5</span><span>;
+		}
+	}
+	</span><span class="identifier">trail</span><span>.</span><span class="identifier">push</span><span>({</span><span class="identifier">x</span><span>:</span><span class="identifier">px</span><span>,</span><span class="identifier">y</span><span>:</span><span class="identifier">py</span><span>});
+	</span><span class="keyword">while</span><span>(</span><span class="identifier">trail</span><span>.</span><span class="identifier">length</span><span>&gt;</span><span class="identifier">tail</span><span>) {
+	</span><span class="identifier">trail</span><span>.</span><span class="identifier">shift</span><span>();
+	}
+
+	</span><span class="keyword">if</span><span>(</span><span class="identifier">ax</span><span>==</span><span class="identifier">px</span><span> &amp;&amp; </span><span class="identifier">ay</span><span>==</span><span class="identifier">py</span><span>) {
+		</span><span class="identifier">tail</span><span>++;
+		</span><span class="identifier">ax</span><span>=</span><span class="identifier">Math</span><span>.</span><span class="identifier">floor</span><span>(</span><span class="identifier">Math</span><span>.</span><span class="identifier">random</span><span>()*</span><span class="identifier">tc</span><span>);
+		</span><span class="identifier">ay</span><span>=</span><span class="identifier">Math</span><span>.</span><span class="identifier">floor</span><span>(</span><span class="identifier">Math</span><span>.</span><span class="identifier">random</span><span>()*</span><span class="identifier">tc</span><span>);
+	}
+	</span><span class="identifier">ctx</span><span>.</span><span class="identifier">fillStyle</span><span>=</span><span class="string-literal">&quot;red&quot;</span><span>;
+	</span><span class="identifier">ctx</span><span>.</span><span class="identifier">fillRect</span><span>(</span><span class="identifier">ax</span><span>*</span><span class="identifier">gs</span><span>,</span><span class="identifier">ay</span><span>*</span><span class="identifier">gs</span><span>,</span><span class="identifier">gs</span><span>-</span><span class="number-literal">2</span><span>,</span><span class="identifier">gs</span><span>-</span><span class="number-literal">2</span><span>);
+}
+</span><span class="keyword">function</span><span> </span><span class="identifier">keyPush</span><span>(</span><span class="identifier">evt</span><span>) {
+	</span><span class="keyword">switch</span><span>(</span><span class="identifier">evt</span><span>.</span><span class="identifier">keyCode</span><span>) {
+		</span><span class="keyword">case</span><span> </span><span class="number-literal">37</span><span>:
+			</span><span class="identifier">xv</span><span>=-</span><span class="number-literal">1</span><span>;</span><span class="identifier">yv</span><span>=</span><span class="number-literal">0</span><span>;
+			</span><span class="keyword">break</span><span>;
+		</span><span class="keyword">case</span><span> </span><span class="number-literal">38</span><span>:
+			</span><span class="identifier">xv</span><span>=</span><span class="number-literal">0</span><span>;</span><span class="identifier">yv</span><span>=-</span><span class="number-literal">1</span><span>;
+			</span><span class="keyword">break</span><span>;
+		</span><span class="keyword">case</span><span> </span><span class="number-literal">39</span><span>:
+			</span><span class="identifier">xv</span><span>=</span><span class="number-literal">1</span><span>;</span><span class="identifier">yv</span><span>=</span><span class="number-literal">0</span><span>;
+			</span><span class="keyword">break</span><span>;
+		</span><span class="keyword">case</span><span> </span><span class="number-literal">40</span><span>:
+			</span><span class="identifier">xv</span><span>=</span><span class="number-literal">0</span><span>;</span><span class="identifier">yv</span><span>=</span><span class="number-literal">1</span><span>;
+			</span><span class="keyword">break</span><span>;
+	}
+}
+&lt;/</span><span class="identifier">script</span><span>&gt;</span></code></pre>
+        
+        <h2 id="example-links" class="section"><a class="anchor-link left" href="#example-links"><i class="icofont-laika link">&#xef71;</i></a>Example Links</h2>
+        <ul>
+          <li><a href="https://github.com/PurpleKingdomGames/indigo-docs/blob/main/demos/snake-in-5-minutes">View example code</a></li>
+        </ul>
+        <ul>
+          <li><a href="https://purplekingdomgames.github.io/indigo-docs//_live_demos/demos/snake-in-5-minutes/">Live demo</a></li>
+        </ul>
+
+        
+<hr class="footer-rule"/>
+<footer>
+  Site generated by <a href="https://typelevel.org/Laika/">Laika</a> with the Helium theme.
+</footer>
+
+
+      </main>
+
+    </div>
+
+  </body>
+
+</html>
