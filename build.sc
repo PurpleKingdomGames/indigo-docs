@@ -8,19 +8,65 @@ import $file.scripts.gamemodule
 
 import indigoplugin._
 
-object examples extends mill.Module {
+object demos extends mill.Module {
+
+  // This is the root directory of the workspace / project.
+  private val workspaceDir: os.Path =
+    sys.env
+      .get("MILL_WORKSPACE_ROOT")
+      .map(os.Path(_))
+      .getOrElse(os.pwd)
+
+  object `snake-in-5-minutes` extends gamemodule.GameModule {
+    val indigoOptions: IndigoOptions =
+      makeIndigoOptions("Snake in 5 minutes")
+        .withWindowSize(400, 400)
+  }
+
+  object `the-cursed-pirate` extends gamemodule.GameModule {
+
+    val indigoOptions: IndigoOptions =
+      makeIndigoOptions("The Cursed Pirate")
+        .withTitle("The Cursed Pirate")
+        .withWindowWidth(1280)
+        .withWindowHeight(720)
+        .withBackgroundColor("black")
+        .withAssetDirectory(os.RelPath("demos/the-cursed-pirate/assets"))
+        .excludeAssetPaths {
+          case p if p.contains("unused")                       => true
+          case p if p.contains("Captain Clown Nose Data.json") => true
+        }
+
+    override def indigoGenerators: IndigoGenerators =
+      IndigoGenerators("pirate.generated")
+        .listAssets("Assets", indigoOptions.assets)
+        .generateConfig("Config", indigoOptions)
+        .embedAseprite(
+          "CaptainAnim",
+          workspaceDir / "demos" / "the-cursed-pirate" / "assets" / "captain" / "Captain Clown Nose Data.json"
+        )
+
+    override def ivyDeps = T {
+      super.ivyDeps() ++ Agg(ivy"org.scalacheck::scalacheck:1.15.3")
+    }
+  }
+
+}
+
+object features extends mill.Module {
+
+  // This is the root directory of the workspace / project.
+  private val workspaceDir: os.Path =
+    sys.env
+      .get("MILL_WORKSPACE_ROOT")
+      .map(os.Path(_))
+      .getOrElse(os.pwd)
 
   object `actors-and-performers` extends mill.Module {
 
     object actors extends gamemodule.GameModule {
       val indigoOptions: IndigoOptions =
         makeIndigoOptions("Actors Example")
-          .withWindowSize(800, 600)
-    }
-
-    object `actors-with-physics` extends gamemodule.GameModule {
-      val indigoOptions: IndigoOptions =
-        makeIndigoOptions("Actors with Physics Example")
           .withWindowSize(800, 600)
     }
 
@@ -34,22 +80,6 @@ object examples extends mill.Module {
       val indigoOptions: IndigoOptions =
         makeIndigoOptions("Performers with Physics Example")
           .withWindowSize(800, 600)
-    }
-
-  }
-
-  // This is the root directory of the workspace / project.
-  private val workspaceDir: os.Path =
-    sys.env
-      .get("MILL_WORKSPACE_ROOT")
-      .map(os.Path(_))
-      .getOrElse(os.pwd)
-
-  object importers extends mill.Module {
-
-    object `tiled-loaded` extends gamemodule.GameModule {
-      val indigoOptions: IndigoOptions =
-        makeIndigoOptions("Tiled (Loaded)")
     }
 
   }
@@ -127,11 +157,6 @@ object examples extends mill.Module {
         makeIndigoOptions("Minimal Scene Example")
     }
 
-    object `scene-management` extends gamemodule.GameModule {
-      val indigoOptions: IndigoOptions =
-        makeIndigoOptions("Scene Management")
-    }
-
   }
 
   object shaders extends mill.Module {
@@ -185,11 +210,6 @@ object examples extends mill.Module {
         makeIndigoOptions("UI Components - MaskedPane")
     }
 
-    object radiobuttons extends gamemodule.GameModule {
-      val indigoOptions: IndigoOptions =
-        makeIndigoOptions("UI Components - Radio buttons")
-    }
-
     object scrollpane extends gamemodule.GameModule {
       val indigoOptions: IndigoOptions =
         makeIndigoOptions("UI Components - ScrollPane")
@@ -208,6 +228,54 @@ object examples extends mill.Module {
     object window extends gamemodule.GameModule {
       val indigoOptions: IndigoOptions =
         makeIndigoOptions("UI Components - Window")
+    }
+
+  }
+
+}
+
+object guides extends mill.Module {
+
+  // This is the root directory of the workspace / project.
+  private val workspaceDir: os.Path =
+    sys.env
+      .get("MILL_WORKSPACE_ROOT")
+      .map(os.Path(_))
+      .getOrElse(os.pwd)
+
+  object actors extends mill.Module {
+
+    object `actors-with-physics` extends gamemodule.GameModule {
+      val indigoOptions: IndigoOptions =
+        makeIndigoOptions("Actors with Physics Example")
+          .withWindowSize(800, 600)
+    }
+
+  }
+
+  object importers extends mill.Module {
+
+    object `tiled-loaded` extends gamemodule.GameModule {
+      val indigoOptions: IndigoOptions =
+        makeIndigoOptions("Tiled (Loaded)")
+    }
+
+  }
+
+  object scenes extends mill.Module {
+
+    object `scene-management` extends gamemodule.GameModule {
+      val indigoOptions: IndigoOptions =
+        makeIndigoOptions("Scene Management")
+    }
+
+  }
+
+  object ui extends mill.Module {
+
+    object radiobuttons extends gamemodule.GameModule {
+      val indigoOptions: IndigoOptions =
+        makeIndigoOptions("UI Components - Radio buttons")
     }
 
   }

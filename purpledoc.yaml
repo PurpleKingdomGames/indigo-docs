@@ -16,6 +16,11 @@ website:
   latestRelease: 0.21.1
   baseUrl: https://purplekingdomgames.github.io/indigo-docs/
   # baseUrl: http://127.0.0.1:8080/
+  navigationOrder:
+    - documentation
+    - demos
+    - guides
+    - features
 docsRepo:
   name: Docs
   url: https://github.com/PurpleKingdomGames/indigo-docs
