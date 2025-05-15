@@ -17,17 +17,39 @@ object demos extends mill.Module {
       .map(os.Path(_))
       .getOrElse(os.pwd)
 
+  object snake extends gamemodule.GameModule {
+
+    val indigoOptions: IndigoOptions =
+      makeIndigoOptions("Snake - Made with Indigo")
+        .withWindowWidth(720)
+        .withWindowHeight(516)
+        .withBackgroundColor("black")
+        .withAssetDirectory(os.RelPath("demos/snake/assets"))
+        .excludeAssets {
+          case p if p.startsWith(os.RelPath("asset_dev")) => true
+          case _                                          => false
+        }
+
+    override def indigoGenerators: IndigoGenerators =
+      IndigoGenerators("snake.generated")
+        .listAssets("Assets", indigoOptions.assets)
+        .generateConfig("SnakeConfig", indigoOptions)
+
+    override def ivyDeps = T {
+      super.ivyDeps() ++ Agg(ivy"org.scalacheck::scalacheck:1.15.3")
+    }
+  }
+
   object `snake-in-5-minutes` extends gamemodule.GameModule {
     val indigoOptions: IndigoOptions =
-      makeIndigoOptions("Snake in 5 minutes")
+      makeIndigoOptions("Snake in 5 minutes - Made with Indigo")
         .withWindowSize(400, 400)
   }
 
   object `the-cursed-pirate` extends gamemodule.GameModule {
 
     val indigoOptions: IndigoOptions =
-      makeIndigoOptions("The Cursed Pirate")
-        .withTitle("The Cursed Pirate")
+      makeIndigoOptions("The Cursed Pirate - Made with Indigo")
         .withWindowWidth(1280)
         .withWindowHeight(720)
         .withBackgroundColor("black")
