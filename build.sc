@@ -275,6 +275,33 @@ object guides extends mill.Module {
 
   }
 
+  object assets extends mill.Module {
+
+    object preloader extends gamemodule.GameModule {
+
+      val indigoOptions: IndigoOptions =
+        makeIndigoOptions("Preloader / Loading Screen Example")
+          .withWindowWidth(1280)
+          .withWindowHeight(720)
+          .withBackgroundColor("black")
+          .withAssetDirectory(os.RelPath("guides/assets/preloader/assets"))
+          .excludeAssetPaths {
+            case p if p.contains("unused")                       => true
+            case p if p.contains("Captain Clown Nose Data.json") => true
+          }
+  
+      override def indigoGenerators: IndigoGenerators =
+        IndigoGenerators("preloader.generated")
+          .listAssets("Assets", indigoOptions.assets)
+          .generateConfig("Config", indigoOptions)
+          .embedAseprite(
+            "CaptainAnim",
+            workspaceDir / "guides" / "assets" / "preloader" / "assets" / "captain" / "Captain Clown Nose Data.json"
+          )
+
+    }
+  }
+
   object importers extends mill.Module {
 
     object `tiled-loaded` extends gamemodule.GameModule {
