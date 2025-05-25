@@ -106,6 +106,11 @@ object features extends mill.Module {
 
   }
 
+  object context extends gamemodule.GameModule {
+    val indigoOptions: IndigoOptions =
+      makeIndigoOptions("Context Example")
+  }
+
   object materials extends mill.Module {
 
     object bitmap extends gamemodule.GameModule {
