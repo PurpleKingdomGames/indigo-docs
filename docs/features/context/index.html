@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Typelevel Laika + Helium Theme" />
+  <title>Context</title>
+  
+  
+  <meta name="description" content="An FP game engine for Scala."/>
+  
+  
+  
+  <link rel="icon" sizes="32x32" type="image/png" href="../../img/favicon.png"/>
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:500">
+  
+  <link rel="stylesheet" type="text/css" href="../../helium/site/icofont.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../helium/site/laika-helium.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/custom.css" />
+  <script src="../../helium/site/laika-helium.js"></script>
+  
+  
+  <script> /* for avoiding page load transitions */ </script>
+</head>
+
+  <body>
+
+    <header id="top-bar" class="light-default dark-default">
+
+  <div class="row">
+    <a id="nav-icon">
+      <i class="icofont-laika navigationMenu" title="Navigation">&#xefa2;</i>
+    </a>
+    
+    
+  </div>
+
+  <a class="image-link" href="../../documentation/"><img src="../../img/indigo_logo_solid_text.svg" alt="An FP game engine for Scala." title="Indigo" width="150" height="50"></a>
+
+  <div class="row links">
+    
+    <a class="button-link" href="https://purplekingdomgames.github.io/indigo-docs/live_demos">Live Demos</a>
+    
+    <a class="button-link" href="https://discord.gg/b5CD47g">Discord</a>
+    
+    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigo">Github</a>
+    
+  </div>  
+
+</header>
+    
+    <nav id="sidebar">
+
+  <div class="row">
+    
+    <a class="button-link" href="https://purplekingdomgames.github.io/indigo-docs/live_demos">Live Demos</a>
+    
+    <a class="button-link" href="https://discord.gg/b5CD47g">Discord</a>
+    
+    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigo">Github</a>
+    
+  </div>
+
+  <ul class="nav-list">
+    <li class="level1 nav-node"><a href="../../documentation/">Indigo</a></li>
+    <li class="level2 nav-header">Indigo</li>
+    <li class="level3 nav-leaf"><a href="../../documentation/key-concepts/model-viewmodel-view.html">Model, ViewModel, &amp; View</a></li>
+    <li class="level3 nav-leaf"><a href="../../documentation/key-concepts/performance.html">Performance</a></li>
+    <li class="level3 nav-leaf"><a href="../../documentation/key-concepts/making-games-testable.html">Making games testable</a></li>
+    <li class="level2 nav-header">Shaders</li>
+    <li class="level3 nav-leaf"><a href="../../documentation/shaders/shaders.html">Shaders</a></li>
+    <li class="level2 nav-header">Quick start</li>
+    <li class="level3 nav-leaf"><a href="../../documentation/quickstart/extensions-and-libs.html">Extensions, Libraries, and Related Projects</a></li>
+    <li class="level3 nav-leaf"><a href="../../documentation/quickstart/quickstart.html">Quick start</a></li>
+    <li class="level3 nav-leaf"><a href="../../documentation/quickstart/examples.html">Examples, Demos, and References</a></li>
+    <li class="level2 nav-header">General information</li>
+    <li class="level3 nav-leaf"><a href="../../documentation/misc/prior-art.html">Prior Art</a></li>
+    <li class="level3 nav-leaf"><a href="../../documentation/misc/motivation-and-constraints.html">Motivation &amp; Constraints</a></li>
+    <li class="level3 nav-leaf"><a href="../../documentation/misc/rendering-technology.html">Rendering Technology</a></li>
+    <li class="level3 nav-leaf"><a href="../../documentation/misc/indigo-vs-elm.html">Indigo vs Elm</a></li>
+    <li class="level1 nav-node"><a href="../../demos/">Demos</a></li>
+    <li class="level2 nav-leaf"><a href="../../demos/snake/">Snake!</a></li>
+    <li class="level2 nav-leaf"><a href="../../demos/snake-in-5-minutes/">Snake In 5 Minutes</a></li>
+    <li class="level2 nav-leaf"><a href="../../demos/the-cursed-pirate/">The Cursed Pirate!</a></li>
+    <li class="level1 nav-node"><a href="../../guides/">Guides</a></li>
+    <li class="level2 nav-node"><a href="../../guides/assets/">Assets</a></li>
+    <li class="level3 nav-leaf"><a href="../../guides/assets/preloader/">Preloader / Loading Screens</a></li>
+    <li class="level2 nav-node"><a href="../../guides/actors/">Actors</a></li>
+    <li class="level3 nav-leaf"><a href="../../guides/actors/actors-with-physics/">How to use physics with actors</a></li>
+    <li class="level2 nav-node"><a href="../../guides/importers/">Importers</a></li>
+    <li class="level3 nav-leaf"><a href="../../guides/importers/tiled-loaded/">Loading Tiled maps at runtime</a></li>
+    <li class="level2 nav-node"><a href="../../guides/scenes/">Scenes</a></li>
+    <li class="level3 nav-leaf"><a href="../../guides/scenes/scene-management/">Managing scenes</a></li>
+    <li class="level2 nav-node"><a href="../../guides/ui/">Ui</a></li>
+    <li class="level3 nav-leaf"><a href="../../guides/ui/radiobuttons/">How to make radio buttons</a></li>
+    <li class="level1 nav-node"><a href="../">Features</a></li>
+    <li class="level2 nav-node"><a href="../actors-and-performers/">Actors-and-performers</a></li>
+    <li class="level3 nav-leaf"><a href="../actors-and-performers/performers/">Performers</a></li>
+    <li class="level3 nav-leaf"><a href="../actors-and-performers/performers-with-physics/">Performers &amp; Physics</a></li>
+    <li class="level3 nav-leaf"><a href="../actors-and-performers/actors/">Actors</a></li>
+    <li class="level2 nav-node"><a href="../physics/">Physics</a></li>
+    <li class="level3 nav-leaf"><a href="../physics/basics/">Basic Physics Example</a></li>
+    <li class="level2 nav-node"><a href="../shaders/">Shaders</a></li>
+    <li class="level3 nav-leaf"><a href="../shaders/basic/">A basic custom shader</a></li>
+    <li class="level2 nav-node"><a href="../primitives/">Primitives</a></li>
+    <li class="level3 nav-leaf"><a href="../primitives/text/">Text</a></li>
+    <li class="level3 nav-leaf"><a href="../primitives/graphic/">Graphic</a></li>
+    <li class="level3 nav-node"><a href="../primitives/shapes/">Shapes</a></li>
+    <li class="level4 nav-leaf"><a href="../primitives/shapes/circle/">Shape.Circle</a></li>
+    <li class="level4 nav-leaf"><a href="../primitives/shapes/line/">Shape.Line</a></li>
+    <li class="level4 nav-leaf"><a href="../primitives/shapes/polygon/">Shape.Polygon</a></li>
+    <li class="level4 nav-leaf"><a href="../primitives/shapes/box/">Shape.Box</a></li>
+    <li class="level2 active nav-leaf"><a href="#">Context</a></li>
+    <li class="level2 nav-node"><a href="../materials/">Materials</a></li>
+    <li class="level3 nav-leaf"><a href="../materials/imageeffects/">ImageEffects material</a></li>
+    <li class="level3 nav-leaf"><a href="../materials/bitmap/">Bitmap material</a></li>
+    <li class="level3 nav-leaf"><a href="../materials/filltypes/">Fill Types</a></li>
+    <li class="level2 nav-node"><a href="../scenes/">Scenes</a></li>
+    <li class="level3 nav-leaf"><a href="../scenes/minimal/">Minimal scene example</a></li>
+    <li class="level2 nav-node"><a href="../ui/">Ui</a></li>
+    <li class="level3 nav-leaf"><a href="../ui/hitarea/">UI Components: HitArea</a></li>
+    <li class="level3 nav-leaf"><a href="../ui/custom/">UI Components: Custom Components</a></li>
+    <li class="level3 nav-leaf"><a href="../ui/switch/">UI Components: Switch</a></li>
+    <li class="level3 nav-leaf"><a href="../ui/scrollpane/">UI Components: Scroll Pane</a></li>
+    <li class="level3 nav-leaf"><a href="../ui/component-group/">UI Components: Component Group</a></li>
+    <li class="level3 nav-leaf"><a href="../ui/window/">UI Components: Windows</a></li>
+    <li class="level3 nav-leaf"><a href="../ui/component-list/">UI Components: Component List</a></li>
+    <li class="level3 nav-leaf"><a href="../ui/button/">UI Components: Button</a></li>
+    <li class="level3 nav-leaf"><a href="../ui/textarea/">UI Components: TextArea</a></li>
+    <li class="level3 nav-leaf"><a href="../ui/label/">UI Components: Label</a></li>
+    <li class="level3 nav-leaf"><a href="../ui/input/">UI Components: Input</a></li>
+    <li class="level3 nav-leaf"><a href="../ui/maskedpane/">UI Components: Masked Pane</a></li>
+  </ul>
+
+</nav>
+
+    <div id="container">
+
+      
+<nav id="page-nav">
+  <p class="header"><a href="#">Context</a></p>
+
+  <ul class="nav-list">
+    <li class="level1 nav-leaf"><a href="#example-links">Example Links</a></li>
+    <li class="level1 nav-leaf"><a href="#frame">Frame</a></li>
+    <li class="level1 nav-node"><a href="#services">Services</a></li>
+    <li class="level2 nav-leaf"><a href="#random">Random</a></li>
+    <li class="level2 nav-leaf"><a href="#boundary-locator">Boundary Locator</a></li>
+    <li class="level2 nav-leaf"><a href="#screen-capture">Screen capture</a></li>
+    <li class="level1 nav-leaf"><a href="#everything-else">Everything else!</a></li>
+  </ul>
+
+  <p class="footer"></p>
+</nav>
+
+
+      <main class="content">
+
+        <h1 id="context" class="title">Context</h1>
+        <p>The frame <code>Context</code> object comes in numerous forms, but its purpose is to provide common data and services that are very regularly required during game development.</p>
+        
+        <h2 id="example-links" class="section"><a class="anchor-link left" href="#example-links"><i class="icofont-laika link">&#xef71;</i></a>Example Links</h2>
+        <ul>
+          <li><a href="https://github.com/PurpleKingdomGames/indigo-docs/blob/main/features/context">View example code</a></li>
+        </ul>
+        <ul>
+          <li><a href="https://purplekingdomgames.github.io/indigo-docs//live_demos/features/context/">Live demo</a></li>
+        </ul>
+        <p>In this example we&#39;re going to need an example of some start up data, so that we can see how to
+        access it via the context object. Here is its definition:</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">final</span><span> </span><span class="keyword">case</span><span> </span><span class="keyword">class</span><span> </span><span class="type-name">ExampleCustomStartupData</span><span>(</span><span class="identifier">count</span><span>: </span><span class="type-name">Int</span><span>)</span></code></pre>
+        <ul>
+          <li>For this example, we&#39;ll also need a primitive whose bounds we can measure.</li>
+        </ul>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">boxSize</span><span> = </span><span class="type-name">Size</span><span>(</span><span class="number-literal">100</span><span>)
+</span><span class="keyword">val</span><span> </span><span class="identifier">boxShape</span><span>: </span><span class="type-name">Shape</span><span>.</span><span class="type-name">Box</span><span> =
+  </span><span class="type-name">Shape</span><span>
+    .</span><span class="type-name">Box</span><span>(
+      </span><span class="type-name">Rectangle</span><span>(</span><span class="type-name">Point</span><span>.</span><span class="identifier">zero</span><span>, </span><span class="identifier">boxSize</span><span>),
+      </span><span class="type-name">Fill</span><span>.</span><span class="type-name">LinearGradient</span><span>(</span><span class="type-name">Point</span><span>.</span><span class="identifier">zero</span><span>, </span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Cyan</span><span>, </span><span class="identifier">boxSize</span><span>.</span><span class="identifier">toPoint</span><span>, </span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Magenta</span><span>),
+      </span><span class="type-name">Stroke</span><span>(</span><span class="number-literal">2</span><span>, </span><span class="type-name">RGBA</span><span>.</span><span class="type-name">White</span><span>)
+    )</span></code></pre>
+        <p>Context comes in three parts: Frame, services, and everything else. No matter which flavor
+        of context object you have available, frame and services will always be present.</p>
+        
+        <h2 id="frame" class="section"><a class="anchor-link left" href="#frame"><i class="icofont-laika link">&#xef71;</i></a>Frame</h2>
+        <p>Frame information and helpers are light weight, stateless, immutable and referentially
+        transparent values and utilities. Which means that you can safely reference them without
+        adding much burden should you need to write unit tests.</p>
+        <p>Below are some examples.</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="identifier">context</span><span>.</span><span class="identifier">frame</span><span>.</span><span class="identifier">globalMagnification</span><span>
+</span><span class="identifier">context</span><span>.</span><span class="identifier">frame</span><span>.</span><span class="identifier">viewport</span><span>
+</span><span class="identifier">context</span><span>.</span><span class="identifier">frame</span><span>.</span><span class="identifier">viewport</span><span>.</span><span class="identifier">giveDimensions</span><span>(</span><span class="identifier">context</span><span>.</span><span class="identifier">frame</span><span>.</span><span class="identifier">globalMagnification</span><span>)
+</span><span class="identifier">context</span><span>.</span><span class="identifier">frame</span><span>.</span><span class="identifier">dice</span><span>.</span><span class="identifier">roll</span><span>(</span><span class="number-literal">6</span><span>)
+</span><span class="identifier">context</span><span>.</span><span class="identifier">frame</span><span>.</span><span class="identifier">dice</span><span>.</span><span class="identifier">rollDouble</span><span>
+</span><span class="identifier">context</span><span>.</span><span class="identifier">frame</span><span>.</span><span class="identifier">dice</span><span>.</span><span class="identifier">rollAlphaNumeric</span><span>(</span><span class="number-literal">16</span><span>)
+</span><span class="identifier">context</span><span>.</span><span class="identifier">frame</span><span>.</span><span class="identifier">input</span><span>.</span><span class="identifier">mouse</span><span>.</span><span class="identifier">position</span><span>
+</span><span class="identifier">context</span><span>.</span><span class="identifier">frame</span><span>.</span><span class="identifier">time</span><span>.</span><span class="identifier">running</span><span>
+</span><span class="identifier">context</span><span>.</span><span class="identifier">frame</span><span>.</span><span class="identifier">time</span><span>.</span><span class="identifier">delta</span></code></pre>
+        
+        <h2 id="services" class="section"><a class="anchor-link left" href="#services"><i class="icofont-laika link">&#xef71;</i></a>Services</h2>
+        <p>Services on the other hand and stateful, side-effecting, and potentially expensive
+        operations to be used with caution. That doesn&#39;t mean &quot;don&#39;t use them&quot;, it just means they
+        need a little more consideration.</p>
+        <p>Some services are shown below.</p>
+        
+        <h3 id="random" class="section"><a class="anchor-link left" href="#random"><i class="icofont-laika link">&#xef71;</i></a>Random</h3>
+        <p>Random differs from Dice in that it is zero based (Dice always have at least 1 side!), and
+        it uses a stateful long running Random instance, meaning that it does give better random
+        numbers at the cost of testing complexity.</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="identifier">context</span><span>.</span><span class="identifier">services</span><span>.</span><span class="identifier">random</span><span>.</span><span class="identifier">nextInt</span><span>
+</span><span class="identifier">context</span><span>.</span><span class="identifier">services</span><span>.</span><span class="identifier">random</span><span>.</span><span class="identifier">alphanumeric</span><span>(</span><span class="number-literal">16</span><span>)</span></code></pre>
+        
+        <h3 id="boundary-locator" class="section"><a class="anchor-link left" href="#boundary-locator"><i class="icofont-laika link">&#xef71;</i></a>Boundary Locator</h3>
+        <p>The boundary locator asks Indigo to calculate the bounding box of any visual primitive.
+        Sometimes this is easy, sometimes it&#39;s expensive, depending on the primitive type. Text
+        for example, requires the bounds calculation of every glyph, and then the total bounds of
+        all the arranged glyphs.</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="identifier">context</span><span>.</span><span class="identifier">services</span><span>.</span><span class="identifier">bounds</span><span>.</span><span class="identifier">find</span><span>(</span><span class="identifier">boxShape</span><span>)</span></code></pre>
+        
+        <h3 id="screen-capture" class="section"><a class="anchor-link left" href="#screen-capture"><i class="icofont-laika link">&#xef71;</i></a>Screen capture</h3>
+        <p>The screen capture is unusual in as much as it runs the side effect <em>right now</em>(!) and
+        returns either an error message or the result. You can capture one or several screeshots
+        at once, each with a different configuration. For example, you might want one at 1:1 scale
+        and another smaller one for a save game thumbnail.</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">screenshots</span><span>: </span><span class="type-name">Set</span><span>[</span><span class="type-name">AssetType</span><span>] =
+  </span><span class="identifier">context</span><span>.</span><span class="identifier">services</span><span>.</span><span class="identifier">screen</span><span>
+    .</span><span class="identifier">capture</span><span>(</span><span class="type-name">Batch</span><span>(</span><span class="type-name">ScreenCaptureConfig</span><span>.</span><span class="keyword">default</span><span>))
+    .</span><span class="identifier">collect</span><span> { </span><span class="keyword">case</span><span> </span><span class="type-name">Right</span><span>(</span><span class="identifier">image</span><span>) =&gt; </span><span class="identifier">image</span><span> }
+    .</span><span class="identifier">toSet</span></code></pre>
+        <p>In order to use screenshots, you need to tell Indigo to load the assets and make them
+        available as textures, and then listen for their availability using events like the ones
+        below.</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">AssetEvent</span><span>.</span><span class="type-name">LoadAssetBatch</span><span>(</span><span class="identifier">screenshots</span><span>, </span><span class="type-name">BindingKey</span><span>(</span><span class="string-literal">&quot;captureScreen&quot;</span><span>), </span><span class="boolean-literal">true</span><span>)
+</span><span class="type-name">AssetEvent</span><span>.</span><span class="type-name">AssetBatchLoaded</span><span>(</span><span class="type-name">BindingKey</span><span>(</span><span class="string-literal">&quot;captureScreen&quot;</span><span>), </span><span class="identifier">assets</span><span> = </span><span class="type-name">Set</span><span>(), </span><span class="identifier">available</span><span> = </span><span class="boolean-literal">true</span><span>)</span></code></pre>
+        
+        <h2 id="everything-else" class="section"><a class="anchor-link left" href="#everything-else"><i class="icofont-laika link">&#xef71;</i></a>Everything else!</h2>
+        <p>The &#39;everything else&#39; varies depending on the nature of the context object, a
+        <code>SceneContext</code> for example will provide scene specific information. A standard context
+        object contains the startup data, so that it can be referenced from anywhere.</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="identifier">context</span><span>.</span><span class="identifier">startUpData</span></code></pre>
+
+        
+<hr class="footer-rule"/>
+<footer>
+  Site generated by <a href="https://typelevel.org/Laika/">Laika</a> with the Helium theme.
+</footer>
+
+
+      </main>
+
+    </div>
+
+  </body>
+
+</html>
