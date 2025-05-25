@@ -18,8 +18,8 @@ import scala.scalajs.js.annotation.*
 /** ### Step 1: Define a tag for each type of object in the simulation
   *
   * Indigo's physics engine uses tags to identify different types of objects in the simulation. They
-  * are custom tags that you define and can be any type, such as a simepl String, but an ADT / enum
-  * is recommended.
+  * are custom tags that you define, and can be any type, even a simple String, but an ADT / enum is
+  * recommended.
   *
   * Tags are used to identify objects in the simulations, such as how they interact with one
   * another, e.g. objects of tag x do not collide with objects of tag y, and also to help you when
