@@ -142,6 +142,30 @@ object features extends mill.Module {
         makeIndigoOptions("Graphic Example")
     }
 
+    object shapes extends mill.Module {
+
+      object box extends gamemodule.GameModule {
+        val indigoOptions: IndigoOptions =
+          makeIndigoOptions("Box Shape Example")
+      }
+
+      object circle extends gamemodule.GameModule {
+        val indigoOptions: IndigoOptions =
+          makeIndigoOptions("Circle Shape Example")
+      }
+
+      object line extends gamemodule.GameModule {
+        val indigoOptions: IndigoOptions =
+          makeIndigoOptions("Line Shape Example")
+      }
+
+      object polygon extends gamemodule.GameModule {
+        val indigoOptions: IndigoOptions =
+          makeIndigoOptions("Polygon Shape Example")
+      }
+
+    }
+
     object text extends gamemodule.GameModule {
       val indigoOptions: IndigoOptions =
         makeIndigoOptions("Text Example")
