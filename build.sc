@@ -142,6 +142,11 @@ object features extends mill.Module {
 
   object primitives extends mill.Module {
 
+    object blank extends gamemodule.GameModule {
+      val indigoOptions: IndigoOptions =
+        makeIndigoOptions("Blank Entity Example")
+    }
+
     object clip extends gamemodule.GameModule {
 
       val indigoOptions: IndigoOptions =
