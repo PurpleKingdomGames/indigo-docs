@@ -1,8 +1,8 @@
-# GameTime
+# Time
 
-The most important thing to know is what time it is now! This can by found on the [frame context](/documentation/03-gameloop/frame-context.md), which provides two important different time representations:
+The most important thing to know is what time it is now! This can by found on the frame's context, which provides two different time representations:
 
-1. `running` - which is the time the game has been running for in total.
+1. `running` - which is the time the game has been running for, in total.
 2. `delta` - which is how long has passed since the last update, which is important for smooth updates and animations.
 
 Both are represented as `Second`s.

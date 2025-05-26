@@ -142,6 +142,22 @@ object features extends mill.Module {
 
   object primitives extends mill.Module {
 
+    object clip extends gamemodule.GameModule {
+
+      val indigoOptions: IndigoOptions =
+        makeIndigoOptions("Clip Example")
+          .withWindowWidth(550)
+          .withWindowHeight(400)
+          .withBackgroundColor("black")
+          .withAssetDirectory(os.RelPath("features/primitives/clip/assets"))
+
+      override def indigoGenerators: IndigoGenerators =
+        IndigoGenerators("indigoexamples.generated")
+          .listAssets("Assets", indigoOptions.assets)
+          .generateConfig("Config", indigoOptions)
+
+    }
+
     object graphic extends gamemodule.GameModule {
       val indigoOptions: IndigoOptions =
         makeIndigoOptions("Graphic Example")
@@ -168,6 +184,22 @@ object features extends mill.Module {
         val indigoOptions: IndigoOptions =
           makeIndigoOptions("Polygon Shape Example")
       }
+
+    }
+
+    object sprite extends gamemodule.GameModule {
+
+      val indigoOptions: IndigoOptions =
+        makeIndigoOptions("Sprite Example")
+          .withWindowWidth(550)
+          .withWindowHeight(400)
+          .withBackgroundColor("black")
+          .withAssetDirectory(os.RelPath("features/primitives/sprite/assets"))
+
+      override def indigoGenerators: IndigoGenerators =
+        IndigoGenerators("indigoexamples.generated")
+          .listAssets("Assets", indigoOptions.assets)
+          .generateConfig("Config", indigoOptions)
 
     }
 
@@ -215,6 +247,20 @@ object features extends mill.Module {
     object basic extends gamemodule.GameModule {
       val indigoOptions: IndigoOptions =
         makeIndigoOptions("Basic Custom Shader")
+    }
+
+  }
+
+  object time extends mill.Module {
+
+    object signals extends gamemodule.GameModule {
+      val indigoOptions: IndigoOptions =
+        makeIndigoOptions("Signals Example")
+    }
+
+    object `time-varying-values` extends gamemodule.GameModule {
+      val indigoOptions: IndigoOptions =
+        makeIndigoOptions("Time Varying Values Example")
     }
 
   }
@@ -304,6 +350,34 @@ object guides extends mill.Module {
 
   }
 
+  object animation extends mill.Module {
+
+    object `part-1-basics` extends gamemodule.GameModule {
+      val indigoOptions: IndigoOptions =
+        makeIndigoOptions("Part 1: Animation Fundamentals")
+          .withWindowSize(800, 600)
+    }
+
+    object `part-2-signals` extends gamemodule.GameModule {
+      val indigoOptions: IndigoOptions =
+        makeIndigoOptions("Part 2: Signals")
+          .withWindowSize(800, 600)
+    }
+
+    object `part-3-timelines` extends gamemodule.GameModule {
+      val indigoOptions: IndigoOptions =
+        makeIndigoOptions("Part 3: Timeline Animations")
+          .withWindowSize(800, 600)
+    }
+
+    object `part-4-shaders` extends gamemodule.GameModule {
+      val indigoOptions: IndigoOptions =
+        makeIndigoOptions("Part 4: Shader Animations")
+          .withWindowSize(800, 600)
+    }
+
+  }
+
   object assets extends mill.Module {
 
     object preloader extends gamemodule.GameModule {
@@ -318,7 +392,7 @@ object guides extends mill.Module {
             case p if p.contains("unused")                       => true
             case p if p.contains("Captain Clown Nose Data.json") => true
           }
-  
+
       override def indigoGenerators: IndigoGenerators =
         IndigoGenerators("preloader.generated")
           .listAssets("Assets", indigoOptions.assets)
@@ -332,6 +406,27 @@ object guides extends mill.Module {
   }
 
   object importers extends mill.Module {
+
+    object `aseprite-embedded` extends gamemodule.GameModule {
+      val indigoOptions: IndigoOptions =
+        makeIndigoOptions("Aseprite (Embedded)")
+          .withWindowWidth(550)
+          .withWindowHeight(400)
+          .withBackgroundColor("black")
+          .withAssetDirectory(os.RelPath("guides/importers/aseprite-embedded/assets"))
+          .excludeAssetPaths {
+            case p if p.contains("Captain Clown Nose Data.json") => true
+          }
+
+      override def indigoGenerators: IndigoGenerators =
+        IndigoGenerators("indigoexamples.generated")
+          .listAssets("Assets", indigoOptions.assets)
+          .generateConfig("Config", indigoOptions)
+          .embedAseprite(
+            "CaptainAnim",
+            workspaceDir / "guides" / "importers" / "aseprite-embedded" / "assets" / "Captain Clown Nose Data.json"
+          )
+    }
 
     object `tiled-loaded` extends gamemodule.GameModule {
       val indigoOptions: IndigoOptions =
