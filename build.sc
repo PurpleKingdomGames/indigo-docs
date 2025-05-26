@@ -163,6 +163,11 @@ object features extends mill.Module {
         makeIndigoOptions("Graphic Example")
     }
 
+    object group extends gamemodule.GameModule {
+      val indigoOptions: IndigoOptions =
+        makeIndigoOptions("Group Example")
+    }
+
     object shapes extends mill.Module {
 
       object box extends gamemodule.GameModule {
