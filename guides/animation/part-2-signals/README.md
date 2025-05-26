@@ -1,42 +1,11 @@
-# Signals & Signal Functions
+# Part 2: Signals
 
-## Motivation
 
-We want pure, referentially transparent, testable, procedural animations.
 
-> Definition: A procedural animation is an animation produced by code, rather than created by hand in, say, an animation tool and played back.
 
-## Background
+---
 
-The goal of Indigo is to make programming games (as opposed to making them...), easier to reason about and easier to test by leveraging the good ideas that come with functional programming.
 
-One of those good ideas that Indigo borrows is the notion of Signals and Signal Functions. Signals for animation were first proposed in the Functional Reactive ANimation (FRAN) system, but are most readily seen in [Yampa](https://github.com/ivanperez-keera/Yampa).
-
-Indigo makes use of Signals too, though not to the same extent as Yampa. The main difference is that Signals in Indigo are stateless and therefore somewhat limited. Nonetheless, Signals in Indigo are still interesting and useful, and provide the backbone of the Automata subsystem.
-
-## `Signal[A]`
-
-At it's core, a signal is a very simple thing. Consider this hypothetical abstract function signature:
-
-```scala
-val f: A => B
-```
-
-What this function signature says is that when provided some value of type `A`, it _will_ produce some value of type `B`. In concrete terms, if we fix the types to known primitives, the follow example says that when given a `String`, it will return an `Int`:
-
-```scala
-val f: String => Int
-```
-
-A `Signal[A]` is similar and looks like this:
-
-```scala
-import indigo.*
-
-final case class Signal[A](f: Seconds => A)
-```
-
-In other words, a `Signal` of `A` is nothing more than a function that when given the current running time in `Seconds`, _will_ produce some value of type `A`.
 
 ## Signals & Animation
 
@@ -309,10 +278,3 @@ val signalFunction = (makeRange &&& chooseCatsOrDogs) >>> howManyPets
 // List("1 cat", "2 cat", "3 cat", "4 cat", "5 cat")
 ```
 
-## SignalReader
-
-`// TODO`
-
-## SignalState
-
-`// TODO`
