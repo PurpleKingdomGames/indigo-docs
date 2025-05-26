@@ -7,15 +7,15 @@ import indigoextras.datatypes.IncreaseTo
 
 import scala.scalajs.js.annotation.*
 
-/** ## Tracking a lumber jack's progress
+/** ## Tracking a lumberjack's progress
   *
-  * You have a lumber jack, he walks over to a tree and is now going to cut it down. Work is effort
+  * You have a lumberjack, he walks over to a tree and is now going to cut it down. Work is effort
   * over time, and you can track his progress by having an `IncreaseTo` time varying value in your
   * model.
   *
-  * Here is an oversimplified example. We've made a little lumber jack case class, and all our
-  * lumber jack can do is this one job. While the work is being done (which starts immediately), the
-  * 'lumber jack' (a circle) will transition from red to green, signaling completion.
+  * Here is an oversimplified example. We've made a little lumberjack case class, and all our
+  * lumberjack can do is this one job. While the work is being done (which starts immediately), the
+  * 'lumberjack' (a circle) will transition from red to green, signaling completion.
   */
 // ```scala
 final case class LumberJack(chopWood: IncreaseTo):
