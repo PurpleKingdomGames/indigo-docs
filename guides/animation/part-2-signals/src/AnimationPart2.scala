@@ -11,7 +11,6 @@ object AnimationPart2 extends IndigoSandbox[Unit, Unit]:
 
   val config: GameConfig =
     Config.config.noResize
-      .withMagnification(2)
 
   val assets: Set[AssetType] =
     Assets.assets.assetSet
