@@ -173,9 +173,11 @@ object AnimationPart2 extends IndigoSandbox[Unit, Unit]:
 /** ## Summary
   *
   * Using signals and signal functions provides a great abstraction for animation, much better than
-  * coding it up directly. Could get pretty messy if you were trying to do a complicated animation
-  * though, don't you think? What if you were trying to coordinate several moving elements or
-  * effects at once, such as in a menu or game over screen?
+  * coding it up directly. Perfect for simple animations.
+  *
+  * That said, things could get pretty messy if you were trying to do a complicated animation. What
+  * if you were trying to coordinate several moving elements or effects at once, such as in a menu
+  * or game over screen?
   *
   * What we need an abstraction for our abstraction, and luckily, one is available. In the next
   * section, we'll look at timelines.
