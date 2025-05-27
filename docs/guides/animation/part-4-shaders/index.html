@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Typelevel Laika + Helium Theme" />
+  <title>Part 4: Shader Animations</title>
+  
+  
+  <meta name="description" content="An FP game engine for Scala."/>
+  
+  
+  
+  <link rel="icon" sizes="32x32" type="image/png" href="../../../img/favicon.png"/>
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:500">
+  
+  <link rel="stylesheet" type="text/css" href="../../../helium/site/icofont.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../helium/site/laika-helium.css" />
+    <link rel="stylesheet" type="text/css" href="../../../css/custom.css" />
+  <script src="../../../helium/site/laika-helium.js"></script>
+  
+  
+  <script> /* for avoiding page load transitions */ </script>
+</head>
+
+  <body>
+
+    <header id="top-bar" class="light-default dark-default">
+
+  <div class="row">
+    <a id="nav-icon">
+      <i class="icofont-laika navigationMenu" title="Navigation">&#xefa2;</i>
+    </a>
+    
+    
+  </div>
+
+  <a class="image-link" href="../../../documentation/"><img src="../../../img/indigo_logo_solid_text.svg" alt="An FP game engine for Scala." title="Indigo" width="150" height="50"></a>
+
+  <div class="row links">
+    
+    <a class="button-link" href="https://purplekingdomgames.github.io/indigo-docs/live_demos">Live Demos</a>
+    
+    <a class="button-link" href="https://discord.gg/b5CD47g">Discord</a>
+    
+    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigo">Github</a>
+    
+  </div>  
+
+</header>
+    
+    <nav id="sidebar">
+
+  <div class="row">
+    
+    <a class="button-link" href="https://purplekingdomgames.github.io/indigo-docs/live_demos">Live Demos</a>
+    
+    <a class="button-link" href="https://discord.gg/b5CD47g">Discord</a>
+    
+    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigo">Github</a>
+    
+  </div>
+
+  <ul class="nav-list">
+    <li class="level1 nav-node"><a href="../../../documentation/">Indigo</a></li>
+    <li class="level2 nav-header">Indigo</li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/key-concepts/model-viewmodel-view.html">Model, ViewModel, &amp; View</a></li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/key-concepts/time.html">Time</a></li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/key-concepts/performance.html">Performance</a></li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/key-concepts/making-games-testable.html">Making games testable</a></li>
+    <li class="level2 nav-header">Shaders</li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/shaders/shaders.html">Shaders</a></li>
+    <li class="level2 nav-header">Quick start</li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/quickstart/extensions-and-libs.html">Extensions, Libraries, and Related Projects</a></li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/quickstart/quickstart.html">Quick start</a></li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/quickstart/examples.html">Examples, Demos, and References</a></li>
+    <li class="level2 nav-header">General information</li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/misc/prior-art.html">Prior Art</a></li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/misc/motivation-and-constraints.html">Motivation &amp; Constraints</a></li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/misc/rendering-technology.html">Rendering Technology</a></li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/misc/indigo-vs-elm.html">Indigo vs Elm</a></li>
+    <li class="level1 nav-node"><a href="../../../demos/">Demos</a></li>
+    <li class="level2 nav-leaf"><a href="../../../demos/snake/">Snake!</a></li>
+    <li class="level2 nav-leaf"><a href="../../../demos/snake-in-5-minutes/">Snake In 5 Minutes</a></li>
+    <li class="level2 nav-leaf"><a href="../../../demos/the-cursed-pirate/">The Cursed Pirate!</a></li>
+    <li class="level1 nav-node"><a href="../../">Guides</a></li>
+    <li class="level2 nav-node"><a href="../../actors/">Actors</a></li>
+    <li class="level3 nav-leaf"><a href="../../actors/actors-with-physics/">How to use physics with actors</a></li>
+    <li class="level2 nav-node"><a href="../">Animation</a></li>
+    <li class="level3 nav-leaf"><a href="../part-1-basics/">Part 1: Animation Fundamentals</a></li>
+    <li class="level3 nav-leaf"><a href="../part-2-signals/">Part 2: Using Signals</a></li>
+    <li class="level3 nav-leaf"><a href="../part-3-timelines/">Part 3: Timeline Animations</a></li>
+    <li class="level3 active nav-leaf"><a href="#">Part 4: Shader Animations</a></li>
+    <li class="level2 nav-node"><a href="../../assets/">Assets</a></li>
+    <li class="level3 nav-leaf"><a href="../../assets/preloader/">Preloader / Loading Screens</a></li>
+    <li class="level2 nav-node"><a href="../../importers/">Importers</a></li>
+    <li class="level3 nav-leaf"><a href="../../importers/aseprite-embedded/">Aseprite Embedded</a></li>
+    <li class="level3 nav-leaf"><a href="../../importers/tiled-loaded/">Loading Tiled maps at runtime</a></li>
+    <li class="level2 nav-node"><a href="../../scenes/">Scenes</a></li>
+    <li class="level3 nav-leaf"><a href="../../scenes/scene-management/">Managing scenes</a></li>
+    <li class="level2 nav-node"><a href="../../ui/">Ui</a></li>
+    <li class="level3 nav-leaf"><a href="../../ui/radiobuttons/">How to make radio buttons</a></li>
+    <li class="level1 nav-node"><a href="../../../features/">Features</a></li>
+    <li class="level2 nav-node"><a href="../../../features/actors-and-performers/">Actors-and-performers</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/actors-and-performers/actors/">Actors</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/actors-and-performers/performers/">Performers</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/actors-and-performers/performers-with-physics/">Performers &amp; Physics</a></li>
+    <li class="level2 nav-leaf"><a href="../../../features/context/">Context</a></li>
+    <li class="level2 nav-node"><a href="../../../features/materials/">Materials</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/materials/bitmap/">Bitmap material</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/materials/filltypes/">Fill Types</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/materials/imageeffects/">ImageEffects material</a></li>
+    <li class="level2 nav-node"><a href="../../../features/physics/">Physics</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/physics/basics/">Basic Physics Example</a></li>
+    <li class="level2 nav-node"><a href="../../../features/primitives/">Primitives</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/primitives/blank/">Blank Entity</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/primitives/clip/">Clip</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/primitives/graphic/">Graphic</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/primitives/group/">Group</a></li>
+    <li class="level3 nav-node"><a href="../../../features/primitives/shapes/">Shapes</a></li>
+    <li class="level4 nav-leaf"><a href="../../../features/primitives/shapes/box/">Shape.Box</a></li>
+    <li class="level4 nav-leaf"><a href="../../../features/primitives/shapes/circle/">Shape.Circle</a></li>
+    <li class="level4 nav-leaf"><a href="../../../features/primitives/shapes/line/">Shape.Line</a></li>
+    <li class="level4 nav-leaf"><a href="../../../features/primitives/shapes/polygon/">Shape.Polygon</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/primitives/sprite/">Sprite</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/primitives/text/">Text</a></li>
+    <li class="level2 nav-node"><a href="../../../features/scenes/">Scenes</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/scenes/minimal/">Minimal scene example</a></li>
+    <li class="level2 nav-node"><a href="../../../features/shaders/">Shaders</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/shaders/basic/">A basic custom shader</a></li>
+    <li class="level2 nav-node"><a href="../../../features/time/">Time</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/time/signals/">Signals &amp; Signal Functions</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/time/time-varying-values/">Time Varying Values</a></li>
+    <li class="level2 nav-node"><a href="../../../features/ui/">Ui</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/ui/button/">UI Components: Button</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/ui/component-group/">UI Components: Component Group</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/ui/component-list/">UI Components: Component List</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/ui/custom/">UI Components: Custom Components</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/ui/hitarea/">UI Components: HitArea</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/ui/input/">UI Components: Input</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/ui/label/">UI Components: Label</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/ui/maskedpane/">UI Components: Masked Pane</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/ui/scrollpane/">UI Components: Scroll Pane</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/ui/switch/">UI Components: Switch</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/ui/textarea/">UI Components: TextArea</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/ui/window/">UI Components: Windows</a></li>
+  </ul>
+
+</nav>
+
+    <div id="container">
+
+      
+<nav id="page-nav">
+  <p class="header"><a href="#">Part 4: Shader Animations</a></p>
+
+  <ul class="nav-list">
+    <li class="level1 nav-leaf"><a href="#the-need-for-speed">The need for speed</a></li>
+    <li class="level1 nav-leaf"><a href="#shaders-hand-coding-and-signals">Shaders, hand coding, and signals</a></li>
+    <li class="level1 nav-leaf"><a href="#example-links">Example Links</a></li>
+    <li class="level1 nav-leaf"><a href="#animating-with-shaders">Animating with shaders</a></li>
+  </ul>
+
+  <p class="footer"></p>
+</nav>
+
+
+      <main class="content">
+
+        <h1 id="part-4-shader-animations" class="title">Part 4: Shader Animations</h1>
+        <p>In the previous sections of these animation guides we&#39;ve looked at hand coding animations, abstracting over them with signals, and composing complicated presentations using timelines.</p>
+        <p>In this section, in pursuit of performance, we going to come full circle back to hand coded animations, but this time, in the form of shaders.</p>
+        <p>This part of our tour isn&#39;t going to cover everything there is to know about shaders. Shaders in Indigo are typically written using our shader library, <a href="https://github.com/PurpleKingdomGames/ultraviolet">Ultraviolet</a>, which has it&#39;s own <a href="https://ultraviolet.indigoengine.io/">documentation site</a>, complete with many Indigo based examples.</p>
+        <p>As always the complete source code for this demo is available from the link on this page, if you want to see how the whole thing is put together. Therefore in this discussion, we&#39;ll be focusing on the reasons for using shader based animations, and the nuts and bolts of how one works.</p>
+        
+        <h2 id="the-need-for-speed" class="section"><a class="anchor-link left" href="#the-need-for-speed"><i class="icofont-laika link">&#xef71;</i></a>The need for speed</h2>
+        <p>If timeline animations are designed for friendly usability at the expense of performance overhead, shaders are the opposite. Super efficient, massively parallel, and really powerful; Shaders are a low level way to describe the graphics you want to draw into a region of the screen. </p>
+        <p>Whenever you draw literally anything with Indigo - whether you know it or not - a shader is doing the work. So if you need complex graphics, animations, and performance: Shaders might be the answer.</p>
+        <p>It must also be said that while they can be complicated and contain a fair bit of maths, shader programming is very good fun once you get into it!</p>
+        
+        <h2 id="shaders-hand-coding-and-signals" class="section"><a class="anchor-link left" href="#shaders-hand-coding-and-signals"><i class="icofont-laika link">&#xef71;</i></a>Shaders, hand coding, and signals</h2>
+        <p>Shaders are written in procedural code. Scala if you&#39;re using Ultraviolet, otherwise you&#39;ll be using a language called GLSL.</p>
+        <p>Despite that, philosophically, programming a shader is more like coding with signals than it is the hand coded solution we saw in part 1.</p>
+        <p>A fragment shader is not unlike a pure function that runs for every pixel of an image, and decides what color it is. It has to be pure, since it will be run in parallel, and like a pure function (or indeed a signal), it operates on some initial parameters (such as the running time) to generate its output, but can otherwise be considered stateless.*</p>
+        <blockquote>(* You can add your own input data to a shader using UBOs, and those will typically be based on game model state. However, shaders in Indigo <em>do not</em> have a way to generate, store, look up, or share their own state.)</blockquote>
+        
+        <h2 id="example-links" class="section"><a class="anchor-link left" href="#example-links"><i class="icofont-laika link">&#xef71;</i></a>Example Links</h2>
+        <ul>
+          <li><a href="https://github.com/PurpleKingdomGames/indigo-docs/blob/main/guides/animation/part-4-shaders">View example code</a></li>
+        </ul>
+        <ul>
+          <li><a href="https://purplekingdomgames.github.io/indigo-docs//live_demos/guides/animation/part-4-shaders/">Live demo</a></li>
+        </ul>
+        
+        <h2 id="animating-with-shaders" class="section"><a class="anchor-link left" href="#animating-with-shaders"><i class="icofont-laika link">&#xef71;</i></a>Animating with shaders</h2>
+        <p>In this example we&#39;re going to write a shader for a little bouncing yellow box, the kind that
+        could be used to show the currently highlighted grid square in a grid based rpg or strategy
+        game.</p>
+        <p>Let&#39;s go through the code:</p>
+        <p>As usual, animation is about the running time of the game, and in our case we need to
+        speed time up in order to get the bounce speed we&#39;re after.</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">time</span><span>: </span><span class="type-name">Float</span><span> = </span><span class="identifier">env</span><span>.</span><span class="type-name">TIME</span><span> * </span><span class="number-literal">4.0f</span></code></pre>
+        <p>Next we&#39;re going to set up some constants / values / parameters. Yes, in this example
+        these are hardcoded values. On the other hand, they&#39;re also relative values (shaders
+        operate in 0.0 to 1.0 coordinate space), and if we wanted to we could pass them in using
+        a UBO, but that isn&#39;t needed for this example.</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">halfStrokeWidth</span><span>: </span><span class="type-name">Float</span><span> = </span><span class="number-literal">0.02f</span><span>
+</span><span class="keyword">val</span><span> </span><span class="identifier">halfGlowWidth</span><span>: </span><span class="type-name">Float</span><span>   = </span><span class="number-literal">0.07f</span><span>
+</span><span class="keyword">val</span><span> </span><span class="identifier">minDistance</span><span>: </span><span class="type-name">Float</span><span>     = </span><span class="number-literal">0.3f</span><span>
+</span><span class="keyword">val</span><span> </span><span class="identifier">distMultiplier</span><span>: </span><span class="type-name">Float</span><span>  = </span><span class="number-literal">0.05f</span></code></pre>
+        <p>In order to describe the box shape, we&#39;re going to use something called an SDF (Signed
+        Distance Function) that will tell us whether this pixel (fragment) is outside the box (&gt;
+        0), on the edge of the box (~= 0), or inside the box (&lt; 0).</p>
+        <p>We&#39;re using one of Ultraviolets built in helper functions to do that, and it requires
+        two parameters:</p>
+        <ol class="arabic">
+          <li>The position of this pixel (i.e. the UV coordinate), re-centered around the origin
+          (0,0).</li>
+          <li>The &#39;halfsize&#39; of the box (can be a rectangle or a square).</li>
+        </ol>
+        <p>What&#39;s important about the halfsize here is that this is the thing we&#39;re animating!
+        We&#39;re using a sin wave, using the current time as the argument, pushing out the value by
+        a minimum distance. This produces an SDF distance value for a box that is bouncing /
+        changing size.</p>
+        <blockquote>The argument to <code>sin</code> <em>should</em> be an angle, but we&#39;re cheating a bit and using the
+        running time in seconds, which more or less does what we want.</blockquote>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">halfsize</span><span> = </span><span class="identifier">vec2</span><span>(</span><span class="identifier">minDistance</span><span> + </span><span class="identifier">abs</span><span>(</span><span class="identifier">sin</span><span>(</span><span class="identifier">time</span><span>) * </span><span class="identifier">distMultiplier</span><span>))
+</span><span class="keyword">val</span><span> </span><span class="identifier">sdf</span><span>      = </span><span class="identifier">sdBox</span><span>(</span><span class="identifier">env</span><span>.</span><span class="type-name">UV</span><span> - </span><span class="number-literal">0.5f</span><span>, </span><span class="identifier">halfsize</span><span>)</span></code></pre>
+        <p>The SDF value is a smooth gradiant, so to make it a hard &#39;frame&#39; (like a picture frame),
+        we need to do two things to it:</p>
+        <ol class="arabic">
+          <li>We need to make it &#39;annular&#39;, so that the values inside and outside the shader are
+          positive, and it ends up looking like a top down view of a square crater.</li>
+          <li>We need to use a <code>step</code> function to swap out the gradient for a hard edge.</li>
+        </ol>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">frame</span><span> = </span><span class="number-literal">1.0f</span><span> - </span><span class="identifier">step</span><span>(</span><span class="number-literal">0.0f</span><span>, </span><span class="identifier">abs</span><span>(-</span><span class="identifier">sdf</span><span>) - </span><span class="identifier">halfStrokeWidth</span><span>)</span></code></pre>
+        <p>Time for some color! Colors in this example are represented as <code>vec3</code>s, where (x, y, z)
+        are equivalent to (red, green, blue).</p>
+        <p>The main color (<code>col</code>) is yellow, i.e. full red, full green, no blue.</p>
+        <p>Note that we&#39;re calculating the colors separately from the alphas, this is important.</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">col</span><span> = </span><span class="identifier">vec3</span><span>(</span><span class="number-literal">1.0</span><span>, </span><span class="number-literal">1.0</span><span>, </span><span class="number-literal">0.0f</span><span>)</span></code></pre>
+        <p>We know that the color is going to be yellow, but what we need to do now is work out the
+        alpha of all that yellow. Obviouly, the alpha will be 0.0 outside the frame, and 1.0
+        inside the middle of the frame, but we also want a little glow effect, which is really
+        just a gradiant ramp in the alpha channel.</p>
+        <p>The glow amount (alpha of the glow) is roughly calculated by looking at the current SDF
+        value, and saying that if the value is between an upper and lower bound, than
+        &#39;smoothstep&#39; that value.</p>
+        <p>Smoothstepping is a process of interpolating between the upper and lower bound values,
+        to produce a value between 0.0 and 1.0. For example, if the lower bound was 10, and the
+        upper bound was 20, and the value was 15, we&#39;d get a result of 0.5. It isn&#39;t quite as
+        simple as that that because of the &#39;smooth&#39; part. The value produced isn&#39;t a linear
+        interpolation, its eased in and out based on an S curve.</p>
+        <p>The final alpha is the glow amount, knocked back by 50%, combined with the frame value
+        which you may recall was either 0.0 or 1.0.</p>
+        <p>This can mean that by our process, a pixel could have an alpha value &gt; 1.0, but since
+        that&#39;s unrepresentable, it doesn&#39;t matter for our purposes and for all intents and
+        purposes, the value will be clamped to a 0.0 to 1.0 range.</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">glowAmount</span><span> = </span><span class="identifier">smoothstep</span><span>(</span><span class="number-literal">0.95f</span><span>, </span><span class="number-literal">1.05f</span><span>, </span><span class="number-literal">1.0f</span><span> - (</span><span class="identifier">abs</span><span>(</span><span class="identifier">sdf</span><span>) - </span><span class="identifier">halfGlowWidth</span><span>))
+</span><span class="keyword">val</span><span> </span><span class="identifier">alpha</span><span>      = (</span><span class="identifier">glowAmount</span><span> * </span><span class="number-literal">0.5f</span><span>) + </span><span class="identifier">frame</span></code></pre>
+        <p>Finally we&#39;re going to return the pixel colour, a <code>vec4</code>, i.e. (red, green, blue,
+        alpha).</p>
+        <p>The thing to note here is that its been constructed with the vec3 colour value and the
+        alpha, i.e. <code>vec4(vec3(r, g, b), a)</code> but curiously, the colour has been multiplied by
+        the alpha.</p>
+        <p>This is not an error! It&#39;s to do with something called pre-multiplied alpha, and is
+        essential for the colours to come out looking right. (See the Ultraviolet docs for more
+        details.)</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="identifier">vec4</span><span>(</span><span class="identifier">col</span><span> * </span><span class="identifier">alpha</span><span>, </span><span class="identifier">alpha</span><span>)</span></code></pre>
+
+        
+<hr class="footer-rule"/>
+<footer>
+  Site generated by <a href="https://typelevel.org/Laika/">Laika</a> with the Helium theme.
+</footer>
+
+
+      </main>
+
+    </div>
+
+  </body>
+
+</html>

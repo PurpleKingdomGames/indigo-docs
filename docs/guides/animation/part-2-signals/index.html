@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Typelevel Laika + Helium Theme" />
+  <title>Part 2: Using Signals</title>
+  
+  
+  <meta name="description" content="An FP game engine for Scala."/>
+  
+  
+  
+  <link rel="icon" sizes="32x32" type="image/png" href="../../../img/favicon.png"/>
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:500">
+  
+  <link rel="stylesheet" type="text/css" href="../../../helium/site/icofont.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../helium/site/laika-helium.css" />
+    <link rel="stylesheet" type="text/css" href="../../../css/custom.css" />
+  <script src="../../../helium/site/laika-helium.js"></script>
+  
+  
+  <script> /* for avoiding page load transitions */ </script>
+</head>
+
+  <body>
+
+    <header id="top-bar" class="light-default dark-default">
+
+  <div class="row">
+    <a id="nav-icon">
+      <i class="icofont-laika navigationMenu" title="Navigation">&#xefa2;</i>
+    </a>
+    
+    
+  </div>
+
+  <a class="image-link" href="../../../documentation/"><img src="../../../img/indigo_logo_solid_text.svg" alt="An FP game engine for Scala." title="Indigo" width="150" height="50"></a>
+
+  <div class="row links">
+    
+    <a class="button-link" href="https://purplekingdomgames.github.io/indigo-docs/live_demos">Live Demos</a>
+    
+    <a class="button-link" href="https://discord.gg/b5CD47g">Discord</a>
+    
+    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigo">Github</a>
+    
+  </div>  
+
+</header>
+    
+    <nav id="sidebar">
+
+  <div class="row">
+    
+    <a class="button-link" href="https://purplekingdomgames.github.io/indigo-docs/live_demos">Live Demos</a>
+    
+    <a class="button-link" href="https://discord.gg/b5CD47g">Discord</a>
+    
+    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigo">Github</a>
+    
+  </div>
+
+  <ul class="nav-list">
+    <li class="level1 nav-node"><a href="../../../documentation/">Indigo</a></li>
+    <li class="level2 nav-header">Indigo</li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/key-concepts/model-viewmodel-view.html">Model, ViewModel, &amp; View</a></li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/key-concepts/time.html">Time</a></li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/key-concepts/performance.html">Performance</a></li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/key-concepts/making-games-testable.html">Making games testable</a></li>
+    <li class="level2 nav-header">Shaders</li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/shaders/shaders.html">Shaders</a></li>
+    <li class="level2 nav-header">Quick start</li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/quickstart/extensions-and-libs.html">Extensions, Libraries, and Related Projects</a></li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/quickstart/quickstart.html">Quick start</a></li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/quickstart/examples.html">Examples, Demos, and References</a></li>
+    <li class="level2 nav-header">General information</li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/misc/prior-art.html">Prior Art</a></li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/misc/motivation-and-constraints.html">Motivation &amp; Constraints</a></li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/misc/rendering-technology.html">Rendering Technology</a></li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/misc/indigo-vs-elm.html">Indigo vs Elm</a></li>
+    <li class="level1 nav-node"><a href="../../../demos/">Demos</a></li>
+    <li class="level2 nav-leaf"><a href="../../../demos/snake/">Snake!</a></li>
+    <li class="level2 nav-leaf"><a href="../../../demos/snake-in-5-minutes/">Snake In 5 Minutes</a></li>
+    <li class="level2 nav-leaf"><a href="../../../demos/the-cursed-pirate/">The Cursed Pirate!</a></li>
+    <li class="level1 nav-node"><a href="../../">Guides</a></li>
+    <li class="level2 nav-node"><a href="../../actors/">Actors</a></li>
+    <li class="level3 nav-leaf"><a href="../../actors/actors-with-physics/">How to use physics with actors</a></li>
+    <li class="level2 nav-node"><a href="../">Animation</a></li>
+    <li class="level3 nav-leaf"><a href="../part-1-basics/">Part 1: Animation Fundamentals</a></li>
+    <li class="level3 active nav-leaf"><a href="#">Part 2: Using Signals</a></li>
+    <li class="level3 nav-leaf"><a href="../part-3-timelines/">Part 3: Timeline Animations</a></li>
+    <li class="level3 nav-leaf"><a href="../part-4-shaders/">Part 4: Shader Animations</a></li>
+    <li class="level2 nav-node"><a href="../../assets/">Assets</a></li>
+    <li class="level3 nav-leaf"><a href="../../assets/preloader/">Preloader / Loading Screens</a></li>
+    <li class="level2 nav-node"><a href="../../importers/">Importers</a></li>
+    <li class="level3 nav-leaf"><a href="../../importers/aseprite-embedded/">Aseprite Embedded</a></li>
+    <li class="level3 nav-leaf"><a href="../../importers/tiled-loaded/">Loading Tiled maps at runtime</a></li>
+    <li class="level2 nav-node"><a href="../../scenes/">Scenes</a></li>
+    <li class="level3 nav-leaf"><a href="../../scenes/scene-management/">Managing scenes</a></li>
+    <li class="level2 nav-node"><a href="../../ui/">Ui</a></li>
+    <li class="level3 nav-leaf"><a href="../../ui/radiobuttons/">How to make radio buttons</a></li>
+    <li class="level1 nav-node"><a href="../../../features/">Features</a></li>
+    <li class="level2 nav-node"><a href="../../../features/actors-and-performers/">Actors-and-performers</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/actors-and-performers/actors/">Actors</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/actors-and-performers/performers/">Performers</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/actors-and-performers/performers-with-physics/">Performers &amp; Physics</a></li>
+    <li class="level2 nav-leaf"><a href="../../../features/context/">Context</a></li>
+    <li class="level2 nav-node"><a href="../../../features/materials/">Materials</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/materials/bitmap/">Bitmap material</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/materials/filltypes/">Fill Types</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/materials/imageeffects/">ImageEffects material</a></li>
+    <li class="level2 nav-node"><a href="../../../features/physics/">Physics</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/physics/basics/">Basic Physics Example</a></li>
+    <li class="level2 nav-node"><a href="../../../features/primitives/">Primitives</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/primitives/blank/">Blank Entity</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/primitives/clip/">Clip</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/primitives/graphic/">Graphic</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/primitives/group/">Group</a></li>
+    <li class="level3 nav-node"><a href="../../../features/primitives/shapes/">Shapes</a></li>
+    <li class="level4 nav-leaf"><a href="../../../features/primitives/shapes/box/">Shape.Box</a></li>
+    <li class="level4 nav-leaf"><a href="../../../features/primitives/shapes/circle/">Shape.Circle</a></li>
+    <li class="level4 nav-leaf"><a href="../../../features/primitives/shapes/line/">Shape.Line</a></li>
+    <li class="level4 nav-leaf"><a href="../../../features/primitives/shapes/polygon/">Shape.Polygon</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/primitives/sprite/">Sprite</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/primitives/text/">Text</a></li>
+    <li class="level2 nav-node"><a href="../../../features/scenes/">Scenes</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/scenes/minimal/">Minimal scene example</a></li>
+    <li class="level2 nav-node"><a href="../../../features/shaders/">Shaders</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/shaders/basic/">A basic custom shader</a></li>
+    <li class="level2 nav-node"><a href="../../../features/time/">Time</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/time/signals/">Signals &amp; Signal Functions</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/time/time-varying-values/">Time Varying Values</a></li>
+    <li class="level2 nav-node"><a href="../../../features/ui/">Ui</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/ui/button/">UI Components: Button</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/ui/component-group/">UI Components: Component Group</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/ui/component-list/">UI Components: Component List</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/ui/custom/">UI Components: Custom Components</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/ui/hitarea/">UI Components: HitArea</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/ui/input/">UI Components: Input</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/ui/label/">UI Components: Label</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/ui/maskedpane/">UI Components: Masked Pane</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/ui/scrollpane/">UI Components: Scroll Pane</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/ui/switch/">UI Components: Switch</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/ui/textarea/">UI Components: TextArea</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/ui/window/">UI Components: Windows</a></li>
+  </ul>
+
+</nav>
+
+    <div id="container">
+
+      
+<nav id="page-nav">
+  <p class="header"><a href="#">Part 2: Using Signals</a></p>
+
+  <ul class="nav-list">
+    <li class="level1 nav-leaf"><a href="#animating-with-signals-signal-functions">Animating with Signals &amp; Signal Functions</a></li>
+    <li class="level1 nav-leaf"><a href="#example-links">Example Links</a></li>
+    <li class="level1 nav-leaf"><a href="#encoding-our-animation-as-a-signal">Encoding our animation as a <code>Signal</code></a></li>
+    <li class="level1 nav-node"><a href="#built-in-signals">Built-in Signals</a></li>
+    <li class="level2 nav-leaf"><a href="#orbit">Orbit</a></li>
+    <li class="level2 nav-leaf"><a href="#smoothpulse">SmoothPulse</a></li>
+    <li class="level2 nav-leaf"><a href="#pulse">Pulse</a></li>
+    <li class="level1 nav-leaf"><a href="#let-s-do-the-time-warp">Let&#39;s do the time warp!</a></li>
+    <li class="level1 nav-leaf"><a href="#signal-construction">Signal construction</a></li>
+    <li class="level1 nav-leaf"><a href="#summary">Summary</a></li>
+  </ul>
+
+  <p class="footer"></p>
+</nav>
+
+
+      <main class="content">
+
+        <h1 id="part-2-using-signals" class="title">Part 2: Using Signals</h1>
+        <p>In Part 1, we coded up a simple movement animation and instantly ran into complexity and state management issues. However, arguably the biggest problem in part 1, was that this stateful method of coding was messy and didn&#39;t look like it would scale very well.</p>
+        <p>Lets start over.</p>
+        <p>All we want to do is smoothly move a certain distance along the x axis, over a certain duration, say 10 seconds.</p>
+        <p>Observation: That means that how far through our animation we are, is actually a function of time, i.e. at time 0 seconds we&#39;re at the beginning of our animation, at 5 seconds we&#39;re in the middle, and at 10 seconds we&#39;ve reach the end. That could be frames in a animation, position along a trajectory, time through a simulation - anything.</p>
+        <p>We should be able to decide where we are in an animation given some starting conditions and the current time.
+        We should be able to capture that in a pure function.
+        ...and in that case, we should be able to <em>unit test animations</em>.</p>
+        
+        <h2 id="animating-with-signals-signal-functions" class="section"><a class="anchor-link left" href="#animating-with-signals-signal-functions"><i class="icofont-laika link">&#xef71;</i></a>Animating with Signals &amp; Signal Functions</h2>
+        <p>If you&#39;ve explored the documentation on <code>Signal</code>s already, you&#39;ll know that a signal is just a function that, for a given time, will produce a value, like this:</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">f</span><span>: </span><span class="type-name">Seconds</span><span> =&gt; </span><span class="type-name">A</span></code></pre>
+        <blockquote>Please note that the examples that follow define all the code in the present function purely to help the flow of the document. Normally you wouldn&#39;t do that.</blockquote>
+        
+        <h2 id="example-links" class="section"><a class="anchor-link left" href="#example-links"><i class="icofont-laika link">&#xef71;</i></a>Example Links</h2>
+        <ul>
+          <li><a href="https://github.com/PurpleKingdomGames/indigo-docs/blob/main/guides/animation/part-2-signals">View example code</a></li>
+        </ul>
+        <ul>
+          <li><a href="https://purplekingdomgames.github.io/indigo-docs//live_demos/guides/animation/part-2-signals/">Live demo</a></li>
+        </ul>
+        
+        <h2 id="encoding-our-animation-as-a-signal" class="section"><a class="anchor-link left" href="#encoding-our-animation-as-a-signal"><i class="icofont-laika link">&#xef71;</i></a>Encoding our animation as a <code>Signal</code></h2>
+        <p>Let&#39;s encode our movement animation as a reusable, stateless signal.</p>
+        <p>We&#39;re going to limit (clamp) the time to a maximum of 10 seconds, after that, we&#39;ll just
+        return the last position.</p>
+        <p>When the running time is supplied: Where the circle ought to be by now is calculated and
+        returned.</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span>    </span><span class="keyword">def</span><span> </span><span class="declaration-name">calculateXPosition</span><span>(</span><span class="identifier">from</span><span>: </span><span class="type-name">Int</span><span>, </span><span class="identifier">to</span><span>: </span><span class="type-name">Int</span><span>, </span><span class="identifier">over</span><span>: </span><span class="type-name">Seconds</span><span>): </span><span class="type-name">Signal</span><span>[</span><span class="type-name">Int</span><span>] =
+      </span><span class="type-name">Signal</span><span> { </span><span class="identifier">t</span><span> =&gt;
+        </span><span class="keyword">val</span><span> </span><span class="identifier">maxDuration</span><span>: </span><span class="type-name">Double</span><span>     = </span><span class="identifier">over</span><span>.</span><span class="identifier">toDouble</span><span>
+        </span><span class="keyword">val</span><span> </span><span class="identifier">clampedTime</span><span>: </span><span class="type-name">Double</span><span>     = </span><span class="keyword">if</span><span> (</span><span class="identifier">t</span><span>.</span><span class="identifier">toDouble</span><span> &gt; </span><span class="identifier">maxDuration</span><span>) </span><span class="identifier">maxDuration</span><span> </span><span class="keyword">else</span><span> </span><span class="identifier">t</span><span>.</span><span class="identifier">toDouble</span><span>
+        </span><span class="keyword">val</span><span> </span><span class="identifier">distanceToMove</span><span>: </span><span class="type-name">Double</span><span>  = </span><span class="identifier">to</span><span> - </span><span class="identifier">from</span><span>
+        </span><span class="keyword">val</span><span> </span><span class="identifier">pixelsPerSecond</span><span>: </span><span class="type-name">Double</span><span> = </span><span class="identifier">distanceToMove</span><span> / </span><span class="identifier">maxDuration</span><span>
+
+        </span><span class="identifier">from</span><span> + (</span><span class="identifier">pixelsPerSecond</span><span> * </span><span class="identifier">clampedTime</span><span>).</span><span class="identifier">toInt</span><span>
+      }</span></code></pre>
+        <p>To use the signal, we need to call its constructor to make it, and then supply the game&#39;s running time.</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">circle1</span><span> =
+  </span><span class="identifier">circle</span><span>.</span><span class="identifier">moveTo</span><span>(
+    </span><span class="identifier">calculateXPosition</span><span>(</span><span class="number-literal">60</span><span>, </span><span class="number-literal">740</span><span>, </span><span class="type-name">Seconds</span><span>(</span><span class="number-literal">10</span><span>)).</span><span class="identifier">at</span><span>(</span><span class="identifier">context</span><span>.</span><span class="identifier">frame</span><span>.</span><span class="identifier">time</span><span>.</span><span class="identifier">running</span><span>),
+    </span><span class="number-literal">100</span><span>
+  )</span></code></pre>
+        
+        <h2 id="built-in-signals" class="section"><a class="anchor-link left" href="#built-in-signals"><i class="icofont-laika link">&#xef71;</i></a>Built-in Signals</h2>
+        <p>Indigo has a number of build in Signals. The one we made above is a crude version of a
+        standard signal called <code>Lerp</code>.</p>
+        <p>Here are a few moreexamples:</p>
+        
+        <h3 id="orbit" class="section"><a class="anchor-link left" href="#orbit"><i class="icofont-laika link">&#xef71;</i></a>Orbit</h3>
+        <p>Returns a position in orbit around a given point.</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">circle2</span><span> =
+  </span><span class="type-name">Signal</span><span>.</span><span class="type-name">Orbit</span><span>(</span><span class="identifier">context</span><span>.</span><span class="identifier">frame</span><span>.</span><span class="identifier">viewport</span><span>.</span><span class="identifier">center</span><span> + </span><span class="type-name">Point</span><span>(</span><span class="number-literal">0</span><span>, </span><span class="number-literal">200</span><span>), </span><span class="number-literal">50</span><span>).</span><span class="identifier">map</span><span> { </span><span class="identifier">position</span><span> =&gt;
+    </span><span class="identifier">circle</span><span>.</span><span class="identifier">moveTo</span><span>(</span><span class="identifier">position</span><span>.</span><span class="identifier">toPoint</span><span>)
+  }</span></code></pre>
+        
+        <h3 id="smoothpulse" class="section"><a class="anchor-link left" href="#smoothpulse"><i class="icofont-laika link">&#xef71;</i></a>SmoothPulse</h3>
+        <p>Smoothly oscilates from 0.0 to 1.0 and back again.</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">circle3</span><span> =
+  </span><span class="type-name">Signal</span><span>.</span><span class="type-name">SmoothPulse</span><span>.</span><span class="identifier">map</span><span> { </span><span class="identifier">amount</span><span> =&gt;
+    </span><span class="identifier">circle</span><span>.</span><span class="identifier">moveTo</span><span>(</span><span class="number-literal">60</span><span> + (</span><span class="number-literal">680d</span><span> * </span><span class="identifier">amount</span><span>).</span><span class="identifier">toInt</span><span>, </span><span class="number-literal">200</span><span>)
+  }</span></code></pre>
+        
+        <h3 id="pulse" class="section"><a class="anchor-link left" href="#pulse"><i class="icofont-laika link">&#xef71;</i></a>Pulse</h3>
+        <p>Switches from true to false and back again.</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">circle4</span><span> =
+  </span><span class="type-name">Signal</span><span>.</span><span class="type-name">Pulse</span><span>(</span><span class="type-name">Seconds</span><span>(</span><span class="number-literal">0.5</span><span>)).</span><span class="identifier">map</span><span> { </span><span class="identifier">isTrue</span><span> =&gt;
+    </span><span class="keyword">if</span><span> </span><span class="identifier">isTrue</span><span> </span><span class="identifier">then</span><span> </span><span class="identifier">circle</span><span>.</span><span class="identifier">moveTo</span><span>(</span><span class="number-literal">60</span><span> + </span><span class="number-literal">680</span><span>, </span><span class="number-literal">300</span><span>)
+    </span><span class="keyword">else</span><span> </span><span class="identifier">circle</span><span>.</span><span class="identifier">moveTo</span><span>(</span><span class="number-literal">60</span><span>, </span><span class="number-literal">300</span><span>)
+  }</span></code></pre>
+        
+        <h2 id="let-s-do-the-time-warp" class="section"><a class="anchor-link left" href="#let-s-do-the-time-warp"><i class="icofont-laika link">&#xef71;</i></a>Let&#39;s do the time warp!</h2>
+        <p>To get the value out of a signal, you just need to tell give it a time in seconds, e.g.
+        <code>signal.at(Seconds(5))</code>. Where things get interesting is that there is no requirement to
+        give it the &quot;next&quot; time. You can give it any time you like.</p>
+        <p>Examples: Want to play the animation backwards? <code>signal.at(total time - running time)</code></p>
+        <p>Want to play the animation at half speed? <code>signal.at(running time * 0.5)</code></p>
+        <p>Want to jump to random &quot;frames&quot; in the animation? <code>signal.at(Seconds(dice.roll(10)))</code></p>
+        <p>Want to squidge (technical term) backwards and forwards through the animation?
+        <code>Signal.SmoothPulse.flatMap(signal.at(total time * _))</code></p>
+        
+        <h2 id="signal-construction" class="section"><a class="anchor-link left" href="#signal-construction"><i class="icofont-laika link">&#xef71;</i></a>Signal construction</h2>
+        <p>Making signals can get complicated, particularly if you try to wrap up all of the business
+        logic in a single <code>Signal</code> definition as we have done so far.</p>
+        <p>Signals are Monads, meaning that many of the usual functions like <code>map</code>, <code>ap</code>, and <code>flatMap</code>
+        that you&#39;d expect to see are available to use, and allow you to use common Scala idioms for
+        their construction, such as for comprehensions.</p>
+        <p>This helps a lot with building signal values, but another useful construct is the
+        <code>SignalFunction</code>.</p>
+        <p>Signal functions are covered elsewhere in the docs, but below is a small example. Note that
+        they cover a lot of the same ground as signals themselves, but are more composable.</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span>    </span><span class="keyword">val</span><span> </span><span class="identifier">moveWithEasing</span><span>: </span><span class="type-name">SignalFunction</span><span>[</span><span class="type-name">Seconds</span><span>, </span><span class="type-name">Shape</span><span>.</span><span class="type-name">Circle</span><span>] =
+      </span><span class="type-name">SignalFunction</span><span>.</span><span class="identifier">easeInOut</span><span>(</span><span class="type-name">Seconds</span><span>(</span><span class="number-literal">20</span><span>)) &gt;&gt;&gt;
+        </span><span class="type-name">SignalFunction</span><span>.</span><span class="identifier">lerp</span><span>(</span><span class="type-name">Point</span><span>(</span><span class="number-literal">60</span><span>, </span><span class="number-literal">60</span><span>), </span><span class="type-name">Point</span><span>(</span><span class="number-literal">800</span><span> - </span><span class="number-literal">60</span><span>, </span><span class="number-literal">600</span><span> - </span><span class="number-literal">60</span><span>)) &gt;&gt;&gt;
+        </span><span class="type-name">SignalFunction</span><span> { </span><span class="identifier">pt</span><span> =&gt;
+          </span><span class="identifier">blueCircle</span><span>.</span><span class="identifier">moveTo</span><span>(</span><span class="identifier">pt</span><span>)
+        }
+
+    </span><span class="keyword">val</span><span> </span><span class="identifier">circleSignal</span><span>: </span><span class="type-name">Signal</span><span>[</span><span class="type-name">Shape</span><span>.</span><span class="type-name">Circle</span><span>] =
+      </span><span class="type-name">Signal</span><span>.</span><span class="type-name">Time</span><span> |&gt; </span><span class="identifier">moveWithEasing</span></code></pre>
+        
+        <h2 id="summary" class="section"><a class="anchor-link left" href="#summary"><i class="icofont-laika link">&#xef71;</i></a>Summary</h2>
+        <p>Using signals and signal functions provides a great abstraction for animation, much better than
+        coding it up directly. Perfect for simple animations.</p>
+        <p>That said, things could get pretty messy if you were trying to do a complicated animation. What
+        if you were trying to coordinate several moving elements or effects at once, such as in a menu
+        or game over screen?</p>
+        <p>What we need an abstraction for our abstraction, and luckily, one is available. In the next
+        section, we&#39;ll look at timelines.</p>
+
+        
+<hr class="footer-rule"/>
+<footer>
+  Site generated by <a href="https://typelevel.org/Laika/">Laika</a> with the Helium theme.
+</footer>
+
+
+      </main>
+
+    </div>
+
+  </body>
+
+</html>

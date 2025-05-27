@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Typelevel Laika + Helium Theme" />
+  <title>Part 1: Animation Fundamentals</title>
+  
+  
+  <meta name="description" content="An FP game engine for Scala."/>
+  
+  
+  
+  <link rel="icon" sizes="32x32" type="image/png" href="../../../img/favicon.png"/>
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:500">
+  
+  <link rel="stylesheet" type="text/css" href="../../../helium/site/icofont.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../helium/site/laika-helium.css" />
+    <link rel="stylesheet" type="text/css" href="../../../css/custom.css" />
+  <script src="../../../helium/site/laika-helium.js"></script>
+  
+  
+  <script> /* for avoiding page load transitions */ </script>
+</head>
+
+  <body>
+
+    <header id="top-bar" class="light-default dark-default">
+
+  <div class="row">
+    <a id="nav-icon">
+      <i class="icofont-laika navigationMenu" title="Navigation">&#xefa2;</i>
+    </a>
+    
+    
+  </div>
+
+  <a class="image-link" href="../../../documentation/"><img src="../../../img/indigo_logo_solid_text.svg" alt="An FP game engine for Scala." title="Indigo" width="150" height="50"></a>
+
+  <div class="row links">
+    
+    <a class="button-link" href="https://purplekingdomgames.github.io/indigo-docs/live_demos">Live Demos</a>
+    
+    <a class="button-link" href="https://discord.gg/b5CD47g">Discord</a>
+    
+    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigo">Github</a>
+    
+  </div>  
+
+</header>
+    
+    <nav id="sidebar">
+
+  <div class="row">
+    
+    <a class="button-link" href="https://purplekingdomgames.github.io/indigo-docs/live_demos">Live Demos</a>
+    
+    <a class="button-link" href="https://discord.gg/b5CD47g">Discord</a>
+    
+    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigo">Github</a>
+    
+  </div>
+
+  <ul class="nav-list">
+    <li class="level1 nav-node"><a href="../../../documentation/">Indigo</a></li>
+    <li class="level2 nav-header">Indigo</li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/key-concepts/model-viewmodel-view.html">Model, ViewModel, &amp; View</a></li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/key-concepts/time.html">Time</a></li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/key-concepts/performance.html">Performance</a></li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/key-concepts/making-games-testable.html">Making games testable</a></li>
+    <li class="level2 nav-header">Shaders</li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/shaders/shaders.html">Shaders</a></li>
+    <li class="level2 nav-header">Quick start</li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/quickstart/extensions-and-libs.html">Extensions, Libraries, and Related Projects</a></li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/quickstart/quickstart.html">Quick start</a></li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/quickstart/examples.html">Examples, Demos, and References</a></li>
+    <li class="level2 nav-header">General information</li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/misc/prior-art.html">Prior Art</a></li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/misc/motivation-and-constraints.html">Motivation &amp; Constraints</a></li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/misc/rendering-technology.html">Rendering Technology</a></li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/misc/indigo-vs-elm.html">Indigo vs Elm</a></li>
+    <li class="level1 nav-node"><a href="../../../demos/">Demos</a></li>
+    <li class="level2 nav-leaf"><a href="../../../demos/snake/">Snake!</a></li>
+    <li class="level2 nav-leaf"><a href="../../../demos/snake-in-5-minutes/">Snake In 5 Minutes</a></li>
+    <li class="level2 nav-leaf"><a href="../../../demos/the-cursed-pirate/">The Cursed Pirate!</a></li>
+    <li class="level1 nav-node"><a href="../../">Guides</a></li>
+    <li class="level2 nav-node"><a href="../../actors/">Actors</a></li>
+    <li class="level3 nav-leaf"><a href="../../actors/actors-with-physics/">How to use physics with actors</a></li>
+    <li class="level2 nav-node"><a href="../">Animation</a></li>
+    <li class="level3 active nav-leaf"><a href="#">Part 1: Animation Fundamentals</a></li>
+    <li class="level3 nav-leaf"><a href="../part-2-signals/">Part 2: Using Signals</a></li>
+    <li class="level3 nav-leaf"><a href="../part-3-timelines/">Part 3: Timeline Animations</a></li>
+    <li class="level3 nav-leaf"><a href="../part-4-shaders/">Part 4: Shader Animations</a></li>
+    <li class="level2 nav-node"><a href="../../assets/">Assets</a></li>
+    <li class="level3 nav-leaf"><a href="../../assets/preloader/">Preloader / Loading Screens</a></li>
+    <li class="level2 nav-node"><a href="../../importers/">Importers</a></li>
+    <li class="level3 nav-leaf"><a href="../../importers/aseprite-embedded/">Aseprite Embedded</a></li>
+    <li class="level3 nav-leaf"><a href="../../importers/tiled-loaded/">Loading Tiled maps at runtime</a></li>
+    <li class="level2 nav-node"><a href="../../scenes/">Scenes</a></li>
+    <li class="level3 nav-leaf"><a href="../../scenes/scene-management/">Managing scenes</a></li>
+    <li class="level2 nav-node"><a href="../../ui/">Ui</a></li>
+    <li class="level3 nav-leaf"><a href="../../ui/radiobuttons/">How to make radio buttons</a></li>
+    <li class="level1 nav-node"><a href="../../../features/">Features</a></li>
+    <li class="level2 nav-node"><a href="../../../features/actors-and-performers/">Actors-and-performers</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/actors-and-performers/actors/">Actors</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/actors-and-performers/performers/">Performers</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/actors-and-performers/performers-with-physics/">Performers &amp; Physics</a></li>
+    <li class="level2 nav-leaf"><a href="../../../features/context/">Context</a></li>
+    <li class="level2 nav-node"><a href="../../../features/materials/">Materials</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/materials/bitmap/">Bitmap material</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/materials/filltypes/">Fill Types</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/materials/imageeffects/">ImageEffects material</a></li>
+    <li class="level2 nav-node"><a href="../../../features/physics/">Physics</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/physics/basics/">Basic Physics Example</a></li>
+    <li class="level2 nav-node"><a href="../../../features/primitives/">Primitives</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/primitives/blank/">Blank Entity</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/primitives/clip/">Clip</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/primitives/graphic/">Graphic</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/primitives/group/">Group</a></li>
+    <li class="level3 nav-node"><a href="../../../features/primitives/shapes/">Shapes</a></li>
+    <li class="level4 nav-leaf"><a href="../../../features/primitives/shapes/box/">Shape.Box</a></li>
+    <li class="level4 nav-leaf"><a href="../../../features/primitives/shapes/circle/">Shape.Circle</a></li>
+    <li class="level4 nav-leaf"><a href="../../../features/primitives/shapes/line/">Shape.Line</a></li>
+    <li class="level4 nav-leaf"><a href="../../../features/primitives/shapes/polygon/">Shape.Polygon</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/primitives/sprite/">Sprite</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/primitives/text/">Text</a></li>
+    <li class="level2 nav-node"><a href="../../../features/scenes/">Scenes</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/scenes/minimal/">Minimal scene example</a></li>
+    <li class="level2 nav-node"><a href="../../../features/shaders/">Shaders</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/shaders/basic/">A basic custom shader</a></li>
+    <li class="level2 nav-node"><a href="../../../features/time/">Time</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/time/signals/">Signals &amp; Signal Functions</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/time/time-varying-values/">Time Varying Values</a></li>
+    <li class="level2 nav-node"><a href="../../../features/ui/">Ui</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/ui/button/">UI Components: Button</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/ui/component-group/">UI Components: Component Group</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/ui/component-list/">UI Components: Component List</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/ui/custom/">UI Components: Custom Components</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/ui/hitarea/">UI Components: HitArea</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/ui/input/">UI Components: Input</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/ui/label/">UI Components: Label</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/ui/maskedpane/">UI Components: Masked Pane</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/ui/scrollpane/">UI Components: Scroll Pane</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/ui/switch/">UI Components: Switch</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/ui/textarea/">UI Components: TextArea</a></li>
+    <li class="level3 nav-leaf"><a href="../../../features/ui/window/">UI Components: Windows</a></li>
+  </ul>
+
+</nav>
+
+    <div id="container">
+
+      
+<nav id="page-nav">
+  <p class="header"><a href="#">Part 1: Animation Fundamentals</a></p>
+
+  <ul class="nav-list">
+    <li class="level1 nav-leaf"><a href="#importing-animations">Importing animations</a></li>
+    <li class="level1 nav-leaf"><a href="#procedural-animations">Procedural Animations</a></li>
+    <li class="level1 nav-leaf"><a href="#movies-vs-video-games">Movies vs Video Games</a></li>
+    <li class="level1 nav-leaf"><a href="#frame-time-deltas-to-the-rescue">Frame time deltas to the rescue</a></li>
+    <li class="level1 nav-leaf"><a href="#example-links">Example Links</a></li>
+    <li class="level1 nav-leaf"><a href="#example-of-procedural-animation">Example of procedural animation</a></li>
+  </ul>
+
+  <p class="footer"></p>
+</nav>
+
+
+      <main class="content">
+
+        <h1 id="part-1-animation-fundamentals" class="title">Part 1: Animation Fundamentals</h1>
+        <p>There are essentially two forms of animation in Indigo.</p>
+        <ol class="arabic">
+          <li>Animations you have imported from a third party tool.</li>
+          <li>Animations you have described in code, known as procedural animations.</li>
+        </ol>
+        
+        <h2 id="importing-animations" class="section"><a class="anchor-link left" href="#importing-animations"><i class="icofont-laika link">&#xef71;</i></a>Importing animations</h2>
+        <p>At the time of writing, the only built-in support for importing animations, is from <a href="https://www.aseprite.org/">Aseprite</a> (an excellent pixel art editor and animation tool) into Indigo as a Sprite or a Clip. For working examples of this, please see the relevant section on Sprites and Clips.</p>
+        <p>Aseprite animations can either be embedded using Indigo&#39;s built-in generators, or loaded from JSON data at runtime. Contributions to support other formats are welcome!</p>
+        
+        <h2 id="procedural-animations" class="section"><a class="anchor-link left" href="#procedural-animations"><i class="icofont-laika link">&#xef71;</i></a>Procedural Animations</h2>
+        <p>This series of guides explores on how to describe your animations in code.</p>
+        <p>To get started, we&#39;re going to look at the fundamentals.</p>
+        
+        <h2 id="movies-vs-video-games" class="section"><a class="anchor-link left" href="#movies-vs-video-games"><i class="icofont-laika link">&#xef71;</i></a>Movies vs Video Games</h2>
+        <p><strong>Question:</strong> What do the earliest animations, from physical zoetropes to early animations on cellular film have in common with the latest and greatest 3D animated movie extravaganza?</p>
+        <p>The answer is: A fixed frame rate, say 24 frames per second (the standard for theatrical animation screenings at one time).</p>
+        <p>That means that if you want to animate something moving from one side of the screen to the other, at constant speed in a duration of 1 second, you need to move it exactly 1/24th of the total distance on every frame, for 24 frames.</p>
+        <p>Sounds good! Doing that in code is as simple as doing this every frame:</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">increment</span><span> = </span><span class="identifier">totalDistance</span><span> / </span><span class="number-literal">24</span><span>
+
+</span><span class="identifier">sprite</span><span>.</span><span class="identifier">moveBy</span><span>(</span><span class="identifier">increment</span><span>, </span><span class="number-literal">0</span><span>)</span></code></pre>
+        <p>The problem with this solution is that video games are not movies, and they DO NOT have a consistent frame rate. Each frame will take slightly less or more time to process and render than the last frame. Using the method above will result in jerky and jittery animation.</p>
+        
+        <h2 id="frame-time-deltas-to-the-rescue" class="section"><a class="anchor-link left" href="#frame-time-deltas-to-the-rescue"><i class="icofont-laika link">&#xef71;</i></a>Frame time deltas to the rescue</h2>
+        <p>Luckily, there is an easy solution, all we need to do is multiple the desired number of units (i.e. distance) per second (in our case, the total distance) by the amount of time that has elapse since the last frame was processed.</p>
+        <p>You may recall from school that <code>speed = distance / time</code>, well all we&#39;re going to do is re-arrange that to <code>distance = speed * time</code> where distance is how far we need to move our sprite, speed is the desired distance to move every second, and time is therefore the frame delta. Which gives us something like:</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="identifier">sprite</span><span>.</span><span class="identifier">moveBy</span><span>(</span><span class="identifier">totalDistance</span><span> * </span><span class="identifier">frameDelta</span><span>, </span><span class="number-literal">0</span><span>)</span></code></pre>
+        
+        <h2 id="example-links" class="section"><a class="anchor-link left" href="#example-links"><i class="icofont-laika link">&#xef71;</i></a>Example Links</h2>
+        <ul>
+          <li><a href="https://github.com/PurpleKingdomGames/indigo-docs/blob/main/guides/animation/part-1-basics">View example code</a></li>
+        </ul>
+        <ul>
+          <li><a href="https://purplekingdomgames.github.io/indigo-docs//live_demos/guides/animation/part-1-basics/">Live demo</a></li>
+        </ul>
+        
+        <h2 id="example-of-procedural-animation" class="section"><a class="anchor-link left" href="#example-of-procedural-animation"><i class="icofont-laika link">&#xef71;</i></a>Example of procedural animation</h2>
+        <p>Let&#39;s look at a real example and illustrate some of the problems a challenges we need to
+        overcome.</p>
+        <p>In this example we will simply move a red circle across the screen from left to right, using the
+        frame delta to ensure a constant speed.</p>
+        <p>How hard could it be?</p>
+        <p>The first thing we need to do is model some state. State?! Oh yes. In animation you either need
+        to know the current state, or write some clever code that can fully work on the current
+        animation position based only on the initial conditions and the running time. More on that
+        later, for now, we&#39;re going to update a known position.</p>
+        <p>The position is wrapped in a model case class in a nod to realism, but curiously, the position
+        is modelled as a <code>Vertex</code>, which takes <code>Double</code>s, rather that a <code>Point</code> which uses <code>Int</code> as
+        its unit type. What is going on? <code>Point</code> would seem to be the obvious choice, since we&#39;re
+        moving across the screen in pixels, but let&#39;s do the math:</p>
+        <ol class="arabic">
+          <li>We want to move across the screen at 50 pixels per second, and our game runs at 60 frames
+          per second.</li>
+          <li>60 FPS is on average 16.667 milliseconds per frame, but we need to convert that to seconds,
+          so: 0.016667.</li>
+          <li>50 pixels per second * 0.016667 frame delta = 0.83335.</li>
+        </ol>
+        <p>So we need to move our circle 0.83335 pixels every frame, on average.</p>
+        <p>If conversion of <code>Double</code> to <code>Int</code> <em>rounded</em> the value then we&#39;d jitter and stutter across the
+        screen - sometimes moving a bit, sometimes not at all.</p>
+        <p>Actually, conversion of <code>Double</code> to <code>Int</code> <em>floors</em> the value, meaning <code>0</code>, so we never move...
+        Oh dear!</p>
+        <p>By modelling the position as a type based on <code>Double</code> and converting to pixels at the last
+        moment during presentation, we can avoid all these difficulties.</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">final</span><span> </span><span class="keyword">case</span><span> </span><span class="keyword">class</span><span> </span><span class="type-name">Model</span><span>(</span><span class="identifier">position</span><span>: </span><span class="type-name">Vertex</span><span>)</span></code></pre>
+        <p>We need to initialise our state with some acceptable values.</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">initialModel</span><span>(</span><span class="identifier">startupData</span><span>: </span><span class="type-name">Unit</span><span>): </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">Model</span><span>] =
+  </span><span class="type-name">Outcome</span><span>(</span><span class="type-name">Model</span><span>(</span><span class="type-name">Vertex</span><span>(</span><span class="number-literal">60</span><span>, </span><span class="number-literal">120</span><span>)))</span></code></pre>
+        <p>During update we do our now familiar bit of maths, multiplying the speed by the frame delta</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span>  </span><span class="keyword">def</span><span> </span><span class="declaration-name">updateModel</span><span>(</span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>[</span><span class="type-name">Unit</span><span>], </span><span class="identifier">model</span><span>: </span><span class="type-name">Model</span><span>): </span><span class="type-name">GlobalEvent</span><span> =&gt; </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">Model</span><span>] =
+    </span><span class="identifier">_</span><span> =&gt;
+      </span><span class="keyword">val</span><span> </span><span class="identifier">pixelsPerSecond</span><span> = </span><span class="number-literal">50</span><span>
+
+      </span><span class="type-name">Outcome</span><span>(
+        </span><span class="identifier">model</span><span>.</span><span class="identifier">copy</span><span>(
+          </span><span class="identifier">position</span><span> = </span><span class="identifier">model</span><span>.</span><span class="identifier">position</span><span>.</span><span class="identifier">withX</span><span>(
+            </span><span class="identifier">model</span><span>.</span><span class="identifier">position</span><span>.</span><span class="identifier">x</span><span> + (</span><span class="identifier">pixelsPerSecond</span><span> * </span><span class="identifier">context</span><span>.</span><span class="identifier">frame</span><span>.</span><span class="identifier">time</span><span>.</span><span class="identifier">delta</span><span>.</span><span class="identifier">toDouble</span><span>)
+          )
+        )
+      )</span></code></pre>
+        <p>When we draw the circle, we simply move it to the position held in the model.</p>
+        <pre><code class="nohighlight"><span>  </span><span class="keyword">def</span><span> </span><span class="declaration-name">present</span><span>(</span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>[</span><span class="type-name">Unit</span><span>], </span><span class="identifier">model</span><span>: </span><span class="type-name">Model</span><span>): </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">SceneUpdateFragment</span><span>] =
+    </span><span class="keyword">val</span><span> </span><span class="identifier">circle</span><span> =
+      </span><span class="type-name">Shape</span><span>.</span><span class="type-name">Circle</span><span>(
+        </span><span class="type-name">Circle</span><span>(</span><span class="type-name">Point</span><span>.</span><span class="identifier">zero</span><span>, </span><span class="number-literal">50</span><span>),
+        </span><span class="type-name">Fill</span><span>.</span><span class="type-name">Color</span><span>(</span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Red</span><span>),
+        </span><span class="type-name">Stroke</span><span>(</span><span class="number-literal">2</span><span>, </span><span class="type-name">RGBA</span><span>.</span><span class="type-name">White</span><span>)
+      )
+
+    </span><span class="type-name">Outcome</span><span>(
+      </span><span class="type-name">SceneUpdateFragment</span><span>(
+        </span><span class="identifier">circle</span><span>.</span><span class="identifier">moveTo</span><span>(</span><span class="identifier">model</span><span>.</span><span class="identifier">position</span><span>.</span><span class="identifier">toPoint</span><span>)
+      )
+    )</span></code></pre>
+        <p>Gosh that was hard work! Imagine trying to do that for every moving thing on the screen! There must be another way, surely?</p>
+
+        
+<hr class="footer-rule"/>
+<footer>
+  Site generated by <a href="https://typelevel.org/Laika/">Laika</a> with the Helium theme.
+</footer>
+
+
+      </main>
+
+    </div>
+
+  </body>
+
+</html>
