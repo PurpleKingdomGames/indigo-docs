@@ -86,3 +86,19 @@ object AnimationPart3 extends IndigoSandbox[Unit, Unit]:
       )
     )
   // ```
+
+/** ## Summary
+  *
+  * Designed to ease the production of coordinated animations for menu and game over screens,
+  * timelines provide a powerful abstraction over signals and signal functions, to allow you to
+  * describe complicated animations and state transitions, with many moving parts.
+  *
+  * Of course, all of this abstraction comes at a cost, namely: Allocations. While Timeline
+  * animations are great for a few complicated situations, they are not well suited to cases where
+  * you need many instances of small animations. For those, signals, imported animations and even
+  * handrolled animation code can offer a better performance vs ease of use trade off.
+  *
+  * ...but what is the lightest, fastest, most performant animation technique of all?
+  *
+  * In part 4 we'll answer that question by diving into shaders!
+  */
