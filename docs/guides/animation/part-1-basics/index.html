@@ -107,7 +107,7 @@
     <li class="level2 nav-node"><a href="../../ui/">Ui</a></li>
     <li class="level3 nav-leaf"><a href="../../ui/radiobuttons/">How to make radio buttons</a></li>
     <li class="level1 nav-node"><a href="../../../features/">Features</a></li>
-    <li class="level2 nav-node"><a href="../../../features/actors-and-performers/">Actors-and-performers</a></li>
+    <li class="level2 nav-node"><a href="../../../features/actors-and-performers/">Actors and performers</a></li>
     <li class="level3 nav-leaf"><a href="../../../features/actors-and-performers/actors/">Actors</a></li>
     <li class="level3 nav-leaf"><a href="../../../features/actors-and-performers/performers/">Performers</a></li>
     <li class="level3 nav-leaf"><a href="../../../features/actors-and-performers/performers-with-physics/">Performers &amp; Physics</a></li>
@@ -246,31 +246,31 @@
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">initialModel</span><span>(</span><span class="identifier">startupData</span><span>: </span><span class="type-name">Unit</span><span>): </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">Model</span><span>] =
   </span><span class="type-name">Outcome</span><span>(</span><span class="type-name">Model</span><span>(</span><span class="type-name">Vertex</span><span>(</span><span class="number-literal">60</span><span>, </span><span class="number-literal">120</span><span>)))</span></code></pre>
         <p>During update we do our now familiar bit of maths, multiplying the speed by the frame delta</p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span>  </span><span class="keyword">def</span><span> </span><span class="declaration-name">updateModel</span><span>(</span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>[</span><span class="type-name">Unit</span><span>], </span><span class="identifier">model</span><span>: </span><span class="type-name">Model</span><span>): </span><span class="type-name">GlobalEvent</span><span> =&gt; </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">Model</span><span>] =
-    </span><span class="identifier">_</span><span> =&gt;
-      </span><span class="keyword">val</span><span> </span><span class="identifier">pixelsPerSecond</span><span> = </span><span class="number-literal">50</span><span>
-
-      </span><span class="type-name">Outcome</span><span>(
-        </span><span class="identifier">model</span><span>.</span><span class="identifier">copy</span><span>(
-          </span><span class="identifier">position</span><span> = </span><span class="identifier">model</span><span>.</span><span class="identifier">position</span><span>.</span><span class="identifier">withX</span><span>(
-            </span><span class="identifier">model</span><span>.</span><span class="identifier">position</span><span>.</span><span class="identifier">x</span><span> + (</span><span class="identifier">pixelsPerSecond</span><span> * </span><span class="identifier">context</span><span>.</span><span class="identifier">frame</span><span>.</span><span class="identifier">time</span><span>.</span><span class="identifier">delta</span><span>.</span><span class="identifier">toDouble</span><span>)
-          )
-        )
-      )</span></code></pre>
-        <p>When we draw the circle, we simply move it to the position held in the model.</p>
-        <pre><code class="nohighlight"><span>  </span><span class="keyword">def</span><span> </span><span class="declaration-name">present</span><span>(</span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>[</span><span class="type-name">Unit</span><span>], </span><span class="identifier">model</span><span>: </span><span class="type-name">Model</span><span>): </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">SceneUpdateFragment</span><span>] =
-    </span><span class="keyword">val</span><span> </span><span class="identifier">circle</span><span> =
-      </span><span class="type-name">Shape</span><span>.</span><span class="type-name">Circle</span><span>(
-        </span><span class="type-name">Circle</span><span>(</span><span class="type-name">Point</span><span>.</span><span class="identifier">zero</span><span>, </span><span class="number-literal">50</span><span>),
-        </span><span class="type-name">Fill</span><span>.</span><span class="type-name">Color</span><span>(</span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Red</span><span>),
-        </span><span class="type-name">Stroke</span><span>(</span><span class="number-literal">2</span><span>, </span><span class="type-name">RGBA</span><span>.</span><span class="type-name">White</span><span>)
-      )
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">updateModel</span><span>(</span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>[</span><span class="type-name">Unit</span><span>], </span><span class="identifier">model</span><span>: </span><span class="type-name">Model</span><span>): </span><span class="type-name">GlobalEvent</span><span> =&gt; </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">Model</span><span>] =
+  </span><span class="identifier">_</span><span> =&gt;
+    </span><span class="keyword">val</span><span> </span><span class="identifier">pixelsPerSecond</span><span> = </span><span class="number-literal">50</span><span>
 
     </span><span class="type-name">Outcome</span><span>(
-      </span><span class="type-name">SceneUpdateFragment</span><span>(
-        </span><span class="identifier">circle</span><span>.</span><span class="identifier">moveTo</span><span>(</span><span class="identifier">model</span><span>.</span><span class="identifier">position</span><span>.</span><span class="identifier">toPoint</span><span>)
+      </span><span class="identifier">model</span><span>.</span><span class="identifier">copy</span><span>(
+        </span><span class="identifier">position</span><span> = </span><span class="identifier">model</span><span>.</span><span class="identifier">position</span><span>.</span><span class="identifier">withX</span><span>(
+          </span><span class="identifier">model</span><span>.</span><span class="identifier">position</span><span>.</span><span class="identifier">x</span><span> + (</span><span class="identifier">pixelsPerSecond</span><span> * </span><span class="identifier">context</span><span>.</span><span class="identifier">frame</span><span>.</span><span class="identifier">time</span><span>.</span><span class="identifier">delta</span><span>.</span><span class="identifier">toDouble</span><span>)
+        )
       )
     )</span></code></pre>
+        <p>When we draw the circle, we simply move it to the position held in the model.</p>
+        <pre><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">present</span><span>(</span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>[</span><span class="type-name">Unit</span><span>], </span><span class="identifier">model</span><span>: </span><span class="type-name">Model</span><span>): </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">SceneUpdateFragment</span><span>] =
+  </span><span class="keyword">val</span><span> </span><span class="identifier">circle</span><span> =
+    </span><span class="type-name">Shape</span><span>.</span><span class="type-name">Circle</span><span>(
+      </span><span class="type-name">Circle</span><span>(</span><span class="type-name">Point</span><span>.</span><span class="identifier">zero</span><span>, </span><span class="number-literal">50</span><span>),
+      </span><span class="type-name">Fill</span><span>.</span><span class="type-name">Color</span><span>(</span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Red</span><span>),
+      </span><span class="type-name">Stroke</span><span>(</span><span class="number-literal">2</span><span>, </span><span class="type-name">RGBA</span><span>.</span><span class="type-name">White</span><span>)
+    )
+
+  </span><span class="type-name">Outcome</span><span>(
+    </span><span class="type-name">SceneUpdateFragment</span><span>(
+      </span><span class="identifier">circle</span><span>.</span><span class="identifier">moveTo</span><span>(</span><span class="identifier">model</span><span>.</span><span class="identifier">position</span><span>.</span><span class="identifier">toPoint</span><span>)
+    )
+  )</span></code></pre>
         <p>Gosh that was hard work! Imagine trying to do that for every moving thing on the screen! There must be another way, surely?</p>
 
         

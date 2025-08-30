@@ -107,7 +107,7 @@
     <li class="level2 nav-node"><a href="../../../guides/ui/">Ui</a></li>
     <li class="level3 nav-leaf"><a href="../../../guides/ui/radiobuttons/">How to make radio buttons</a></li>
     <li class="level1 nav-node"><a href="../../">Features</a></li>
-    <li class="level2 nav-node"><a href="../../actors-and-performers/">Actors-and-performers</a></li>
+    <li class="level2 nav-node"><a href="../../actors-and-performers/">Actors and performers</a></li>
     <li class="level3 nav-leaf"><a href="../../actors-and-performers/actors/">Actors</a></li>
     <li class="level3 nav-leaf"><a href="../../actors-and-performers/performers/">Performers</a></li>
     <li class="level3 nav-leaf"><a href="../../actors-and-performers/performers-with-physics/">Performers &amp; Physics</a></li>
@@ -226,22 +226,16 @@
         <pre><code>//      ____    ____    ____
 //  ___|   |___|   |___|   |___</code></pre>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">signal</span><span> = </span><span class="type-name">Signal</span><span>.</span><span class="type-name">Pulse</span><span>(</span><span class="type-name">Seconds</span><span>(</span><span class="number-literal">1</span><span>))</span></code></pre>
-        <ul>
-          <li>Taking our &#39;pulse&#39; boolean value, we can choose a range of 1 to 5, or 1 to 10.</li>
-        </ul>
+        <p>Taking our &#39;pulse&#39; boolean value, we can choose a range of 1 to 5, or 1 to 10.</p>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">makeRange</span><span>: </span><span class="type-name">SignalFunction</span><span>[</span><span class="type-name">Boolean</span><span>, </span><span class="type-name">List</span><span>[</span><span class="type-name">Int</span><span>]] =
   </span><span class="type-name">SignalFunction</span><span> { </span><span class="identifier">p</span><span> =&gt;
     </span><span class="keyword">val</span><span> </span><span class="identifier">num</span><span> = </span><span class="keyword">if</span><span> (</span><span class="identifier">p</span><span>) </span><span class="number-literal">10</span><span> </span><span class="keyword">else</span><span> </span><span class="number-literal">5</span><span>
     (</span><span class="number-literal">1</span><span> </span><span class="identifier">to</span><span> </span><span class="identifier">num</span><span>).</span><span class="identifier">toList</span><span>
   }</span></code></pre>
-        <ul>
-          <li>Using the same boolean, we can also decide if we&#39;re talking about cats or dogs.</li>
-        </ul>
+        <p>Using the same boolean, we can also decide if we&#39;re talking about cats or dogs.</p>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">chooseCatsOrDogs</span><span>: </span><span class="type-name">SignalFunction</span><span>[</span><span class="type-name">Boolean</span><span>, </span><span class="type-name">String</span><span>] =
   </span><span class="type-name">SignalFunction</span><span>(</span><span class="identifier">p</span><span> =&gt; </span><span class="keyword">if</span><span> (</span><span class="identifier">p</span><span>) </span><span class="string-literal">&quot;dog&quot;</span><span> </span><span class="keyword">else</span><span> </span><span class="string-literal">&quot;cat&quot;</span><span>)</span></code></pre>
-        <ul>
-          <li>Given our lists of numbers and our cats and dogs, we need a way to make the final result.</li>
-        </ul>
+        <p>Given our lists of numbers and our cats and dogs, we need a way to make the final result.</p>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">howManyPets</span><span>: </span><span class="type-name">SignalFunction</span><span>[(</span><span class="type-name">List</span><span>[</span><span class="type-name">Int</span><span>], </span><span class="type-name">String</span><span>), </span><span class="type-name">List</span><span>[</span><span class="type-name">String</span><span>]] =
   </span><span class="type-name">SignalFunction</span><span> { </span><span class="keyword">case</span><span> (</span><span class="identifier">l</span><span>, </span><span class="identifier">str</span><span>) =&gt;
     </span><span class="identifier">l</span><span>.</span><span class="identifier">map</span><span>(</span><span class="identifier">_</span><span>.</span><span class="identifier">toString</span><span> + </span><span class="string-literal">&quot; &quot;</span><span> + </span><span class="identifier">str</span><span>)
@@ -254,24 +248,24 @@
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">signalFunction</span><span> = (</span><span class="identifier">makeRange</span><span> &amp;&amp;&amp; </span><span class="identifier">chooseCatsOrDogs</span><span>) &gt;&gt;&gt; </span><span class="identifier">howManyPets</span></code></pre>
         <p>To run the examples, we&#39;ll pipe the pulse signal into our signal function using the pipe <code>|&gt;</code>
         operator.</p>
-        <pre><code class="nohighlight"><span>  </span><span class="keyword">def</span><span> </span><span class="declaration-name">updateModel</span><span>(
-      </span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>[</span><span class="type-name">Unit</span><span>],
-      </span><span class="identifier">hasRunOnce</span><span>: </span><span class="type-name">Boolean</span><span>
-  ): </span><span class="type-name">GlobalEvent</span><span> =&gt; </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">Boolean</span><span>] =
-    </span><span class="keyword">case</span><span> </span><span class="type-name">FrameTick</span><span> </span><span class="keyword">if</span><span> !</span><span class="identifier">hasRunOnce</span><span> =&gt;
+        <pre><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">updateModel</span><span>(
+    </span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>[</span><span class="type-name">Unit</span><span>],
+    </span><span class="identifier">hasRunOnce</span><span>: </span><span class="type-name">Boolean</span><span>
+): </span><span class="type-name">GlobalEvent</span><span> =&gt; </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">Boolean</span><span>] =
+  </span><span class="keyword">case</span><span> </span><span class="type-name">FrameTick</span><span> </span><span class="keyword">if</span><span> !</span><span class="identifier">hasRunOnce</span><span> =&gt;
 
-      </span><span class="keyword">val</span><span> </span><span class="identifier">allTheDogs</span><span> = (</span><span class="identifier">signal</span><span> |&gt; </span><span class="identifier">signalFunction</span><span>).</span><span class="identifier">at</span><span>(</span><span class="type-name">Seconds</span><span>.</span><span class="identifier">zero</span><span>)
-      </span><span class="identifier">println</span><span>(</span><span class="identifier">allTheDogs</span><span>)
-      </span><span class="comment">// List(&quot;1 dog&quot;, &quot;2 dog&quot;, &quot;3 dog&quot;, &quot;4 dog&quot;, &quot;5 dog&quot;, &quot;6 dog&quot;, &quot;7 dog&quot;, &quot;8 dog&quot;, &quot;9 dog&quot;, &quot;10 dog&quot;)
+    </span><span class="keyword">val</span><span> </span><span class="identifier">allTheDogs</span><span> = (</span><span class="identifier">signal</span><span> |&gt; </span><span class="identifier">signalFunction</span><span>).</span><span class="identifier">at</span><span>(</span><span class="type-name">Seconds</span><span>.</span><span class="identifier">zero</span><span>)
+    </span><span class="identifier">println</span><span>(</span><span class="identifier">allTheDogs</span><span>)
+    </span><span class="comment">// List(&quot;1 dog&quot;, &quot;2 dog&quot;, &quot;3 dog&quot;, &quot;4 dog&quot;, &quot;5 dog&quot;, &quot;6 dog&quot;, &quot;7 dog&quot;, &quot;8 dog&quot;, &quot;9 dog&quot;, &quot;10 dog&quot;)
 </span><span>
-      </span><span class="keyword">val</span><span> </span><span class="identifier">allTheCats</span><span> = (</span><span class="identifier">signal</span><span> |&gt; </span><span class="identifier">signalFunction</span><span>).</span><span class="identifier">at</span><span>(</span><span class="type-name">Seconds</span><span>(</span><span class="number-literal">1</span><span>))
-      </span><span class="identifier">println</span><span>(</span><span class="identifier">allTheCats</span><span>)
-      </span><span class="comment">// List(&quot;1 cat&quot;, &quot;2 cat&quot;, &quot;3 cat&quot;, &quot;4 cat&quot;, &quot;5 cat&quot;)
+    </span><span class="keyword">val</span><span> </span><span class="identifier">allTheCats</span><span> = (</span><span class="identifier">signal</span><span> |&gt; </span><span class="identifier">signalFunction</span><span>).</span><span class="identifier">at</span><span>(</span><span class="type-name">Seconds</span><span>(</span><span class="number-literal">1</span><span>))
+    </span><span class="identifier">println</span><span>(</span><span class="identifier">allTheCats</span><span>)
+    </span><span class="comment">// List(&quot;1 cat&quot;, &quot;2 cat&quot;, &quot;3 cat&quot;, &quot;4 cat&quot;, &quot;5 cat&quot;)
 </span><span>
-      </span><span class="type-name">Outcome</span><span>(</span><span class="boolean-literal">true</span><span>)
+    </span><span class="type-name">Outcome</span><span>(</span><span class="boolean-literal">true</span><span>)
 
-    </span><span class="keyword">case</span><span> </span><span class="identifier">_</span><span> =&gt;
-      </span><span class="type-name">Outcome</span><span>(</span><span class="identifier">hasRunOnce</span><span>)</span></code></pre>
+  </span><span class="keyword">case</span><span> </span><span class="identifier">_</span><span> =&gt;
+    </span><span class="type-name">Outcome</span><span>(</span><span class="identifier">hasRunOnce</span><span>)</span></code></pre>
 
         
 <hr class="footer-rule"/>

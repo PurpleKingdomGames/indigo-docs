@@ -107,7 +107,7 @@
     <li class="level2 nav-node"><a href="../../../guides/ui/">Ui</a></li>
     <li class="level3 nav-leaf"><a href="../../../guides/ui/radiobuttons/">How to make radio buttons</a></li>
     <li class="level1 nav-node"><a href="../../">Features</a></li>
-    <li class="level2 nav-node"><a href="../../actors-and-performers/">Actors-and-performers</a></li>
+    <li class="level2 nav-node"><a href="../../actors-and-performers/">Actors and performers</a></li>
     <li class="level3 nav-leaf"><a href="../../actors-and-performers/actors/">Actors</a></li>
     <li class="level3 nav-leaf"><a href="../../actors-and-performers/performers/">Performers</a></li>
     <li class="level3 nav-leaf"><a href="../../actors-and-performers/performers-with-physics/">Performers &amp; Physics</a></li>
@@ -195,38 +195,38 @@
         <p>The example below represents a single animation, but you can add many different animations
         cycles and switch to them as and when required. For example, one Animation instance could hold
         all the cycles for a character to allow them to be idle, jump, walk, and crawl.</p>
-        <pre><code class="nohighlight"><span>  </span><span class="keyword">val</span><span> </span><span class="identifier">flagAnimationKey</span><span>: </span><span class="type-name">AnimationKey</span><span> = </span><span class="type-name">AnimationKey</span><span>(</span><span class="string-literal">&quot;flag-animation&quot;</span><span>)
+        <pre><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">flagAnimationKey</span><span>: </span><span class="type-name">AnimationKey</span><span> = </span><span class="type-name">AnimationKey</span><span>(</span><span class="string-literal">&quot;flag-animation&quot;</span><span>)
 
-  </span><span class="keyword">val</span><span> </span><span class="identifier">flagAnimation</span><span>: </span><span class="type-name">Animation</span><span> =
-    </span><span class="keyword">val</span><span> </span><span class="identifier">frameDuration</span><span> = </span><span class="type-name">Millis</span><span>(</span><span class="number-literal">100</span><span>)
-    </span><span class="keyword">val</span><span> </span><span class="identifier">frameSize</span><span>     = </span><span class="type-name">Rectangle</span><span>(</span><span class="number-literal">64</span><span>, </span><span class="number-literal">128</span><span>)
+</span><span class="keyword">val</span><span> </span><span class="identifier">flagAnimation</span><span>: </span><span class="type-name">Animation</span><span> =
+  </span><span class="keyword">val</span><span> </span><span class="identifier">frameDuration</span><span> = </span><span class="type-name">Millis</span><span>(</span><span class="number-literal">100</span><span>)
+  </span><span class="keyword">val</span><span> </span><span class="identifier">frameSize</span><span>     = </span><span class="type-name">Rectangle</span><span>(</span><span class="number-literal">64</span><span>, </span><span class="number-literal">128</span><span>)
 
-    </span><span class="type-name">Animation</span><span>(
-      </span><span class="identifier">flagAnimationKey</span><span>,
-      </span><span class="type-name">Frame</span><span>(</span><span class="identifier">frameSize</span><span>.</span><span class="identifier">moveTo</span><span>(</span><span class="number-literal">64</span><span> * </span><span class="number-literal">0</span><span>, </span><span class="number-literal">0</span><span>), </span><span class="identifier">frameDuration</span><span>),
-      </span><span class="type-name">Frame</span><span>(</span><span class="identifier">frameSize</span><span>.</span><span class="identifier">moveTo</span><span>(</span><span class="number-literal">64</span><span> * </span><span class="number-literal">1</span><span>, </span><span class="number-literal">0</span><span>), </span><span class="identifier">frameDuration</span><span>),
-      </span><span class="type-name">Frame</span><span>(</span><span class="identifier">frameSize</span><span>.</span><span class="identifier">moveTo</span><span>(</span><span class="number-literal">64</span><span> * </span><span class="number-literal">2</span><span>, </span><span class="number-literal">0</span><span>), </span><span class="identifier">frameDuration</span><span>),
-      </span><span class="type-name">Frame</span><span>(</span><span class="identifier">frameSize</span><span>.</span><span class="identifier">moveTo</span><span>(</span><span class="number-literal">64</span><span> * </span><span class="number-literal">3</span><span>, </span><span class="number-literal">0</span><span>), </span><span class="identifier">frameDuration</span><span>),
-      </span><span class="type-name">Frame</span><span>(</span><span class="identifier">frameSize</span><span>.</span><span class="identifier">moveTo</span><span>(</span><span class="number-literal">64</span><span> * </span><span class="number-literal">4</span><span>, </span><span class="number-literal">0</span><span>), </span><span class="identifier">frameDuration</span><span>),
-      </span><span class="type-name">Frame</span><span>(</span><span class="identifier">frameSize</span><span>.</span><span class="identifier">moveTo</span><span>(</span><span class="number-literal">64</span><span> * </span><span class="number-literal">5</span><span>, </span><span class="number-literal">0</span><span>), </span><span class="identifier">frameDuration</span><span>),
-      </span><span class="type-name">Frame</span><span>(</span><span class="identifier">frameSize</span><span>.</span><span class="identifier">moveTo</span><span>(</span><span class="number-literal">64</span><span> * </span><span class="number-literal">6</span><span>, </span><span class="number-literal">0</span><span>), </span><span class="identifier">frameDuration</span><span>),
-      </span><span class="type-name">Frame</span><span>(</span><span class="identifier">frameSize</span><span>.</span><span class="identifier">moveTo</span><span>(</span><span class="number-literal">64</span><span> * </span><span class="number-literal">7</span><span>, </span><span class="number-literal">0</span><span>), </span><span class="identifier">frameDuration</span><span>),
-      </span><span class="type-name">Frame</span><span>(</span><span class="identifier">frameSize</span><span>.</span><span class="identifier">moveTo</span><span>(</span><span class="number-literal">64</span><span> * </span><span class="number-literal">8</span><span>, </span><span class="number-literal">0</span><span>), </span><span class="identifier">frameDuration</span><span>)
-    )</span></code></pre>
+  </span><span class="type-name">Animation</span><span>(
+    </span><span class="identifier">flagAnimationKey</span><span>,
+    </span><span class="type-name">Frame</span><span>(</span><span class="identifier">frameSize</span><span>.</span><span class="identifier">moveTo</span><span>(</span><span class="number-literal">64</span><span> * </span><span class="number-literal">0</span><span>, </span><span class="number-literal">0</span><span>), </span><span class="identifier">frameDuration</span><span>),
+    </span><span class="type-name">Frame</span><span>(</span><span class="identifier">frameSize</span><span>.</span><span class="identifier">moveTo</span><span>(</span><span class="number-literal">64</span><span> * </span><span class="number-literal">1</span><span>, </span><span class="number-literal">0</span><span>), </span><span class="identifier">frameDuration</span><span>),
+    </span><span class="type-name">Frame</span><span>(</span><span class="identifier">frameSize</span><span>.</span><span class="identifier">moveTo</span><span>(</span><span class="number-literal">64</span><span> * </span><span class="number-literal">2</span><span>, </span><span class="number-literal">0</span><span>), </span><span class="identifier">frameDuration</span><span>),
+    </span><span class="type-name">Frame</span><span>(</span><span class="identifier">frameSize</span><span>.</span><span class="identifier">moveTo</span><span>(</span><span class="number-literal">64</span><span> * </span><span class="number-literal">3</span><span>, </span><span class="number-literal">0</span><span>), </span><span class="identifier">frameDuration</span><span>),
+    </span><span class="type-name">Frame</span><span>(</span><span class="identifier">frameSize</span><span>.</span><span class="identifier">moveTo</span><span>(</span><span class="number-literal">64</span><span> * </span><span class="number-literal">4</span><span>, </span><span class="number-literal">0</span><span>), </span><span class="identifier">frameDuration</span><span>),
+    </span><span class="type-name">Frame</span><span>(</span><span class="identifier">frameSize</span><span>.</span><span class="identifier">moveTo</span><span>(</span><span class="number-literal">64</span><span> * </span><span class="number-literal">5</span><span>, </span><span class="number-literal">0</span><span>), </span><span class="identifier">frameDuration</span><span>),
+    </span><span class="type-name">Frame</span><span>(</span><span class="identifier">frameSize</span><span>.</span><span class="identifier">moveTo</span><span>(</span><span class="number-literal">64</span><span> * </span><span class="number-literal">6</span><span>, </span><span class="number-literal">0</span><span>), </span><span class="identifier">frameDuration</span><span>),
+    </span><span class="type-name">Frame</span><span>(</span><span class="identifier">frameSize</span><span>.</span><span class="identifier">moveTo</span><span>(</span><span class="number-literal">64</span><span> * </span><span class="number-literal">7</span><span>, </span><span class="number-literal">0</span><span>), </span><span class="identifier">frameDuration</span><span>),
+    </span><span class="type-name">Frame</span><span>(</span><span class="identifier">frameSize</span><span>.</span><span class="identifier">moveTo</span><span>(</span><span class="number-literal">64</span><span> * </span><span class="number-literal">8</span><span>, </span><span class="number-literal">0</span><span>), </span><span class="identifier">frameDuration</span><span>)
+  )</span></code></pre>
         <p>In order to use the animation, we must register them either at boot time, or if the assets are
         dynamically loaded then on the start up object during the setup function.</p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span>  </span><span class="keyword">def</span><span> </span><span class="declaration-name">boot</span><span>(</span><span class="identifier">flags</span><span>: </span><span class="type-name">Map</span><span>[</span><span class="type-name">String</span><span>, </span><span class="type-name">String</span><span>]): </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">BootResult</span><span>[</span><span class="type-name">Unit</span><span>, </span><span class="type-name">Unit</span><span>]] =
-    </span><span class="type-name">Outcome</span><span> {
-      </span><span class="keyword">val</span><span> </span><span class="identifier">config</span><span> =
-        </span><span class="type-name">Config</span><span>.</span><span class="identifier">config</span><span>
-          .</span><span class="identifier">withMagnification</span><span>(</span><span class="number-literal">2</span><span>)
-          .</span><span class="identifier">noResize</span><span>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">boot</span><span>(</span><span class="identifier">flags</span><span>: </span><span class="type-name">Map</span><span>[</span><span class="type-name">String</span><span>, </span><span class="type-name">String</span><span>]): </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">BootResult</span><span>[</span><span class="type-name">Unit</span><span>, </span><span class="type-name">Unit</span><span>]] =
+  </span><span class="type-name">Outcome</span><span> {
+    </span><span class="keyword">val</span><span> </span><span class="identifier">config</span><span> =
+      </span><span class="type-name">Config</span><span>.</span><span class="identifier">config</span><span>
+        .</span><span class="identifier">withMagnification</span><span>(</span><span class="number-literal">2</span><span>)
+        .</span><span class="identifier">noResize</span><span>
 
-      </span><span class="type-name">BootResult</span><span>
-        .</span><span class="identifier">noData</span><span>(</span><span class="identifier">config</span><span>)
-        .</span><span class="identifier">withAssets</span><span>(</span><span class="type-name">Assets</span><span>.</span><span class="identifier">assets</span><span>.</span><span class="identifier">assetSet</span><span>)
-        .</span><span class="identifier">withAnimations</span><span>(</span><span class="identifier">flagAnimation</span><span>)
-    }</span></code></pre>
+    </span><span class="type-name">BootResult</span><span>
+      .</span><span class="identifier">noData</span><span>(</span><span class="identifier">config</span><span>)
+      .</span><span class="identifier">withAssets</span><span>(</span><span class="type-name">Assets</span><span>.</span><span class="identifier">assets</span><span>.</span><span class="identifier">assetSet</span><span>)
+      .</span><span class="identifier">withAnimations</span><span>(</span><span class="identifier">flagAnimation</span><span>)
+  }</span></code></pre>
         <p>The AnimationKey is needed to look up the Animation data, but we also need a way to look up
         the state for this particular instance. The animation state holds details such as which frame
         of the animation this sprite is currently on. This is done with a BindingKey.</p>
@@ -239,15 +239,15 @@
         <p>Note that calling the animation control functions, <code>play</code> for example, is declarative and
         tells Indigo that this animation should be played. It does not perform a side effect and
         change any state directly.</p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span>  </span><span class="keyword">def</span><span> </span><span class="declaration-name">present</span><span>(
-      </span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>[</span><span class="type-name">Unit</span><span>],
-      </span><span class="identifier">model</span><span>: </span><span class="type-name">Unit</span><span>,
-      </span><span class="identifier">viewModel</span><span>: </span><span class="type-name">Unit</span><span>
-  ): </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">SceneUpdateFragment</span><span>] =
-    </span><span class="keyword">val</span><span> </span><span class="identifier">sprite</span><span> =
-      </span><span class="type-name">Sprite</span><span>(</span><span class="identifier">mySprite</span><span>, </span><span class="number-literal">0</span><span>, </span><span class="number-literal">0</span><span>, </span><span class="identifier">flagAnimationKey</span><span>, </span><span class="type-name">Assets</span><span>.</span><span class="identifier">assets</span><span>.</span><span class="type-name">FlagMaterial</span><span>).</span><span class="identifier">play</span><span>()
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">present</span><span>(
+    </span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>[</span><span class="type-name">Unit</span><span>],
+    </span><span class="identifier">model</span><span>: </span><span class="type-name">Unit</span><span>,
+    </span><span class="identifier">viewModel</span><span>: </span><span class="type-name">Unit</span><span>
+): </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">SceneUpdateFragment</span><span>] =
+  </span><span class="keyword">val</span><span> </span><span class="identifier">sprite</span><span> =
+    </span><span class="type-name">Sprite</span><span>(</span><span class="identifier">mySprite</span><span>, </span><span class="number-literal">0</span><span>, </span><span class="number-literal">0</span><span>, </span><span class="identifier">flagAnimationKey</span><span>, </span><span class="type-name">Assets</span><span>.</span><span class="identifier">assets</span><span>.</span><span class="type-name">FlagMaterial</span><span>).</span><span class="identifier">play</span><span>()
 
-    </span><span class="type-name">Outcome</span><span>(</span><span class="type-name">SceneUpdateFragment</span><span>(</span><span class="identifier">sprite</span><span>))</span></code></pre>
+  </span><span class="type-name">Outcome</span><span>(</span><span class="type-name">SceneUpdateFragment</span><span>(</span><span class="identifier">sprite</span><span>))</span></code></pre>
 
         
 <hr class="footer-rule"/>

@@ -107,7 +107,7 @@
     <li class="level2 nav-node"><a href="../../ui/">Ui</a></li>
     <li class="level3 nav-leaf"><a href="../../ui/radiobuttons/">How to make radio buttons</a></li>
     <li class="level1 nav-node"><a href="../../../features/">Features</a></li>
-    <li class="level2 nav-node"><a href="../../../features/actors-and-performers/">Actors-and-performers</a></li>
+    <li class="level2 nav-node"><a href="../../../features/actors-and-performers/">Actors and performers</a></li>
     <li class="level3 nav-leaf"><a href="../../../features/actors-and-performers/actors/">Actors</a></li>
     <li class="level3 nav-leaf"><a href="../../../features/actors-and-performers/performers/">Performers</a></li>
     <li class="level3 nav-leaf"><a href="../../../features/actors-and-performers/performers-with-physics/">Performers &amp; Physics</a></li>
@@ -207,15 +207,15 @@
         return the last position.</p>
         <p>When the running time is supplied: Where the circle ought to be by now is calculated and
         returned.</p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span>    </span><span class="keyword">def</span><span> </span><span class="declaration-name">calculateXPosition</span><span>(</span><span class="identifier">from</span><span>: </span><span class="type-name">Int</span><span>, </span><span class="identifier">to</span><span>: </span><span class="type-name">Int</span><span>, </span><span class="identifier">over</span><span>: </span><span class="type-name">Seconds</span><span>): </span><span class="type-name">Signal</span><span>[</span><span class="type-name">Int</span><span>] =
-      </span><span class="type-name">Signal</span><span> { </span><span class="identifier">t</span><span> =&gt;
-        </span><span class="keyword">val</span><span> </span><span class="identifier">maxDuration</span><span>: </span><span class="type-name">Double</span><span>     = </span><span class="identifier">over</span><span>.</span><span class="identifier">toDouble</span><span>
-        </span><span class="keyword">val</span><span> </span><span class="identifier">clampedTime</span><span>: </span><span class="type-name">Double</span><span>     = </span><span class="keyword">if</span><span> (</span><span class="identifier">t</span><span>.</span><span class="identifier">toDouble</span><span> &gt; </span><span class="identifier">maxDuration</span><span>) </span><span class="identifier">maxDuration</span><span> </span><span class="keyword">else</span><span> </span><span class="identifier">t</span><span>.</span><span class="identifier">toDouble</span><span>
-        </span><span class="keyword">val</span><span> </span><span class="identifier">distanceToMove</span><span>: </span><span class="type-name">Double</span><span>  = </span><span class="identifier">to</span><span> - </span><span class="identifier">from</span><span>
-        </span><span class="keyword">val</span><span> </span><span class="identifier">pixelsPerSecond</span><span>: </span><span class="type-name">Double</span><span> = </span><span class="identifier">distanceToMove</span><span> / </span><span class="identifier">maxDuration</span><span>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">calculateXPosition</span><span>(</span><span class="identifier">from</span><span>: </span><span class="type-name">Int</span><span>, </span><span class="identifier">to</span><span>: </span><span class="type-name">Int</span><span>, </span><span class="identifier">over</span><span>: </span><span class="type-name">Seconds</span><span>): </span><span class="type-name">Signal</span><span>[</span><span class="type-name">Int</span><span>] =
+  </span><span class="type-name">Signal</span><span> { </span><span class="identifier">t</span><span> =&gt;
+    </span><span class="keyword">val</span><span> </span><span class="identifier">maxDuration</span><span>: </span><span class="type-name">Double</span><span>     = </span><span class="identifier">over</span><span>.</span><span class="identifier">toDouble</span><span>
+    </span><span class="keyword">val</span><span> </span><span class="identifier">clampedTime</span><span>: </span><span class="type-name">Double</span><span>     = </span><span class="keyword">if</span><span> (</span><span class="identifier">t</span><span>.</span><span class="identifier">toDouble</span><span> &gt; </span><span class="identifier">maxDuration</span><span>) </span><span class="identifier">maxDuration</span><span> </span><span class="keyword">else</span><span> </span><span class="identifier">t</span><span>.</span><span class="identifier">toDouble</span><span>
+    </span><span class="keyword">val</span><span> </span><span class="identifier">distanceToMove</span><span>: </span><span class="type-name">Double</span><span>  = </span><span class="identifier">to</span><span> - </span><span class="identifier">from</span><span>
+    </span><span class="keyword">val</span><span> </span><span class="identifier">pixelsPerSecond</span><span>: </span><span class="type-name">Double</span><span> = </span><span class="identifier">distanceToMove</span><span> / </span><span class="identifier">maxDuration</span><span>
 
-        </span><span class="identifier">from</span><span> + (</span><span class="identifier">pixelsPerSecond</span><span> * </span><span class="identifier">clampedTime</span><span>).</span><span class="identifier">toInt</span><span>
-      }</span></code></pre>
+    </span><span class="identifier">from</span><span> + (</span><span class="identifier">pixelsPerSecond</span><span> * </span><span class="identifier">clampedTime</span><span>).</span><span class="identifier">toInt</span><span>
+  }</span></code></pre>
         <p>To use the signal, we need to call its constructor to make it, and then supply the game&#39;s running time.</p>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">circle1</span><span> =
   </span><span class="identifier">circle</span><span>.</span><span class="identifier">moveTo</span><span>(
@@ -270,15 +270,15 @@
         <code>SignalFunction</code>.</p>
         <p>Signal functions are covered elsewhere in the docs, but below is a small example. Note that
         they cover a lot of the same ground as signals themselves, but are more composable.</p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span>    </span><span class="keyword">val</span><span> </span><span class="identifier">moveWithEasing</span><span>: </span><span class="type-name">SignalFunction</span><span>[</span><span class="type-name">Seconds</span><span>, </span><span class="type-name">Shape</span><span>.</span><span class="type-name">Circle</span><span>] =
-      </span><span class="type-name">SignalFunction</span><span>.</span><span class="identifier">easeInOut</span><span>(</span><span class="type-name">Seconds</span><span>(</span><span class="number-literal">20</span><span>)) &gt;&gt;&gt;
-        </span><span class="type-name">SignalFunction</span><span>.</span><span class="identifier">lerp</span><span>(</span><span class="type-name">Point</span><span>(</span><span class="number-literal">60</span><span>, </span><span class="number-literal">60</span><span>), </span><span class="type-name">Point</span><span>(</span><span class="number-literal">800</span><span> - </span><span class="number-literal">60</span><span>, </span><span class="number-literal">600</span><span> - </span><span class="number-literal">60</span><span>)) &gt;&gt;&gt;
-        </span><span class="type-name">SignalFunction</span><span> { </span><span class="identifier">pt</span><span> =&gt;
-          </span><span class="identifier">blueCircle</span><span>.</span><span class="identifier">moveTo</span><span>(</span><span class="identifier">pt</span><span>)
-        }
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">moveWithEasing</span><span>: </span><span class="type-name">SignalFunction</span><span>[</span><span class="type-name">Seconds</span><span>, </span><span class="type-name">Shape</span><span>.</span><span class="type-name">Circle</span><span>] =
+  </span><span class="type-name">SignalFunction</span><span>.</span><span class="identifier">easeInOut</span><span>(</span><span class="type-name">Seconds</span><span>(</span><span class="number-literal">20</span><span>)) &gt;&gt;&gt;
+    </span><span class="type-name">SignalFunction</span><span>.</span><span class="identifier">lerp</span><span>(</span><span class="type-name">Point</span><span>(</span><span class="number-literal">60</span><span>, </span><span class="number-literal">60</span><span>), </span><span class="type-name">Point</span><span>(</span><span class="number-literal">800</span><span> - </span><span class="number-literal">60</span><span>, </span><span class="number-literal">600</span><span> - </span><span class="number-literal">60</span><span>)) &gt;&gt;&gt;
+    </span><span class="type-name">SignalFunction</span><span> { </span><span class="identifier">pt</span><span> =&gt;
+      </span><span class="identifier">blueCircle</span><span>.</span><span class="identifier">moveTo</span><span>(</span><span class="identifier">pt</span><span>)
+    }
 
-    </span><span class="keyword">val</span><span> </span><span class="identifier">circleSignal</span><span>: </span><span class="type-name">Signal</span><span>[</span><span class="type-name">Shape</span><span>.</span><span class="type-name">Circle</span><span>] =
-      </span><span class="type-name">Signal</span><span>.</span><span class="type-name">Time</span><span> |&gt; </span><span class="identifier">moveWithEasing</span></code></pre>
+</span><span class="keyword">val</span><span> </span><span class="identifier">circleSignal</span><span>: </span><span class="type-name">Signal</span><span>[</span><span class="type-name">Shape</span><span>.</span><span class="type-name">Circle</span><span>] =
+  </span><span class="type-name">Signal</span><span>.</span><span class="type-name">Time</span><span> |&gt; </span><span class="identifier">moveWithEasing</span></code></pre>
         
         <h2 id="summary" class="section"><a class="anchor-link left" href="#summary"><i class="icofont-laika link">&#xef71;</i></a>Summary</h2>
         <p>Using signals and signal functions provides a great abstraction for animation, much better than

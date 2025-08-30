@@ -107,7 +107,7 @@
     <li class="level2 nav-node"><a href="../../ui/">Ui</a></li>
     <li class="level3 nav-leaf"><a href="../../ui/radiobuttons/">How to make radio buttons</a></li>
     <li class="level1 nav-node"><a href="../../../features/">Features</a></li>
-    <li class="level2 nav-node"><a href="../../../features/actors-and-performers/">Actors-and-performers</a></li>
+    <li class="level2 nav-node"><a href="../../../features/actors-and-performers/">Actors and performers</a></li>
     <li class="level3 nav-leaf"><a href="../../../features/actors-and-performers/actors/">Actors</a></li>
     <li class="level3 nav-leaf"><a href="../../../features/actors-and-performers/performers/">Performers</a></li>
     <li class="level3 nav-leaf"><a href="../../../features/actors-and-performers/performers-with-physics/">Performers &amp; Physics</a></li>
@@ -216,21 +216,21 @@
         <p>To make use of the tiled data, we need to load and parse it, using the Tiled Json helper. In
         this example that will happen during the initial loading phase, but in a real game you might
         want to load it on demand using the asset loader.</p>
-        <pre><code class="nohighlight"><span>  </span><span class="keyword">def</span><span> </span><span class="declaration-name">setup</span><span>(</span><span class="identifier">assetCollection</span><span>: </span><span class="type-name">AssetCollection</span><span>, </span><span class="identifier">dice</span><span>: </span><span class="type-name">Dice</span><span>): </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">Startup</span><span>[</span><span class="type-name">TiledMap</span><span>]] =
-    </span><span class="type-name">Outcome</span><span> {
-      </span><span class="keyword">val</span><span> </span><span class="identifier">maybeTiledMap</span><span> = </span><span class="keyword">for</span><span> {
-        </span><span class="identifier">j</span><span> &lt;- </span><span class="identifier">assetCollection</span><span>.</span><span class="identifier">findTextDataByName</span><span>(</span><span class="type-name">Assets</span><span>.</span><span class="identifier">assets</span><span>.</span><span class="identifier">terrainData</span><span>)
-        </span><span class="identifier">t</span><span> &lt;- </span><span class="type-name">Json</span><span>.</span><span class="identifier">tiledMapFromJson</span><span>(</span><span class="identifier">j</span><span>)
-      } </span><span class="keyword">yield</span><span> </span><span class="identifier">t</span><span>
+        <pre><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">setup</span><span>(</span><span class="identifier">assetCollection</span><span>: </span><span class="type-name">AssetCollection</span><span>, </span><span class="identifier">dice</span><span>: </span><span class="type-name">Dice</span><span>): </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">Startup</span><span>[</span><span class="type-name">TiledMap</span><span>]] =
+  </span><span class="type-name">Outcome</span><span> {
+    </span><span class="keyword">val</span><span> </span><span class="identifier">maybeTiledMap</span><span> = </span><span class="keyword">for</span><span> {
+      </span><span class="identifier">j</span><span> &lt;- </span><span class="identifier">assetCollection</span><span>.</span><span class="identifier">findTextDataByName</span><span>(</span><span class="type-name">Assets</span><span>.</span><span class="identifier">assets</span><span>.</span><span class="identifier">terrainData</span><span>)
+      </span><span class="identifier">t</span><span> &lt;- </span><span class="type-name">Json</span><span>.</span><span class="identifier">tiledMapFromJson</span><span>(</span><span class="identifier">j</span><span>)
+    } </span><span class="keyword">yield</span><span> </span><span class="identifier">t</span><span>
 
-      </span><span class="identifier">maybeTiledMap</span><span> </span><span class="keyword">match</span><span> {
-        </span><span class="keyword">case</span><span> </span><span class="type-name">None</span><span> =&gt;
-          </span><span class="type-name">Startup</span><span>.</span><span class="type-name">Failure</span><span>(</span><span class="string-literal">&quot;Could not generate TiledMap from data.&quot;</span><span>)
+    </span><span class="identifier">maybeTiledMap</span><span> </span><span class="keyword">match</span><span> {
+      </span><span class="keyword">case</span><span> </span><span class="type-name">None</span><span> =&gt;
+        </span><span class="type-name">Startup</span><span>.</span><span class="type-name">Failure</span><span>(</span><span class="string-literal">&quot;Could not generate TiledMap from data.&quot;</span><span>)
 
-        </span><span class="keyword">case</span><span> </span><span class="type-name">Some</span><span>(</span><span class="identifier">tiledMap</span><span>) =&gt;
-          </span><span class="type-name">Startup</span><span>.</span><span class="type-name">Success</span><span>(</span><span class="identifier">tiledMap</span><span>)
-      }
-    }</span></code></pre>
+      </span><span class="keyword">case</span><span> </span><span class="type-name">Some</span><span>(</span><span class="identifier">tiledMap</span><span>) =&gt;
+        </span><span class="type-name">Startup</span><span>.</span><span class="type-name">Success</span><span>(</span><span class="identifier">tiledMap</span><span>)
+    }
+  }</span></code></pre>
         
         <h3 id="initialising-the-model" class="section"><a class="anchor-link left" href="#initialising-the-model"><i class="icofont-laika link">&#xef71;</i></a>Initialising the model</h3>
         <p>Our model is then initialised with the tilemap (which would normally live in the view model,
@@ -238,20 +238,20 @@
         game map.</p>
         <p>We&#39;re not using the custom game map in this example, but it&#39;s being println&#39;d out so that you
         can see it in the JS console if you run the example.</p>
-        <pre><code class="nohighlight"><span>  </span><span class="keyword">def</span><span> </span><span class="declaration-name">initialModel</span><span>(</span><span class="identifier">startupData</span><span>: </span><span class="type-name">TiledMap</span><span>): </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">Model</span><span>] =
-    </span><span class="keyword">val</span><span> </span><span class="identifier">gameMap</span><span> = </span><span class="identifier">startupData</span><span>
-      .</span><span class="identifier">toGrid</span><span> {
-        </span><span class="keyword">case</span><span> </span><span class="number-literal">0</span><span> =&gt; </span><span class="type-name">MapTile</span><span>.</span><span class="type-name">Empty</span><span>
-        </span><span class="keyword">case</span><span> </span><span class="identifier">_</span><span> =&gt; </span><span class="type-name">MapTile</span><span>.</span><span class="type-name">Platform</span><span>
-      }
-      .</span><span class="identifier">map</span><span>(</span><span class="type-name">GameMap</span><span>.</span><span class="identifier">fromTiledGrid</span><span>)
-      .</span><span class="identifier">getOrElse</span><span>(</span><span class="type-name">GameMap</span><span>.</span><span class="identifier">empty</span><span>)
+        <pre><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">initialModel</span><span>(</span><span class="identifier">startupData</span><span>: </span><span class="type-name">TiledMap</span><span>): </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">Model</span><span>] =
+  </span><span class="keyword">val</span><span> </span><span class="identifier">gameMap</span><span> = </span><span class="identifier">startupData</span><span>
+    .</span><span class="identifier">toGrid</span><span> {
+      </span><span class="keyword">case</span><span> </span><span class="number-literal">0</span><span> =&gt; </span><span class="type-name">MapTile</span><span>.</span><span class="type-name">Empty</span><span>
+      </span><span class="keyword">case</span><span> </span><span class="identifier">_</span><span> =&gt; </span><span class="type-name">MapTile</span><span>.</span><span class="type-name">Platform</span><span>
+    }
+    .</span><span class="identifier">map</span><span>(</span><span class="type-name">GameMap</span><span>.</span><span class="identifier">fromTiledGrid</span><span>)
+    .</span><span class="identifier">getOrElse</span><span>(</span><span class="type-name">GameMap</span><span>.</span><span class="identifier">empty</span><span>)
 
-    </span><span class="identifier">println</span><span>(</span><span class="identifier">gameMap</span><span>)
+  </span><span class="identifier">println</span><span>(</span><span class="identifier">gameMap</span><span>)
 
-    </span><span class="type-name">Outcome</span><span>(
-      </span><span class="type-name">Model</span><span>(</span><span class="identifier">startupData</span><span>, </span><span class="identifier">gameMap</span><span>)
-    )</span></code></pre>
+  </span><span class="type-name">Outcome</span><span>(
+    </span><span class="type-name">Model</span><span>(</span><span class="identifier">startupData</span><span>, </span><span class="identifier">gameMap</span><span>)
+  )</span></code></pre>
         
         <h3 id="rendering-the-tilemap" class="section"><a class="anchor-link left" href="#rendering-the-tilemap"><i class="icofont-laika link">&#xef71;</i></a>Rendering the tilemap</h3>
         <p>To display the tiled map, we just use the <code>toGroup</code> method on the tilemap to convert it into

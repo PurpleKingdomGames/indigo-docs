@@ -107,7 +107,7 @@
     <li class="level2 nav-node"><a href="../../../guides/ui/">Ui</a></li>
     <li class="level3 nav-leaf"><a href="../../../guides/ui/radiobuttons/">How to make radio buttons</a></li>
     <li class="level1 nav-node"><a href="../../">Features</a></li>
-    <li class="level2 nav-node"><a href="../../actors-and-performers/">Actors-and-performers</a></li>
+    <li class="level2 nav-node"><a href="../../actors-and-performers/">Actors and performers</a></li>
     <li class="level3 nav-leaf"><a href="../../actors-and-performers/actors/">Actors</a></li>
     <li class="level3 nav-leaf"><a href="../../actors-and-performers/performers/">Performers</a></li>
     <li class="level3 nav-leaf"><a href="../../actors-and-performers/performers-with-physics/">Performers &amp; Physics</a></li>
@@ -214,7 +214,7 @@
   </span><span class="keyword">val</span><span> </span><span class="identifier">label</span><span>: </span><span class="type-name">Label</span><span>[</span><span class="type-name">Int</span><span>] =
     </span><span class="type-name">Label</span><span>[</span><span class="type-name">Int</span><span>](
       </span><span class="string-literal">&quot;&quot;</span><span>,
-      (</span><span class="identifier">ctx</span><span>, </span><span class="identifier">label</span><span>: </span><span class="type-name">String</span><span>) =&gt; </span><span class="identifier">labelBounds</span><span>
+      (</span><span class="identifier">_</span><span>, </span><span class="identifier">_</span><span>) =&gt; </span><span class="identifier">labelBounds</span><span>
     ) { </span><span class="keyword">case</span><span> (</span><span class="identifier">ctx</span><span>, </span><span class="identifier">label</span><span>) =&gt;
       </span><span class="type-name">Outcome</span><span>(
         </span><span class="type-name">Layer</span><span>(
@@ -240,32 +240,32 @@
         <p>Rendering a masked pane is the same as rendering any other component, but so that you can see
         where the label and the mask are, we&#39;re also going to render a couple of shapes illustrating
         their boundaries.</p>
-        <pre><code class="nohighlight"><span>  </span><span class="keyword">def</span><span> </span><span class="declaration-name">present</span><span>(</span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>[</span><span class="type-name">Unit</span><span>], </span><span class="identifier">model</span><span>: </span><span class="type-name">Model</span><span>): </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">SceneUpdateFragment</span><span>] =
-    </span><span class="keyword">val</span><span> </span><span class="identifier">ctx</span><span> = </span><span class="type-name">UIContext</span><span>(</span><span class="identifier">context</span><span>, </span><span class="number-literal">1</span><span>)
-      .</span><span class="identifier">withMagnification</span><span>(</span><span class="number-literal">2</span><span>)
-      .</span><span class="identifier">moveParentBy</span><span>(</span><span class="type-name">Coords</span><span>(</span><span class="number-literal">50</span><span>, </span><span class="number-literal">50</span><span>))
-      .</span><span class="identifier">copy</span><span>(</span><span class="identifier">reference</span><span> = </span><span class="identifier">model</span><span>.</span><span class="identifier">count</span><span>)
+        <pre><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">present</span><span>(</span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>[</span><span class="type-name">Unit</span><span>], </span><span class="identifier">model</span><span>: </span><span class="type-name">Model</span><span>): </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">SceneUpdateFragment</span><span>] =
+  </span><span class="keyword">val</span><span> </span><span class="identifier">ctx</span><span> = </span><span class="type-name">UIContext</span><span>(</span><span class="identifier">context</span><span>, </span><span class="number-literal">1</span><span>)
+    .</span><span class="identifier">withMagnification</span><span>(</span><span class="number-literal">2</span><span>)
+    .</span><span class="identifier">moveParentBy</span><span>(</span><span class="type-name">Coords</span><span>(</span><span class="number-literal">50</span><span>, </span><span class="number-literal">50</span><span>))
+    .</span><span class="identifier">copy</span><span>(</span><span class="identifier">reference</span><span> = </span><span class="identifier">model</span><span>.</span><span class="identifier">count</span><span>)
 
-    </span><span class="keyword">val</span><span> </span><span class="identifier">labelBounds</span><span> =
-      </span><span class="type-name">CustomComponents</span><span>.</span><span class="identifier">labelBounds</span><span>.</span><span class="identifier">unsafeToRectangle</span><span>.</span><span class="identifier">moveBy</span><span>(</span><span class="number-literal">50</span><span>, </span><span class="number-literal">50</span><span>)
+  </span><span class="keyword">val</span><span> </span><span class="identifier">labelBounds</span><span> =
+    </span><span class="type-name">CustomComponents</span><span>.</span><span class="identifier">labelBounds</span><span>.</span><span class="identifier">unsafeToRectangle</span><span>.</span><span class="identifier">moveBy</span><span>(</span><span class="number-literal">50</span><span>, </span><span class="number-literal">50</span><span>)
 
-    </span><span class="keyword">val</span><span> </span><span class="identifier">labelBorder</span><span> =
-      </span><span class="type-name">Shape</span><span>.</span><span class="type-name">Box</span><span>(
-        </span><span class="identifier">labelBounds</span><span>,
-        </span><span class="type-name">Fill</span><span>.</span><span class="type-name">None</span><span>,
-        </span><span class="type-name">Stroke</span><span>(</span><span class="number-literal">1</span><span>, </span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Green</span><span>)
-      )
+  </span><span class="keyword">val</span><span> </span><span class="identifier">labelBorder</span><span> =
+    </span><span class="type-name">Shape</span><span>.</span><span class="type-name">Box</span><span>(
+      </span><span class="identifier">labelBounds</span><span>,
+      </span><span class="type-name">Fill</span><span>.</span><span class="type-name">None</span><span>,
+      </span><span class="type-name">Stroke</span><span>(</span><span class="number-literal">1</span><span>, </span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Green</span><span>)
+    )
 
-    </span><span class="keyword">val</span><span> </span><span class="identifier">maskBorder</span><span> =
-      </span><span class="type-name">Shape</span><span>.</span><span class="type-name">Box</span><span>(
-        </span><span class="identifier">labelBounds</span><span>.</span><span class="identifier">resize</span><span>(</span><span class="identifier">labelBounds</span><span>.</span><span class="identifier">size</span><span> / </span><span class="number-literal">2</span><span>),
-        </span><span class="type-name">Fill</span><span>.</span><span class="type-name">None</span><span>,
-        </span><span class="type-name">Stroke</span><span>(</span><span class="number-literal">1</span><span>, </span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Cyan</span><span>)
-      )
+  </span><span class="keyword">val</span><span> </span><span class="identifier">maskBorder</span><span> =
+    </span><span class="type-name">Shape</span><span>.</span><span class="type-name">Box</span><span>(
+      </span><span class="identifier">labelBounds</span><span>.</span><span class="identifier">resize</span><span>(</span><span class="identifier">labelBounds</span><span>.</span><span class="identifier">size</span><span> / </span><span class="number-literal">2</span><span>),
+      </span><span class="type-name">Fill</span><span>.</span><span class="type-name">None</span><span>,
+      </span><span class="type-name">Stroke</span><span>(</span><span class="number-literal">1</span><span>, </span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Cyan</span><span>)
+    )
 
-    </span><span class="identifier">model</span><span>.</span><span class="identifier">component</span><span>
-      .</span><span class="identifier">present</span><span>(</span><span class="identifier">ctx</span><span>)
-      .</span><span class="identifier">map</span><span>(</span><span class="identifier">c</span><span> =&gt; </span><span class="type-name">SceneUpdateFragment</span><span>(</span><span class="identifier">c</span><span>).</span><span class="identifier">addLayer</span><span>(</span><span class="identifier">labelBorder</span><span>, </span><span class="identifier">maskBorder</span><span>))</span></code></pre>
+  </span><span class="identifier">model</span><span>.</span><span class="identifier">component</span><span>
+    .</span><span class="identifier">present</span><span>(</span><span class="identifier">ctx</span><span>)
+    .</span><span class="identifier">map</span><span>(</span><span class="identifier">c</span><span> =&gt; </span><span class="type-name">SceneUpdateFragment</span><span>(</span><span class="identifier">c</span><span>).</span><span class="identifier">addLayer</span><span>(</span><span class="identifier">labelBorder</span><span>, </span><span class="identifier">maskBorder</span><span>))</span></code></pre>
 
         
 <hr class="footer-rule"/>

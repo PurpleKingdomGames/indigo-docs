@@ -107,7 +107,7 @@
     <li class="level2 nav-node"><a href="../../ui/">Ui</a></li>
     <li class="level3 nav-leaf"><a href="../../ui/radiobuttons/">How to make radio buttons</a></li>
     <li class="level1 nav-node"><a href="../../../features/">Features</a></li>
-    <li class="level2 nav-node"><a href="../../../features/actors-and-performers/">Actors-and-performers</a></li>
+    <li class="level2 nav-node"><a href="../../../features/actors-and-performers/">Actors and performers</a></li>
     <li class="level3 nav-leaf"><a href="../../../features/actors-and-performers/actors/">Actors</a></li>
     <li class="level3 nav-leaf"><a href="../../../features/actors-and-performers/performers/">Performers</a></li>
     <li class="level3 nav-leaf"><a href="../../../features/actors-and-performers/performers-with-physics/">Performers &amp; Physics</a></li>
@@ -200,51 +200,51 @@
         <p>Scene models can be a piece of data that lives in a field on the main model, as in this
         example. They can also be ephemeral data types aggregated from various main model data points
         and pulled together each frame, as needed.</p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span>  </span><span class="keyword">type</span><span> </span><span class="type-name">SceneModel</span><span>     = </span><span class="type-name">SceneModelA</span><span>
-  </span><span class="keyword">type</span><span> </span><span class="type-name">SceneViewModel</span><span> = </span><span class="type-name">ViewModel</span><span>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">type</span><span> </span><span class="type-name">SceneModel</span><span>     = </span><span class="type-name">SceneModelA</span><span>
+</span><span class="keyword">type</span><span> </span><span class="type-name">SceneViewModel</span><span> = </span><span class="type-name">ViewModel</span><span>
 
-  </span><span class="keyword">val</span><span> </span><span class="identifier">modelLens</span><span>: </span><span class="type-name">Lens</span><span>[</span><span class="type-name">Model</span><span>, </span><span class="type-name">SceneModelA</span><span>] =
-    </span><span class="type-name">Lens</span><span>(
-      </span><span class="identifier">model</span><span> =&gt; </span><span class="identifier">model</span><span>.</span><span class="identifier">sceneA</span><span>,
-      (</span><span class="identifier">model</span><span>, </span><span class="identifier">newMessage</span><span>) =&gt; </span><span class="identifier">model</span><span>.</span><span class="identifier">copy</span><span>(</span><span class="identifier">sceneA</span><span> = </span><span class="identifier">newMessage</span><span>)
-    )
+</span><span class="keyword">val</span><span> </span><span class="identifier">modelLens</span><span>: </span><span class="type-name">Lens</span><span>[</span><span class="type-name">Model</span><span>, </span><span class="type-name">SceneModelA</span><span>] =
+  </span><span class="type-name">Lens</span><span>(
+    </span><span class="identifier">model</span><span> =&gt; </span><span class="identifier">model</span><span>.</span><span class="identifier">sceneA</span><span>,
+    (</span><span class="identifier">model</span><span>, </span><span class="identifier">newMessage</span><span>) =&gt; </span><span class="identifier">model</span><span>.</span><span class="identifier">copy</span><span>(</span><span class="identifier">sceneA</span><span> = </span><span class="identifier">newMessage</span><span>)
+  )
 
-  </span><span class="keyword">val</span><span> </span><span class="identifier">viewModelLens</span><span>: </span><span class="type-name">Lens</span><span>[</span><span class="type-name">ViewModel</span><span>, </span><span class="type-name">ViewModel</span><span>] =
-    </span><span class="type-name">Lens</span><span>.</span><span class="identifier">keepLatest</span></code></pre>
+</span><span class="keyword">val</span><span> </span><span class="identifier">viewModelLens</span><span>: </span><span class="type-name">Lens</span><span>[</span><span class="type-name">ViewModel</span><span>, </span><span class="type-name">ViewModel</span><span>] =
+  </span><span class="type-name">Lens</span><span>.</span><span class="identifier">keepLatest</span></code></pre>
         <p>There are a number of <code>SceneEvent</code>s that you can experiment with, here we listen to the
         <code>SceneChange</code> event and use the <code>JumpTo</code> event to go to the scene we want, but there are
         others such as <code>Next</code> and <code>Previous</code> to explore.</p>
-        <pre><code class="nohighlight"><span>  </span><span class="keyword">def</span><span> </span><span class="declaration-name">updateModel</span><span>(
-      </span><span class="identifier">context</span><span>: </span><span class="type-name">SceneContext</span><span>[</span><span class="type-name">StartUpData</span><span>],
-      </span><span class="identifier">sceneModel</span><span>: </span><span class="type-name">SceneModelA</span><span>
-  ): </span><span class="type-name">GlobalEvent</span><span> =&gt; </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">SceneModelA</span><span>] =
-    </span><span class="keyword">case</span><span> </span><span class="type-name">SceneEvent</span><span>.</span><span class="type-name">SceneChange</span><span>(</span><span class="identifier">from</span><span>, </span><span class="identifier">to</span><span>, </span><span class="identifier">at</span><span>) =&gt;
-      </span><span class="identifier">println</span><span>(</span><span class="string-literal">s&quot;A: Changed scene from &#39;</span><span class="substitution">${from}</span><span class="string-literal">&#39; to &#39;</span><span class="substitution">${to}</span><span class="string-literal">&#39; at running time: </span><span class="substitution">${at}</span><span class="string-literal">&quot;</span><span>)
-      </span><span class="type-name">Outcome</span><span>(</span><span class="identifier">sceneModel</span><span>)
+        <pre><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">updateModel</span><span>(
+    </span><span class="identifier">context</span><span>: </span><span class="type-name">SceneContext</span><span>[</span><span class="type-name">StartUpData</span><span>],
+    </span><span class="identifier">sceneModel</span><span>: </span><span class="type-name">SceneModelA</span><span>
+): </span><span class="type-name">GlobalEvent</span><span> =&gt; </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">SceneModelA</span><span>] =
+  </span><span class="keyword">case</span><span> </span><span class="type-name">SceneEvent</span><span>.</span><span class="type-name">SceneChange</span><span>(</span><span class="identifier">from</span><span>, </span><span class="identifier">to</span><span>, </span><span class="identifier">at</span><span>) =&gt;
+    </span><span class="identifier">println</span><span>(</span><span class="string-literal">s&quot;A: Changed scene from &#39;</span><span class="substitution">${from}</span><span class="string-literal">&#39; to &#39;</span><span class="substitution">${to}</span><span class="string-literal">&#39; at running time: </span><span class="substitution">${at}</span><span class="string-literal">&quot;</span><span>)
+    </span><span class="type-name">Outcome</span><span>(</span><span class="identifier">sceneModel</span><span>)
 
-    </span><span class="keyword">case</span><span> </span><span class="type-name">MouseEvent</span><span>.</span><span class="type-name">Click</span><span>(</span><span class="identifier">_</span><span>) =&gt;
-      </span><span class="type-name">Outcome</span><span>(</span><span class="identifier">sceneModel</span><span>)
-        .</span><span class="identifier">addGlobalEvents</span><span>(</span><span class="type-name">SceneEvent</span><span>.</span><span class="type-name">JumpTo</span><span>(</span><span class="type-name">SceneB</span><span>.</span><span class="identifier">name</span><span>))
+  </span><span class="keyword">case</span><span> </span><span class="type-name">MouseEvent</span><span>.</span><span class="type-name">Click</span><span>(</span><span class="identifier">_</span><span>) =&gt;
+    </span><span class="type-name">Outcome</span><span>(</span><span class="identifier">sceneModel</span><span>)
+      .</span><span class="identifier">addGlobalEvents</span><span>(</span><span class="type-name">SceneEvent</span><span>.</span><span class="type-name">JumpTo</span><span>(</span><span class="type-name">SceneB</span><span>.</span><span class="identifier">name</span><span>))
 
-    </span><span class="keyword">case</span><span> </span><span class="identifier">_</span><span> =&gt;
-      </span><span class="type-name">Outcome</span><span>(</span><span class="identifier">sceneModel</span><span>)</span></code></pre>
+  </span><span class="keyword">case</span><span> </span><span class="identifier">_</span><span> =&gt;
+    </span><span class="type-name">Outcome</span><span>(</span><span class="identifier">sceneModel</span><span>)</span></code></pre>
         <p>The main game functions of an <code>IndigoGame</code> entry point are largely the same as you&#39;d find in an
         <code>IndigoGame</code>, but there are two things to note:</p>
         <ol class="arabic">
           <li>New methods called <code>scenes</code> and <code>initialScene</code> are declared. Scene&#39;s must be declared in
-          order in the scenes <code>NonEmptyList</code>, and there must be at least one scene. The initial scene
-          is optional, if <code>None</code> then the first scene loaded will be the first one in the scene&#39;s
-          list.</li>
+          order in the scenes <code>NonEmptyBatch</code>, and there must be at least one scene. The initial
+          scene is optional, if <code>None</code> then the first scene loaded will be the first one in the
+          scene&#39;s list.</li>
           <li>The usual functions like <code>updateModel</code> are declared as normal, but you can now thing of
           them as &#39;global&#39; functions. The scene&#39;s implementation of <code>updateModel</code> will only be called
           when that scene is running, but <code>updateModel</code> in the main game runs all the time. This is
           helpful for dealing with any events that are not specific to any one scene, or presenting
           graphics that should appear all the time.</li>
         </ol>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span>  </span><span class="keyword">def</span><span> </span><span class="declaration-name">scenes</span><span>(</span><span class="identifier">bootData</span><span>: </span><span class="type-name">BootData</span><span>): </span><span class="type-name">NonEmptyList</span><span>[</span><span class="type-name">Scene</span><span>[</span><span class="type-name">StartUpData</span><span>, </span><span class="type-name">Model</span><span>, </span><span class="type-name">ViewModel</span><span>]] =
-    </span><span class="type-name">NonEmptyList</span><span>(</span><span class="type-name">SceneA</span><span>, </span><span class="type-name">SceneB</span><span>)
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">scenes</span><span>(</span><span class="identifier">bootData</span><span>: </span><span class="type-name">BootData</span><span>): </span><span class="type-name">NonEmptyBatch</span><span>[</span><span class="type-name">Scene</span><span>[</span><span class="type-name">StartUpData</span><span>, </span><span class="type-name">Model</span><span>, </span><span class="type-name">ViewModel</span><span>]] =
+  </span><span class="type-name">NonEmptyBatch</span><span>(</span><span class="type-name">SceneA</span><span>, </span><span class="type-name">SceneB</span><span>)
 
-  </span><span class="keyword">def</span><span> </span><span class="declaration-name">initialScene</span><span>(</span><span class="identifier">bootData</span><span>: </span><span class="type-name">BootData</span><span>): </span><span class="type-name">Option</span><span>[</span><span class="type-name">SceneName</span><span>] = </span><span class="type-name">Option</span><span>(</span><span class="type-name">SceneA</span><span>.</span><span class="identifier">name</span><span>)</span></code></pre>
+</span><span class="keyword">def</span><span> </span><span class="declaration-name">initialScene</span><span>(</span><span class="identifier">bootData</span><span>: </span><span class="type-name">BootData</span><span>): </span><span class="type-name">Option</span><span>[</span><span class="type-name">SceneName</span><span>] = </span><span class="type-name">Option</span><span>(</span><span class="type-name">SceneA</span><span>.</span><span class="identifier">name</span><span>)</span></code></pre>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">updateModel</span><span>(</span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>[</span><span class="type-name">StartUpData</span><span>], </span><span class="identifier">model</span><span>: </span><span class="type-name">Model</span><span>): </span><span class="type-name">GlobalEvent</span><span> =&gt; </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">Model</span><span>] =
   </span><span class="keyword">case</span><span> </span><span class="identifier">_</span><span> =&gt; </span><span class="type-name">Outcome</span><span>(</span><span class="identifier">model</span><span>)</span></code></pre>
 

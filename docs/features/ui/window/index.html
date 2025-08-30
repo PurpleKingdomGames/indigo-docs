@@ -107,7 +107,7 @@
     <li class="level2 nav-node"><a href="../../../guides/ui/">Ui</a></li>
     <li class="level3 nav-leaf"><a href="../../../guides/ui/radiobuttons/">How to make radio buttons</a></li>
     <li class="level1 nav-node"><a href="../../">Features</a></li>
-    <li class="level2 nav-node"><a href="../../actors-and-performers/">Actors-and-performers</a></li>
+    <li class="level2 nav-node"><a href="../../actors-and-performers/">Actors and performers</a></li>
     <li class="level3 nav-leaf"><a href="../../actors-and-performers/actors/">Actors</a></li>
     <li class="level3 nav-leaf"><a href="../../actors-and-performers/performers/">Performers</a></li>
     <li class="level3 nav-leaf"><a href="../../actors-and-performers/performers-with-physics/">Performers &amp; Physics</a></li>
@@ -198,30 +198,30 @@
         these sorts of components are sometimes called the window&#39;s &#39;chrome&#39;.</p>
         <p>There are other properties to the window, and below we set a start size and tell it how to
         draw a background.</p>
-        <pre><code class="nohighlight"><span>  </span><span class="keyword">val</span><span> </span><span class="identifier">windowId</span><span>: </span><span class="type-name">WindowId</span><span> =
-    </span><span class="type-name">WindowId</span><span>(</span><span class="string-literal">&quot;my window&quot;</span><span>)
+        <pre><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">windowId</span><span>: </span><span class="type-name">WindowId</span><span> =
+  </span><span class="type-name">WindowId</span><span>(</span><span class="string-literal">&quot;my window&quot;</span><span>)
 
-  </span><span class="keyword">val</span><span> </span><span class="identifier">window</span><span>: </span><span class="type-name">Window</span><span>[</span><span class="type-name">ComponentGroup</span><span>[</span><span class="type-name">Int</span><span>], </span><span class="type-name">Int</span><span>] =
-    </span><span class="type-name">Window</span><span>(
-      </span><span class="identifier">id</span><span> = </span><span class="identifier">windowId</span><span>,
-      </span><span class="identifier">snapGrid</span><span> = </span><span class="type-name">Size</span><span>(</span><span class="number-literal">1</span><span>),
-      </span><span class="identifier">minSize</span><span> = </span><span class="type-name">Dimensions</span><span>(</span><span class="number-literal">128</span><span>, </span><span class="number-literal">64</span><span>),
-      </span><span class="identifier">content</span><span> = </span><span class="identifier">windowChrome</span><span>(</span><span class="string-literal">&quot;Hello, Window!&quot;</span><span>)
-    )
-      .</span><span class="identifier">resizeTo</span><span>(</span><span class="number-literal">320</span><span>, </span><span class="number-literal">240</span><span>)
-      .</span><span class="identifier">withBackground</span><span> { </span><span class="identifier">windowContext</span><span> =&gt;
-        </span><span class="type-name">Outcome</span><span>(
-          </span><span class="type-name">Layer</span><span>.</span><span class="type-name">Content</span><span>(
-            </span><span class="type-name">Shape</span><span>.</span><span class="type-name">Box</span><span>(
-              </span><span class="identifier">windowContext</span><span>.</span><span class="identifier">bounds</span><span>.</span><span class="identifier">unsafeToRectangle</span><span>,
-              </span><span class="keyword">if</span><span> </span><span class="identifier">windowContext</span><span>.</span><span class="identifier">hasFocus</span><span> </span><span class="identifier">then</span><span> </span><span class="type-name">Fill</span><span>.</span><span class="type-name">Color</span><span>(</span><span class="type-name">RGBA</span><span>.</span><span class="type-name">SlateGray</span><span>)
-              </span><span class="keyword">else</span><span> </span><span class="type-name">Fill</span><span>.</span><span class="type-name">Color</span><span>(</span><span class="type-name">RGBA</span><span>.</span><span class="type-name">SlateGray</span><span>.</span><span class="identifier">mix</span><span>(</span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Black</span><span>)),
-              </span><span class="type-name">Stroke</span><span>(</span><span class="number-literal">1</span><span>, </span><span class="type-name">RGBA</span><span>.</span><span class="type-name">White</span><span>)
-            )
+</span><span class="keyword">val</span><span> </span><span class="identifier">window</span><span>: </span><span class="type-name">Window</span><span>[</span><span class="type-name">ComponentGroup</span><span>[</span><span class="type-name">Int</span><span>], </span><span class="type-name">Int</span><span>] =
+  </span><span class="type-name">Window</span><span>(
+    </span><span class="identifier">id</span><span> = </span><span class="identifier">windowId</span><span>,
+    </span><span class="identifier">snapGrid</span><span> = </span><span class="type-name">Size</span><span>(</span><span class="number-literal">1</span><span>),
+    </span><span class="identifier">minSize</span><span> = </span><span class="type-name">Dimensions</span><span>(</span><span class="number-literal">128</span><span>, </span><span class="number-literal">64</span><span>),
+    </span><span class="identifier">content</span><span> = </span><span class="identifier">windowChrome</span><span>(</span><span class="string-literal">&quot;Hello, Window!&quot;</span><span>)
+  )
+    .</span><span class="identifier">resizeTo</span><span>(</span><span class="number-literal">320</span><span>, </span><span class="number-literal">240</span><span>)
+    .</span><span class="identifier">withBackground</span><span> { </span><span class="identifier">windowContext</span><span> =&gt;
+      </span><span class="type-name">Outcome</span><span>(
+        </span><span class="type-name">Layer</span><span>.</span><span class="type-name">Content</span><span>(
+          </span><span class="type-name">Shape</span><span>.</span><span class="type-name">Box</span><span>(
+            </span><span class="identifier">windowContext</span><span>.</span><span class="identifier">bounds</span><span>.</span><span class="identifier">unsafeToRectangle</span><span>,
+            </span><span class="keyword">if</span><span> </span><span class="identifier">windowContext</span><span>.</span><span class="identifier">hasFocus</span><span> </span><span class="identifier">then</span><span> </span><span class="type-name">Fill</span><span>.</span><span class="type-name">Color</span><span>(</span><span class="type-name">RGBA</span><span>.</span><span class="type-name">SlateGray</span><span>)
+            </span><span class="keyword">else</span><span> </span><span class="type-name">Fill</span><span>.</span><span class="type-name">Color</span><span>(</span><span class="type-name">RGBA</span><span>.</span><span class="type-name">SlateGray</span><span>.</span><span class="identifier">mix</span><span>(</span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Black</span><span>)),
+            </span><span class="type-name">Stroke</span><span>(</span><span class="number-literal">1</span><span>, </span><span class="type-name">RGBA</span><span>.</span><span class="type-name">White</span><span>)
           )
         )
+      )
 
-      }</span></code></pre>
+    }</span></code></pre>
         <p>The window chrome is a <code>ComponentGroup</code> that contains all the components that make up the
         window. In this case, we have a title bar, a close button, a resize button and the window
         content itself which starts with a MaskedPane that contains a label.</p>

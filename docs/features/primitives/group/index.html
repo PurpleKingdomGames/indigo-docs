@@ -107,7 +107,7 @@
     <li class="level2 nav-node"><a href="../../../guides/ui/">Ui</a></li>
     <li class="level3 nav-leaf"><a href="../../../guides/ui/radiobuttons/">How to make radio buttons</a></li>
     <li class="level1 nav-node"><a href="../../">Features</a></li>
-    <li class="level2 nav-node"><a href="../../actors-and-performers/">Actors-and-performers</a></li>
+    <li class="level2 nav-node"><a href="../../actors-and-performers/">Actors and performers</a></li>
     <li class="level3 nav-leaf"><a href="../../actors-and-performers/actors/">Actors</a></li>
     <li class="level3 nav-leaf"><a href="../../actors-and-performers/performers/">Performers</a></li>
     <li class="level3 nav-leaf"><a href="../../actors-and-performers/performers-with-physics/">Performers &amp; Physics</a></li>
@@ -187,40 +187,40 @@
         <h1 id="how-to-use-a-group" class="section"><a class="anchor-link left" href="#how-to-use-a-group"><i class="icofont-laika link">&#xef71;</i></a>How to use a group</h1>
         <p>In this example we arrange three circle relative to each other, and then move the group the
         middle of the screen.</p>
-        <pre><code class="nohighlight"><span>  </span><span class="keyword">def</span><span> </span><span class="declaration-name">present</span><span>(</span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>[</span><span class="type-name">Unit</span><span>], </span><span class="identifier">model</span><span>: </span><span class="type-name">Unit</span><span>): </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">SceneUpdateFragment</span><span>] =
-    </span><span class="keyword">val</span><span> </span><span class="identifier">viewportCenter</span><span> =
-      </span><span class="identifier">context</span><span>.</span><span class="identifier">frame</span><span>.</span><span class="identifier">viewport</span><span>.</span><span class="identifier">giveDimensions</span><span>(</span><span class="identifier">context</span><span>.</span><span class="identifier">frame</span><span>.</span><span class="identifier">globalMagnification</span><span>).</span><span class="identifier">center</span><span>
+        <pre><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">present</span><span>(</span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>[</span><span class="type-name">Unit</span><span>], </span><span class="identifier">model</span><span>: </span><span class="type-name">Unit</span><span>): </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">SceneUpdateFragment</span><span>] =
+  </span><span class="keyword">val</span><span> </span><span class="identifier">viewportCenter</span><span> =
+    </span><span class="identifier">context</span><span>.</span><span class="identifier">frame</span><span>.</span><span class="identifier">viewport</span><span>.</span><span class="identifier">giveDimensions</span><span>(</span><span class="identifier">context</span><span>.</span><span class="identifier">frame</span><span>.</span><span class="identifier">globalMagnification</span><span>).</span><span class="identifier">center</span><span>
 
-    </span><span class="keyword">val</span><span> </span><span class="identifier">radius</span><span> = </span><span class="number-literal">50</span><span>
+  </span><span class="keyword">val</span><span> </span><span class="identifier">radius</span><span> = </span><span class="number-literal">50</span><span>
 
-    </span><span class="type-name">Outcome</span><span>(
-      </span><span class="type-name">SceneUpdateFragment</span><span>(
-        </span><span class="type-name">Group</span><span>(
-          </span><span class="type-name">Shape</span><span>
-            .</span><span class="type-name">Circle</span><span>(
-              </span><span class="type-name">Circle</span><span>(</span><span class="type-name">Point</span><span>.</span><span class="identifier">zero</span><span>, </span><span class="identifier">radius</span><span>),
-              </span><span class="type-name">Fill</span><span>.</span><span class="type-name">Color</span><span>(</span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Red</span><span>.</span><span class="identifier">withAlpha</span><span>(</span><span class="number-literal">0.75</span><span>)),
-              </span><span class="type-name">Stroke</span><span>(</span><span class="number-literal">2</span><span>, </span><span class="type-name">RGBA</span><span>.</span><span class="type-name">White</span><span>)
-            )
-            .</span><span class="identifier">moveTo</span><span>(</span><span class="type-name">Point</span><span>(</span><span class="number-literal">0</span><span>, -</span><span class="number-literal">25</span><span>)),
-          </span><span class="type-name">Shape</span><span>
-            .</span><span class="type-name">Circle</span><span>(
-              </span><span class="type-name">Circle</span><span>(</span><span class="type-name">Point</span><span>.</span><span class="identifier">zero</span><span>, </span><span class="identifier">radius</span><span>),
-              </span><span class="type-name">Fill</span><span>.</span><span class="type-name">Color</span><span>(</span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Green</span><span>.</span><span class="identifier">withAlpha</span><span>(</span><span class="number-literal">0.75</span><span>)),
-              </span><span class="type-name">Stroke</span><span>(</span><span class="number-literal">2</span><span>, </span><span class="type-name">RGBA</span><span>.</span><span class="type-name">White</span><span>)
-            )
-            .</span><span class="identifier">moveTo</span><span>(</span><span class="type-name">Point</span><span>(</span><span class="number-literal">25</span><span>, </span><span class="number-literal">25</span><span>)),
-          </span><span class="type-name">Shape</span><span>
-            .</span><span class="type-name">Circle</span><span>(
-              </span><span class="type-name">Circle</span><span>(</span><span class="type-name">Point</span><span>.</span><span class="identifier">zero</span><span>, </span><span class="identifier">radius</span><span>),
-              </span><span class="type-name">Fill</span><span>.</span><span class="type-name">Color</span><span>(</span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Blue</span><span>.</span><span class="identifier">withAlpha</span><span>(</span><span class="number-literal">0.75</span><span>)),
-              </span><span class="type-name">Stroke</span><span>(</span><span class="number-literal">2</span><span>, </span><span class="type-name">RGBA</span><span>.</span><span class="type-name">White</span><span>)
-            )
-            .</span><span class="identifier">moveTo</span><span>(</span><span class="type-name">Point</span><span>(-</span><span class="number-literal">25</span><span>, </span><span class="number-literal">25</span><span>))
-        ).</span><span class="identifier">moveTo</span><span>(</span><span class="identifier">viewportCenter</span><span>)
-          .</span><span class="identifier">withRef</span><span>(</span><span class="number-literal">25</span><span>, </span><span class="number-literal">25</span><span>)
-      )
-    )</span></code></pre>
+  </span><span class="type-name">Outcome</span><span>(
+    </span><span class="type-name">SceneUpdateFragment</span><span>(
+      </span><span class="type-name">Group</span><span>(
+        </span><span class="type-name">Shape</span><span>
+          .</span><span class="type-name">Circle</span><span>(
+            </span><span class="type-name">Circle</span><span>(</span><span class="type-name">Point</span><span>.</span><span class="identifier">zero</span><span>, </span><span class="identifier">radius</span><span>),
+            </span><span class="type-name">Fill</span><span>.</span><span class="type-name">Color</span><span>(</span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Red</span><span>.</span><span class="identifier">withAlpha</span><span>(</span><span class="number-literal">0.75</span><span>)),
+            </span><span class="type-name">Stroke</span><span>(</span><span class="number-literal">2</span><span>, </span><span class="type-name">RGBA</span><span>.</span><span class="type-name">White</span><span>)
+          )
+          .</span><span class="identifier">moveTo</span><span>(</span><span class="type-name">Point</span><span>(</span><span class="number-literal">0</span><span>, -</span><span class="number-literal">25</span><span>)),
+        </span><span class="type-name">Shape</span><span>
+          .</span><span class="type-name">Circle</span><span>(
+            </span><span class="type-name">Circle</span><span>(</span><span class="type-name">Point</span><span>.</span><span class="identifier">zero</span><span>, </span><span class="identifier">radius</span><span>),
+            </span><span class="type-name">Fill</span><span>.</span><span class="type-name">Color</span><span>(</span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Green</span><span>.</span><span class="identifier">withAlpha</span><span>(</span><span class="number-literal">0.75</span><span>)),
+            </span><span class="type-name">Stroke</span><span>(</span><span class="number-literal">2</span><span>, </span><span class="type-name">RGBA</span><span>.</span><span class="type-name">White</span><span>)
+          )
+          .</span><span class="identifier">moveTo</span><span>(</span><span class="type-name">Point</span><span>(</span><span class="number-literal">25</span><span>, </span><span class="number-literal">25</span><span>)),
+        </span><span class="type-name">Shape</span><span>
+          .</span><span class="type-name">Circle</span><span>(
+            </span><span class="type-name">Circle</span><span>(</span><span class="type-name">Point</span><span>.</span><span class="identifier">zero</span><span>, </span><span class="identifier">radius</span><span>),
+            </span><span class="type-name">Fill</span><span>.</span><span class="type-name">Color</span><span>(</span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Blue</span><span>.</span><span class="identifier">withAlpha</span><span>(</span><span class="number-literal">0.75</span><span>)),
+            </span><span class="type-name">Stroke</span><span>(</span><span class="number-literal">2</span><span>, </span><span class="type-name">RGBA</span><span>.</span><span class="type-name">White</span><span>)
+          )
+          .</span><span class="identifier">moveTo</span><span>(</span><span class="type-name">Point</span><span>(-</span><span class="number-literal">25</span><span>, </span><span class="number-literal">25</span><span>))
+      ).</span><span class="identifier">moveTo</span><span>(</span><span class="identifier">viewportCenter</span><span>)
+        .</span><span class="identifier">withRef</span><span>(</span><span class="number-literal">25</span><span>, </span><span class="number-literal">25</span><span>)
+    )
+  )</span></code></pre>
 
         
 <hr class="footer-rule"/>

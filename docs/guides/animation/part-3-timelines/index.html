@@ -107,7 +107,7 @@
     <li class="level2 nav-node"><a href="../../ui/">Ui</a></li>
     <li class="level3 nav-leaf"><a href="../../ui/radiobuttons/">How to make radio buttons</a></li>
     <li class="level1 nav-node"><a href="../../../features/">Features</a></li>
-    <li class="level2 nav-node"><a href="../../../features/actors-and-performers/">Actors-and-performers</a></li>
+    <li class="level2 nav-node"><a href="../../../features/actors-and-performers/">Actors and performers</a></li>
     <li class="level3 nav-leaf"><a href="../../../features/actors-and-performers/actors/">Actors</a></li>
     <li class="level3 nav-leaf"><a href="../../../features/actors-and-performers/performers/">Performers</a></li>
     <li class="level3 nav-leaf"><a href="../../../features/actors-and-performers/performers-with-physics/">Performers &amp; Physics</a></li>
@@ -208,35 +208,35 @@
         describe the value transformation that results in the animated movement. There are lots of
         helpful signal functions available on the <code>SignalFunction</code> companion object for you to make
         use of.</p>
-        <pre><code class="nohighlight"><span>  </span><span class="keyword">def</span><span> </span><span class="declaration-name">myTimelineAnimation</span><span>(</span><span class="identifier">viewportSize</span><span>: </span><span class="type-name">Size</span><span>): </span><span class="type-name">Timeline</span><span>[</span><span class="type-name">Shape</span><span>.</span><span class="type-name">Circle</span><span>] =
-    </span><span class="identifier">timeline</span><span>(
-      </span><span class="identifier">layer</span><span>(
-        </span><span class="identifier">startAfter</span><span>(</span><span class="number-literal">2</span><span>.</span><span class="identifier">seconds</span><span>),
-        </span><span class="identifier">animate</span><span>(</span><span class="number-literal">10</span><span>.</span><span class="identifier">seconds</span><span>) { </span><span class="identifier">circle</span><span> =&gt;
-          </span><span class="identifier">easeInOut</span><span> &gt;&gt;&gt;
-            </span><span class="identifier">lerp</span><span>(</span><span class="type-name">Point</span><span>(</span><span class="number-literal">60</span><span>), </span><span class="identifier">viewportSize</span><span>.</span><span class="identifier">toPoint</span><span> - </span><span class="type-name">Point</span><span>(</span><span class="number-literal">60</span><span>)) &gt;&gt;&gt;
-            </span><span class="type-name">SignalFunction</span><span>(</span><span class="identifier">pt</span><span> =&gt; </span><span class="identifier">circle</span><span>.</span><span class="identifier">moveTo</span><span>(</span><span class="identifier">pt</span><span>))
-        }
-      ),
-      </span><span class="identifier">layer</span><span>(
-        </span><span class="identifier">startAfter</span><span>(</span><span class="number-literal">2</span><span>.</span><span class="identifier">seconds</span><span>),
-        </span><span class="identifier">animate</span><span>(</span><span class="number-literal">10</span><span>.</span><span class="identifier">seconds</span><span>) { </span><span class="identifier">circle</span><span> =&gt;
-          </span><span class="identifier">lerp</span><span> &gt;&gt;&gt;
-            </span><span class="type-name">SignalFunction</span><span> { </span><span class="identifier">alpha</span><span> =&gt;
-              </span><span class="identifier">circle</span><span>.</span><span class="identifier">withFill</span><span>(</span><span class="type-name">Fill</span><span>.</span><span class="type-name">Color</span><span>(</span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Green</span><span>.</span><span class="identifier">withAlpha</span><span>(</span><span class="identifier">alpha</span><span>)))
-            }
-        }
-      )
+        <pre><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">myTimelineAnimation</span><span>(</span><span class="identifier">viewportSize</span><span>: </span><span class="type-name">Size</span><span>): </span><span class="type-name">Timeline</span><span>[</span><span class="type-name">Shape</span><span>.</span><span class="type-name">Circle</span><span>] =
+  </span><span class="identifier">timeline</span><span>(
+    </span><span class="identifier">layer</span><span>(
+      </span><span class="identifier">startAfter</span><span>(</span><span class="number-literal">2</span><span>.</span><span class="identifier">seconds</span><span>),
+      </span><span class="identifier">animate</span><span>(</span><span class="number-literal">10</span><span>.</span><span class="identifier">seconds</span><span>) { </span><span class="identifier">circle</span><span> =&gt;
+        </span><span class="identifier">easeInOut</span><span> &gt;&gt;&gt;
+          </span><span class="identifier">lerp</span><span>(</span><span class="type-name">Point</span><span>(</span><span class="number-literal">60</span><span>), </span><span class="identifier">viewportSize</span><span>.</span><span class="identifier">toPoint</span><span> - </span><span class="type-name">Point</span><span>(</span><span class="number-literal">60</span><span>)) &gt;&gt;&gt;
+          </span><span class="type-name">SignalFunction</span><span>(</span><span class="identifier">pt</span><span> =&gt; </span><span class="identifier">circle</span><span>.</span><span class="identifier">moveTo</span><span>(</span><span class="identifier">pt</span><span>))
+      }
+    ),
+    </span><span class="identifier">layer</span><span>(
+      </span><span class="identifier">startAfter</span><span>(</span><span class="number-literal">2</span><span>.</span><span class="identifier">seconds</span><span>),
+      </span><span class="identifier">animate</span><span>(</span><span class="number-literal">10</span><span>.</span><span class="identifier">seconds</span><span>) { </span><span class="identifier">circle</span><span> =&gt;
+        </span><span class="identifier">lerp</span><span> &gt;&gt;&gt;
+          </span><span class="type-name">SignalFunction</span><span> { </span><span class="identifier">alpha</span><span> =&gt;
+            </span><span class="identifier">circle</span><span>.</span><span class="identifier">withFill</span><span>(</span><span class="type-name">Fill</span><span>.</span><span class="type-name">Color</span><span>(</span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Green</span><span>.</span><span class="identifier">withAlpha</span><span>(</span><span class="identifier">alpha</span><span>)))
+          }
+      }
     )
+  )
 
-  </span><span class="keyword">def</span><span> </span><span class="declaration-name">present</span><span>(</span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>[</span><span class="type-name">Unit</span><span>], </span><span class="identifier">model</span><span>: </span><span class="type-name">Unit</span><span>): </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">SceneUpdateFragment</span><span>] =
-    </span><span class="type-name">Outcome</span><span>(
-      </span><span class="type-name">SceneUpdateFragment</span><span>(
-        </span><span class="identifier">myTimelineAnimation</span><span>(</span><span class="identifier">context</span><span>.</span><span class="identifier">frame</span><span>.</span><span class="identifier">viewport</span><span>.</span><span class="identifier">bounds</span><span>.</span><span class="identifier">size</span><span>)
-          .</span><span class="identifier">atOrLast</span><span>(</span><span class="identifier">context</span><span>.</span><span class="identifier">frame</span><span>.</span><span class="identifier">time</span><span>.</span><span class="identifier">running</span><span>)(</span><span class="identifier">circle</span><span>)
-          .</span><span class="identifier">toBatch</span><span>
-      )
-    )</span></code></pre>
+</span><span class="keyword">def</span><span> </span><span class="declaration-name">present</span><span>(</span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>[</span><span class="type-name">Unit</span><span>], </span><span class="identifier">model</span><span>: </span><span class="type-name">Unit</span><span>): </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">SceneUpdateFragment</span><span>] =
+  </span><span class="type-name">Outcome</span><span>(
+    </span><span class="type-name">SceneUpdateFragment</span><span>(
+      </span><span class="identifier">myTimelineAnimation</span><span>(</span><span class="identifier">context</span><span>.</span><span class="identifier">frame</span><span>.</span><span class="identifier">viewport</span><span>.</span><span class="identifier">bounds</span><span>.</span><span class="identifier">size</span><span>)
+        .</span><span class="identifier">atOrLast</span><span>(</span><span class="identifier">context</span><span>.</span><span class="identifier">frame</span><span>.</span><span class="identifier">time</span><span>.</span><span class="identifier">running</span><span>)(</span><span class="identifier">circle</span><span>)
+        .</span><span class="identifier">toBatch</span><span>
+    )
+  )</span></code></pre>
         
         <h2 id="summary" class="section"><a class="anchor-link left" href="#summary"><i class="icofont-laika link">&#xef71;</i></a>Summary</h2>
         <p>Designed to ease the production of coordinated animations for menu and game over screens,

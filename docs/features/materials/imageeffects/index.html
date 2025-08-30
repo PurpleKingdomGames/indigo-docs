@@ -107,7 +107,7 @@
     <li class="level2 nav-node"><a href="../../../guides/ui/">Ui</a></li>
     <li class="level3 nav-leaf"><a href="../../../guides/ui/radiobuttons/">How to make radio buttons</a></li>
     <li class="level1 nav-node"><a href="../../">Features</a></li>
-    <li class="level2 nav-node"><a href="../../actors-and-performers/">Actors-and-performers</a></li>
+    <li class="level2 nav-node"><a href="../../actors-and-performers/">Actors and performers</a></li>
     <li class="level3 nav-leaf"><a href="../../actors-and-performers/actors/">Actors</a></li>
     <li class="level3 nav-leaf"><a href="../../actors-and-performers/performers/">Performers</a></li>
     <li class="level3 nav-leaf"><a href="../../actors-and-performers/performers-with-physics/">Performers &amp; Physics</a></li>
@@ -194,57 +194,57 @@
           <li>Overlay (radial gradient) - As with overlay, but a radial (circular) gradient between two
           colours.</li>
         </ul>
-        <pre><code class="nohighlight"><span>  </span><span class="keyword">val</span><span> </span><span class="identifier">material</span><span>: </span><span class="type-name">Material</span><span>.</span><span class="type-name">ImageEffects</span><span> =
-    </span><span class="type-name">Assets</span><span>.</span><span class="identifier">assets</span><span>.</span><span class="identifier">junctionboxAlbedoMaterial</span><span>.</span><span class="identifier">toImageEffects</span><span>
+        <pre><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">material</span><span>: </span><span class="type-name">Material</span><span>.</span><span class="type-name">ImageEffects</span><span> =
+  </span><span class="type-name">Assets</span><span>.</span><span class="identifier">assets</span><span>.</span><span class="identifier">junctionboxAlbedoMaterial</span><span>.</span><span class="identifier">toImageEffects</span><span>
 
-  </span><span class="keyword">val</span><span> </span><span class="identifier">graphic</span><span>: </span><span class="type-name">Graphic</span><span>[</span><span class="type-name">Material</span><span>.</span><span class="type-name">ImageEffects</span><span>] =
-    </span><span class="type-name">Graphic</span><span>(</span><span class="type-name">Rectangle</span><span>(</span><span class="number-literal">0</span><span>, </span><span class="number-literal">0</span><span>, </span><span class="number-literal">40</span><span>, </span><span class="number-literal">40</span><span>), </span><span class="identifier">material</span><span>)
-      .</span><span class="identifier">withRef</span><span>(</span><span class="number-literal">20</span><span>, </span><span class="number-literal">20</span><span>)
+</span><span class="keyword">val</span><span> </span><span class="identifier">graphic</span><span>: </span><span class="type-name">Graphic</span><span>[</span><span class="type-name">Material</span><span>.</span><span class="type-name">ImageEffects</span><span>] =
+  </span><span class="type-name">Graphic</span><span>(</span><span class="type-name">Rectangle</span><span>(</span><span class="number-literal">0</span><span>, </span><span class="number-literal">0</span><span>, </span><span class="number-literal">40</span><span>, </span><span class="number-literal">40</span><span>), </span><span class="identifier">material</span><span>)
+    .</span><span class="identifier">withRef</span><span>(</span><span class="number-literal">20</span><span>, </span><span class="number-literal">20</span><span>)
 
-  </span><span class="keyword">val</span><span> </span><span class="identifier">viewCenter</span><span>: </span><span class="type-name">Point</span><span> = (</span><span class="type-name">Point</span><span>(</span><span class="number-literal">550</span><span>, </span><span class="number-literal">400</span><span>) / </span><span class="number-literal">4</span><span>) + </span><span class="type-name">Point</span><span>(</span><span class="number-literal">0</span><span>, -</span><span class="number-literal">25</span><span>)
+</span><span class="keyword">val</span><span> </span><span class="identifier">viewCenter</span><span>: </span><span class="type-name">Point</span><span> = (</span><span class="type-name">Point</span><span>(</span><span class="number-literal">550</span><span>, </span><span class="number-literal">400</span><span>) / </span><span class="number-literal">4</span><span>) + </span><span class="type-name">Point</span><span>(</span><span class="number-literal">0</span><span>, -</span><span class="number-literal">25</span><span>)
 
-  </span><span class="keyword">def</span><span> </span><span class="declaration-name">present</span><span>(</span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>[</span><span class="type-name">Unit</span><span>], </span><span class="identifier">model</span><span>: </span><span class="type-name">Unit</span><span>): </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">SceneUpdateFragment</span><span>] =
-    </span><span class="type-name">Outcome</span><span>(
-      </span><span class="type-name">SceneUpdateFragment</span><span>(
-        </span><span class="identifier">graphic</span><span>
-          .</span><span class="identifier">moveTo</span><span>(</span><span class="identifier">viewCenter</span><span>)
-          .</span><span class="identifier">moveBy</span><span>(</span><span class="number-literal">0</span><span>, -</span><span class="number-literal">40</span><span>)
-          .</span><span class="identifier">modifyMaterial</span><span>(</span><span class="identifier">_</span><span>.</span><span class="identifier">withTint</span><span>(</span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Red</span><span>)),
-        </span><span class="identifier">graphic</span><span>
-          .</span><span class="identifier">moveTo</span><span>(</span><span class="identifier">viewCenter</span><span>)
-          .</span><span class="identifier">moveBy</span><span>(-</span><span class="number-literal">60</span><span>, -</span><span class="number-literal">40</span><span>)
-          .</span><span class="identifier">modifyMaterial</span><span>(</span><span class="identifier">_</span><span>.</span><span class="identifier">withAlpha</span><span>(</span><span class="number-literal">0.5</span><span>)),
-        </span><span class="identifier">graphic</span><span>
-          .</span><span class="identifier">moveTo</span><span>(</span><span class="identifier">viewCenter</span><span>)
-          .</span><span class="identifier">moveBy</span><span>(-</span><span class="number-literal">30</span><span>, -</span><span class="number-literal">40</span><span>)
-          .</span><span class="identifier">modifyMaterial</span><span>(</span><span class="identifier">_</span><span>.</span><span class="identifier">withSaturation</span><span>(</span><span class="number-literal">0.0</span><span>)),
-        </span><span class="identifier">graphic</span><span>
-          .</span><span class="identifier">moveTo</span><span>(</span><span class="identifier">viewCenter</span><span>)
-          .</span><span class="identifier">moveBy</span><span>(</span><span class="number-literal">30</span><span>, -</span><span class="number-literal">40</span><span>)
-          .</span><span class="identifier">modifyMaterial</span><span>(</span><span class="identifier">_</span><span>.</span><span class="identifier">withOverlay</span><span>(</span><span class="type-name">Fill</span><span>.</span><span class="type-name">Color</span><span>(</span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Magenta</span><span>.</span><span class="identifier">withAmount</span><span>(</span><span class="number-literal">0.75</span><span>)))),
-        </span><span class="identifier">graphic</span><span>
-          .</span><span class="identifier">moveTo</span><span>(</span><span class="identifier">viewCenter</span><span>)
-          .</span><span class="identifier">moveBy</span><span>(</span><span class="number-literal">60</span><span>, -</span><span class="number-literal">40</span><span>)
-          .</span><span class="identifier">modifyMaterial</span><span>(
-            </span><span class="identifier">_</span><span>.</span><span class="identifier">withOverlay</span><span>(
-              </span><span class="type-name">Fill</span><span>.</span><span class="type-name">LinearGradient</span><span>(</span><span class="type-name">Point</span><span>.</span><span class="identifier">zero</span><span>, </span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Magenta</span><span>, </span><span class="type-name">Point</span><span>(</span><span class="number-literal">40</span><span>), </span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Cyan</span><span>.</span><span class="identifier">withAmount</span><span>(</span><span class="number-literal">0.5</span><span>))
-            )
-          ),
-        </span><span class="identifier">graphic</span><span>
-          .</span><span class="identifier">moveTo</span><span>(</span><span class="identifier">viewCenter</span><span>)
-          .</span><span class="identifier">moveBy</span><span>(-</span><span class="number-literal">60</span><span>, </span><span class="number-literal">10</span><span>)
-          .</span><span class="identifier">modifyMaterial</span><span>(
-            </span><span class="identifier">_</span><span>.</span><span class="identifier">withOverlay</span><span>(
-              </span><span class="type-name">Fill</span><span>.</span><span class="type-name">RadialGradient</span><span>(
-                </span><span class="type-name">Point</span><span>(</span><span class="number-literal">20</span><span>),
-                </span><span class="number-literal">10</span><span>,
-                </span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Magenta</span><span>.</span><span class="identifier">withAmount</span><span>(</span><span class="number-literal">0.5</span><span>),
-                </span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Cyan</span><span>.</span><span class="identifier">withAmount</span><span>(</span><span class="number-literal">0.25</span><span>)
-              )
+</span><span class="keyword">def</span><span> </span><span class="declaration-name">present</span><span>(</span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>[</span><span class="type-name">Unit</span><span>], </span><span class="identifier">model</span><span>: </span><span class="type-name">Unit</span><span>): </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">SceneUpdateFragment</span><span>] =
+  </span><span class="type-name">Outcome</span><span>(
+    </span><span class="type-name">SceneUpdateFragment</span><span>(
+      </span><span class="identifier">graphic</span><span>
+        .</span><span class="identifier">moveTo</span><span>(</span><span class="identifier">viewCenter</span><span>)
+        .</span><span class="identifier">moveBy</span><span>(</span><span class="number-literal">0</span><span>, -</span><span class="number-literal">40</span><span>)
+        .</span><span class="identifier">modifyMaterial</span><span>(</span><span class="identifier">_</span><span>.</span><span class="identifier">withTint</span><span>(</span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Red</span><span>)),
+      </span><span class="identifier">graphic</span><span>
+        .</span><span class="identifier">moveTo</span><span>(</span><span class="identifier">viewCenter</span><span>)
+        .</span><span class="identifier">moveBy</span><span>(-</span><span class="number-literal">60</span><span>, -</span><span class="number-literal">40</span><span>)
+        .</span><span class="identifier">modifyMaterial</span><span>(</span><span class="identifier">_</span><span>.</span><span class="identifier">withAlpha</span><span>(</span><span class="number-literal">0.5</span><span>)),
+      </span><span class="identifier">graphic</span><span>
+        .</span><span class="identifier">moveTo</span><span>(</span><span class="identifier">viewCenter</span><span>)
+        .</span><span class="identifier">moveBy</span><span>(-</span><span class="number-literal">30</span><span>, -</span><span class="number-literal">40</span><span>)
+        .</span><span class="identifier">modifyMaterial</span><span>(</span><span class="identifier">_</span><span>.</span><span class="identifier">withSaturation</span><span>(</span><span class="number-literal">0.0</span><span>)),
+      </span><span class="identifier">graphic</span><span>
+        .</span><span class="identifier">moveTo</span><span>(</span><span class="identifier">viewCenter</span><span>)
+        .</span><span class="identifier">moveBy</span><span>(</span><span class="number-literal">30</span><span>, -</span><span class="number-literal">40</span><span>)
+        .</span><span class="identifier">modifyMaterial</span><span>(</span><span class="identifier">_</span><span>.</span><span class="identifier">withOverlay</span><span>(</span><span class="type-name">Fill</span><span>.</span><span class="type-name">Color</span><span>(</span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Magenta</span><span>.</span><span class="identifier">withAmount</span><span>(</span><span class="number-literal">0.75</span><span>)))),
+      </span><span class="identifier">graphic</span><span>
+        .</span><span class="identifier">moveTo</span><span>(</span><span class="identifier">viewCenter</span><span>)
+        .</span><span class="identifier">moveBy</span><span>(</span><span class="number-literal">60</span><span>, -</span><span class="number-literal">40</span><span>)
+        .</span><span class="identifier">modifyMaterial</span><span>(
+          </span><span class="identifier">_</span><span>.</span><span class="identifier">withOverlay</span><span>(
+            </span><span class="type-name">Fill</span><span>.</span><span class="type-name">LinearGradient</span><span>(</span><span class="type-name">Point</span><span>.</span><span class="identifier">zero</span><span>, </span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Magenta</span><span>, </span><span class="type-name">Point</span><span>(</span><span class="number-literal">40</span><span>), </span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Cyan</span><span>.</span><span class="identifier">withAmount</span><span>(</span><span class="number-literal">0.5</span><span>))
+          )
+        ),
+      </span><span class="identifier">graphic</span><span>
+        .</span><span class="identifier">moveTo</span><span>(</span><span class="identifier">viewCenter</span><span>)
+        .</span><span class="identifier">moveBy</span><span>(-</span><span class="number-literal">60</span><span>, </span><span class="number-literal">10</span><span>)
+        .</span><span class="identifier">modifyMaterial</span><span>(
+          </span><span class="identifier">_</span><span>.</span><span class="identifier">withOverlay</span><span>(
+            </span><span class="type-name">Fill</span><span>.</span><span class="type-name">RadialGradient</span><span>(
+              </span><span class="type-name">Point</span><span>(</span><span class="number-literal">20</span><span>),
+              </span><span class="number-literal">10</span><span>,
+              </span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Magenta</span><span>.</span><span class="identifier">withAmount</span><span>(</span><span class="number-literal">0.5</span><span>),
+              </span><span class="type-name">RGBA</span><span>.</span><span class="type-name">Cyan</span><span>.</span><span class="identifier">withAmount</span><span>(</span><span class="number-literal">0.25</span><span>)
             )
           )
-      )
-    )</span></code></pre>
+        )
+    )
+  )</span></code></pre>
 
         
 <hr class="footer-rule"/>
