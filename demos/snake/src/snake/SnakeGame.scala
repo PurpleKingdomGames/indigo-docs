@@ -17,8 +17,8 @@ object SnakeGame extends IndigoGame[ViewConfig, StartupData, GameModel, ViewMode
   def initialScene(bootData: ViewConfig): Option[SceneName] =
     Option(StartScene.name)
 
-  def scenes(bootData: ViewConfig): NonEmptyList[Scene[StartupData, GameModel, ViewModel]] =
-    NonEmptyList(StartScene, ControlsScene, GameScene, GameOverScene)
+  def scenes(bootData: ViewConfig): NonEmptyBatch[Scene[StartupData, GameModel, ViewModel]] =
+    NonEmptyBatch(StartScene, ControlsScene, GameScene, GameOverScene)
 
   val eventFilters: EventFilters =
     EventFilters.Restricted

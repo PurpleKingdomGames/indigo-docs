@@ -7,7 +7,6 @@ package indigoexamples
   */
 
 import indigo.*
-import indigo.syntax.*
 import indigo.scenes.*
 
 import generated.*
@@ -193,9 +192,9 @@ object SceneB extends Scene[StartUpData, Model, ViewModel]:
   * `IndigoGame`, but there are two things to note:
   *
   *   1. New methods called `scenes` and `initialScene` are declared. Scene's must be declared in
-  *      order in the scenes `NonEmptyList`, and there must be at least one scene. The initial scene
-  *      is optional, if `None` then the first scene loaded will be the first one in the scene's
-  *      list.
+  *      order in the scenes `NonEmptyBatch`, and there must be at least one scene. The initial
+  *      scene is optional, if `None` then the first scene loaded will be the first one in the
+  *      scene's list.
   *   2. The usual functions like `updateModel` are declared as normal, but you can now thing of
   *      them as 'global' functions. The scene's implementation of `updateModel` will only be called
   *      when that scene is running, but `updateModel` in the main game runs all the time. This is
@@ -206,8 +205,8 @@ object SceneB extends Scene[StartUpData, Model, ViewModel]:
 object SceneManagementExample extends IndigoGame[BootData, StartUpData, Model, ViewModel]:
 
   // ```scala
-  def scenes(bootData: BootData): NonEmptyList[Scene[StartUpData, Model, ViewModel]] =
-    NonEmptyList(SceneA, SceneB)
+  def scenes(bootData: BootData): NonEmptyBatch[Scene[StartUpData, Model, ViewModel]] =
+    NonEmptyBatch(SceneA, SceneB)
 
   def initialScene(bootData: BootData): Option[SceneName] = Option(SceneA.name)
   // ```

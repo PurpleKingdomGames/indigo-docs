@@ -40,7 +40,7 @@ object CustomComponents:
       (1 to ctx.reference).toBatch.map { i =>
         ComponentId("lbl" + i) -> Label[Int](
           "Custom label " + i,
-          (_, label) => Bounds(0, 0, 250, 20)
+          (_, _) => Bounds(0, 0, 250, 20)
         ) { case (ctx, label) =>
           Outcome(
             Layer(

@@ -25,7 +25,7 @@ object GameAssets:
     Material.ImageEffects(Assets.assets.boxyFontSmall)
 
   val fontInfo: FontInfo =
-    FontInfo(fontKey, 320, 230, FontChar("?", 47, 26, 11, 12))
+    FontInfo(fontKey, FontChar("?", 47, 26, 11, 12))
       .addChar(FontChar("A", 2, 39, 10, 12))
       .addChar(FontChar("B", 14, 39, 9, 12))
       .addChar(FontChar("C", 25, 39, 10, 12))

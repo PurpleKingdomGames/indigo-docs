@@ -1,7 +1,6 @@
 package indigoexamples
 
 import indigo.*
-import indigo.syntax.*
 import indigo.scenes.*
 import indigoextras.performers.*
 import generated.Config
@@ -29,7 +28,7 @@ object StartUpData:
 
 final case class Model(sceneModel: CustomSceneModel)
 object Model:
-  def initial(startupData: StartUpData): Model =
+  val initial: Model =
     Model(
       sceneModel = CustomSceneModel.initial
     )
@@ -124,8 +123,8 @@ object Constants:
 @JSExportTopLevel("IndigoGame")
 object PerformersExample extends IndigoGame[BootData, StartUpData, Model, ViewModel]:
 
-  def scenes(bootData: BootData): NonEmptyList[Scene[StartUpData, Model, ViewModel]] =
-    NonEmptyList(CustomScene)
+  def scenes(bootData: BootData): NonEmptyBatch[Scene[StartUpData, Model, ViewModel]] =
+    NonEmptyBatch(CustomScene)
 
   def initialScene(bootData: BootData): Option[SceneName] =
     Option(CustomScene.name)
@@ -153,7 +152,7 @@ object PerformersExample extends IndigoGame[BootData, StartUpData, Model, ViewMo
     Outcome(Startup.Success(StartUpData.initial))
 
   def initialModel(startupData: StartUpData): Outcome[Model] =
-    Outcome(Model.initial(startupData))
+    Outcome(Model.initial)
 
   def initialViewModel(startupData: StartUpData, model: Model): Outcome[ViewModel] =
     Outcome(ViewModel.initial)
@@ -252,7 +251,7 @@ final case class Player(
     case _ =>
       Outcome(this)
 
-  val skinColor = RGBA.fromHexString("#eec39a")
+  val skinColor   = RGBA.fromHexString("#eec39a")
   val skinOutline = RGBA.fromHexString("#d9a066")
 
   def present(context: PerformerContext[Unit]): Outcome[Batch[SceneNode]] =

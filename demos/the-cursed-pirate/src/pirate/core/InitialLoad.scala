@@ -10,8 +10,7 @@ object InitialLoad:
 
   def setup(
       screenDimensions: Rectangle,
-      assetCollection: AssetCollection,
-      dice: Dice
+      assetCollection: AssetCollection
   ): Outcome[Startup[StartupData]] =
     Outcome(
       CaptainAnim.aseprite
@@ -19,7 +18,7 @@ object InitialLoad:
         .map { captainClips =>
           makeStartupData(
             captainClips,
-            levelDataStore(screenDimensions, assetCollection, dice)
+            levelDataStore(screenDimensions, assetCollection)
           )
         } match
         case None =>
@@ -75,8 +74,7 @@ object InitialLoad:
 
   def levelDataStore(
       screenDimensions: Rectangle,
-      assetCollection: AssetCollection,
-      dice: Dice
+      assetCollection: AssetCollection
   ): Option[LevelDataStore] =
     if assetCollection.findTextDataByName(assets.helm.ShipHelmData).isDefined &&
       assetCollection.findTextDataByName(assets.trees.PalmTreeData).isDefined &&

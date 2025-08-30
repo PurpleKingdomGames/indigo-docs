@@ -58,6 +58,10 @@ object demos extends mill.Module {
           case p if p.contains("unused")                       => true
           case p if p.contains("Captain Clown Nose Data.json") => true
         }
+        .excludeAssets {
+          case p if p.toString.endsWith(".DS_Store") => true
+          case _                                     => false
+        }
 
     override def indigoGenerators: IndigoGenerators =
       IndigoGenerators("pirate.generated")

@@ -51,20 +51,20 @@ object CustomComponents:
                     )
                   )
               )
-                .onSwitch { (ctx, switch) =>
+                .onSwitch { (_, _) =>
                   Batch(
                     Log("Selected: " + i),
                     ChangeValue(i)
                   )
                 }
-                .withAutoToggle { (ctx, switch) =>
+                .withAutoToggle { (ctx, _) =>
                   if ctx.reference == i then Option(SwitchState.On) else Option(SwitchState.Off)
                 }
             )
             .add(
               Label[Int](
                 "Radio " + i,
-                (_, label) => Bounds(0, 0, 150, 18)
+                (_, _) => Bounds(0, 0, 150, 18)
               ) { case (ctx, label) =>
                 Outcome(
                   Layer(

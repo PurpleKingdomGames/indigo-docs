@@ -33,7 +33,7 @@ object CustomComponents:
   val label: Label[Int] =
     Label[Int](
       "",
-      (ctx, label: String) => labelBounds
+      (_, _) => labelBounds
     ) { case (ctx, label) =>
       Outcome(
         Layer(

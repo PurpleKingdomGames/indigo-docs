@@ -7,6 +7,7 @@ import generated.Assets
 import ultraviolet.syntax.*
 
 import scala.scalajs.js.annotation.*
+import scala.annotation.nowarn
 
 /** ## Animating with shaders
   *
@@ -32,6 +33,7 @@ object CustomShader:
       def sdBox: (vec2, vec2) => Float =
         (p, b) => box(p, b)
 
+      @nowarn("msg=unused")
       def fragment(color: vec4): vec4 =
 
         /** As usual, animation is about the running time of the game, and in our case we need to

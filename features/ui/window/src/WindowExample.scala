@@ -4,7 +4,6 @@ package indigoexamples
   */
 
 import indigo.*
-import indigo.syntax.*
 import indigoextras.ui.*
 
 import generated.*
@@ -154,7 +153,7 @@ object CustomUI:
     val label: Label[Int] =
       Label[Int](
         "Count: 0",
-        (ctx, label) => Bounds(0, 0, 300, 100)
+        (_, _) => Bounds(0, 0, 300, 100)
       ) { case (ctx, label) =>
         Outcome(
           Layer(

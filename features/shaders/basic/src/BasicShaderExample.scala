@@ -13,6 +13,7 @@ import generated.Config
 import generated.Assets
 
 import scala.scalajs.js.annotation.*
+import scala.annotation.nowarn
 
 @JSExportTopLevel("IndigoGame")
 object BasicShaderExample extends IndigoSandbox[Unit, Unit]:
@@ -72,6 +73,7 @@ object CustomShader:
       EntityShader.fragment[FragmentEnv](fragment, FragmentEnv.reference)
     )
 
+  @nowarn("msg=unused")
   inline def fragment: Shader[FragmentEnv, Unit] =
     Shader[FragmentEnv] { env =>
       def fragment(color: vec4): vec4 =

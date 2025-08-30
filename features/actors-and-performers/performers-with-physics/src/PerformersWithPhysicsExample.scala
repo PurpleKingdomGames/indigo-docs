@@ -27,7 +27,7 @@ object StartUpData:
 
 final case class Model(sceneModel: CustomSceneModel)
 object Model:
-  def initial(startupData: StartUpData): Model =
+  val initial: Model =
     Model(
       sceneModel = CustomSceneModel.initial
     )
@@ -128,8 +128,8 @@ object Constants:
 @JSExportTopLevel("IndigoGame")
 object PerformersWithPhysicsExample extends IndigoGame[BootData, StartUpData, Model, ViewModel]:
 
-  def scenes(bootData: BootData): NonEmptyList[Scene[StartUpData, Model, ViewModel]] =
-    NonEmptyList(CustomScene)
+  def scenes(bootData: BootData): NonEmptyBatch[Scene[StartUpData, Model, ViewModel]] =
+    NonEmptyBatch(CustomScene)
 
   def initialScene(bootData: BootData): Option[SceneName] =
     Option(CustomScene.name)
@@ -153,7 +153,7 @@ object PerformersWithPhysicsExample extends IndigoGame[BootData, StartUpData, Mo
     Outcome(Startup.Success(StartUpData.initial))
 
   def initialModel(startupData: StartUpData): Outcome[Model] =
-    Outcome(Model.initial(startupData))
+    Outcome(Model.initial)
 
   def initialViewModel(startupData: StartUpData, model: Model): Outcome[ViewModel] =
     Outcome(ViewModel.initial)

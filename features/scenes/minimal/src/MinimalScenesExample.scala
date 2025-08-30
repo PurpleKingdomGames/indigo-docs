@@ -1,7 +1,6 @@
 package indigoexamples
 
 import indigo.*
-import indigo.syntax.*
 import indigo.scenes.*
 
 import generated.*
@@ -22,7 +21,7 @@ object StartUpData:
 
 final case class Model(sceneModel: CustomSceneModel)
 object Model:
-  def initial(startupData: StartUpData): Model =
+  def initial: Model =
     Model(
       sceneModel = CustomSceneModel()
     )
@@ -86,8 +85,8 @@ object CustomScene extends Scene[StartUpData, Model, ViewModel]:
 @JSExportTopLevel("IndigoGame")
 object MinimalScenesExample extends IndigoGame[BootData, StartUpData, Model, ViewModel]:
 
-  def scenes(bootData: BootData): NonEmptyList[Scene[StartUpData, Model, ViewModel]] =
-    NonEmptyList(CustomScene)
+  def scenes(bootData: BootData): NonEmptyBatch[Scene[StartUpData, Model, ViewModel]] =
+    NonEmptyBatch(CustomScene)
 
   def initialScene(bootData: BootData): Option[SceneName] =
     Option(CustomScene.name)
@@ -111,7 +110,7 @@ object MinimalScenesExample extends IndigoGame[BootData, StartUpData, Model, Vie
     Outcome(Startup.Success(StartUpData.initial))
 
   def initialModel(startupData: StartUpData): Outcome[Model] =
-    Outcome(Model.initial(startupData))
+    Outcome(Model.initial)
 
   def initialViewModel(startupData: StartUpData, model: Model): Outcome[ViewModel] =
     Outcome(ViewModel.initial)

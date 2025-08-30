@@ -6,6 +6,7 @@ import generated.Assets
 import ultraviolet.syntax.*
 
 import scala.scalajs.js.annotation.*
+import scala.annotation.nowarn
 
 /** ## Setting up a BlankEntity with a custom shader
   *
@@ -20,6 +21,7 @@ object CustomShader:
       EntityShader.fragment[FragmentEnv](fragment, FragmentEnv.reference)
     )
 
+  @nowarn("msg=unused")
   inline def fragment: Shader[FragmentEnv, Unit] =
     Shader[FragmentEnv] { env =>
       def fragment(color: vec4): vec4 =

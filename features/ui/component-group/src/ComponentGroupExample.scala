@@ -96,7 +96,7 @@ object CustomComponents:
   val customLabel: Label[Unit] =
     Label[Unit](
       "A label",
-      (_, label) => Bounds(0, 0, 150, 12)
+      (_, _) => Bounds(0, 0, 150, 12)
     ) { case (ctx, label) =>
       Outcome(
         Layer(

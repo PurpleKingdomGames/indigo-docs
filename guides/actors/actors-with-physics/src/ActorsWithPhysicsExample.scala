@@ -37,7 +37,7 @@ object StartUpData:
 
 final case class Model(sceneModel: CustomSceneModel)
 object Model:
-  def initial(startupData: StartUpData): Model =
+  val initial: Model =
     Model(
       sceneModel = CustomSceneModel.initial
     )
@@ -74,7 +74,7 @@ object CustomScene extends Scene[StartUpData, Model, ViewModel]:
     case FrameTick if !sceneModel.spawned && context.frame.viewport.size != Size.zero =>
       val viewportSize =
         context.frame.viewport.giveDimensions(context.frame.globalMagnification)
-        
+
       val zombies: Batch[(ZombieActor, Collider[ZombieSimTag])] =
         (0 to 30).toBatch.map { i =>
           val dice = Dice.fromSeed(i.toLong)
@@ -193,8 +193,8 @@ object CustomScene extends Scene[StartUpData, Model, ViewModel]:
 @JSExportTopLevel("IndigoGame")
 object ActorsWithPhysicsExample extends IndigoGame[BootData, StartUpData, Model, ViewModel]:
 
-  def scenes(bootData: BootData): NonEmptyList[Scene[StartUpData, Model, ViewModel]] =
-    NonEmptyList(CustomScene)
+  def scenes(bootData: BootData): NonEmptyBatch[Scene[StartUpData, Model, ViewModel]] =
+    NonEmptyBatch(CustomScene)
 
   def initialScene(bootData: BootData): Option[SceneName] =
     Option(CustomScene.name)
@@ -220,7 +220,7 @@ object ActorsWithPhysicsExample extends IndigoGame[BootData, StartUpData, Model,
     Outcome(Startup.Success(StartUpData.initial))
 
   def initialModel(startupData: StartUpData): Outcome[Model] =
-    Outcome(Model.initial(startupData))
+    Outcome(Model.initial)
 
   def initialViewModel(startupData: StartUpData, model: Model): Outcome[ViewModel] =
     Outcome(ViewModel.initial)

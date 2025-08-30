@@ -38,7 +38,7 @@ object CustomComponents:
           )
         )
     )
-      .onSwitch((ctx, switch) => Batch(Log("Switched to: " + switch.state)))
+      .onSwitch((_, switch) => Batch(Log("Switched to: " + switch.state)))
       .switchOn
 
 final case class Log(message: String) extends GlobalEvent

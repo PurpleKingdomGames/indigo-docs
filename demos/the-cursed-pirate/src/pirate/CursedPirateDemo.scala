@@ -20,8 +20,8 @@ object CursedPirateDemo extends IndigoGame[BootInformation, StartupData, Model, 
   def initialScene(bootInfo: BootInformation): Option[SceneName] =
     None
 
-  def scenes(bootInfo: BootInformation): NonEmptyList[Scene[StartupData, Model, ViewModel]] =
-    NonEmptyList(
+  def scenes(bootInfo: BootInformation): NonEmptyBatch[Scene[StartupData, Model, ViewModel]] =
+    NonEmptyBatch(
       LoadingScene(bootInfo.assetPath, bootInfo.screenDimensions),
       LevelScene(bootInfo.screenDimensions.width)
     )
@@ -57,7 +57,7 @@ object CursedPirateDemo extends IndigoGame[BootInformation, StartupData, Model, 
       assetCollection: AssetCollection,
       dice: Dice
   ): Outcome[Startup[StartupData]] =
-    InitialLoad.setup(bootInfo.screenDimensions, assetCollection, dice)
+    InitialLoad.setup(bootInfo.screenDimensions, assetCollection)
 
   def initialModel(startupData: StartupData): Outcome[Model] =
     Outcome(Model.initial)

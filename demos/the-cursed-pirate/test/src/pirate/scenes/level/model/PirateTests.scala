@@ -1,12 +1,6 @@
 package pirate.scenes.level.model
 
-import indigo.shared.input.Mouse
-import indigo.shared.input.Keyboard
-import indigo.shared.input.Gamepad
-import indigo.shared.datatypes.Vector2
-import indigo.shared.constants.Key
-import indigo.shared.events.KeyboardEvent.KeyDown
-import indigo.shared.collections.Batch
+import indigo.*
 
 class PirateTests extends munit.FunSuite {
 
@@ -14,14 +8,15 @@ class PirateTests extends munit.FunSuite {
     val keyboard =
       Keyboard.calculateNext(
         Keyboard.default,
-        Batch(KeyDown(Key.ARROW_LEFT), KeyDown(Key.SPACE))
+        Batch(KeyboardEvent.KeyDown(Key.ARROW_LEFT), KeyboardEvent.KeyDown(Key.SPACE))
       )
 
     val actual: Option[Vector2] =
       Pirate
         .inputMappings(false)
         .find(
-          Mouse.default,
+          MouseState.default,
+          Wheel.default,
           keyboard,
           Gamepad.default
         )
@@ -36,14 +31,15 @@ class PirateTests extends munit.FunSuite {
     val keyboard =
       Keyboard.calculateNext(
         Keyboard.default,
-        Batch(KeyDown(Key.ARROW_RIGHT))
+        Batch(KeyboardEvent.KeyDown(Key.ARROW_RIGHT))
       )
 
     val actual: Option[Vector2] =
       Pirate
         .inputMappings(false)
         .find(
-          Mouse.default,
+          MouseState.default,
+          Wheel.default,
           keyboard,
           Gamepad.default
         )
@@ -58,14 +54,15 @@ class PirateTests extends munit.FunSuite {
     val keyboard =
       Keyboard.calculateNext(
         Keyboard.default,
-        Batch(KeyDown(Key.SPACE))
+        Batch(KeyboardEvent.KeyDown(Key.SPACE))
       )
 
     val actual: Option[Vector2] =
       Pirate
         .inputMappings(false)
         .find(
-          Mouse.default,
+          MouseState.default,
+          Wheel.default,
           keyboard,
           Gamepad.default
         )

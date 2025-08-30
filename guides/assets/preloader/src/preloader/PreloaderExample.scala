@@ -17,8 +17,8 @@ object PreloaderExample extends IndigoGame[BootInformation, StartupData, Model, 
   def initialScene(bootInfo: BootInformation): Option[SceneName] =
     None
 
-  def scenes(bootInfo: BootInformation): NonEmptyList[Scene[StartupData, Model, ViewModel]] =
-    NonEmptyList(
+  def scenes(bootInfo: BootInformation): NonEmptyBatch[Scene[StartupData, Model, ViewModel]] =
+    NonEmptyBatch(
       LoadingScene,
       LevelScene
     )
