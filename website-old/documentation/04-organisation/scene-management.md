@@ -13,11 +13,11 @@ Most game engines have some sort of concept for these groupings, they're often c
 
 If you'd like to dive right in, the Snake implementation uses scenes to manage it's screens. To help you find your way around, here are a few points of interest:
 
-- Initial declaration of the [list of scenes](https://github.com/PurpleKingdomGames/indigo/blob/master/demos/snake/snake/src/snake/SnakeGame.scala#L19).
+- Initial declaration of the [list of scenes](https://github.com/PurpleKingdomGames/indigoengine/blob/master/demos/snake/snake/src/snake/SnakeGame.scala#L19).
 
-- The "Start" [scene](https://github.com/PurpleKingdomGames/indigo/blob/master/demos/snake/snake/src/snake/scenes/StartScene.scala), which is one of the simpler scenes in the game.
+- The "Start" [scene](https://github.com/PurpleKingdomGames/indigoengine/blob/master/demos/snake/snake/src/snake/scenes/StartScene.scala), which is one of the simpler scenes in the game.
 
-- The point where the "Start" scene decides to [jump](https://github.com/PurpleKingdomGames/indigo/blob/master/demos/snake/snake/src/snake/scenes/StartScene.scala#L40) to the "Controls" scene (where the player chooses a keyboard layout) after the space bar has been pressed.
+- The point where the "Start" scene decides to [jump](https://github.com/PurpleKingdomGames/indigoengine/blob/master/demos/snake/snake/src/snake/scenes/StartScene.scala#L40) to the "Controls" scene (where the player chooses a keyboard layout) after the space bar has been pressed.
 
 ## A quick look under the hood
 

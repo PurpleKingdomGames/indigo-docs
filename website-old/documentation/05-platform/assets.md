@@ -99,7 +99,7 @@ The basic flow we want to achieve is:
 
 You can either use the basic inbuilt events to load your assets, and manage the process yourself, or you can use the provided `AssetBundleLoader` `SubSystem` to do the work for you. There is nothing special about the `AssetBundleLoader`, it uses the same basic indigo asset events you have access to, it just abstracts over the problem to give you a friendlier experience. The remainder of this article assumes you are using the subsystem.
 
-[There is a small example of the `AssetBundleLoader` running in the main indigo repo.](https://github.com/PurpleKingdomGames/indigo/blob/master/examples/assetLoading/src/main/scala/com/example/assetloading/AssetLoadingExample.scala)
+[There is a small example of the `AssetBundleLoader` running in the main indigo repo.](https://github.com/PurpleKingdomGames/indigoengine/blob/master/examples/assetLoading/src/main/scala/com/example/assetloading/AssetLoadingExample.scala)
 
 ### Using the Asset Bundler Loader
 
