@@ -47,9 +47,9 @@
     
     <a class="button-link" href="https://purplekingdomgames.github.io/indigo-docs/live_demos">Live Demos</a>
     
-    <a class="button-link" href="https://discord.gg/b5CD47g">Discord</a>
+    <a class="button-link" href="https://discord.gg/3E2r9FwwHu">Discord</a>
     
-    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigo">Github</a>
+    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigoengine">Github</a>
     
   </div>  
 
@@ -61,9 +61,9 @@
     
     <a class="button-link" href="https://purplekingdomgames.github.io/indigo-docs/live_demos">Live Demos</a>
     
-    <a class="button-link" href="https://discord.gg/b5CD47g">Discord</a>
+    <a class="button-link" href="https://discord.gg/3E2r9FwwHu">Discord</a>
     
-    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigo">Github</a>
+    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigoengine">Github</a>
     
   </div>
 
@@ -165,7 +165,8 @@
     <li class="level1 nav-leaf"><a href="#procedural-animations">Procedural Animations</a></li>
     <li class="level1 nav-leaf"><a href="#movies-vs-video-games">Movies vs Video Games</a></li>
     <li class="level1 nav-leaf"><a href="#frame-time-deltas-to-the-rescue">Frame time deltas to the rescue</a></li>
-    <li class="level1 nav-leaf"><a href="#example-links">Example Links</a></li>
+    <li class="level1 nav-leaf"><a href="#demo">Demo</a></li>
+    <li class="level1 nav-leaf"><a href="#links">Links</a></li>
     <li class="level1 nav-leaf"><a href="#example-of-procedural-animation">Example of procedural animation</a></li>
   </ul>
 
@@ -205,12 +206,22 @@
         <p>You may recall from school that <code>speed = distance / time</code>, well all we&#39;re going to do is re-arrange that to <code>distance = speed * time</code> where distance is how far we need to move our sprite, speed is the desired distance to move every second, and time is therefore the frame delta. Which gives us something like:</p>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="identifier">sprite</span><span>.</span><span class="identifier">moveBy</span><span>(</span><span class="identifier">totalDistance</span><span> * </span><span class="identifier">frameDelta</span><span>, </span><span class="number-literal">0</span><span>)</span></code></pre>
         
-        <h2 id="example-links" class="section"><a class="anchor-link left" href="#example-links"><i class="icofont-laika link">&#xef71;</i></a>Example Links</h2>
+        <h2 id="demo" class="section"><a class="anchor-link left" href="#demo"><i class="icofont-laika link">&#xef71;</i></a>Demo</h2>
+        <div id="live-demo" style="border:2px solid #e400ff;width:400px;height:400px;background:#a888db33;color: #e400ff;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+          ▶  Click to play
+        </div>
+        <script>
+  document.getElementById("live-demo").addEventListener("click", function() {
+    this.innerHTML = '<iframe width="396" height="396" src="/live_demos/guides/animation/part-1-basics/index.html" frameborder="0" allow="autoplay; encrypted-media" scrolling="no"></iframe>';
+  });
+</script>
+        
+        <h2 id="links" class="section"><a class="anchor-link left" href="#links"><i class="icofont-laika link">&#xef71;</i></a>Links</h2>
         <ul>
           <li><a href="https://github.com/PurpleKingdomGames/indigo-docs/blob/main/guides/animation/part-1-basics">View example code</a></li>
         </ul>
         <ul>
-          <li><a href="https://purplekingdomgames.github.io/indigo-docs//live_demos/guides/animation/part-1-basics/">Live demo</a></li>
+          <li><a href="../../../live_demos/guides/animation/part-1-basics/">Live demo</a></li>
         </ul>
         
         <h2 id="example-of-procedural-animation" class="section"><a class="anchor-link left" href="#example-of-procedural-animation"><i class="icofont-laika link">&#xef71;</i></a>Example of procedural animation</h2>

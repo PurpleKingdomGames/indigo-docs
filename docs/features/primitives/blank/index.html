@@ -47,9 +47,9 @@
     
     <a class="button-link" href="https://purplekingdomgames.github.io/indigo-docs/live_demos">Live Demos</a>
     
-    <a class="button-link" href="https://discord.gg/b5CD47g">Discord</a>
+    <a class="button-link" href="https://discord.gg/3E2r9FwwHu">Discord</a>
     
-    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigo">Github</a>
+    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigoengine">Github</a>
     
   </div>  
 
@@ -61,9 +61,9 @@
     
     <a class="button-link" href="https://purplekingdomgames.github.io/indigo-docs/live_demos">Live Demos</a>
     
-    <a class="button-link" href="https://discord.gg/b5CD47g">Discord</a>
+    <a class="button-link" href="https://discord.gg/3E2r9FwwHu">Discord</a>
     
-    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigo">Github</a>
+    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigoengine">Github</a>
     
   </div>
 
@@ -162,7 +162,8 @@
 
   <ul class="nav-list">
     <li class="level1 nav-leaf"><a href="#a-placeholder-for-shaders">A placeholder for shaders</a></li>
-    <li class="level1 nav-leaf"><a href="#example-links">Example Links</a></li>
+    <li class="level1 nav-leaf"><a href="#demo">Demo</a></li>
+    <li class="level1 nav-leaf"><a href="#links">Links</a></li>
     <li class="level1 nav-leaf"><a href="#setting-up-a-blankentity-with-a-custom-shader">Setting up a BlankEntity with a custom shader</a></li>
   </ul>
 
@@ -184,12 +185,22 @@
         <h2 id="a-placeholder-for-shaders" class="section"><a class="anchor-link left" href="#a-placeholder-for-shaders"><i class="icofont-laika link">&#xef71;</i></a>A placeholder for shaders</h2>
         <p>The purpose of a blank entity is to allow you to render whatever you like, but to do so, you need to know how to write shaders. So really, this primitive is for people who&#39;d like to define their own effects.</p>
         
-        <h2 id="example-links" class="section"><a class="anchor-link left" href="#example-links"><i class="icofont-laika link">&#xef71;</i></a>Example Links</h2>
+        <h2 id="demo" class="section"><a class="anchor-link left" href="#demo"><i class="icofont-laika link">&#xef71;</i></a>Demo</h2>
+        <div id="live-demo" style="border:2px solid #e400ff;width:400px;height:400px;background:#a888db33;color: #e400ff;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+          ▶  Click to play
+        </div>
+        <script>
+  document.getElementById("live-demo").addEventListener("click", function() {
+    this.innerHTML = '<iframe width="396" height="396" src="/live_demos/features/primitives/blank/index.html" frameborder="0" allow="autoplay; encrypted-media" scrolling="no"></iframe>';
+  });
+</script>
+        
+        <h2 id="links" class="section"><a class="anchor-link left" href="#links"><i class="icofont-laika link">&#xef71;</i></a>Links</h2>
         <ul>
           <li><a href="https://github.com/PurpleKingdomGames/indigo-docs/blob/main/features/primitives/blank">View example code</a></li>
         </ul>
         <ul>
-          <li><a href="https://purplekingdomgames.github.io/indigo-docs//live_demos/features/primitives/blank/">Live demo</a></li>
+          <li><a href="../../../live_demos/features/primitives/blank/">Live demo</a></li>
         </ul>
         
         <h2 id="setting-up-a-blankentity-with-a-custom-shader" class="section"><a class="anchor-link left" href="#setting-up-a-blankentity-with-a-custom-shader"><i class="icofont-laika link">&#xef71;</i></a>Setting up a BlankEntity with a custom shader</h2>

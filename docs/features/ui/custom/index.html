@@ -47,9 +47,9 @@
     
     <a class="button-link" href="https://purplekingdomgames.github.io/indigo-docs/live_demos">Live Demos</a>
     
-    <a class="button-link" href="https://discord.gg/b5CD47g">Discord</a>
+    <a class="button-link" href="https://discord.gg/3E2r9FwwHu">Discord</a>
     
-    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigo">Github</a>
+    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigoengine">Github</a>
     
   </div>  
 
@@ -61,9 +61,9 @@
     
     <a class="button-link" href="https://purplekingdomgames.github.io/indigo-docs/live_demos">Live Demos</a>
     
-    <a class="button-link" href="https://discord.gg/b5CD47g">Discord</a>
+    <a class="button-link" href="https://discord.gg/3E2r9FwwHu">Discord</a>
     
-    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigo">Github</a>
+    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigoengine">Github</a>
     
   </div>
 
@@ -161,7 +161,8 @@
   <p class="header"><a href="#">UI Components: Custom Components</a></p>
 
   <ul class="nav-list">
-    <li class="level1 nav-leaf"><a href="#example-links">Example Links</a></li>
+    <li class="level1 nav-leaf"><a href="#demo">Demo</a></li>
+    <li class="level1 nav-leaf"><a href="#links">Links</a></li>
     <li class="level1 nav-node"><a href="#how-to-create-a-custom-component">How to create a custom component</a></li>
     <li class="level2 nav-leaf"><a href="#defining-our-component-s-behaviour-by-defining-its-data-model">Defining our component&#39;s behaviour by defining its data model</a></li>
     <li class="level2 nav-leaf"><a href="#defining-our-component-s-behaviour-by-defining-its-component-instance">Defining our component&#39;s behaviour by defining its <code>Component</code> instance</a></li>
@@ -177,12 +178,22 @@
         <h1 id="ui-components-custom-components" class="title">UI Components: Custom Components</h1>
         <p>In this example we define a completely custom component that (for reasons unknown) draws a magenta circle that fits the available space, and then render our component as the only content inside a window, just to prove it works.</p>
         
-        <h2 id="example-links" class="section"><a class="anchor-link left" href="#example-links"><i class="icofont-laika link">&#xef71;</i></a>Example Links</h2>
+        <h2 id="demo" class="section"><a class="anchor-link left" href="#demo"><i class="icofont-laika link">&#xef71;</i></a>Demo</h2>
+        <div id="live-demo" style="border:2px solid #e400ff;width:400px;height:400px;background:#a888db33;color: #e400ff;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+          ▶  Click to play
+        </div>
+        <script>
+  document.getElementById("live-demo").addEventListener("click", function() {
+    this.innerHTML = '<iframe width="396" height="396" src="/live_demos/features/ui/custom/index.html" frameborder="0" allow="autoplay; encrypted-media" scrolling="no"></iframe>';
+  });
+</script>
+        
+        <h2 id="links" class="section"><a class="anchor-link left" href="#links"><i class="icofont-laika link">&#xef71;</i></a>Links</h2>
         <ul>
           <li><a href="https://github.com/PurpleKingdomGames/indigo-docs/blob/main/features/ui/custom">View example code</a></li>
         </ul>
         <ul>
-          <li><a href="https://purplekingdomgames.github.io/indigo-docs//live_demos/features/ui/custom/">Live demo</a></li>
+          <li><a href="../../../live_demos/features/ui/custom/">Live demo</a></li>
         </ul>
         
         <h2 id="how-to-create-a-custom-component" class="section"><a class="anchor-link left" href="#how-to-create-a-custom-component"><i class="icofont-laika link">&#xef71;</i></a>How to create a custom component</h2>

@@ -47,9 +47,9 @@
     
     <a class="button-link" href="https://purplekingdomgames.github.io/indigo-docs/live_demos">Live Demos</a>
     
-    <a class="button-link" href="https://discord.gg/b5CD47g">Discord</a>
+    <a class="button-link" href="https://discord.gg/3E2r9FwwHu">Discord</a>
     
-    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigo">Github</a>
+    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigoengine">Github</a>
     
   </div>  
 
@@ -61,9 +61,9 @@
     
     <a class="button-link" href="https://purplekingdomgames.github.io/indigo-docs/live_demos">Live Demos</a>
     
-    <a class="button-link" href="https://discord.gg/b5CD47g">Discord</a>
+    <a class="button-link" href="https://discord.gg/3E2r9FwwHu">Discord</a>
     
-    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigo">Github</a>
+    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigoengine">Github</a>
     
   </div>
 
@@ -161,7 +161,8 @@
   <p class="header"><a href="#">A basic custom shader</a></p>
 
   <ul class="nav-list">
-    <li class="level1 nav-leaf"><a href="#example-links">Example Links</a></li>
+    <li class="level1 nav-leaf"><a href="#demo">Demo</a></li>
+    <li class="level1 nav-leaf"><a href="#links">Links</a></li>
     <li class="level1 nav-leaf"><a href="#how-to-write-and-use-a-custom-shader">How to write and use a custom shader</a></li>
   </ul>
 
@@ -176,12 +177,22 @@
         <p>Indigo&#39;s rendering is done using WebGL 2.0, and the shader language of WebGL 2.0 is called GLSL, specifically version 300. While it is possible to write shaders for Indigo in GLSL 300 as a string (possibly loaded at compile time via Indigo&#39;s generators), Indigo itself relies on Ultraviolet, a Scala 3 to GLSL transpiler, to do the heavy lifting, and you can use it too for a fun and pleasant shader writing experience.</p>
         <p>See <a href="https://ultraviolet.indigoengine.io/">Ultraviolets docs</a> for more information on Shaders and shader writing.</p>
         
-        <h2 id="example-links" class="section"><a class="anchor-link left" href="#example-links"><i class="icofont-laika link">&#xef71;</i></a>Example Links</h2>
+        <h2 id="demo" class="section"><a class="anchor-link left" href="#demo"><i class="icofont-laika link">&#xef71;</i></a>Demo</h2>
+        <div id="live-demo" style="border:2px solid #e400ff;width:400px;height:400px;background:#a888db33;color: #e400ff;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+          ▶  Click to play
+        </div>
+        <script>
+  document.getElementById("live-demo").addEventListener("click", function() {
+    this.innerHTML = '<iframe width="396" height="396" src="/live_demos/features/shaders/basic/index.html" frameborder="0" allow="autoplay; encrypted-media" scrolling="no"></iframe>';
+  });
+</script>
+        
+        <h2 id="links" class="section"><a class="anchor-link left" href="#links"><i class="icofont-laika link">&#xef71;</i></a>Links</h2>
         <ul>
           <li><a href="https://github.com/PurpleKingdomGames/indigo-docs/blob/main/features/shaders/basic">View example code</a></li>
         </ul>
         <ul>
-          <li><a href="https://purplekingdomgames.github.io/indigo-docs//live_demos/features/shaders/basic/">Live demo</a></li>
+          <li><a href="../../../live_demos/features/shaders/basic/">Live demo</a></li>
         </ul>
         
         <h2 id="how-to-write-and-use-a-custom-shader" class="section"><a class="anchor-link left" href="#how-to-write-and-use-a-custom-shader"><i class="icofont-laika link">&#xef71;</i></a>How to write and use a custom shader</h2>
