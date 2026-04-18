@@ -263,6 +263,11 @@ object features extends mill.Module {
         makeIndigoOptions("Basic Custom Shader")
     }
 
+    object blending extends gamemodule.GameModule {
+      val indigoOptions: IndigoOptions =
+        makeIndigoOptions("Blending")
+    }
+
   }
 
   object time extends mill.Module {
