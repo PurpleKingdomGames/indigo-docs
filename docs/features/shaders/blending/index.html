@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Typelevel Laika + Helium Theme" />
+  <title>Blending layers together</title>
+  
+  
+  <meta name="description" content="An FP game engine for Scala."/>
+  
+  
+  
+  <link rel="icon" sizes="32x32" type="image/png" href="../../../img/favicon.png"/>
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:500">
+  
+  <link rel="stylesheet" type="text/css" href="../../../helium/site/icofont.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../helium/site/laika-helium.css" />
+    <link rel="stylesheet" type="text/css" href="../../../css/custom.css" />
+  <script src="../../../helium/site/laika-helium.js"></script>
+  
+  
+  <script> /* for avoiding page load transitions */ </script>
+</head>
+
+  <body>
+
+    <header id="top-bar" class="light-default dark-default">
+
+  <div class="row">
+    <a id="nav-icon">
+      <i class="icofont-laika navigationMenu" title="Navigation">&#xefa2;</i>
+    </a>
+    
+    
+  </div>
+
+  <a class="image-link" href="../../../documentation/"><img src="../../../img/indigo_logo_solid_text.svg" alt="An FP game engine for Scala." title="Indigo" width="150" height="50"></a>
+
+  <div class="row links">
+    
+    <a class="button-link" href="https://purplekingdomgames.github.io/indigo-docs/live_demos">Live Demos</a>
+    
+    <a class="button-link" href="https://discord.gg/3E2r9FwwHu">Discord</a>
+    
+    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigoengine">Github</a>
+    
+  </div>  
+
+</header>
+    
+    <nav id="sidebar">
+
+  <div class="row">
+    
+    <a class="button-link" href="https://purplekingdomgames.github.io/indigo-docs/live_demos">Live Demos</a>
+    
+    <a class="button-link" href="https://discord.gg/3E2r9FwwHu">Discord</a>
+    
+    <a class="button-link" href="https://github.com/PurpleKingdomGames/indigoengine">Github</a>
+    
+  </div>
+
+  <ul class="nav-list">
+    <li class="level1 nav-node"><a href="../../../documentation/">Indigo</a></li>
+    <li class="level2 nav-header">Indigo</li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/key-concepts/model-viewmodel-view.html">Model, ViewModel, &amp; View</a></li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/key-concepts/time.html">Time</a></li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/key-concepts/performance.html">Performance</a></li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/key-concepts/making-games-testable.html">Making games testable</a></li>
+    <li class="level2 nav-header">Shaders</li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/shaders/shaders.html">Shaders</a></li>
+    <li class="level2 nav-header">Quick start</li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/quickstart/extensions-and-libs.html">Extensions, Libraries, and Related Projects</a></li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/quickstart/quickstart.html">Quick start</a></li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/quickstart/examples.html">Examples, Demos, and References</a></li>
+    <li class="level2 nav-header">General information</li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/misc/prior-art.html">Prior Art</a></li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/misc/motivation-and-constraints.html">Motivation &amp; Constraints</a></li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/misc/rendering-technology.html">Rendering Technology</a></li>
+    <li class="level3 nav-leaf"><a href="../../../documentation/misc/indigo-vs-elm.html">Indigo vs Elm</a></li>
+    <li class="level1 nav-node"><a href="../../../demos/">Demos</a></li>
+    <li class="level2 nav-leaf"><a href="../../../demos/snake/">Snake!</a></li>
+    <li class="level2 nav-leaf"><a href="../../../demos/snake-in-5-minutes/">Snake In 5 Minutes</a></li>
+    <li class="level2 nav-leaf"><a href="../../../demos/the-cursed-pirate/">The Cursed Pirate!</a></li>
+    <li class="level1 nav-node"><a href="../../../guides/">Guides</a></li>
+    <li class="level2 nav-node"><a href="../../../guides/actors/">Actors</a></li>
+    <li class="level3 nav-leaf"><a href="../../../guides/actors/actors-with-physics/">How to use physics with actors</a></li>
+    <li class="level2 nav-node"><a href="../../../guides/animation/">Animation</a></li>
+    <li class="level3 nav-leaf"><a href="../../../guides/animation/part-1-basics/">Part 1: Animation Fundamentals</a></li>
+    <li class="level3 nav-leaf"><a href="../../../guides/animation/part-2-signals/">Part 2: Using Signals</a></li>
+    <li class="level3 nav-leaf"><a href="../../../guides/animation/part-3-timelines/">Part 3: Timeline Animations</a></li>
+    <li class="level3 nav-leaf"><a href="../../../guides/animation/part-4-shaders/">Part 4: Shader Animations</a></li>
+    <li class="level2 nav-node"><a href="../../../guides/assets/">Assets</a></li>
+    <li class="level3 nav-leaf"><a href="../../../guides/assets/preloader/">Preloader / Loading Screens</a></li>
+    <li class="level2 nav-node"><a href="../../../guides/importers/">Importers</a></li>
+    <li class="level3 nav-leaf"><a href="../../../guides/importers/aseprite-embedded/">Aseprite Embedded</a></li>
+    <li class="level3 nav-leaf"><a href="../../../guides/importers/tiled-loaded/">Loading Tiled maps at runtime</a></li>
+    <li class="level2 nav-node"><a href="../../../guides/scenes/">Scenes</a></li>
+    <li class="level3 nav-leaf"><a href="../../../guides/scenes/scene-management/">Managing scenes</a></li>
+    <li class="level2 nav-node"><a href="../../../guides/ui/">Ui</a></li>
+    <li class="level3 nav-leaf"><a href="../../../guides/ui/radiobuttons/">How to make radio buttons</a></li>
+    <li class="level1 nav-node"><a href="../../">Features</a></li>
+    <li class="level2 nav-node"><a href="../../actors-and-performers/">Actors and performers</a></li>
+    <li class="level3 nav-leaf"><a href="../../actors-and-performers/actors/">Actors</a></li>
+    <li class="level3 nav-leaf"><a href="../../actors-and-performers/performers/">Performers</a></li>
+    <li class="level3 nav-leaf"><a href="../../actors-and-performers/performers-with-physics/">Performers &amp; Physics</a></li>
+    <li class="level2 nav-leaf"><a href="../../context/">Context</a></li>
+    <li class="level2 nav-node"><a href="../../materials/">Materials</a></li>
+    <li class="level3 nav-leaf"><a href="../../materials/bitmap/">Bitmap material</a></li>
+    <li class="level3 nav-leaf"><a href="../../materials/filltypes/">Fill Types</a></li>
+    <li class="level3 nav-leaf"><a href="../../materials/imageeffects/">ImageEffects material</a></li>
+    <li class="level2 nav-node"><a href="../../physics/">Physics</a></li>
+    <li class="level3 nav-leaf"><a href="../../physics/basics/">Basic Physics Example</a></li>
+    <li class="level2 nav-node"><a href="../../primitives/">Primitives</a></li>
+    <li class="level3 nav-leaf"><a href="../../primitives/blank/">Blank Entity</a></li>
+    <li class="level3 nav-leaf"><a href="../../primitives/clip/">Clip</a></li>
+    <li class="level3 nav-leaf"><a href="../../primitives/graphic/">Graphic</a></li>
+    <li class="level3 nav-leaf"><a href="../../primitives/group/">Group</a></li>
+    <li class="level3 nav-node"><a href="../../primitives/shapes/">Shapes</a></li>
+    <li class="level4 nav-leaf"><a href="../../primitives/shapes/box/">Shape.Box</a></li>
+    <li class="level4 nav-leaf"><a href="../../primitives/shapes/circle/">Shape.Circle</a></li>
+    <li class="level4 nav-leaf"><a href="../../primitives/shapes/line/">Shape.Line</a></li>
+    <li class="level4 nav-leaf"><a href="../../primitives/shapes/polygon/">Shape.Polygon</a></li>
+    <li class="level3 nav-leaf"><a href="../../primitives/sprite/">Sprite</a></li>
+    <li class="level3 nav-leaf"><a href="../../primitives/text/">Text</a></li>
+    <li class="level2 nav-node"><a href="../../scenes/">Scenes</a></li>
+    <li class="level3 nav-leaf"><a href="../../scenes/minimal/">Minimal scene example</a></li>
+    <li class="level2 nav-node"><a href="../">Shaders</a></li>
+    <li class="level3 nav-leaf"><a href="../basic/">A basic custom shader</a></li>
+    <li class="level3 active nav-leaf"><a href="#">Blending layers together</a></li>
+    <li class="level2 nav-node"><a href="../../time/">Time</a></li>
+    <li class="level3 nav-leaf"><a href="../../time/signals/">Signals &amp; Signal Functions</a></li>
+    <li class="level3 nav-leaf"><a href="../../time/time-varying-values/">Time Varying Values</a></li>
+    <li class="level2 nav-node"><a href="../../ui/">Ui</a></li>
+    <li class="level3 nav-leaf"><a href="../../ui/button/">UI Components: Button</a></li>
+    <li class="level3 nav-leaf"><a href="../../ui/component-group/">UI Components: Component Group</a></li>
+    <li class="level3 nav-leaf"><a href="../../ui/component-list/">UI Components: Component List</a></li>
+    <li class="level3 nav-leaf"><a href="../../ui/custom/">UI Components: Custom Components</a></li>
+    <li class="level3 nav-leaf"><a href="../../ui/hitarea/">UI Components: HitArea</a></li>
+    <li class="level3 nav-leaf"><a href="../../ui/input/">UI Components: Input</a></li>
+    <li class="level3 nav-leaf"><a href="../../ui/label/">UI Components: Label</a></li>
+    <li class="level3 nav-leaf"><a href="../../ui/maskedpane/">UI Components: Masked Pane</a></li>
+    <li class="level3 nav-leaf"><a href="../../ui/scrollpane/">UI Components: Scroll Pane</a></li>
+    <li class="level3 nav-leaf"><a href="../../ui/switch/">UI Components: Switch</a></li>
+    <li class="level3 nav-leaf"><a href="../../ui/textarea/">UI Components: TextArea</a></li>
+    <li class="level3 nav-leaf"><a href="../../ui/window/">UI Components: Windows</a></li>
+  </ul>
+
+</nav>
+
+    <div id="container">
+
+      
+<nav id="page-nav">
+  <p class="header"><a href="#">Blending layers together</a></p>
+
+  <ul class="nav-list">
+    <li class="level1 nav-leaf"><a href="#demo">Demo</a></li>
+    <li class="level1 nav-leaf"><a href="#links">Links</a></li>
+  </ul>
+
+  <p class="footer"></p>
+</nav>
+
+
+      <main class="content">
+
+        <h1 id="blending-layers-together" class="title">Blending layers together</h1>
+        <p><img src="../../../img/howtos/blending.png" alt="Example of blending" title="An example of blending two layers together"></p>
+        <p>Following on from the basic shaders example where we used a shader to render a scene entity, another use for shaders is for &#39;screen space effects&#39; via &#39;blending&#39;.</p>
+        <p>If you&#39;ve ever used photo editing software with layers, then you&#39;re probably already familiar with the concept of blending. It&#39;s the process of telling the photo editing software (or game engine in our case) how to render or merge this layer <em>down</em> onto the one below it.</p>
+        <p>There are two parts to the blending process. Something call the <code>BlendMode</code> (which we won&#39;t cover in this example as the usage is probably fairly niche, but it&#39;s explained well in other corners of the internet), and <code>BlendMaterial</code>s, which allow us to define a custom shader program to alter how the blending actually happens.</p>
+        <p>This example will perform a simple overlay style effect, but you can use blending to mimic light refraction, mask off areas, make fancy lighting effects, and create other &#39;screen space effects&#39; where you create a visual effect that affects everything the play sees, such as growing ice when it&#39;s cold or applying water effects to all the visible water tiles.</p>
+        <p>The idea is simple, take layer A as the &#39;SRC&#39; (source) input, and take layer B as the &#39;DST&#39; (destination) input, and tell indigo how to use the src to <em>affect</em> the dst. You can simply splat the src onto the dst, of course (beware transparency!). But things get more interesting when you consider that the src (layer) is really just data, and how you use that data is down to you creativity. As an example: The src <em>could</em> be a undulating waves of noise (rendering use a custom shader onto the layer above), if you used that noise to <em>displace</em> which pixel you read from the src, you could mimic viewing the src layer through rippling water...</p>
+        <p>See <a href="https://ultraviolet.indigoengine.io/">Ultraviolets docs</a> for more information on Shaders and shader writing.</p>
+        
+        <h2 id="demo" class="section"><a class="anchor-link left" href="#demo"><i class="icofont-laika link">&#xef71;</i></a>Demo</h2>
+        <div id="live-demo" style="border:2px solid #e400ff;width:400px;height:400px;background:#a888db33;color: #e400ff;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+          ▶  Click to play
+        </div>
+        <script>
+  document.getElementById("live-demo").addEventListener("click", function() {
+    this.innerHTML = '<iframe width="396" height="396" src="/live_demos/features/shaders/blending/index.html" frameborder="0" allow="autoplay; encrypted-media" scrolling="no"></iframe>';
+  });
+</script>
+        
+        <h2 id="links" class="section"><a class="anchor-link left" href="#links"><i class="icofont-laika link">&#xef71;</i></a>Links</h2>
+        <ul>
+          <li><a href="https://github.com/PurpleKingdomGames/indigo-docs/blob/main/features/shaders/blending">View example code</a></li>
+        </ul>
+        <ul>
+          <li><a href="../../../live_demos/features/shaders/blending/">Live demo</a></li>
+        </ul>
+        <p>In this scene we render 3 boxes, using 4 layers (mostly for clarity) and 1 blend material.</p>
+        <p>Left to right:</p>
+        <ul>
+          <li>Box 1 is a simple graphic with a bitmap texture</li>
+          <li>Box 2 is a custom entity running the same custom shader we used in the basic entity shader
+          example.</li>
+          <li>Box 3 is made by rendering Box 1 on one layer, then rendering Box 2 on a layer above it,
+          and giving this layer our custom blend material explaining how we&#39;d like it to be merge to
+          the layer below.</li>
+        </ul>
+        <p>In this instance the example shows all the arguments you can supply to a <code>Blending</code> instance,
+        but you can also construct them with only the <code>BlendMaterial</code>, or even skip it and replace
+        <code>withBlending</code> with <code>withBlendMaterial</code>.</p>
+        <pre><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">present</span><span>(</span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>[</span><span class="type-name">Unit</span><span>], </span><span class="identifier">model</span><span>: </span><span class="type-name">Unit</span><span>): </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">SceneUpdateFragment</span><span>] =
+  </span><span class="keyword">val</span><span> </span><span class="identifier">gap</span><span> = </span><span class="number-literal">2</span><span>
+
+  </span><span class="type-name">Outcome</span><span>(
+    </span><span class="type-name">SceneUpdateFragment</span><span>(
+      </span><span class="type-name">Layer</span><span>(
+        </span><span class="type-name">Graphic</span><span>(</span><span class="number-literal">0</span><span>, </span><span class="number-literal">0</span><span>, </span><span class="number-literal">64</span><span>, </span><span class="number-literal">64</span><span>, </span><span class="type-name">Material</span><span>.</span><span class="type-name">Bitmap</span><span>(</span><span class="type-name">Assets</span><span>.</span><span class="identifier">assets</span><span>.</span><span class="identifier">nineslice</span><span>))
+          .</span><span class="identifier">moveTo</span><span>(</span><span class="number-literal">10</span><span>, </span><span class="number-literal">10</span><span>)
+      ),
+      </span><span class="type-name">Layer</span><span>(
+        </span><span class="type-name">BlankEntity</span><span>(</span><span class="number-literal">0</span><span>, </span><span class="number-literal">0</span><span>, </span><span class="number-literal">64</span><span>, </span><span class="number-literal">64</span><span>, </span><span class="type-name">ShaderData</span><span>(</span><span class="type-name">CustomEntityShader</span><span>.</span><span class="identifier">shader</span><span>.</span><span class="identifier">id</span><span>))
+          .</span><span class="identifier">moveTo</span><span>(</span><span class="number-literal">10</span><span> + </span><span class="number-literal">64</span><span> + </span><span class="identifier">gap</span><span>, </span><span class="number-literal">10</span><span>)
+      ),
+      </span><span class="type-name">Layer</span><span>(
+        </span><span class="type-name">Graphic</span><span>(</span><span class="number-literal">0</span><span>, </span><span class="number-literal">0</span><span>, </span><span class="number-literal">64</span><span>, </span><span class="number-literal">64</span><span>, </span><span class="type-name">Material</span><span>.</span><span class="type-name">Bitmap</span><span>(</span><span class="type-name">Assets</span><span>.</span><span class="identifier">assets</span><span>.</span><span class="identifier">nineslice</span><span>))
+          .</span><span class="identifier">moveTo</span><span>(</span><span class="number-literal">10</span><span> + </span><span class="number-literal">64</span><span> + </span><span class="identifier">gap</span><span> + </span><span class="number-literal">64</span><span> + </span><span class="identifier">gap</span><span>, </span><span class="number-literal">10</span><span>)
+      ),
+      </span><span class="type-name">Layer</span><span>(
+        </span><span class="type-name">BlankEntity</span><span>(</span><span class="number-literal">0</span><span>, </span><span class="number-literal">0</span><span>, </span><span class="number-literal">64</span><span>, </span><span class="number-literal">64</span><span>, </span><span class="type-name">ShaderData</span><span>(</span><span class="type-name">CustomEntityShader</span><span>.</span><span class="identifier">shader</span><span>.</span><span class="identifier">id</span><span>))
+          .</span><span class="identifier">moveTo</span><span>(</span><span class="number-literal">10</span><span> + </span><span class="number-literal">64</span><span> + </span><span class="identifier">gap</span><span> + </span><span class="number-literal">64</span><span> + </span><span class="identifier">gap</span><span>, </span><span class="number-literal">10</span><span>)
+      ).</span><span class="identifier">withBlending</span><span>(
+        </span><span class="type-name">Blending</span><span>(
+          </span><span class="identifier">entity</span><span> = </span><span class="type-name">Blend</span><span>.</span><span class="type-name">Normal</span><span>,
+          </span><span class="identifier">layer</span><span> = </span><span class="type-name">Blend</span><span>.</span><span class="type-name">Normal</span><span>,
+          </span><span class="identifier">blendMaterial</span><span> = </span><span class="type-name">CustomBlendMaterial</span><span>(),
+          </span><span class="identifier">clearColor</span><span> = </span><span class="type-name">None</span><span>
+        )
+      )
+    )
+  )</span></code></pre>
+        <p>A <code>BlendMaterial</code> is nothing more than a class that provides the <code>ShaderData</code> used to tell
+        Indigo how to merge one layer down onto the layer below it.</p>
+        <p>In terms of the process, each layer is first rendered, and then the blending is performed. In
+        effect, you are combining to images of the same size in the same location.</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">final</span><span> </span><span class="keyword">case</span><span> </span><span class="keyword">class</span><span> </span><span class="type-name">CustomBlendMaterial</span><span>() </span><span class="keyword">extends</span><span> </span><span class="type-name">BlendMaterial</span><span>:
+  </span><span class="keyword">def</span><span> </span><span class="declaration-name">toShaderData</span><span>: </span><span class="type-name">ShaderData</span><span> =
+    </span><span class="type-name">ShaderData</span><span>(</span><span class="type-name">CustomBlendShader</span><span>.</span><span class="identifier">shader</span><span>.</span><span class="identifier">id</span><span>)</span></code></pre>
+        <p>The structure of a blend shader is <em>very</em> similar that seen in the basic entity shader example.
+        There are a number of differences though that all boil down to telling Indigo to expect a blend
+        shader instead of an entity shader.</p>
+        <p>In terms of the actual code, the main thing to note is that the <code>BlendFragmentEnv</code> has replaced
+        our usual <code>FragmentEnv</code>, and this gives us access to <code>env.SRC</code> and <code>env.DST</code>, which are the
+        color values of the current pixel on each layer, where src is merging down to dst.</p>
+        <p><code>env.SRC</code> and <code>env.DST</code> are convenience variables that you get for free, but you can always
+        change which pixel you&#39;d like to reference using
+        <code>texture2D(SRC_CHANNEL, &lt;some custom UV coordinate)</code>.</p>
+        <p>This shader mixes the two layers together 50-50.</p>
+        <pre><code class="nohighlight"><span class="keyword">object</span><span> </span><span class="type-name">CustomBlendShader</span><span>:
+
+  </span><span class="keyword">val</span><span> </span><span class="identifier">shader</span><span>: </span><span class="type-name">ShaderProgram</span><span> =
+    </span><span class="type-name">UltravioletShader</span><span>.</span><span class="identifier">blendFragment</span><span>(
+      </span><span class="type-name">ShaderId</span><span>(</span><span class="string-literal">&quot;custom-blend-shader&quot;</span><span>),
+      </span><span class="type-name">BlendShader</span><span>.</span><span class="identifier">fragment</span><span>[</span><span class="type-name">BlendFragmentEnv</span><span>](</span><span class="identifier">fragment</span><span>, </span><span class="type-name">BlendFragmentEnv</span><span>.</span><span class="identifier">reference</span><span>)
+    )
+
+  </span><span class="annotation">@nowarn</span><span>(</span><span class="string-literal">&quot;msg=unused&quot;</span><span>)
+  </span><span class="identifier">inline</span><span> </span><span class="keyword">def</span><span> </span><span class="declaration-name">fragment</span><span>: </span><span class="type-name">Shader</span><span>[</span><span class="type-name">BlendFragmentEnv</span><span>, </span><span class="type-name">Unit</span><span>] =
+    </span><span class="type-name">Shader</span><span>[</span><span class="type-name">BlendFragmentEnv</span><span>] { </span><span class="identifier">env</span><span> =&gt;
+      </span><span class="keyword">def</span><span> </span><span class="declaration-name">fragment</span><span>(</span><span class="identifier">color</span><span>: </span><span class="identifier">vec4</span><span>): </span><span class="identifier">vec4</span><span> =
+        </span><span class="identifier">mix</span><span>(</span><span class="identifier">env</span><span>.</span><span class="type-name">DST</span><span>, </span><span class="identifier">env</span><span>.</span><span class="type-name">SRC</span><span>, </span><span class="number-literal">0.5f</span><span>)
+    }</span></code></pre>
+
+        
+<hr class="footer-rule"/>
+<footer>
+  Site generated by <a href="https://typelevel.org/Laika/">Laika</a> with the Helium theme.
+</footer>
+
+
+      </main>
+
+    </div>
+
+  </body>
+
+</html>
