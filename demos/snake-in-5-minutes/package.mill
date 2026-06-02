@@ -1,0 +1,10 @@
+package build.demos.`snake-in-5-minutes`
+
+import indigoplugin.*
+import build.GameModule
+
+object `package` extends GameModule:
+  
+  def indigoOptions(assetsDirectory: os.Path): IndigoOptions =
+    makeIndigoOptions("Snake in 5 minutes - Made with Indigo")
+      .withWindowSize(400, 400)

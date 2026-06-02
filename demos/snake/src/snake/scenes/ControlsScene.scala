@@ -2,64 +2,54 @@ package snake.scenes
 
 import indigo.*
 import indigo.scenes.*
-import snake.model.{ControlScheme, ViewModel}
+import snake.model.{ControlScheme}
 import snake.init.{GameAssets, StartupData}
 import snake.model.GameModel
 
-object ControlsScene extends Scene[StartupData, GameModel, ViewModel]:
-  type SceneModel     = ControlScheme
-  type SceneViewModel = Unit
+object ControlsScene extends Scene[StartupData, GameModel]:
+  type SceneModel     = ControlsScene.Model
 
   val name: SceneName =
     SceneName("controls")
 
-  val modelLens: Lens[GameModel, ControlScheme] =
-    Lens(_.controlScheme, (m, c) => m.copy(controlScheme = c))
-
-  val viewModelLens: Lens[ViewModel, Unit] =
-    Lens.unit
+  val modelLens: Lens[GameModel, ControlsScene.Model] =
+    Lens(
+      m => ControlsScene.Model(m.controlScheme, m.startupData.viewConfig.center),
+      (m, c) => m.copy(controlScheme = c.scheme)
+    )
 
   val eventFilters: EventFilters =
     EventFilters.Restricted
-      .withViewModelFilter(_ => None)
 
   val subSystems: Set[SubSystem[GameModel]] =
     Set()
 
   def updateModel(
-      context: SceneContext[StartupData],
-      controlScheme: ControlScheme
-  ): GlobalEvent => Outcome[ControlScheme] =
+      context: SceneContext,
+      model: ControlsScene.Model
+  ): GlobalEvent => Outcome[ControlsScene.Model] =
     case KeyboardEvent.KeyUp(Key.SPACE) =>
-      Outcome(controlScheme)
+      Outcome(model)
         .addGlobalEvents(SceneEvent.JumpTo(GameScene.name))
 
     case KeyboardEvent.KeyUp(Key.ARROW_UP) | KeyboardEvent.KeyUp(Key.ARROW_DOWN) =>
-      Outcome(controlScheme.swap)
+      Outcome(model.copy(scheme = model.scheme.swap))
 
     case _ =>
-      Outcome(controlScheme)
-
-  def updateViewModel(
-      context: SceneContext[StartupData],
-      controlScheme: ControlScheme,
-      sceneViewModel: Unit
-  ): GlobalEvent => Outcome[Unit] =
-    _ => Outcome(sceneViewModel)
+      Outcome(model)
 
   def present(
-      context: SceneContext[StartupData],
-      sceneModel: ControlScheme,
-      sceneViewModel: Unit
+      context: SceneContext,
+      model: ControlsScene.Model
   ): Outcome[SceneUpdateFragment] =
     Outcome {
-      val horizontalCenter: Int = context.startUpData.viewConfig.horizontalCenter
-      val verticalMiddle: Int   = context.startUpData.viewConfig.verticalMiddle
+      val horizontalCenter: Int = model.center.x
+      val verticalMiddle: Int   = model.center.y
 
       SceneUpdateFragment.empty
         .addLayer(
           LayerKey("ui") -> Layer(
-            drawControlsText(24, verticalMiddle, sceneModel) ++
+            drawControlsText(24, verticalMiddle, model.scheme) ++
               Batch(drawSelectText(horizontalCenter)) ++
               SharedElements.drawHitSpaceToStart(horizontalCenter, Seconds(1), context.frame.time)
           )
@@ -111,3 +101,6 @@ object ControlsScene extends Scene[StartupData, GameModel, ViewModel]:
 
   def drawSelectText(center: Int): SceneNode =
     Text("Up / Down arrows to select.", center, 205, GameAssets.fontKey, GameAssets.fontMaterial).alignCenter
+
+
+  final case class Model(scheme: ControlScheme, center: Point)

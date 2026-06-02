@@ -4,62 +4,50 @@ import indigo.*
 import indigo.scenes.*
 
 import snake.init.GameAssets
-import snake.model.ViewModel
 import snake.init.StartupData
 import snake.GameReset
 import snake.model.GameModel
 import snake.generated.Assets
 
-object StartScene extends Scene[StartupData, GameModel, ViewModel]:
-  type SceneModel     = Unit
-  type SceneViewModel = Unit
+object StartScene extends Scene[StartupData, GameModel]:
+  type SceneModel     = Point
 
   val name: SceneName =
     SceneName("start")
 
-  val modelLens: Lens[GameModel, Unit] =
-    Lens.unit
-
-  val viewModelLens: Lens[ViewModel, Unit] =
-    Lens.unit
+  val modelLens: Lens[GameModel, Point] =
+    Lens.readOnly(
+      _.startupData.viewConfig.center
+    )
 
   val eventFilters: EventFilters =
     EventFilters.Restricted
-      .withViewModelFilter(_ => None)
 
   val subSystems: Set[SubSystem[GameModel]] =
     Set()
 
   def updateModel(
-      context: SceneContext[StartupData],
-      snakeGameModel: Unit
-  ): GlobalEvent => Outcome[Unit] = {
+      context: SceneContext,
+      center: Point
+  ): GlobalEvent => Outcome[Point] = {
     case KeyboardEvent.KeyUp(Key.SPACE) =>
-      Outcome(snakeGameModel)
+      Outcome(center)
         .addGlobalEvents(
           GameReset,
           SceneEvent.JumpTo(ControlsScene.name)
         )
 
     case _ =>
-      Outcome(snakeGameModel)
+      Outcome(center)
   }
 
-  def updateViewModel(
-      context: SceneContext[StartupData],
-      snakeGameModel: Unit,
-      snakeViewModel: Unit
-  ): GlobalEvent => Outcome[Unit] =
-    _ => Outcome(snakeViewModel)
-
   def present(
-      context: SceneContext[StartupData],
-      snakeGameModel: Unit,
-      snakeViewModel: Unit
+      context: SceneContext,
+      center: Point
   ): Outcome[SceneUpdateFragment] =
     Outcome {
-      val horizontalCenter: Int = context.startUpData.viewConfig.horizontalCenter
-      val verticalMiddle: Int   = context.startUpData.viewConfig.verticalMiddle
+      val horizontalCenter: Int = center.x
+      val verticalMiddle: Int   = center.y
 
       SceneUpdateFragment.empty
         .addLayer(

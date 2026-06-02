@@ -2,54 +2,42 @@ package snake.scenes
 
 import indigo.*
 import indigo.scenes.*
-import snake.model.ViewModel
 import snake.init.{GameAssets, StartupData}
 import snake.model.GameModel
 
-object GameOverScene extends Scene[StartupData, GameModel, ViewModel]:
-  type SceneModel     = Int
-  type SceneViewModel = Unit
+object GameOverScene extends Scene[StartupData, GameModel]:
+  type SceneModel     = GameOverScene.Model
 
   val name: SceneName =
     SceneName("game over")
 
-  val modelLens: Lens[GameModel, Int] =
-    Lens.readOnly(_.score)
-
-  val viewModelLens: Lens[ViewModel, Unit] =
-    Lens.unit
+  val modelLens: Lens[GameModel, GameOverScene.Model] =
+    Lens.readOnly(
+      m => GameOverScene.Model(m.score, m.startupData.viewConfig.center)
+    )
 
   val eventFilters: EventFilters =
     EventFilters.Restricted
-      .withViewModelFilter(_ => None)
 
   val subSystems: Set[SubSystem[GameModel]] =
     Set()
 
-  def updateModel(context: SceneContext[StartupData], pointsScored: Int): GlobalEvent => Outcome[Int] = {
+  def updateModel(context: SceneContext, model: GameOverScene.Model): GlobalEvent => Outcome[GameOverScene.Model] = {
     case KeyboardEvent.KeyUp(Key.SPACE) =>
-      Outcome(pointsScored)
+      Outcome(model)
         .addGlobalEvents(SceneEvent.JumpTo(StartScene.name))
 
     case _ =>
-      Outcome(pointsScored)
+      Outcome(model)
   }
 
-  def updateViewModel(
-      context: SceneContext[StartupData],
-      pointsScored: Int,
-      sceneViewModel: Unit
-  ): GlobalEvent => Outcome[Unit] =
-    _ => Outcome(sceneViewModel)
-
   def present(
-      context: SceneContext[StartupData],
-      pointsScored: Int,
-      sceneViewModel: Unit
+      context: SceneContext,
+      model: GameOverScene.Model
   ): Outcome[SceneUpdateFragment] =
     Outcome {
-      val horizontalCenter: Int = context.startUpData.viewConfig.horizontalCenter
-      val verticalMiddle: Int   = context.startUpData.viewConfig.verticalMiddle
+      val horizontalCenter: Int = model.center.x
+      val verticalMiddle: Int   = model.center.y
 
       SceneUpdateFragment.empty
         .addLayer(
@@ -62,7 +50,7 @@ object GameOverScene extends Scene[StartupData, GameModel, ViewModel]:
               GameAssets.fontMaterial
             ).alignCenter,
             Text(
-              s"You scored: ${pointsScored.toString()} pts!",
+              s"You scored: ${model.pointsScored.toString()} pts!",
               horizontalCenter,
               verticalMiddle - 5,
               GameAssets.fontKey,
@@ -78,3 +66,5 @@ object GameOverScene extends Scene[StartupData, GameModel, ViewModel]:
           )
         )
     }
+
+  final case class Model(pointsScored: Int, center: Point)

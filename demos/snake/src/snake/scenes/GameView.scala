@@ -53,8 +53,8 @@ object GameView:
     Batch(
       Text(
         score.toString,
-        (viewConfig.viewport.width / viewConfig.magnificationLevel) - 3,
-        (viewConfig.viewport.height / viewConfig.magnificationLevel) - viewConfig.footerHeight + 21,
+        viewConfig.viewport.width - 3,
+        viewConfig.viewport.height - viewConfig.footerHeight + 21,
         GameAssets.fontKey,
         GameAssets.fontMaterial
       ).alignRight

@@ -7,16 +7,43 @@ import snake.Score
 import indigo.scenes.SceneEvent
 import snake.scenes.GameOverScene
 import snake.generated.Assets
+import snake.init.StartupData
 
 final case class GameModel(
+    startupData: StartupData,
     snake: Snake,
     gameState: GameState,
     gameMap: GameMap,
     score: Int,
     tickDelay: Seconds,
     controlScheme: ControlScheme,
-    lastUpdated: Seconds
+    lastUpdated: Seconds,
+    viewModel: ViewModel
 ):
+  
+  def reset(): GameModel =
+    val center = startupData.viewConfig.gridSize / 2
+    val gameMap = GameMap.genLevel(startupData.viewConfig.gridSize)
+
+    GameModel(
+      startupData = startupData,
+      snake = Snake(
+        center.width,
+        center.height - (center.height / 2).toInt
+      ).grow.grow,
+      gameState = GameState.start,
+      gameMap = gameMap,
+      score = 0,
+      tickDelay = Seconds(0.1),
+      controlScheme = controlScheme,
+      lastUpdated = Seconds.zero,
+      viewModel = ViewModel.initial(
+        startupData.viewConfig.gridSize,
+        startupData.viewConfig.gridSquareSize,
+        startupData.staticAssets,
+        gameMap
+      )
+    )
 
   def update(gameTime: GameTime, dice: Dice, gridSquareSize: Int): GlobalEvent => Outcome[GameModel] =
     case FrameTick if gameTime.running < lastUpdated + tickDelay =>
@@ -54,20 +81,28 @@ object GameModel:
 
   val ScoreIncrement: Int = 100
 
-  def initialModel(gridSize: Size, controlScheme: ControlScheme): GameModel =
-    val center = gridSize / 2
+  def initialModel(startupData: StartupData, controlScheme: ControlScheme): GameModel =
+    val center = startupData.viewConfig.gridSize / 2
+    val gameMap = GameMap.genLevel(startupData.viewConfig.gridSize)
 
     GameModel(
+      startupData = startupData,
       snake = Snake(
         center.width,
         center.height - (center.height / 2).toInt
       ).grow.grow,
       gameState = GameState.start,
-      gameMap = GameMap.genLevel(gridSize),
+      gameMap = gameMap,
       score = 0,
       tickDelay = Seconds(0.1),
       controlScheme = controlScheme,
-      lastUpdated = Seconds.zero
+      lastUpdated = Seconds.zero,
+      viewModel = ViewModel.initial(
+        startupData.viewConfig.gridSize,
+        startupData.viewConfig.gridSquareSize,
+        startupData.staticAssets,
+        gameMap
+      )
     )
 
   def updateRunning(

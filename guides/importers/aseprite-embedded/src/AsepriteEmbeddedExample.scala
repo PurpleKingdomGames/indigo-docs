@@ -46,18 +46,18 @@ object AsepriteEmbeddedExample extends IndigoDemo[Unit, StartupData, Unit, Unit]
   def initialViewModel(startupData: StartupData, model: Unit): Outcome[Unit] =
     Outcome(())
 
-  def updateModel(context: Context[StartupData], model: Unit): GlobalEvent => Outcome[Unit] =
+  def updateModel(context: Context, model: Unit): GlobalEvent => Outcome[Unit] =
     _ => Outcome(model)
 
   def updateViewModel(
-      context: Context[StartupData],
+      context: Context,
       model: Unit,
       viewModel: Unit
   ): GlobalEvent => Outcome[Unit] =
     _ => Outcome(viewModel)
 
   def present(
-      context: Context[StartupData],
+      context: Context,
       model: Unit,
       viewModel: Unit
   ): Outcome[SceneUpdateFragment] =
