@@ -3,13 +3,12 @@ package snake.scenes
 import indigo.*
 import indigo.scenes.*
 
-import snake.model.{GameModel, ViewModel}
+import snake.model.GameModel
 import snake.Score
 import snake.init.{GameAssets, StartupData}
 
-object GameScene extends Scene[StartupData, GameModel, ViewModel]:
+object GameScene extends Scene[StartupData, GameModel]:
   type SceneModel     = GameModel
-  type SceneViewModel = Group
 
   val name: SceneName =
     SceneName("game scene")
@@ -17,29 +16,22 @@ object GameScene extends Scene[StartupData, GameModel, ViewModel]:
   val modelLens: Lens[GameModel, GameModel] =
     Lens.keepLatest
 
-  val viewModelLens: Lens[ViewModel, Group] =
-    Lens.readOnly(_.walls)
-
   val eventFilters: EventFilters =
     EventFilters.Restricted
-      .withViewModelFilter(_ => None)
 
   val subSystems: Set[SubSystem[GameModel]] =
     Set(Score.automataSubSystem(GameModel.ScoreIncrement.toString(), GameAssets.fontKey))
 
-  def updateModel(context: SceneContext[StartupData], gameModel: GameModel): GlobalEvent => Outcome[GameModel] =
-    gameModel.update(context.frame.time, context.frame.dice, context.startUpData.viewConfig.gridSquareSize)
-
-  def updateViewModel(
-      context: SceneContext[StartupData],
-      gameModel: GameModel,
-      walls: Group
-  ): GlobalEvent => Outcome[Group] =
-    _ => Outcome(walls)
+  def updateModel(context: SceneContext, gameModel: GameModel): GlobalEvent => Outcome[GameModel] =
+    gameModel.update(context.frame.time, context.frame.dice, gameModel.startupData.viewConfig.gridSquareSize)
 
   def present(
-      context: SceneContext[StartupData],
+      context: SceneContext,
       gameModel: GameModel,
-      walls: Group
   ): Outcome[SceneUpdateFragment] =
-    GameView.update(context.startUpData.viewConfig, gameModel, walls, context.startUpData.staticAssets)
+    GameView.update(
+      gameModel.startupData.viewConfig,
+      gameModel, 
+      gameModel.viewModel.walls, 
+      gameModel.startupData.staticAssets
+    )

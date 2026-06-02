@@ -1,0 +1,30 @@
+package build.demos.snake
+
+import mill.*
+import mill.scalalib.*
+import mill.api.BuildCtx
+import indigoplugin.*
+import build.GameModule
+
+object `package` extends GameModule:
+  
+  override def indigoAssets =
+    Task.Source(BuildCtx.workspaceRoot / os.RelPath("demos/snake/assets"))
+
+  def indigoOptions(assetsDirectory: os.Path): IndigoOptions =
+    makeIndigoOptions("Snake - Made with Indigo")
+      .withWindowWidth(720)
+      .withWindowHeight(516)
+      .withBackgroundColor("black")
+      .excludeAssets {
+        case p if p.startsWith(os.RelPath("asset_dev")) => true
+        case _                                          => false
+      }
+
+  override def indigoGenerators(assetsDirectory: os.Path): IndigoGenerators =
+    IndigoGenerators("snake.generated")
+      .listAssets("Assets")
+      .generateConfig("SnakeConfig")
+
+  override def mvnDeps =
+    super.mvnDeps() ++ Seq(mvn"org.scalacheck::scalacheck:1.15.3")

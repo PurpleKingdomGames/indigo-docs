@@ -2,29 +2,30 @@ package indigoexamples
 
 import indigo.*
 import indigo.syntax.*
-import scala.scalajs.js.annotation.JSExportTopLevel
 
-@JSExportTopLevel("IndigoGame")
-object SnakeIn5Minutes extends IndigoSandbox[Unit, SnakeModel]:
+final class SnakeIn5Minutes() extends Game[Unit, Unit, SnakeModel]:
 
-  val config: GameConfig =
-    GameConfig.default
-      .withViewport(400, 400)
-      .withFrameRateLimit(15)
-      .noResize
+  def gameId: GameId = GameId("snake in five minutes")
 
-  val assets: Set[AssetType]      = Set()
-  val animations: Set[Animation]  = Set()
-  val fonts: Set[FontInfo]        = Set()
-  val shaders: Set[ShaderProgram] = Set()
+  def boot(flags: Map[String, String]): Outcome[BootResult[Unit, SnakeModel]] =
+    Outcome(BootResult.empty)
 
-  def setup(assetCollection: AssetCollection, dice: Dice): Outcome[Startup[Unit]] =
+  def eventFilters: indigo.core.events.EventFilters =
+    EventFilters.Permissive
+
+  def initialScene(bootData: Unit): Option[indigo.scenes.SceneName] =
+    None
+
+  def scenes(bootData: Unit): NonEmptyBatch[Scene[Unit, SnakeModel]] =
+    NonEmptyBatch(Scene.empty)
+
+  def setup(bootData: Unit, assetCollection: AssetCollection, dice: Dice): Outcome[Startup[Unit]] =
     Outcome(Startup.Success(()))
 
   def initialModel(startupData: Unit): Outcome[SnakeModel] =
     Outcome(SnakeModel(Point(10, 10), 20, Point(15, 15), Point.zero, Nil, 5))
 
-  def updateModel(context: Context[Unit], model: SnakeModel): GlobalEvent => Outcome[SnakeModel] =
+  def updateModel(context: Context, model: SnakeModel): GlobalEvent => Outcome[SnakeModel] =
     case KeyboardEvent.KeyDown(Key.ARROW_LEFT) =>
       Outcome(model.copy(direction = Point(-1, 0)))
 
@@ -63,7 +64,7 @@ object SnakeIn5Minutes extends IndigoSandbox[Unit, SnakeModel]:
     case _ =>
       Outcome(model)
 
-  def present(context: Context[Unit], model: SnakeModel): Outcome[SceneUpdateFragment] =
+  def present(context: Context, model: SnakeModel): Outcome[SceneUpdateFragment] =
     val boxSize = Rectangle(1, 1, 18, 18)
     Outcome(
       SceneUpdateFragment(

@@ -56,18 +56,18 @@ object PreloaderExample extends IndigoGame[BootInformation, StartupData, Model, 
   def initialViewModel(startupData: StartupData, model: Model): Outcome[ViewModel] =
     Outcome(ViewModel.initial)
 
-  def updateModel(context: Context[StartupData], model: Model): GlobalEvent => Outcome[Model] =
+  def updateModel(context: Context, model: Model): GlobalEvent => Outcome[Model] =
     _ => Outcome(model)
 
   def updateViewModel(
-      context: Context[StartupData],
+      context: Context,
       model: Model,
       viewModel: ViewModel
   ): GlobalEvent => Outcome[ViewModel] =
     _ => Outcome(viewModel)
 
   def present(
-      context: Context[StartupData],
+      context: Context,
       model: Model,
       viewModel: ViewModel
   ): Outcome[SceneUpdateFragment] =
