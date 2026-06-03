@@ -4,17 +4,13 @@ import indigo.*
 import indigo.scenes.*
 import preloader.core.Assets
 
-import preloader.core.{StartupData, Model, ViewModel}
+import preloader.core.{StartupData, Model}
 
-object LevelScene extends Scene[StartupData, Model, ViewModel]:
-  type SceneModel     = Model
-  type SceneViewModel = ViewModel
+object LevelScene extends Scene[StartupData, Model]:
+  type SceneModel = Model
 
   val name: SceneName = SceneName("game scene")
   val modelLens: Lens[Model, Model] =
-    Lens.keepLatest
-
-  val viewModelLens: Lens[ViewModel, ViewModel] =
     Lens.keepLatest
 
   val eventFilters: EventFilters =
@@ -24,27 +20,18 @@ object LevelScene extends Scene[StartupData, Model, ViewModel]:
     Set()
 
   def updateModel(
-      context: SceneContext[StartupData],
+      context: SceneContext,
       model: Model
   ): GlobalEvent => Outcome[Model] =
     case _ =>
       Outcome(model)
 
-  def updateViewModel(
-      context: SceneContext[StartupData],
-      model: Model,
-      viewModel: ViewModel
-  ): GlobalEvent => Outcome[ViewModel] =
-    case _ =>
-      Outcome(viewModel)
-
   def present(
-      context: SceneContext[StartupData],
-      model: Model,
-      viewModel: SceneViewModel
+      context: SceneContext,
+      model: Model
   ): Outcome[SceneUpdateFragment] =
-    val viewport =
-      context.frame.viewport.giveDimensions(context.frame.globalMagnification)
+    val viewportCenter =
+      (context.frame.viewport / 2).toPoint
 
     val loadingText =
       Text(
@@ -52,10 +39,10 @@ object LevelScene extends Scene[StartupData, Model, ViewModel]:
         Assets.Fonts.fontKey,
         Assets.Fonts.fontMaterial
       ).alignCenter
-        .moveTo(viewport.center + Point(0, 10))
+        .moveTo(viewportCenter + Point(0, 10))
 
     Outcome(
       SceneUpdateFragment(
         loadingText
-      )
+      ).withMagnification(2)
     )

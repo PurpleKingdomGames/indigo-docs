@@ -20,19 +20,25 @@ import scala.scalajs.js.annotation.*
   * console in your browser for the output.
   */
 @JSExportTopLevel("IndigoGame")
-object SignalsExample extends IndigoSandbox[Unit, Boolean]:
+object SignalsExample extends Game[Unit, Unit, Boolean]:
 
-  val config: GameConfig =
-    Config.config.noResize
+  def gameId: GameId = GameId("SignalsExample")
 
-  val assets: Set[AssetType] =
-    Assets.assets.assetSet
+  def boot(flags: Map[String, String]): Outcome[BootResult[Unit, Boolean]] =
+    Outcome(
+      BootResult(Config.config, ())
+        .withAssets(Assets.assets.assetSetRelative)
+    )
 
-  val fonts: Set[FontInfo]        = Set()
-  val animations: Set[Animation]  = Set()
-  val shaders: Set[ShaderProgram] = Set()
+  def initialScene(bootData: Unit): Option[SceneName] = None
+
+  def scenes(bootData: Unit): NonEmptyBatch[Scene[Unit, Boolean]] =
+    NonEmptyBatch(Scene.empty)
+
+  def eventFilters: EventFilters = EventFilters.Permissive
 
   def setup(
+      bootData: Unit,
       assetCollection: AssetCollection,
       dice: Dice
   ): Outcome[Startup[Unit]] =
@@ -90,7 +96,7 @@ object SignalsExample extends IndigoSandbox[Unit, Boolean]:
     */
   // ```scala
   def updateModel(
-      context: Context[Unit],
+      context: Context,
       hasRunOnce: Boolean
   ): GlobalEvent => Outcome[Boolean] =
     case FrameTick if !hasRunOnce =>
@@ -110,7 +116,7 @@ object SignalsExample extends IndigoSandbox[Unit, Boolean]:
   // ```
 
   def present(
-      context: Context[Unit],
+      context: Context,
       hasRunOnce: Boolean
   ): Outcome[SceneUpdateFragment] =
     Outcome(

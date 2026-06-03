@@ -1,0 +1,30 @@
+package build.guides.assets.preloader
+
+import mill.*
+import mill.api.BuildCtx
+import indigoplugin.*
+import build.GameModule
+
+object `package` extends GameModule:
+
+  override def indigoAssets =
+    Task.Source(BuildCtx.workspaceRoot / os.RelPath("guides/assets/preloader/assets"))
+
+  def indigoOptions(assetsDirectory: os.Path): IndigoOptions =
+    makeIndigoOptions("Preloader / Loading Screen Example")
+      .withWindowWidth(1280)
+      .withWindowHeight(720)
+      .withBackgroundColor("black")
+      .excludeAssetPaths {
+        case p if p.contains("unused")                       => true
+        case p if p.contains("Captain Clown Nose Data.json") => true
+      }
+
+  override def indigoGenerators(assetsDirectory: os.Path): IndigoGenerators =
+    IndigoGenerators("preloader.generated")
+      .listAssets("Assets")
+      .generateConfig("Config")
+      .embedAseprite(
+        "CaptainAnim",
+        BuildCtx.workspaceRoot / "guides" / "assets" / "preloader" / "assets" / "captain" / "Captain Clown Nose Data.json"
+      )

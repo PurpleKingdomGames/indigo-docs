@@ -1,0 +1,3 @@
+package build.guides.scenes
+
+object `package` extends mill.Module

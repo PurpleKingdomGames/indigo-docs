@@ -2,7 +2,12 @@ package snake.model.snakemodel
 
 import indigo.*
 
-final case class Snake(start: Point, body: Batch[Point], direction: SnakeDirection, status: SnakeStatus):
+final case class Snake(
+    start: Point,
+    body: Batch[Point],
+    direction: SnakeDirection,
+    status: SnakeStatus
+):
 
   def goUp: Snake =
     Snake.goUp(this)
@@ -22,7 +27,10 @@ final case class Snake(start: Point, body: Batch[Point], direction: SnakeDirecti
   def turnRight: Snake =
     Snake.turnRight(this)
 
-  def update(gridSize: Size, collisionCheck: Point => CollisionCheckOutcome): (Snake, CollisionCheckOutcome) =
+  def update(
+      gridSize: Size,
+      collisionCheck: Point => CollisionCheckOutcome
+  ): (Snake, CollisionCheckOutcome) =
     Snake.update(this, gridSize, collisionCheck)
 
   def end: Point =

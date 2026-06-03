@@ -2,12 +2,12 @@ package snake.scenes
 
 import indigo.*
 import indigo.scenes.*
-import snake.model.{ControlScheme}
+import snake.model.ControlScheme
 import snake.init.{GameAssets, StartupData}
 import snake.model.GameModel
 
 object ControlsScene extends Scene[StartupData, GameModel]:
-  type SceneModel     = ControlsScene.Model
+  type SceneModel = ControlsScene.Model
 
   val name: SceneName =
     SceneName("controls")
@@ -58,7 +58,13 @@ object ControlsScene extends Scene[StartupData, GameModel]:
 
   def drawControlsText(center: Int, middle: Int, controlScheme: ControlScheme): Batch[SceneNode] =
     Batch(
-      Text("select controls", center, middle - 20, GameAssets.fontKey, GameAssets.fontMaterial).alignLeft
+      Text(
+        "select controls",
+        center,
+        middle - 20,
+        GameAssets.fontKey,
+        GameAssets.fontMaterial
+      ).alignLeft
     ) ++ {
       controlScheme match
         case ControlScheme.Turning(_, _) =>
@@ -100,7 +106,12 @@ object ControlsScene extends Scene[StartupData, GameModel]:
     }
 
   def drawSelectText(center: Int): SceneNode =
-    Text("Up / Down arrows to select.", center, 205, GameAssets.fontKey, GameAssets.fontMaterial).alignCenter
-
+    Text(
+      "Up / Down arrows to select.",
+      center,
+      205,
+      GameAssets.fontKey,
+      GameAssets.fontMaterial
+    ).alignCenter
 
   final case class Model(scheme: ControlScheme, center: Point)

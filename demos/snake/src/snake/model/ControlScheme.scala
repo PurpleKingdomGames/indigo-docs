@@ -9,11 +9,16 @@ enum ControlScheme:
   case Directed(up: Key, down: Key, left: Key, right: Key) extends ControlScheme
 
 object ControlScheme:
-  val turningKeys: Turning   = Turning(Key.ARROW_LEFT, Key.ARROW_RIGHT)
-  val directedKeys: Directed = Directed(Key.ARROW_UP, Key.ARROW_DOWN, Key.ARROW_LEFT, Key.ARROW_RIGHT)
+  val turningKeys: Turning = Turning(Key.ARROW_LEFT, Key.ARROW_RIGHT)
+  val directedKeys: Directed =
+    Directed(Key.ARROW_UP, Key.ARROW_DOWN, Key.ARROW_LEFT, Key.ARROW_RIGHT)
 
   extension (cs: ControlScheme)
-    def instructSnake(keyboardEvent: KeyboardEvent, snake: Snake, currentDirection: SnakeDirection): Snake =
+    def instructSnake(
+        keyboardEvent: KeyboardEvent,
+        snake: Snake,
+        currentDirection: SnakeDirection
+    ): Snake =
       (cs, keyboardEvent) match
         case (ControlScheme.Turning(left, _), KeyboardEvent.KeyDown(code)) if code === left =>
           currentDirection.makeLegalTurn(snake.turnLeft).getOrElse(snake)
@@ -24,13 +29,16 @@ object ControlScheme:
         case (ControlScheme.Directed(up, _, _, _), KeyboardEvent.KeyDown(code)) if code === up =>
           currentDirection.makeLegalTurn(snake.goUp).getOrElse(snake)
 
-        case (ControlScheme.Directed(_, down, _, _), KeyboardEvent.KeyDown(code)) if code === down =>
+        case (ControlScheme.Directed(_, down, _, _), KeyboardEvent.KeyDown(code))
+            if code === down =>
           currentDirection.makeLegalTurn(snake.goDown).getOrElse(snake)
 
-        case (ControlScheme.Directed(_, _, left, _), KeyboardEvent.KeyDown(code)) if code === left =>
+        case (ControlScheme.Directed(_, _, left, _), KeyboardEvent.KeyDown(code))
+            if code === left =>
           currentDirection.makeLegalTurn(snake.goLeft).getOrElse(snake)
 
-        case (ControlScheme.Directed(_, _, _, right), KeyboardEvent.KeyDown(code)) if code === right =>
+        case (ControlScheme.Directed(_, _, _, right), KeyboardEvent.KeyDown(code))
+            if code === right =>
           currentDirection.makeLegalTurn(snake.goRight).getOrElse(snake)
 
         case _ =>

@@ -1,0 +1,3 @@
+package build.features.shaders
+
+object `package` extends mill.Module

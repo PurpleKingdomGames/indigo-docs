@@ -16,29 +16,34 @@ import scala.scalajs.js.annotation.*
 import scala.annotation.nowarn
 
 @JSExportTopLevel("IndigoGame")
-object BasicShaderExample extends IndigoSandbox[Unit, Unit]:
+object BasicShaderExample extends Game[Unit, Unit, Unit]:
 
-  val config: GameConfig =
-    Config.config.noResize
-
-  val assets: Set[AssetType] =
-    Assets.assets.assetSet
-
-  val fonts: Set[FontInfo]       = Set()
-  val animations: Set[Animation] = Set()
+  def gameId: GameId = GameId("BasicShaderExample")
 
   // We then need to add our custom shader to the list of shaders:
   // ``` scala
-  val shaders: Set[ShaderProgram] = Set(CustomShader.shader)
+  def boot(flags: Map[String, String]): Outcome[BootResult[Unit, Unit]] =
+    Outcome(
+      BootResult(Config.config, ())
+        .withAssets(Assets.assets.assetSetRelative)
+        .withShaders(CustomShader.shader)
+    )
   // ```
 
-  def setup(assetCollection: AssetCollection, dice: Dice): Outcome[Startup[Unit]] =
+  def initialScene(bootData: Unit): Option[SceneName] = None
+
+  def scenes(bootData: Unit): NonEmptyBatch[Scene[Unit, Unit]] =
+    NonEmptyBatch(Scene.empty)
+
+  def eventFilters: EventFilters = EventFilters.Permissive
+
+  def setup(bootData: Unit, assetCollection: AssetCollection, dice: Dice): Outcome[Startup[Unit]] =
     Outcome(Startup.Success(()))
 
   def initialModel(startupData: Unit): Outcome[Unit] =
     Outcome(())
 
-  def updateModel(context: Context[Unit], model: Unit): GlobalEvent => Outcome[Unit] =
+  def updateModel(context: Context, model: Unit): GlobalEvent => Outcome[Unit] =
     _ => Outcome(model)
 
   /** A `BlankEntity` is then used to display the shader. A BlankEntity is the most basic form of
@@ -46,7 +51,7 @@ object BasicShaderExample extends IndigoSandbox[Unit, Unit]:
     * it until you supply a shader to do the work.
     */
   // ``` scala
-  def present(context: Context[Unit], model: Unit): Outcome[SceneUpdateFragment] =
+  def present(context: Context, model: Unit): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment(
         BlankEntity(10, 10, 200, 200, ShaderData(CustomShader.shader.id))

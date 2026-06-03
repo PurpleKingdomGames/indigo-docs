@@ -1,0 +1,10 @@
+package build.guides.actors.`actors-with-physics`
+
+import indigoplugin.*
+import build.GameModule
+
+object `package` extends GameModule:
+
+  def indigoOptions(assetsDirectory: os.Path): IndigoOptions =
+    makeIndigoOptions("Actors with Physics Example")
+      .withWindowSize(800, 600)

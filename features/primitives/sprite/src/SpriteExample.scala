@@ -13,7 +13,14 @@ import scala.scalajs.js.annotation.JSExportTopLevel
   * referenced.
   */
 @JSExportTopLevel("IndigoGame")
-object SpriteExample extends IndigoDemo[Unit, Unit, Unit, Unit]:
+object SpriteExample extends Game[Unit, Unit, Unit]:
+
+  def gameId: GameId = GameId("SpriteExample")
+
+  def initialScene(bootData: Unit): Option[SceneName] = None
+
+  def scenes(bootData: Unit): NonEmptyBatch[Scene[Unit, Unit]] =
+    NonEmptyBatch(Scene.empty)
 
   /** This first thing we need is a definition of the animation. That is, data that tells Indigo
     * where each frame lives spactially on the sprite sheet / texture.
@@ -59,12 +66,10 @@ object SpriteExample extends IndigoDemo[Unit, Unit, Unit, Unit]:
     Outcome {
       val config =
         Config.config
-          .withMagnification(2)
-          .noResize
 
       BootResult
         .noData(config)
-        .withAssets(Assets.assets.assetSet)
+        .withAssets(Assets.assets.assetSetRelative)
         .withAnimations(flagAnimation)
     }
   // ```
@@ -79,18 +84,8 @@ object SpriteExample extends IndigoDemo[Unit, Unit, Unit, Unit]:
   def initialModel(startupData: Unit): Outcome[Unit] =
     Outcome(())
 
-  def initialViewModel(startupData: Unit, model: Unit): Outcome[Unit] =
-    Outcome(())
-
-  def updateModel(context: Context[Unit], model: Unit): GlobalEvent => Outcome[Unit] =
+  def updateModel(context: Context, model: Unit): GlobalEvent => Outcome[Unit] =
     _ => Outcome(model)
-
-  def updateViewModel(
-      context: Context[Unit],
-      model: Unit,
-      viewModel: Unit
-  ): GlobalEvent => Outcome[Unit] =
-    _ => Outcome(viewModel)
 
   /** The AnimationKey is needed to look up the Animation data, but we also need a way to look up
     * the state for this particular instance. The animation state holds details such as which frame
@@ -113,12 +108,11 @@ object SpriteExample extends IndigoDemo[Unit, Unit, Unit, Unit]:
     */
   // ```scala
   def present(
-      context: Context[Unit],
-      model: Unit,
-      viewModel: Unit
+      context: Context,
+      model: Unit
   ): Outcome[SceneUpdateFragment] =
     val sprite =
       Sprite(mySprite, 0, 0, flagAnimationKey, Assets.assets.FlagMaterial).play()
 
-    Outcome(SceneUpdateFragment(sprite))
+    Outcome(SceneUpdateFragment(sprite).withMagnification(2))
   // ```

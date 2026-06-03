@@ -1,0 +1,3 @@
+package build.guides.animation
+
+object `package` extends mill.Module

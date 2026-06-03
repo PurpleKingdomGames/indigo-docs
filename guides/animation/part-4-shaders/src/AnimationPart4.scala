@@ -145,25 +145,31 @@ object CustomShader:
     }
 
 @JSExportTopLevel("IndigoGame")
-object AnimationPart4 extends IndigoSandbox[Unit, Unit]:
+object AnimationPart4 extends Game[Unit, Unit, Unit]:
 
-  val config: GameConfig =
-    Config.config.noResize
+  def gameId: GameId = GameId("AnimationPart4")
 
-  val assets: Set[AssetType] =
-    Assets.assets.assetSet
+  def boot(flags: Map[String, String]): Outcome[BootResult[Unit, Unit]] =
+    Outcome(
+      BootResult(Config.config, ())
+        .withAssets(Assets.assets.assetSetRelative)
+        .withShaders(CustomShader.shader)
+    )
 
-  val fonts: Set[FontInfo]        = Set()
-  val animations: Set[Animation]  = Set()
-  val shaders: Set[ShaderProgram] = Set(CustomShader.shader)
+  def initialScene(bootData: Unit): Option[SceneName] = None
 
-  def setup(assetCollection: AssetCollection, dice: Dice): Outcome[Startup[Unit]] =
+  def scenes(bootData: Unit): NonEmptyBatch[Scene[Unit, Unit]] =
+    NonEmptyBatch(Scene.empty)
+
+  def eventFilters: EventFilters = EventFilters.Permissive
+
+  def setup(bootData: Unit, assetCollection: AssetCollection, dice: Dice): Outcome[Startup[Unit]] =
     Outcome(Startup.Success(()))
 
   def initialModel(startupData: Unit): Outcome[Unit] =
     Outcome(())
 
-  def updateModel(context: Context[Unit], model: Unit): GlobalEvent => Outcome[Unit] =
+  def updateModel(context: Context, model: Unit): GlobalEvent => Outcome[Unit] =
     _ => Outcome(model)
 
   val lightBlueGrey = RGBA.fromHexString("#9badb7")
@@ -188,7 +194,7 @@ object AnimationPart4 extends IndigoSandbox[Unit, Unit]:
       }
     }.toBatch
 
-  def present(context: Context[Unit], model: Unit): Outcome[SceneUpdateFragment] =
+  def present(context: Context, model: Unit): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment(
         grid :+

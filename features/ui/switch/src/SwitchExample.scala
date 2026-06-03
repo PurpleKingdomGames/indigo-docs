@@ -52,25 +52,30 @@ object Model:
     )
 
 @JSExportTopLevel("IndigoGame")
-object SwitchExample extends IndigoSandbox[Unit, Model]:
+object SwitchExample extends Game[Unit, Unit, Model]:
 
-  val config: GameConfig =
-    Config.config.noResize
+  def gameId: GameId = GameId("SwitchExample")
 
-  val assets: Set[AssetType] =
-    Assets.assets.assetSet
+  def boot(flags: Map[String, String]): Outcome[BootResult[Unit, Model]] =
+    Outcome(
+      BootResult(Config.config, ())
+        .withAssets(Assets.assets.assetSetRelative)
+    )
 
-  val fonts: Set[FontInfo]        = Set()
-  val animations: Set[Animation]  = Set()
-  val shaders: Set[ShaderProgram] = Set()
+  def initialScene(bootData: Unit): Option[SceneName] = None
 
-  def setup(assetCollection: AssetCollection, dice: Dice): Outcome[Startup[Unit]] =
+  def scenes(bootData: Unit): NonEmptyBatch[Scene[Unit, Model]] =
+    NonEmptyBatch(Scene.empty)
+
+  def eventFilters: EventFilters = EventFilters.Permissive
+
+  def setup(bootData: Unit, assetCollection: AssetCollection, dice: Dice): Outcome[Startup[Unit]] =
     Outcome(Startup.Success(()))
 
   def initialModel(startupData: Unit): Outcome[Model] =
     Outcome(Model.initial)
 
-  def updateModel(context: Context[Unit], model: Model): GlobalEvent => Outcome[Model] =
+  def updateModel(context: Context, model: Model): GlobalEvent => Outcome[Model] =
     case Log(message) =>
       println(message)
       Outcome(model)
@@ -82,7 +87,7 @@ object SwitchExample extends IndigoSandbox[Unit, Model]:
         model.copy(button = b)
       }
 
-  def present(context: Context[Unit], model: Model): Outcome[SceneUpdateFragment] =
+  def present(context: Context, model: Model): Outcome[SceneUpdateFragment] =
     val ctx = UIContext(context, 1).moveParentBy(Coords(50, 50))
 
     model.button

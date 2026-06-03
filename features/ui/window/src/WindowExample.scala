@@ -261,9 +261,6 @@ object CustomUI:
 
 /** ### The WindowManager
   *
-  * To use the manager we need to be able to set up a subsystem, and for that we need at least
-  * `IndigoDemo` or `IndigoGame` as our entry point. `IndigoSandbox` is not sufficient.
-  *
   * In this basic example, there are only two things we need to do to get the window manager up and
   * running:
   *
@@ -276,8 +273,15 @@ object CustomUI:
   */
 // ```scala
 @JSExportTopLevel("IndigoGame")
-object WindowExample extends IndigoDemo[BootData, StartUpData, Model, ViewModel]:
+object WindowExample extends Game[BootData, StartUpData, Model]:
 // ````
+
+  def gameId: GameId = GameId("WindowExample")
+
+  def initialScene(bootData: BootData): Option[SceneName] = None
+
+  def scenes(bootData: BootData): NonEmptyBatch[Scene[StartUpData, Model]] =
+    NonEmptyBatch(Scene.empty)
 
   def eventFilters: EventFilters =
     EventFilters.Permissive
@@ -314,11 +318,11 @@ object WindowExample extends IndigoDemo[BootData, StartUpData, Model, ViewModel]
   def boot(flags: Map[String, String]): Outcome[BootResult[BootData, Model]] =
     Outcome(
       BootResult(
-        Config.config.noResize,
+        Config.config,
         BootData.empty
       )
         .withFonts(DefaultFont.fontInfo)
-        .withAssets(Assets.assets.assetSet ++ Assets.assets.generated.assetSet)
+        .withAssets(Assets.assets.assetSetRelative ++ Assets.assets.generated.assetSetRelative)
         .withShaders(indigoextras.ui.shaders.all)
         .withSubSystems(
           WindowManager[Unit, Model, Int](
@@ -345,20 +349,9 @@ object WindowExample extends IndigoDemo[BootData, StartUpData, Model, ViewModel]
   def initialModel(startupData: StartUpData): Outcome[Model] =
     Outcome(Model.initial)
 
-  def initialViewModel(startupData: StartUpData, model: Model): Outcome[ViewModel] =
-    Outcome(ViewModel.initial)
-
-  def updateModel(context: Context[StartUpData], model: Model): GlobalEvent => Outcome[Model] =
+  def updateModel(context: Context, model: Model): GlobalEvent => Outcome[Model] =
     case _ =>
       Outcome(model)
-
-  def updateViewModel(
-      context: Context[StartUpData],
-      model: Model,
-      viewModel: ViewModel
-  ): GlobalEvent => Outcome[ViewModel] =
-    case _ =>
-      Outcome(viewModel)
 
   /** During the main game presentation we need to provide a placeholder for the windows to be drawn
     * into. By adding this here, we are guaranteeing the placement of the windows in amoung the
@@ -374,9 +367,8 @@ object WindowExample extends IndigoDemo[BootData, StartUpData, Model, ViewModel]
     */
   // ```scala
   def present(
-      context: Context[StartUpData],
-      model: Model,
-      viewModel: ViewModel
+      context: Context,
+      model: Model
   ): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment(

@@ -7,25 +7,30 @@ import generated.Assets
 import scala.scalajs.js.annotation.*
 
 @JSExportTopLevel("IndigoGame")
-object AnimationPart2 extends IndigoSandbox[Unit, Unit]:
+object AnimationPart2 extends Game[Unit, Unit, Unit]:
 
-  val config: GameConfig =
-    Config.config.noResize
+  def gameId: GameId = GameId("AnimationPart2")
 
-  val assets: Set[AssetType] =
-    Assets.assets.assetSet
+  def boot(flags: Map[String, String]): Outcome[BootResult[Unit, Unit]] =
+    Outcome(
+      BootResult(Config.config, ())
+        .withAssets(Assets.assets.assetSetRelative)
+    )
 
-  val fonts: Set[FontInfo]        = Set()
-  val animations: Set[Animation]  = Set()
-  val shaders: Set[ShaderProgram] = Set()
+  def initialScene(bootData: Unit): Option[SceneName] = None
 
-  def setup(assetCollection: AssetCollection, dice: Dice): Outcome[Startup[Unit]] =
+  def scenes(bootData: Unit): NonEmptyBatch[Scene[Unit, Unit]] =
+    NonEmptyBatch(Scene.empty)
+
+  def eventFilters: EventFilters = EventFilters.Permissive
+
+  def setup(bootData: Unit, assetCollection: AssetCollection, dice: Dice): Outcome[Startup[Unit]] =
     Outcome(Startup.Success(()))
 
   def initialModel(startupData: Unit): Outcome[Unit] =
     Outcome(())
 
-  def updateModel(context: Context[Unit], model: Unit): GlobalEvent => Outcome[Unit] =
+  def updateModel(context: Context, model: Unit): GlobalEvent => Outcome[Unit] =
     _ => Outcome(model)
 
   val circle =
@@ -42,7 +47,7 @@ object AnimationPart2 extends IndigoSandbox[Unit, Unit]:
       Stroke(2, RGBA.White)
     )
 
-  def present(context: Context[Unit], model: Unit): Outcome[SceneUpdateFragment] =
+  def present(context: Context, model: Unit): Outcome[SceneUpdateFragment] =
 
     /** ## Encoding our animation as a `Signal`
       *
@@ -89,7 +94,7 @@ object AnimationPart2 extends IndigoSandbox[Unit, Unit]:
       */
     // ```scala
     val circle2 =
-      Signal.Orbit(context.frame.viewport.center + Point(0, 200), 50).map { position =>
+      Signal.Orbit((context.frame.viewport / 2).toPoint + Point(0, 200), 50).map { position =>
         circle.moveTo(position.toPoint)
       }
     // ```

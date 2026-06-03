@@ -6,15 +6,13 @@ import snake.init.{GameAssets, StartupData}
 import snake.model.GameModel
 
 object GameOverScene extends Scene[StartupData, GameModel]:
-  type SceneModel     = GameOverScene.Model
+  type SceneModel = GameOverScene.Model
 
   val name: SceneName =
     SceneName("game over")
 
   val modelLens: Lens[GameModel, GameOverScene.Model] =
-    Lens.readOnly(
-      m => GameOverScene.Model(m.score, m.startupData.viewConfig.center)
-    )
+    Lens.readOnly(m => GameOverScene.Model(m.score, m.startupData.viewConfig.center))
 
   val eventFilters: EventFilters =
     EventFilters.Restricted
@@ -22,7 +20,10 @@ object GameOverScene extends Scene[StartupData, GameModel]:
   val subSystems: Set[SubSystem[GameModel]] =
     Set()
 
-  def updateModel(context: SceneContext, model: GameOverScene.Model): GlobalEvent => Outcome[GameOverScene.Model] = {
+  def updateModel(
+      context: SceneContext,
+      model: GameOverScene.Model
+  ): GlobalEvent => Outcome[GameOverScene.Model] = {
     case KeyboardEvent.KeyUp(Key.SPACE) =>
       Outcome(model)
         .addGlobalEvents(SceneEvent.JumpTo(StartScene.name))

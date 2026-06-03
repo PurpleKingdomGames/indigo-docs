@@ -38,15 +38,25 @@ object GameView:
       drawSnake(viewConfig, currentState, staticAssets.snake) ++
       drawScore(viewConfig, currentState.score)
 
-  def drawApple(viewConfig: ViewConfig, gameMap: GameMap, staticAssets: StaticAssets): Batch[Graphic[?]] =
+  def drawApple(
+      viewConfig: ViewConfig,
+      gameMap: GameMap,
+      staticAssets: StaticAssets
+  ): Batch[Graphic[?]] =
     gameMap.findApples.map { a =>
       staticAssets.apple
         .moveTo(gridPointToPoint(a.gridPoint, gameMap.grid.size, viewConfig.gridSquareSize))
     }
 
-  def drawSnake(viewConfig: ViewConfig, currentState: GameModel, snakeAsset: Graphic[?]): Batch[Graphic[?]] =
+  def drawSnake(
+      viewConfig: ViewConfig,
+      currentState: GameModel,
+      snakeAsset: Graphic[?]
+  ): Batch[Graphic[?]] =
     currentState.snake.givePath.map { pt =>
-      snakeAsset.moveTo(gridPointToPoint(pt, currentState.gameMap.grid.size, viewConfig.gridSquareSize))
+      snakeAsset.moveTo(
+        gridPointToPoint(pt, currentState.gameMap.grid.size, viewConfig.gridSquareSize)
+      )
     }
 
   def drawScore(viewConfig: ViewConfig, score: Int): Batch[SceneNode] =
@@ -61,4 +71,7 @@ object GameView:
     )
 
   def gridPointToPoint(gridPoint: Point, gridSize: Size, gridSquareSize: Int): Point =
-    Point((gridPoint.x * gridSquareSize).toInt, (((gridSize.height - 1) - gridPoint.y) * gridSquareSize).toInt)
+    Point(
+      (gridPoint.x * gridSquareSize).toInt,
+      (((gridSize.height - 1) - gridPoint.y) * gridSquareSize).toInt
+    )

@@ -1,0 +1,22 @@
+package build.features.primitives.sprite
+
+import mill.*
+import mill.api.BuildCtx
+import indigoplugin.*
+import build.GameModule
+
+object `package` extends GameModule:
+
+  override def indigoAssets =
+    Task.Source(BuildCtx.workspaceRoot / os.RelPath("features/primitives/sprite/assets"))
+
+  def indigoOptions(assetsDirectory: os.Path): IndigoOptions =
+    makeIndigoOptions("Sprite Example")
+      .withWindowWidth(550)
+      .withWindowHeight(400)
+      .withBackgroundColor("black")
+
+  override def indigoGenerators(assetsDirectory: os.Path): IndigoGenerators =
+    IndigoGenerators("indigoexamples.generated")
+      .listAssets("Assets")
+      .generateConfig("Config")

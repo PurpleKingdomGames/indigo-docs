@@ -6,7 +6,12 @@ import snake.init.StaticAssets
 
 final case class ViewModel(walls: Group)
 object ViewModel:
-  def initial(gridSize: Size, gridSquareSize: Int, staticAssets: StaticAssets, gameMap: GameMap): ViewModel =
+  def initial(
+      gridSize: Size,
+      gridSquareSize: Int,
+      staticAssets: StaticAssets,
+      gameMap: GameMap
+  ): ViewModel =
     ViewModel(
       walls = Group(
         gameMap.findWalls.map { wall =>

@@ -26,17 +26,11 @@ object Model:
       sceneModel = CustomSceneModel()
     )
 
-final case class ViewModel()
-object ViewModel:
-  val initial: ViewModel =
-    ViewModel()
-
-object CustomScene extends Scene[StartUpData, Model, ViewModel]:
+object CustomScene extends Scene[StartUpData, Model]:
 
   val name: SceneName = SceneName("Custom Scene")
 
-  type SceneModel     = CustomSceneModel
-  type SceneViewModel = ViewModel
+  type SceneModel = CustomSceneModel
 
   val modelLens: Lens[Model, CustomSceneModel] =
     Lens(
@@ -44,30 +38,19 @@ object CustomScene extends Scene[StartUpData, Model, ViewModel]:
       (model, sceneModel) => model.copy(sceneModel)
     )
 
-  val viewModelLens: Lens[ViewModel, ViewModel] =
-    Lens.keepLatest
-
   val eventFilters: EventFilters = EventFilters.Permissive
 
   val subSystems: Set[SubSystem[Model]] = Set()
 
   def updateModel(
-      context: SceneContext[StartUpData],
+      context: SceneContext,
       sceneModel: CustomSceneModel
   ): GlobalEvent => Outcome[CustomSceneModel] =
     case _ => Outcome(sceneModel)
 
-  def updateViewModel(
-      context: SceneContext[StartUpData],
-      sceneModel: CustomSceneModel,
-      sceneViewModel: ViewModel
-  ): GlobalEvent => Outcome[ViewModel] =
-    case _ => Outcome(sceneViewModel)
-
   def present(
-      context: SceneContext[StartUpData],
-      sceneModel: CustomSceneModel,
-      sceneViewModel: ViewModel
+      context: SceneContext,
+      sceneModel: CustomSceneModel
   ): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment(
@@ -83,9 +66,11 @@ object CustomScene extends Scene[StartUpData, Model, ViewModel]:
     )
 
 @JSExportTopLevel("IndigoGame")
-object MinimalScenesExample extends IndigoGame[BootData, StartUpData, Model, ViewModel]:
+object MinimalScenesExample extends Game[BootData, StartUpData, Model]:
 
-  def scenes(bootData: BootData): NonEmptyBatch[Scene[StartUpData, Model, ViewModel]] =
+  def gameId: GameId = GameId("minimal-scenes")
+
+  def scenes(bootData: BootData): NonEmptyBatch[Scene[StartUpData, Model]] =
     NonEmptyBatch(CustomScene)
 
   def initialScene(bootData: BootData): Option[SceneName] =
@@ -97,7 +82,7 @@ object MinimalScenesExample extends IndigoGame[BootData, StartUpData, Model, Vie
   def boot(flags: Map[String, String]): Outcome[BootResult[BootData, Model]] =
     Outcome(
       BootResult(
-        Config.config.noResize,
+        Config.config,
         BootData.empty
       )
     )
@@ -112,22 +97,11 @@ object MinimalScenesExample extends IndigoGame[BootData, StartUpData, Model, Vie
   def initialModel(startupData: StartUpData): Outcome[Model] =
     Outcome(Model.initial)
 
-  def initialViewModel(startupData: StartUpData, model: Model): Outcome[ViewModel] =
-    Outcome(ViewModel.initial)
-
-  def updateModel(context: Context[StartUpData], model: Model): GlobalEvent => Outcome[Model] =
+  def updateModel(context: Context, model: Model): GlobalEvent => Outcome[Model] =
     case _ => Outcome(model)
 
-  def updateViewModel(
-      context: Context[StartUpData],
-      model: Model,
-      viewModel: ViewModel
-  ): GlobalEvent => Outcome[ViewModel] =
-    case _ => Outcome(viewModel)
-
   def present(
-      context: Context[StartUpData],
-      model: Model,
-      viewModel: ViewModel
+      context: Context,
+      model: Model
   ): Outcome[SceneUpdateFragment] =
     Outcome(SceneUpdateFragment.empty)

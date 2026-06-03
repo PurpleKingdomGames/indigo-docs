@@ -42,9 +42,9 @@ final case class ViewConfig(
 object ViewConfig:
 
   val default: ViewConfig =
-    val gridSquareSize     = 12
-    val gridSize           = Size(30, 20)
-    val footerHeight       = 36
+    val gridSquareSize = 12
+    val gridSize       = Size(30, 20)
+    val footerHeight   = 36
 
     ViewConfig(
       gridSize,

@@ -51,7 +51,7 @@ object ViewModel:
   * functions, defining their own `updateModel`, `updateViewModel`, and `present` and so on.
   */
 // ```scala
-object SceneA extends Scene[StartUpData, Model, ViewModel]:
+object SceneA extends Scene[StartUpData, Model]:
 // ```
 
   val name: SceneName = SceneName("A")
@@ -67,8 +67,7 @@ object SceneA extends Scene[StartUpData, Model, ViewModel]:
     */
 
   // ```scala
-  type SceneModel     = SceneModelA
-  type SceneViewModel = ViewModel
+  type SceneModel = SceneModelA
 
   val modelLens: Lens[Model, SceneModelA] =
     Lens(
@@ -76,8 +75,6 @@ object SceneA extends Scene[StartUpData, Model, ViewModel]:
       (model, newMessage) => model.copy(sceneA = newMessage)
     )
 
-  val viewModelLens: Lens[ViewModel, ViewModel] =
-    Lens.keepLatest
   // ```
 
   val eventFilters: EventFilters = EventFilters.Permissive
@@ -90,7 +87,7 @@ object SceneA extends Scene[StartUpData, Model, ViewModel]:
     */
   // ```scala
   def updateModel(
-      context: SceneContext[StartUpData],
+      context: SceneContext,
       sceneModel: SceneModelA
   ): GlobalEvent => Outcome[SceneModelA] =
     case SceneEvent.SceneChange(from, to, at) =>
@@ -105,17 +102,9 @@ object SceneA extends Scene[StartUpData, Model, ViewModel]:
       Outcome(sceneModel)
   // ```
 
-  def updateViewModel(
-      context: SceneContext[StartUpData],
-      sceneModel: SceneModelA,
-      sceneViewModel: ViewModel
-  ): GlobalEvent => Outcome[ViewModel] =
-    _ => Outcome(sceneViewModel)
-
   def present(
-      context: SceneContext[StartUpData],
-      sceneModel: SceneModelA,
-      sceneViewModel: ViewModel
+      context: SceneContext,
+      sceneModel: SceneModelA
   ): Outcome[SceneUpdateFragment] =
     val text: Text[Material.Bitmap] =
       Text(
@@ -130,12 +119,11 @@ object SceneA extends Scene[StartUpData, Model, ViewModel]:
       SceneUpdateFragment(text)
     )
 
-object SceneB extends Scene[StartUpData, Model, ViewModel]:
+object SceneB extends Scene[StartUpData, Model]:
 
   val name: SceneName = SceneName("B")
 
-  type SceneModel     = SceneModelB
-  type SceneViewModel = ViewModel
+  type SceneModel = SceneModelB
 
   val modelLens: Lens[Model, SceneModelB] =
     Lens(
@@ -143,15 +131,12 @@ object SceneB extends Scene[StartUpData, Model, ViewModel]:
       (model, newMessage) => model.copy(sceneB = newMessage)
     )
 
-  val viewModelLens: Lens[ViewModel, ViewModel] =
-    Lens.keepLatest
-
   val eventFilters: EventFilters = EventFilters.Permissive
 
   val subSystems: Set[SubSystem[Model]] = Set()
 
   def updateModel(
-      context: SceneContext[StartUpData],
+      context: SceneContext,
       sceneModel: SceneModelB
   ): GlobalEvent => Outcome[SceneModelB] =
     case SceneEvent.SceneChange(from, to, at) =>
@@ -165,17 +150,9 @@ object SceneB extends Scene[StartUpData, Model, ViewModel]:
     case _ =>
       Outcome(sceneModel)
 
-  def updateViewModel(
-      context: SceneContext[StartUpData],
-      sceneModel: SceneModelB,
-      sceneViewModel: ViewModel
-  ): GlobalEvent => Outcome[ViewModel] =
-    _ => Outcome(sceneViewModel)
-
   def present(
-      context: SceneContext[StartUpData],
-      sceneModel: SceneModelB,
-      sceneViewModel: ViewModel
+      context: SceneContext,
+      sceneModel: SceneModelB
   ): Outcome[SceneUpdateFragment] =
     val text: Text[Material.Bitmap] =
       Text(
@@ -202,10 +179,12 @@ object SceneB extends Scene[StartUpData, Model, ViewModel]:
   *      graphics that should appear all the time.
   */
 @JSExportTopLevel("IndigoGame")
-object SceneManagementExample extends IndigoGame[BootData, StartUpData, Model, ViewModel]:
+object SceneManagementExample extends Game[BootData, StartUpData, Model]:
+
+  def gameId: GameId = GameId("SceneManagementExample")
 
   // ```scala
-  def scenes(bootData: BootData): NonEmptyBatch[Scene[StartUpData, Model, ViewModel]] =
+  def scenes(bootData: BootData): NonEmptyBatch[Scene[StartUpData, Model]] =
     NonEmptyBatch(SceneA, SceneB)
 
   def initialScene(bootData: BootData): Option[SceneName] = Option(SceneA.name)
@@ -217,12 +196,12 @@ object SceneManagementExample extends IndigoGame[BootData, StartUpData, Model, V
   def boot(flags: Map[String, String]): Outcome[BootResult[BootData, Model]] =
     Outcome(
       BootResult(
-        Config.config.noResize
+        Config.config
           .withClearColor(RGBA.fromHexString("0xAA3399")),
         BootData.empty
       )
         .withFonts(DefaultFont.fontInfo)
-        .withAssets(Assets.assets.assetSet ++ Assets.assets.generated.assetSet)
+        .withAssets(Assets.assets.assetSetRelative ++ Assets.assets.generated.assetSetRelative)
     )
 
   def setup(
@@ -235,24 +214,13 @@ object SceneManagementExample extends IndigoGame[BootData, StartUpData, Model, V
   def initialModel(startupData: StartUpData): Outcome[Model] =
     Outcome(Model.initial(startupData))
 
-  def initialViewModel(startupData: StartUpData, model: Model): Outcome[ViewModel] =
-    Outcome(ViewModel.initial)
-
   // ```scala
-  def updateModel(context: Context[StartUpData], model: Model): GlobalEvent => Outcome[Model] =
+  def updateModel(context: Context, model: Model): GlobalEvent => Outcome[Model] =
     case _ => Outcome(model)
   // ```
 
-  def updateViewModel(
-      context: Context[StartUpData],
-      model: Model,
-      viewModel: ViewModel
-  ): GlobalEvent => Outcome[ViewModel] =
-    case _ => Outcome(viewModel)
-
   def present(
-      context: Context[StartUpData],
-      model: Model,
-      viewModel: ViewModel
+      context: Context,
+      model: Model
   ): Outcome[SceneUpdateFragment] =
     Outcome(SceneUpdateFragment.empty)

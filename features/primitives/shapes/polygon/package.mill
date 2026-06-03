@@ -1,0 +1,9 @@
+package build.features.primitives.shapes.polygon
+
+import indigoplugin.*
+import build.GameModule
+
+object `package` extends GameModule:
+
+  def indigoOptions(assetsDirectory: os.Path): IndigoOptions =
+    makeIndigoOptions("Polygon Shape Example")

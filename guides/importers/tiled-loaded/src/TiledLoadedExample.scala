@@ -41,17 +41,22 @@ enum MapTile:
 // ```
 
 @JSExportTopLevel("IndigoGame")
-object TiledLoadedExample extends IndigoSandbox[TiledMap, Model]:
+object TiledLoadedExample extends Game[Unit, TiledMap, Model]:
 
-  val config: GameConfig =
-    Config.config.noResize
+  def gameId: GameId = GameId("TiledLoadedExample")
 
-  val assets: Set[AssetType] =
-    Assets.assets.assetSet
+  def boot(flags: Map[String, String]): Outcome[BootResult[Unit, Model]] =
+    Outcome(
+      BootResult(Config.config, ())
+        .withAssets(Assets.assets.assetSetRelative)
+    )
 
-  val fonts: Set[FontInfo]        = Set()
-  val animations: Set[Animation]  = Set()
-  val shaders: Set[ShaderProgram] = Set()
+  def initialScene(bootData: Unit): Option[SceneName] = None
+
+  def scenes(bootData: Unit): NonEmptyBatch[Scene[TiledMap, Model]] =
+    NonEmptyBatch(Scene.empty)
+
+  def eventFilters: EventFilters = EventFilters.Permissive
 
   /** ### Loading the data
     *
@@ -60,7 +65,11 @@ object TiledLoadedExample extends IndigoSandbox[TiledMap, Model]:
     * want to load it on demand using the asset loader.
     */
   // ```scala
-  def setup(assetCollection: AssetCollection, dice: Dice): Outcome[Startup[TiledMap]] =
+  def setup(
+      bootData: Unit,
+      assetCollection: AssetCollection,
+      dice: Dice
+  ): Outcome[Startup[TiledMap]] =
     Outcome {
       val maybeTiledMap = for {
         j <- assetCollection.findTextDataByName(Assets.assets.terrainData)
@@ -103,7 +112,7 @@ object TiledLoadedExample extends IndigoSandbox[TiledMap, Model]:
     )
   // ```
 
-  def updateModel(context: Context[TiledMap], model: Model): GlobalEvent => Outcome[Model] =
+  def updateModel(context: Context, model: Model): GlobalEvent => Outcome[Model] =
     _ => Outcome(model)
 
   /** ### Rendering the tilemap
@@ -116,7 +125,7 @@ object TiledLoadedExample extends IndigoSandbox[TiledMap, Model]:
     * use of the custom version we made earlier.
     */
   // ```scala
-  def present(context: Context[TiledMap], model: Model): Outcome[SceneUpdateFragment] =
+  def present(context: Context, model: Model): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment(
         model.tiledMap.toGroup(Assets.assets.terrain)

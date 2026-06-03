@@ -1,0 +1,34 @@
+package build.features.primitives.text
+
+import mill.*
+import mill.api.BuildCtx
+import indigoplugin.*
+import build.GameModule
+
+object `package` extends GameModule:
+
+  def indigoOptions(assetsDirectory: os.Path): IndigoOptions =
+    makeIndigoOptions("Text Example")
+
+  /** The generator includes the usual config and asset listing generation, but also includes a
+    * font embedding step. It reads a font file from somewhere in your file system and outputs
+    * the rendered font to you asset directory. If you need more variations of size or style
+    * then you need to add another embedding step.
+    */
+  override def indigoGenerators(assetsDirectory: os.Path): IndigoGenerators =
+    IndigoGenerators("generated")
+      .generateConfig("Config")
+      .embedFont(
+        moduleName = "KiwiSodaFont",
+        font = BuildCtx.workspaceRoot / "generator-data" / "KiwiSoda.ttf",
+        fontOptions = FontOptions(
+          fontKey = "KiwiSoda",
+          fontSize = 16,
+          charSet = CharSet.ASCII,
+          color = RGB.White,
+          antiAlias = false,
+          layout = FontLayout.normal
+        ),
+        imageOut = BuildCtx.workspaceRoot / "assets" / "generated"
+      )
+      .listAssets("Assets")

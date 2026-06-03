@@ -7,25 +7,43 @@ import generated.Assets
 import scala.scalajs.js.annotation.*
 
 @JSExportTopLevel("IndigoGame")
-object FillTypeExample extends IndigoSandbox[Unit, Unit]:
+object FillTypeExample extends Game[Unit, Unit, Unit]:
 
-  val config: GameConfig =
-    Config.config.noResize
+  def gameId: GameId = GameId("FillTypeExample")
+
+  def boot(flags: Map[String, String]): Outcome[BootResult[Unit, Unit]] =
+    Outcome(
+      BootResult(config, ())
+        .withAssets(assets)
+        .withFonts(fonts)
+        .withAnimations(animations)
+        .withShaders(shaders)
+    )
+
+  def initialScene(bootData: Unit): Option[SceneName] = None
+
+  def scenes(bootData: Unit): NonEmptyBatch[Scene[Unit, Unit]] =
+    NonEmptyBatch(Scene.empty)
+
+  def eventFilters: EventFilters = EventFilters.Permissive
+
+  val config: EngineConfig =
+    Config.config
 
   val assets: Set[AssetType] =
-    Assets.assets.assetSet
+    Assets.assets.assetSetRelative
 
   val fonts: Set[FontInfo]        = Set()
   val animations: Set[Animation]  = Set()
   val shaders: Set[ShaderProgram] = Set()
 
-  def setup(assetCollection: AssetCollection, dice: Dice): Outcome[Startup[Unit]] =
+  def setup(bootData: Unit, assetCollection: AssetCollection, dice: Dice): Outcome[Startup[Unit]] =
     Outcome(Startup.Success(()))
 
   def initialModel(startupData: Unit): Outcome[Unit] =
     Outcome(())
 
-  def updateModel(context: Context[Unit], model: Unit): GlobalEvent => Outcome[Unit] =
+  def updateModel(context: Context, model: Unit): GlobalEvent => Outcome[Unit] =
     _ => Outcome(model)
 
   /** In this example, we set up four graphics with a bitmap material. The graphics are 128x128 in
@@ -38,7 +56,7 @@ object FillTypeExample extends IndigoSandbox[Unit, Unit]:
   // ``` scala
   val material = Material.Bitmap(Assets.assets.nineslice)
 
-  def present(context: Context[Unit], model: Unit): Outcome[SceneUpdateFragment] =
+  def present(context: Context, model: Unit): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment(
         Graphic(0, 0, 128, 128, material.normal).moveTo(0, 0),

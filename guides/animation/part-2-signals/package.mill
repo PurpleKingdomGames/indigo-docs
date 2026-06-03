@@ -1,0 +1,10 @@
+package build.guides.animation.`part-2-signals`
+
+import indigoplugin.*
+import build.GameModule
+
+object `package` extends GameModule:
+
+  def indigoOptions(assetsDirectory: os.Path): IndigoOptions =
+    makeIndigoOptions("Part 2: Signals")
+      .withWindowSize(800, 600)

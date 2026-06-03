@@ -10,7 +10,7 @@ import snake.model.GameModel
 import snake.generated.Assets
 
 object StartScene extends Scene[StartupData, GameModel]:
-  type SceneModel     = Point
+  type SceneModel = Point
 
   val name: SceneName =
     SceneName("start")
@@ -71,5 +71,11 @@ object StartScene extends Scene[StartupData, GameModel]:
         GameAssets.fontKey,
         GameAssets.fontMaterial
       ).alignCenter,
-      Text("Made with Indigo", center, middle + 10, GameAssets.fontKey, GameAssets.fontMaterial).alignCenter
+      Text(
+        "Made with Indigo",
+        center,
+        middle + 10,
+        GameAssets.fontKey,
+        GameAssets.fontMaterial
+      ).alignCenter
     )

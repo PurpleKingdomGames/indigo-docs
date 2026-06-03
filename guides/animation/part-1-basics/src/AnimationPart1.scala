@@ -23,9 +23,9 @@ import scala.scalajs.js.annotation.*
   * later, for now, we're going to update a known position.
   *
   * The position is wrapped in a model case class in a nod to realism, but curiously, the position
-  * is modelled as a `Vertex`, which takes `Double`s, rather that a `Point` which uses `Int` as
-  * its unit type. What is going on? `Point` would seem to be the obvious choice, since we're
-  * moving across the screen in pixels, but let's do the math:
+  * is modelled as a `Vertex`, which takes `Double`s, rather that a `Point` which uses `Int` as its
+  * unit type. What is going on? `Point` would seem to be the obvious choice, since we're moving
+  * across the screen in pixels, but let's do the math:
   *
   *   1. We want to move across the screen at 50 pixels per second, and our game runs at 60 frames
   *      per second.
@@ -49,19 +49,24 @@ final case class Model(position: Vertex)
 // ```
 
 @JSExportTopLevel("IndigoGame")
-object AnimationPart1 extends IndigoSandbox[Unit, Model]:
+object AnimationPart1 extends Game[Unit, Unit, Model]:
 
-  val config: GameConfig =
-    Config.config.noResize
+  def gameId: GameId = GameId("AnimationPart1")
 
-  val assets: Set[AssetType] =
-    Assets.assets.assetSet
+  def boot(flags: Map[String, String]): Outcome[BootResult[Unit, Model]] =
+    Outcome(
+      BootResult(Config.config, ())
+        .withAssets(Assets.assets.assetSetRelative)
+    )
 
-  val fonts: Set[FontInfo]        = Set()
-  val animations: Set[Animation]  = Set()
-  val shaders: Set[ShaderProgram] = Set()
+  def initialScene(bootData: Unit): Option[SceneName] = None
 
-  def setup(assetCollection: AssetCollection, dice: Dice): Outcome[Startup[Unit]] =
+  def scenes(bootData: Unit): NonEmptyBatch[Scene[Unit, Model]] =
+    NonEmptyBatch(Scene.empty)
+
+  def eventFilters: EventFilters = EventFilters.Permissive
+
+  def setup(bootData: Unit, assetCollection: AssetCollection, dice: Dice): Outcome[Startup[Unit]] =
     Outcome(Startup.Success(()))
 
   // We need to initialise our state with some acceptable values.
@@ -72,7 +77,7 @@ object AnimationPart1 extends IndigoSandbox[Unit, Model]:
 
   // During update we do our now familiar bit of maths, multiplying the speed by the frame delta
   // ```scala
-  def updateModel(context: Context[Unit], model: Model): GlobalEvent => Outcome[Model] =
+  def updateModel(context: Context, model: Model): GlobalEvent => Outcome[Model] =
     _ =>
       val pixelsPerSecond = 50
 
@@ -87,7 +92,7 @@ object AnimationPart1 extends IndigoSandbox[Unit, Model]:
 
   // When we draw the circle, we simply move it to the position held in the model.
   // ```scala
-  def present(context: Context[Unit], model: Model): Outcome[SceneUpdateFragment] =
+  def present(context: Context, model: Model): Outcome[SceneUpdateFragment] =
     val circle =
       Shape.Circle(
         Circle(Point.zero, 50),
