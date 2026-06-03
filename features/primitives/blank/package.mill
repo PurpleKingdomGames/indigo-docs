@@ -1,0 +1,9 @@
+package build.features.primitives.blank
+
+import indigoplugin.*
+import build.GameModule
+
+object `package` extends GameModule:
+
+  def indigoOptions(assetsDirectory: os.Path): IndigoOptions =
+    makeIndigoOptions("Blank Entity Example")

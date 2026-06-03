@@ -7,7 +7,9 @@ import indigoexamples.generated.Assets
 import scala.scalajs.js.annotation.JSExportTopLevel
 
 @JSExportTopLevel("IndigoGame")
-object ClipExample extends IndigoDemo[Unit, Unit, Unit, Unit]:
+object ClipExample extends Game[Unit, Unit, Unit]:
+
+  def gameId: GameId = GameId("ClipExample")
 
   val eventFilters: EventFilters =
     EventFilters.Permissive
@@ -16,13 +18,16 @@ object ClipExample extends IndigoDemo[Unit, Unit, Unit, Unit]:
     Outcome {
       val config =
         Config.config
-          .withMagnification(2)
-          .noResize
 
       BootResult
         .noData(config)
-        .withAssets(Assets.assets.assetSet)
+        .withAssets(Assets.assets.assetSetRelative)
     }
+
+  def initialScene(bootData: Unit): Option[SceneName] = None
+
+  def scenes(bootData: Unit): NonEmptyBatch[Scene[Unit, Unit]] =
+    NonEmptyBatch(Scene.empty)
 
   def setup(
       bootInfo: Unit,
@@ -34,28 +39,17 @@ object ClipExample extends IndigoDemo[Unit, Unit, Unit, Unit]:
   def initialModel(startupData: Unit): Outcome[Unit] =
     Outcome(())
 
-  def initialViewModel(startupData: Unit, model: Unit): Outcome[Unit] =
-    Outcome(())
-
-  def updateModel(context: Context[Unit], model: Unit): GlobalEvent => Outcome[Unit] =
+  def updateModel(context: Context, model: Unit): GlobalEvent => Outcome[Unit] =
     _ => Outcome(model)
 
-  def updateViewModel(
-      context: Context[Unit],
-      model: Unit,
-      viewModel: Unit
-  ): GlobalEvent => Outcome[Unit] =
-    _ => Outcome(viewModel)
-
   def present(
-      context: Context[Unit],
-      model: Unit,
-      viewModel: Unit
+      context: Context,
+      model: Unit
   ): Outcome[SceneUpdateFragment] =
 
     // ```scala
     val clip: Clip[Material.Bitmap] =
       Clip(Size(64, 128), ClipSheet(9, FPS(10)), ClipPlayMode.default, Assets.assets.FlagMaterial)
 
-    Outcome(SceneUpdateFragment(clip))
+    Outcome(SceneUpdateFragment(clip).withMagnification(2))
     // ```

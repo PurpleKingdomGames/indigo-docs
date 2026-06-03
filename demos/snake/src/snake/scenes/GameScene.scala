@@ -8,7 +8,7 @@ import snake.Score
 import snake.init.{GameAssets, StartupData}
 
 object GameScene extends Scene[StartupData, GameModel]:
-  type SceneModel     = GameModel
+  type SceneModel = GameModel
 
   val name: SceneName =
     SceneName("game scene")
@@ -23,15 +23,19 @@ object GameScene extends Scene[StartupData, GameModel]:
     Set(Score.automataSubSystem(GameModel.ScoreIncrement.toString(), GameAssets.fontKey))
 
   def updateModel(context: SceneContext, gameModel: GameModel): GlobalEvent => Outcome[GameModel] =
-    gameModel.update(context.frame.time, context.frame.dice, gameModel.startupData.viewConfig.gridSquareSize)
+    gameModel.update(
+      context.frame.time,
+      context.frame.dice,
+      gameModel.startupData.viewConfig.gridSquareSize
+    )
 
   def present(
       context: SceneContext,
-      gameModel: GameModel,
+      gameModel: GameModel
   ): Outcome[SceneUpdateFragment] =
     GameView.update(
       gameModel.startupData.viewConfig,
-      gameModel, 
-      gameModel.viewModel.walls, 
+      gameModel,
+      gameModel.viewModel.walls,
       gameModel.startupData.staticAssets
     )

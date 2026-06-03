@@ -1,0 +1,3 @@
+package build.guides.ui
+
+object `package` extends mill.Module

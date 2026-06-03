@@ -20,9 +20,9 @@ final case class GameModel(
     lastUpdated: Seconds,
     viewModel: ViewModel
 ):
-  
+
   def reset(): GameModel =
-    val center = startupData.viewConfig.gridSize / 2
+    val center  = startupData.viewConfig.gridSize / 2
     val gameMap = GameMap.genLevel(startupData.viewConfig.gridSize)
 
     GameModel(
@@ -45,7 +45,11 @@ final case class GameModel(
       )
     )
 
-  def update(gameTime: GameTime, dice: Dice, gridSquareSize: Int): GlobalEvent => Outcome[GameModel] =
+  def update(
+      gameTime: GameTime,
+      dice: Dice,
+      gridSquareSize: Int
+  ): GlobalEvent => Outcome[GameModel] =
     case FrameTick if gameTime.running < lastUpdated + tickDelay =>
       Outcome(this)
 
@@ -82,7 +86,7 @@ object GameModel:
   val ScoreIncrement: Int = 100
 
   def initialModel(startupData: StartupData, controlScheme: ControlScheme): GameModel =
-    val center = startupData.viewConfig.gridSize / 2
+    val center  = startupData.viewConfig.gridSize / 2
     val gameMap = GameMap.genLevel(startupData.viewConfig.gridSize)
 
     GameModel(
@@ -114,9 +118,18 @@ object GameModel:
   ): GlobalEvent => Outcome[GameModel] =
     case FrameTick =>
       val (updatedModel, collisionResult) =
-        state.snake.update(state.gameMap.grid.size, hitTest(state.gameMap, state.snake.givePath)) match {
+        state.snake.update(
+          state.gameMap.grid.size,
+          hitTest(state.gameMap, state.snake.givePath)
+        ) match {
           case (s, outcome) =>
-            (state.copy(snake = s, gameState = state.gameState.updateNow(gameTime.running, state.snake.direction)), outcome)
+            (
+              state.copy(
+                snake = s,
+                gameState = state.gameState.updateNow(gameTime.running, state.snake.direction)
+              ),
+              outcome
+            )
         }
 
       updateBasedOnCollision(gameTime, dice, gridSquareSize, updatedModel, collisionResult)
@@ -124,7 +137,8 @@ object GameModel:
     case e: KeyboardEvent =>
       Outcome(
         state.copy(
-          snake = state.controlScheme.instructSnake(e, state.snake, runningDetails.lastSnakeDirection)
+          snake =
+            state.controlScheme.instructSnake(e, state.snake, runningDetails.lastSnakeDirection)
         )
       )
 
@@ -190,7 +204,9 @@ object GameModel:
           )
         ).addGlobalEvents(
           Assets.assets.pointPlay,
-          Score.spawnEvent(GameView.gridPointToPoint(pt, gameModel.gameMap.grid.size, gridSquareSize))
+          Score.spawnEvent(
+            GameView.gridPointToPoint(pt, gameModel.gameMap.grid.size, gridSquareSize)
+          )
         )
 
       case CollisionCheckOutcome.NoCollision(_) =>
@@ -208,7 +224,8 @@ object GameModel:
       Outcome(
         state.copy(
           snake = state.snake.shrink,
-          gameState = state.gameState.updateNow(gameTime.running, state.gameState.lastSnakeDirection)
+          gameState =
+            state.gameState.updateNow(gameTime.running, state.gameState.lastSnakeDirection)
         )
       )
 

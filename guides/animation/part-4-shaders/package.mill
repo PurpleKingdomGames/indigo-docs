@@ -1,0 +1,10 @@
+package build.guides.animation.`part-4-shaders`
+
+import indigoplugin.*
+import build.GameModule
+
+object `package` extends GameModule:
+
+  def indigoOptions(assetsDirectory: os.Path): IndigoOptions =
+    makeIndigoOptions("Part 4: Shader Animations")
+      .withWindowSize(800, 600)

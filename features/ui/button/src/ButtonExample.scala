@@ -102,19 +102,24 @@ object Model:
 // ```
 
 @JSExportTopLevel("IndigoGame")
-object ButtonExample extends IndigoSandbox[Unit, Model]:
+object ButtonExample extends Game[Unit, Unit, Model]:
 
-  val config: GameConfig =
-    Config.config.noResize
+  def gameId: GameId = GameId("ButtonExample")
 
-  val assets: Set[AssetType] =
-    Assets.assets.assetSet
+  def boot(flags: Map[String, String]): Outcome[BootResult[Unit, Model]] =
+    Outcome(
+      BootResult(Config.config, ())
+        .withAssets(Assets.assets.assetSetRelative)
+    )
 
-  val fonts: Set[FontInfo]        = Set()
-  val animations: Set[Animation]  = Set()
-  val shaders: Set[ShaderProgram] = Set()
+  def initialScene(bootData: Unit): Option[SceneName] = None
 
-  def setup(assetCollection: AssetCollection, dice: Dice): Outcome[Startup[Unit]] =
+  def scenes(bootData: Unit): NonEmptyBatch[Scene[Unit, Model]] =
+    NonEmptyBatch(Scene.empty)
+
+  def eventFilters: EventFilters = EventFilters.Permissive
+
+  def setup(bootData: Unit, assetCollection: AssetCollection, dice: Dice): Outcome[Startup[Unit]] =
     Outcome(Startup.Success(()))
 
   def initialModel(startupData: Unit): Outcome[Model] =
@@ -139,7 +144,7 @@ object ButtonExample extends IndigoSandbox[Unit, Model]:
     * bounds by the desired amount using `moveParentBy`.
     */
   // ``` scala
-  def updateModel(context: Context[Unit], model: Model): GlobalEvent => Outcome[Model] =
+  def updateModel(context: Context, model: Model): GlobalEvent => Outcome[Model] =
     case Log(message) =>
       println(message)
       Outcome(model)
@@ -160,7 +165,7 @@ object ButtonExample extends IndigoSandbox[Unit, Model]:
     * UIContext, and provide the results to a SceneUpdateFragment.
     */
   // ``` scala
-  def present(context: Context[Unit], model: Model): Outcome[SceneUpdateFragment] =
+  def present(context: Context, model: Model): Outcome[SceneUpdateFragment] =
     val ctx = UIContext(context, 1)
       .moveParentBy(Coords(50, 50))
     // .resizeParentTo(model.button.bounds.dimensions)

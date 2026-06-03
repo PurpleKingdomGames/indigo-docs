@@ -13,25 +13,30 @@ import scala.scalajs.js.annotation.JSExportTopLevel
   * play one of them.
   */
 @JSExportTopLevel("IndigoGame")
-object AsepriteEmbeddedExample extends IndigoDemo[Unit, StartupData, Unit, Unit]:
+object AsepriteEmbeddedExample extends Game[Unit, StartupData, StartupData]:
+
+  def gameId: GameId = GameId("AsepriteEmbeddedExample")
 
   val eventFilters: EventFilters =
     EventFilters.BlockAll
 
-  def boot(flags: Map[String, String]): Outcome[BootResult[Unit, Unit]] =
+  def boot(flags: Map[String, String]): Outcome[BootResult[Unit, StartupData]] =
     Outcome {
       val assetPath: String =
         flags.getOrElse("baseUrl", "")
 
       val config =
         Config.config
-          .withMagnification(2)
-          .noResize
 
       BootResult
         .noData(config)
-        .withAssets(Assets.assets.assetSet(assetPath))
+        .withAssets(Assets.assets.assetSetRelativeTo(assetPath))
     }
+
+  def initialScene(bootData: Unit): Option[SceneName] = None
+
+  def scenes(bootData: Unit): NonEmptyBatch[Scene[StartupData, StartupData]] =
+    NonEmptyBatch(Scene.empty)
 
   def setup(
       bootInfo: Unit,
@@ -40,34 +45,23 @@ object AsepriteEmbeddedExample extends IndigoDemo[Unit, StartupData, Unit, Unit]
   ): Outcome[Startup[StartupData]] =
     InitialLoad.setup
 
-  def initialModel(startupData: StartupData): Outcome[Unit] =
-    Outcome(())
+  def initialModel(startupData: StartupData): Outcome[StartupData] =
+    Outcome(startupData)
 
-  def initialViewModel(startupData: StartupData, model: Unit): Outcome[Unit] =
-    Outcome(())
-
-  def updateModel(context: Context, model: Unit): GlobalEvent => Outcome[Unit] =
+  def updateModel(context: Context, model: StartupData): GlobalEvent => Outcome[StartupData] =
     _ => Outcome(model)
-
-  def updateViewModel(
-      context: Context,
-      model: Unit,
-      viewModel: Unit
-  ): GlobalEvent => Outcome[Unit] =
-    _ => Outcome(viewModel)
 
   def present(
       context: Context,
-      model: Unit,
-      viewModel: Unit
+      model: StartupData
   ): Outcome[SceneUpdateFragment] =
-    val viewport =
-      context.frame.viewport.giveDimensions(context.frame.globalMagnification)
+    val viewportCenter =
+      (context.frame.viewport / 2).toPoint
 
     Outcome(
       SceneUpdateFragment(
-        context.startUpData.captainLoading.moveTo(viewport.center)
-      )
+        model.captainLoading.moveTo(viewportCenter)
+      ).withMagnification(2)
     )
 
 object InitialLoad:

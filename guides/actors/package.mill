@@ -1,0 +1,3 @@
+package build.guides.actors
+
+object `package` extends mill.Module

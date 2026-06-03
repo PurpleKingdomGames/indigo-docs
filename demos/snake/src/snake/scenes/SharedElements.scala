@@ -11,7 +11,15 @@ object SharedElements:
       .Pulse(blinkDelay)
       .map { on =>
         if (on)
-          Batch(Text("hit space to start", center, 220, GameAssets.fontKey, GameAssets.fontMaterial).alignCenter)
+          Batch(
+            Text(
+              "hit space to start",
+              center,
+              220,
+              GameAssets.fontKey,
+              GameAssets.fontMaterial
+            ).alignCenter
+          )
         else Batch.empty
       }
       .at(gameTime.running)

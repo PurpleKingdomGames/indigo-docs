@@ -1,0 +1,10 @@
+package build.guides.animation.`part-3-timelines`
+
+import indigoplugin.*
+import build.GameModule
+
+object `package` extends GameModule:
+
+  def indigoOptions(assetsDirectory: os.Path): IndigoOptions =
+    makeIndigoOptions("Part 3: Timeline Animations")
+      .withWindowSize(800, 600)

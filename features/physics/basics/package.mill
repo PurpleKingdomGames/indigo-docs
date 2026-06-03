@@ -1,0 +1,10 @@
+package build.features.physics.basics
+
+import indigoplugin.*
+import build.GameModule
+
+object `package` extends GameModule:
+
+  def indigoOptions(assetsDirectory: os.Path): IndigoOptions =
+    makeIndigoOptions("Basic Physics Example")
+      .withWindowSize(800, 600)

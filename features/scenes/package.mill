@@ -1,0 +1,3 @@
+package build.features.scenes
+
+object `package` extends mill.Module

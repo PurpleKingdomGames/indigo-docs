@@ -1,0 +1,3 @@
+package build.guides.assets
+
+object `package` extends mill.Module

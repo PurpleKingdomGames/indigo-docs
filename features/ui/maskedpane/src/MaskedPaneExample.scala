@@ -62,33 +62,41 @@ object Model:
     )
 
 @JSExportTopLevel("IndigoGame")
-object MaskedPaneExample extends IndigoSandbox[Unit, Model]:
+object MaskedPaneExample extends Game[Unit, Unit, Model]:
 
-  val config: GameConfig =
-    Config.config.noResize.withMagnification(2)
-
-  val assets: Set[AssetType] =
-    Assets.assets.assetSet ++ Assets.assets.generated.assetSet
-
-  val fonts: Set[FontInfo]       = Set(DefaultFont.fontInfo)
-  val animations: Set[Animation] = Set()
+  def gameId: GameId = GameId("MaskedPaneExample")
 
   /** When using masked and scroll panes, you need to remember to register the shaders they use. The
     * `all` import is conveniently a `Set`, so you can just concatenate it onto any other shaders
     * you are using.
     */
   // ```scala
-  val shaders: Set[ShaderProgram] =
-    Set() ++ indigoextras.ui.shaders.all
+  def boot(flags: Map[String, String]): Outcome[BootResult[Unit, Model]] =
+    Outcome(
+      BootResult(Config.config, ())
+        .withAssets(
+          Assets.assets.assetSetRelative ++
+            Assets.assets.generated.assetSetRelative
+        )
+        .withFonts(DefaultFont.fontInfo)
+        .withShaders(indigoextras.ui.shaders.all)
+    )
   // ```
 
-  def setup(assetCollection: AssetCollection, dice: Dice): Outcome[Startup[Unit]] =
+  def initialScene(bootData: Unit): Option[SceneName] = None
+
+  def scenes(bootData: Unit): NonEmptyBatch[Scene[Unit, Model]] =
+    NonEmptyBatch(Scene.empty)
+
+  def eventFilters: EventFilters = EventFilters.Permissive
+
+  def setup(bootData: Unit, assetCollection: AssetCollection, dice: Dice): Outcome[Startup[Unit]] =
     Outcome(Startup.Success(()))
 
   def initialModel(startupData: Unit): Outcome[Model] =
     Outcome(Model.initial)
 
-  def updateModel(context: Context[Unit], model: Model): GlobalEvent => Outcome[Model] =
+  def updateModel(context: Context, model: Model): GlobalEvent => Outcome[Model] =
     case e =>
       val ctx = UIContext(context, 1)
         .withMagnification(2)
@@ -106,7 +114,7 @@ object MaskedPaneExample extends IndigoSandbox[Unit, Model]:
     * their boundaries.
     */
   // ```scala
-  def present(context: Context[Unit], model: Model): Outcome[SceneUpdateFragment] =
+  def present(context: Context, model: Model): Outcome[SceneUpdateFragment] =
     val ctx = UIContext(context, 1)
       .withMagnification(2)
       .moveParentBy(Coords(50, 50))

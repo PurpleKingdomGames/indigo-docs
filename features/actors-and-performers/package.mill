@@ -1,0 +1,3 @@
+package build.features.`actors-and-performers`
+
+object `package` extends mill.Module

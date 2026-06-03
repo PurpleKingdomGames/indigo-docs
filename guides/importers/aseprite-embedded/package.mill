@@ -1,0 +1,29 @@
+package build.guides.importers.`aseprite-embedded`
+
+import mill.*
+import mill.api.BuildCtx
+import indigoplugin.*
+import build.GameModule
+
+object `package` extends GameModule:
+
+  override def indigoAssets =
+    Task.Source(BuildCtx.workspaceRoot / os.RelPath("guides/importers/aseprite-embedded/assets"))
+
+  def indigoOptions(assetsDirectory: os.Path): IndigoOptions =
+    makeIndigoOptions("Aseprite (Embedded)")
+      .withWindowWidth(550)
+      .withWindowHeight(400)
+      .withBackgroundColor("black")
+      .excludeAssetPaths {
+        case p if p.contains("Captain Clown Nose Data.json") => true
+      }
+
+  override def indigoGenerators(assetsDirectory: os.Path): IndigoGenerators =
+    IndigoGenerators("indigoexamples.generated")
+      .listAssets("Assets")
+      .generateConfig("Config")
+      .embedAseprite(
+        "CaptainAnim",
+        BuildCtx.workspaceRoot / "guides" / "importers" / "aseprite-embedded" / "assets" / "Captain Clown Nose Data.json"
+      )

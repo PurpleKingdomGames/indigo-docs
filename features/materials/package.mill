@@ -1,0 +1,3 @@
+package build.features.materials
+
+object `package` extends mill.Module

@@ -1,0 +1,3 @@
+package build.features.primitives
+
+object `package` extends mill.Module

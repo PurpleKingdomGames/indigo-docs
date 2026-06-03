@@ -42,20 +42,25 @@ object LumberJack:
 // ```
 
 @JSExportTopLevel("IndigoGame")
-object TimeVaryingValuesExample extends IndigoSandbox[Unit, LumberJack]:
+object TimeVaryingValuesExample extends Game[Unit, Unit, LumberJack]:
 
-  val config: GameConfig =
-    Config.config.noResize
-      .withMagnification(2)
+  def gameId: GameId = GameId("TimeVaryingValuesExample")
 
-  val assets: Set[AssetType] =
-    Assets.assets.assetSet
+  def boot(flags: Map[String, String]): Outcome[BootResult[Unit, LumberJack]] =
+    Outcome(
+      BootResult(Config.config, ())
+        .withAssets(Assets.assets.assetSetRelative)
+    )
 
-  val fonts: Set[FontInfo]        = Set()
-  val animations: Set[Animation]  = Set()
-  val shaders: Set[ShaderProgram] = Set()
+  def initialScene(bootData: Unit): Option[SceneName] = None
+
+  def scenes(bootData: Unit): NonEmptyBatch[Scene[Unit, LumberJack]] =
+    NonEmptyBatch(Scene.empty)
+
+  def eventFilters: EventFilters = EventFilters.Permissive
 
   def setup(
+      bootData: Unit,
       assetCollection: AssetCollection,
       dice: Dice
   ): Outcome[Startup[Unit]] =
@@ -67,7 +72,7 @@ object TimeVaryingValuesExample extends IndigoSandbox[Unit, LumberJack]:
     Outcome(LumberJack.initial)
 
   def updateModel(
-      context: Context[Unit],
+      context: Context,
       lumberJack: LumberJack
   ): GlobalEvent => Outcome[LumberJack] =
     case FrameTick =>
@@ -77,13 +82,13 @@ object TimeVaryingValuesExample extends IndigoSandbox[Unit, LumberJack]:
       Outcome(lumberJack)
 
   def present(
-      context: Context[Unit],
+      context: Context,
       lumberJack: LumberJack
   ): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment(
         lumberJack.present(
-          context.frame.viewport.giveDimensions(context.frame.globalMagnification).center
+          (context.frame.viewport / 2).toPoint
         )
-      )
+      ).withMagnification(2)
     )

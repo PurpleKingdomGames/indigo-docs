@@ -7,26 +7,30 @@ import generated.Assets
 import scala.scalajs.js.annotation.*
 
 @JSExportTopLevel("IndigoGame")
-object ImageEffectsExample extends IndigoSandbox[Unit, Unit]:
+object ImageEffectsExample extends Game[Unit, Unit, Unit]:
 
-  val config: GameConfig =
-    Config.config.noResize
-      .withMagnification(2)
+  def gameId: GameId = GameId("ImageEffectsExample")
 
-  val assets: Set[AssetType] =
-    Assets.assets.assetSet
+  def boot(flags: Map[String, String]): Outcome[BootResult[Unit, Unit]] =
+    Outcome(
+      BootResult(Config.config, ())
+        .withAssets(Assets.assets.assetSetRelative)
+    )
 
-  val fonts: Set[FontInfo]        = Set()
-  val animations: Set[Animation]  = Set()
-  val shaders: Set[ShaderProgram] = Set()
+  def initialScene(bootData: Unit): Option[SceneName] = None
 
-  def setup(assetCollection: AssetCollection, dice: Dice): Outcome[Startup[Unit]] =
+  def scenes(bootData: Unit): NonEmptyBatch[Scene[Unit, Unit]] =
+    NonEmptyBatch(Scene.empty)
+
+  def eventFilters: EventFilters = EventFilters.Permissive
+
+  def setup(bootData: Unit, assetCollection: AssetCollection, dice: Dice): Outcome[Startup[Unit]] =
     Outcome(Startup.Success(()))
 
   def initialModel(startupData: Unit): Outcome[Unit] =
     Outcome(())
 
-  def updateModel(context: Context[Unit], model: Unit): GlobalEvent => Outcome[Unit] =
+  def updateModel(context: Context, model: Unit): GlobalEvent => Outcome[Unit] =
     _ => Outcome(model)
 
   /** In this example we set up a series of graphics with an image effects material. Each one has a
@@ -52,7 +56,7 @@ object ImageEffectsExample extends IndigoSandbox[Unit, Unit]:
 
   val viewCenter: Point = (Point(550, 400) / 4) + Point(0, -25)
 
-  def present(context: Context[Unit], model: Unit): Outcome[SceneUpdateFragment] =
+  def present(context: Context, model: Unit): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment(
         graphic
@@ -92,6 +96,6 @@ object ImageEffectsExample extends IndigoSandbox[Unit, Unit]:
               )
             )
           )
-      )
+      ).withMagnification(2)
     )
   // ```

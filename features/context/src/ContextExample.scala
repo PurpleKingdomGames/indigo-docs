@@ -1,45 +1,33 @@
 package indigoexamples
 
 import indigo.*
-import generated.Config
-import generated.Assets
 
 import scala.scalajs.js.annotation.*
 import scala.annotation.nowarn
-import indigo.platform.renderer.ScreenCaptureConfig
-
-/** In this example we're going to need an example of some start up data, so that we can see how to
-  * access it via the context object. Here is its definition:
-  */
-// ```scala
-final case class ExampleCustomStartupData(count: Int)
-// ```
 
 @nowarn("msg=unused")
 @JSExportTopLevel("IndigoGame")
-object ContextExample extends IndigoSandbox[ExampleCustomStartupData, Boolean]:
+object ContextExample extends Game[Unit, Unit, Boolean]:
 
-  val config: GameConfig =
-    Config.config.noResize
+  def boot(flags: Map[String, String]): Outcome[BootResult[Unit, Boolean]] =
+    Outcome(BootResult.default)
 
-  val assets: Set[AssetType] =
-    Assets.assets.assetSet
+  def eventFilters: EventFilters =
+    EventFilters.Permissive
 
-  val fonts: Set[FontInfo]        = Set()
-  val animations: Set[Animation]  = Set()
-  val shaders: Set[ShaderProgram] = Set()
+  def gameId: GameId =
+    GameId("context")
 
-  def setup(
-      assetCollection: AssetCollection,
-      dice: Dice
-  ): Outcome[Startup[ExampleCustomStartupData]] =
-    Outcome(
-      Startup.Success(
-        ExampleCustomStartupData(42)
-      )
-    )
+  def initialScene(bootData: Unit): Option[SceneName] =
+    None
 
-  def initialModel(startupData: ExampleCustomStartupData): Outcome[Boolean] =
+  def scenes(bootData: Unit): NonEmptyBatch[Scene[Unit, Boolean]] =
+    NonEmptyBatch(Scene.empty)
+
+  def setup(bootData: Unit, assetCollection: AssetCollection, dice: Dice): Outcome[Startup[Unit]] =
+    Outcome(Startup.Success(()))
+
+  def initialModel(startupData: Unit): Outcome[Boolean] =
     Outcome(false)
 
   /** For this example, we'll also need a primitive whose bounds we can measure. */
@@ -54,8 +42,9 @@ object ContextExample extends IndigoSandbox[ExampleCustomStartupData, Boolean]:
       )
   // ```
 
+  @nowarn("msg=statement")
   def updateModel(
-      context: Context[ExampleCustomStartupData],
+      context: Context,
       runOnce: Boolean
   ): GlobalEvent => Outcome[Boolean] =
     case FrameTick if !runOnce =>
@@ -72,9 +61,7 @@ object ContextExample extends IndigoSandbox[ExampleCustomStartupData, Boolean]:
         * Below are some examples.
         */
       // ```scala
-      context.frame.globalMagnification
       context.frame.viewport
-      context.frame.viewport.giveDimensions(context.frame.globalMagnification)
       context.frame.dice.roll(6)
       context.frame.dice.rollDouble
       context.frame.dice.rollAlphaNumeric(16)
@@ -114,51 +101,17 @@ object ContextExample extends IndigoSandbox[ExampleCustomStartupData, Boolean]:
       context.services.bounds.find(boxShape)
       // ```
 
-      /** ### Screen capture
-        *
-        * The screen capture is unusual in as much as it runs the side effect _right now_(!) and
-        * returns either an error message or the result. You can capture one or several screeshots
-        * at once, each with a different configuration. For example, you might want one at 1:1 scale
-        * and another smaller one for a save game thumbnail.
-        */
-      // ```scala
-      val screenshots: Set[AssetType] =
-        context.services.screen
-          .capture(Batch(ScreenCaptureConfig.default))
-          .collect { case Right(image) => image }
-          .toSet
-      // ```
-
-      /** In order to use screenshots, you need to tell Indigo to load the assets and make them
-        * available as textures, and then listen for their availability using events like the ones
-        * below.
-        */
-      // ```scala
-      AssetEvent.LoadAssetBatch(screenshots, BindingKey("captureScreen"), true)
-      AssetEvent.AssetBatchLoaded(BindingKey("captureScreen"), assets = Set(), available = true)
-      // ```
-
-      /** ## Everything else!
-        *
-        * The 'everything else' varies depending on the nature of the context object, a
-        * `SceneContext` for example will provide scene specific information. A standard context
-        * object contains the startup data, so that it can be referenced from anywhere.
-        */
-      // ```scala
-      context.startUpData
-      // ```
-
       Outcome(true)
 
     case _ =>
       Outcome(runOnce)
 
   def present(
-      context: Context[ExampleCustomStartupData],
+      context: Context,
       model: Boolean
   ): Outcome[SceneUpdateFragment] =
     val viewportCenter =
-      context.frame.viewport.giveDimensions(context.frame.globalMagnification).center
+      (context.frame.viewport / 2).toPoint
 
     Outcome(
       SceneUpdateFragment(

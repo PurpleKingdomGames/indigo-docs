@@ -31,33 +31,38 @@ object CustomShader:
 // ```
 
 @JSExportTopLevel("IndigoGame")
-object BlankEntityExample extends IndigoSandbox[Unit, Unit]:
+object BlankEntityExample extends Game[Unit, Unit, Unit]:
 
-  val config: GameConfig =
-    Config.config.noResize
-
-  val assets: Set[AssetType] =
-    Assets.assets.assetSet
-
-  val fonts: Set[FontInfo]       = Set()
-  val animations: Set[Animation] = Set()
+  def gameId: GameId = GameId("BlankEntityExample")
   // Then we need to register the shader. In an IndigoDemo/Game you'll need to do this on the boot result object.
   // ```scala
-  val shaders: Set[ShaderProgram] = Set(CustomShader.shader)
+  def boot(flags: Map[String, String]): Outcome[BootResult[Unit, Unit]] =
+    Outcome(
+      BootResult(Config.config, ())
+        .withAssets(Assets.assets.assetSetRelative)
+        .withShaders(CustomShader.shader)
+    )
   // ```
 
-  def setup(assetCollection: AssetCollection, dice: Dice): Outcome[Startup[Unit]] =
+  def initialScene(bootData: Unit): Option[SceneName] = None
+
+  def scenes(bootData: Unit): NonEmptyBatch[Scene[Unit, Unit]] =
+    NonEmptyBatch(Scene.empty)
+
+  def eventFilters: EventFilters = EventFilters.Permissive
+
+  def setup(bootData: Unit, assetCollection: AssetCollection, dice: Dice): Outcome[Startup[Unit]] =
     Outcome(Startup.Success(()))
 
   def initialModel(startupData: Unit): Outcome[Unit] =
     Outcome(())
 
-  def updateModel(context: Context[Unit], model: Unit): GlobalEvent => Outcome[Unit] =
+  def updateModel(context: Context, model: Unit): GlobalEvent => Outcome[Unit] =
     _ => Outcome(model)
 
   // Finally, we can use a blank entity to render the shader into a space on the screen.
   // ```scala
-  def present(context: Context[Unit], model: Unit): Outcome[SceneUpdateFragment] =
+  def present(context: Context, model: Unit): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment(
         BlankEntity(Size(200, 200), ShaderData(CustomShader.shader.id))

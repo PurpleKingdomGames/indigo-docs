@@ -158,7 +158,14 @@ object CustomUI:
   // ```
 
 @JSExportTopLevel("IndigoGame")
-object CustomComponentExample extends IndigoDemo[BootData, StartUpData, Model, ViewModel]:
+object CustomComponentExample extends Game[BootData, StartUpData, Model]:
+
+  def gameId: GameId = GameId("CustomComponentExample")
+
+  def initialScene(bootData: BootData): Option[SceneName] = None
+
+  def scenes(bootData: BootData): NonEmptyBatch[Scene[StartUpData, Model]] =
+    NonEmptyBatch(Scene.empty)
 
   def eventFilters: EventFilters =
     EventFilters.Permissive
@@ -166,10 +173,10 @@ object CustomComponentExample extends IndigoDemo[BootData, StartUpData, Model, V
   def boot(flags: Map[String, String]): Outcome[BootResult[BootData, Model]] =
     Outcome(
       BootResult(
-        Config.config.noResize,
+        Config.config,
         BootData.empty
       )
-        .withAssets(Assets.assets.assetSet)
+        .withAssets(Assets.assets.assetSetRelative)
         .withShaders(indigoextras.ui.shaders.all)
         .withSubSystems(
           WindowManager[Unit, Model, Unit](
@@ -195,25 +202,13 @@ object CustomComponentExample extends IndigoDemo[BootData, StartUpData, Model, V
   def initialModel(startupData: StartUpData): Outcome[Model] =
     Outcome(Model.initial)
 
-  def initialViewModel(startupData: StartUpData, model: Model): Outcome[ViewModel] =
-    Outcome(ViewModel.initial)
-
-  def updateModel(context: Context[StartUpData], model: Model): GlobalEvent => Outcome[Model] =
+  def updateModel(context: Context, model: Model): GlobalEvent => Outcome[Model] =
     case _ =>
       Outcome(model)
 
-  def updateViewModel(
-      context: Context[StartUpData],
-      model: Model,
-      viewModel: ViewModel
-  ): GlobalEvent => Outcome[ViewModel] =
-    case _ =>
-      Outcome(viewModel)
-
   def present(
-      context: Context[StartUpData],
-      model: Model,
-      viewModel: ViewModel
+      context: Context,
+      model: Model
   ): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment(

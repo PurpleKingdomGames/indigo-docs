@@ -1,0 +1,10 @@
+package build.guides.animation.`part-1-basics`
+
+import indigoplugin.*
+import build.GameModule
+
+object `package` extends GameModule:
+
+  def indigoOptions(assetsDirectory: os.Path): IndigoOptions =
+    makeIndigoOptions("Part 1: Animation Fundamentals")
+      .withWindowSize(800, 600)
