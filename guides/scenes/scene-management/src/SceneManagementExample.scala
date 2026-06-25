@@ -49,7 +49,7 @@ object ViewModel:
   * functions, defining their own `updateModel`, `updateViewModel`, and `present` and so on.
   */
 // ```scala
-object SceneA extends Scene[StartUpData, Model]:
+object SceneA extends Scene[Model]:
 // ```
 
   val name: SceneName = SceneName("A")
@@ -117,7 +117,7 @@ object SceneA extends Scene[StartUpData, Model]:
       SceneUpdateFragment(text)
     )
 
-object SceneB extends Scene[StartUpData, Model]:
+object SceneB extends Scene[Model]:
 
   val name: SceneName = SceneName("B")
 
@@ -181,7 +181,7 @@ class SceneManagementExample() extends Game[BootData, StartUpData, Model]:
   def gameId: GameId = GameId("SceneManagementExample")
 
   // ```scala
-  def scenes(bootData: BootData): NonEmptyBatch[Scene[StartUpData, Model]] =
+  def scenes(bootData: BootData): NonEmptyBatch[Scene[Model]] =
     NonEmptyBatch(SceneA, SceneB)
 
   def initialScene(bootData: BootData): Option[SceneName] = Option(SceneA.name)

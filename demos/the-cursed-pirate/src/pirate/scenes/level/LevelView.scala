@@ -59,7 +59,7 @@ object LevelView:
           SceneUpdateFragment.empty
             .addLayer(
               LayerKeys.background -> Layer.Content(
-                Batch(Graphic(Rectangle(0, 0, 640, 360), assets.static.bgMaterial)) ++
+                Batch(Graphic(640, 360, assets.static.bgMaterial)) ++
                   drawWater(levelAssets.waterReflections)
               )
             )

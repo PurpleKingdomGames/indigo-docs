@@ -4,9 +4,9 @@ import indigo.*
 import indigo.scenes.*
 import preloader.core.Assets
 
-import preloader.core.{StartupData, Model}
+import preloader.core.Model
 
-object LevelScene extends Scene[StartupData, Model]:
+object LevelScene extends Scene[Model]:
   type SceneModel = Model
 
   val name: SceneName = SceneName("game scene")
@@ -31,7 +31,7 @@ object LevelScene extends Scene[StartupData, Model]:
       model: Model
   ): Outcome[SceneUpdateFragment] =
     val viewportCenter =
-      (context.frame.viewport / 2).toPoint
+      context.frame.viewport.center
 
     val loadingText =
       Text(

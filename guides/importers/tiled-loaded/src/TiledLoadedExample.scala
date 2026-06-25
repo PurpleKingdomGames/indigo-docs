@@ -50,7 +50,7 @@ class TiledLoadedExample() extends Game[Unit, TiledMap, Model]:
 
   def initialScene(bootData: Unit): Option[SceneName] = None
 
-  def scenes(bootData: Unit): NonEmptyBatch[Scene[TiledMap, Model]] =
+  def scenes(bootData: Unit): NonEmptyBatch[Scene[Model]] =
     NonEmptyBatch(Scene.empty)
 
   def eventFilters: EventFilters = EventFilters.Permissive

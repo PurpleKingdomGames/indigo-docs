@@ -16,7 +16,7 @@ final class SnakeIn5Minutes() extends Game[Unit, Unit, SnakeModel]:
   def initialScene(bootData: Unit): Option[indigo.scenes.SceneName] =
     None
 
-  def scenes(bootData: Unit): NonEmptyBatch[Scene[Unit, SnakeModel]] =
+  def scenes(bootData: Unit): NonEmptyBatch[Scene[SnakeModel]] =
     NonEmptyBatch(Scene.empty)
 
   def setup(bootData: Unit, assetCollection: AssetCollection, dice: Dice): Outcome[Startup[Unit]] =

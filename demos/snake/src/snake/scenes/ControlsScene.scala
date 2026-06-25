@@ -3,10 +3,10 @@ package snake.scenes
 import indigo.*
 import indigo.scenes.*
 import snake.model.ControlScheme
-import snake.init.{GameAssets, StartupData}
+import snake.init.GameAssets
 import snake.model.GameModel
 
-object ControlsScene extends Scene[StartupData, GameModel]:
+object ControlsScene extends Scene[GameModel]:
   type SceneModel = ControlsScene.Model
 
   val name: SceneName =

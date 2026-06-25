@@ -4,12 +4,11 @@ import indigo.*
 import indigo.scenes.*
 
 import snake.init.GameAssets
-import snake.init.StartupData
 import snake.GameReset
 import snake.model.GameModel
 import snake.generated.Assets
 
-object StartScene extends Scene[StartupData, GameModel]:
+object StartScene extends Scene[GameModel]:
   type SceneModel = Point
 
   val name: SceneName =

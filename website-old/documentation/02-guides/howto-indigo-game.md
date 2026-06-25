@@ -87,7 +87,7 @@ example. This is done by adding the following lines to `HelloIndigo.scala`:
 +  def initialScene(bootData: Unit): Option[SceneName] =
 +    None
 +
-+  def scenes(bootData: Unit): NonEmptyList[Scene[Unit, Model, Unit]] =
++  def scenes(bootData: Unit): NonEmptyList[Scene[Model,]] =
 +    NonEmptyList(Scene.empty)
 ```
 

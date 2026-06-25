@@ -19,7 +19,7 @@ class CursedPirateDemo() extends Game[BootInformation, StartupData, Model]:
   def initialScene(bootInfo: BootInformation): Option[SceneName] =
     None
 
-  def scenes(bootInfo: BootInformation): NonEmptyBatch[Scene[StartupData, Model]] =
+  def scenes(bootInfo: BootInformation): NonEmptyBatch[Scene[Model]] =
     NonEmptyBatch(
       LoadingScene(bootInfo.assetPath, bootInfo.screenDimensions),
       LevelScene(bootInfo.screenDimensions.width)

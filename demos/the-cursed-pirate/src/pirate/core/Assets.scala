@@ -7,39 +7,41 @@ object Assets:
 
   object Static:
     val chestGraphic: Graphic[Material.Bitmap] =
-      Graphic(Rectangle(0, 0, 30, 25), assets.static.chestMaterial).withRef(15, 25)
+      Graphic(Size(30, 25), assets.static.chestMaterial).withRef(15, 25)
     val coinsGraphic: Graphic[Material.Bitmap] =
-      Graphic(Rectangle(0, 0, 64, 35), assets.static.coinsMaterial).withRef(33, 34)
+      Graphic(Size(64, 35), assets.static.coinsMaterial).withRef(33, 34)
     val chestWithCoinsGraphic: Graphic[Material.Bitmap] =
-      Graphic(Rectangle(0, 0, 64, 35), assets.static.ChestClose01Material)
+      Graphic(Size(64, 35), assets.static.ChestClose01Material)
         .withRef(33, 34)
 
   object Clouds:
 
     val bigCloudsGraphic: Graphic[Material.Bitmap] =
-      Graphic(Rectangle(0, 0, 448, 101), assets.clouds.BigCloudsMaterial)
+      Graphic(Size(448, 101), assets.clouds.BigCloudsMaterial)
         .withRef(0, 101)
-    val bigCloudsWidth: Int = bigCloudsGraphic.crop.width
+    val bigCloudsWidth: Int = bigCloudsGraphic.size.width
 
     val cloud1: Graphic[Material.Bitmap] =
-      Graphic(Rectangle(0, 0, 140, 39), assets.clouds.smallCloudsMaterial)
+      Graphic(Size(140, 39), assets.clouds.smallCloudsMaterial)
     val cloud2: Graphic[Material.Bitmap] =
-      Graphic(Rectangle(0, 39, 140, 39), assets.clouds.smallCloudsMaterial)
+      Graphic(Size(140, 39), assets.clouds.smallCloudsMaterial)
+        .withCrop(Rectangle(0, 39, 140, 39))
     val cloud3: Graphic[Material.Bitmap] =
-      Graphic(Rectangle(0, 78, 140, 39), assets.clouds.smallCloudsMaterial)
+      Graphic(Size(140, 39), assets.clouds.smallCloudsMaterial)
+        .withCrop(Rectangle(0, 78, 140, 39))
 
   object Trees:
 
     val tallTrunkGraphic: Graphic[Material.Bitmap] =
-      Graphic(Rectangle(0, 0, 96, 96), assets.trees.FrontPalmTreesMaterial)
+      Graphic(Size(96, 96), assets.trees.FrontPalmTreesMaterial)
         .withCrop(Rectangle(8, 0, 16, 60))
 
     val leftLeaningTrunkGraphic: Graphic[Material.Bitmap] =
-      Graphic(Rectangle(0, 0, 96, 96), assets.trees.FrontPalmTreesMaterial)
+      Graphic(Size(96, 96), assets.trees.FrontPalmTreesMaterial)
         .withCrop(Rectangle(43, 0, 50, 22))
 
     val rightLeaningTrunkGraphic: Graphic[Material.Bitmap] =
-      Graphic(Rectangle(0, 0, 96, 96), assets.trees.FrontPalmTreesMaterial)
+      Graphic(Size(96, 96), assets.trees.FrontPalmTreesMaterial)
         .withCrop(Rectangle(36, 32, 48, 23))
 
   object Fonts:

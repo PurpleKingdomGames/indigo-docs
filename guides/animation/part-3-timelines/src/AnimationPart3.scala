@@ -18,7 +18,7 @@ class AnimationPart3() extends Game[Unit, Unit, Unit]:
 
   def initialScene(bootData: Unit): Option[SceneName] = None
 
-  def scenes(bootData: Unit): NonEmptyBatch[Scene[Unit, Unit]] =
+  def scenes(bootData: Unit): NonEmptyBatch[Scene[Unit]] =
     NonEmptyBatch(Scene.empty)
 
   def eventFilters: EventFilters = EventFilters.Permissive
@@ -82,7 +82,7 @@ class AnimationPart3() extends Game[Unit, Unit, Unit]:
   def present(context: Context, model: Unit): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment(
-        myTimelineAnimation(context.frame.viewport)
+        myTimelineAnimation(context.frame.viewport.size)
           .atOrLast(context.frame.time.running)(circle)
           .toBatch
       )

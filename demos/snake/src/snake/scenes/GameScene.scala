@@ -5,9 +5,9 @@ import indigo.scenes.*
 
 import snake.model.GameModel
 import snake.Score
-import snake.init.{GameAssets, StartupData}
+import snake.init.GameAssets
 
-object GameScene extends Scene[StartupData, GameModel]:
+object GameScene extends Scene[GameModel]:
   type SceneModel = GameModel
 
   val name: SceneName =

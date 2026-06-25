@@ -16,7 +16,7 @@ class SpriteExample() extends Game[Unit, Unit, Unit]:
 
   def initialScene(bootData: Unit): Option[SceneName] = None
 
-  def scenes(bootData: Unit): NonEmptyBatch[Scene[Unit, Unit]] =
+  def scenes(bootData: Unit): NonEmptyBatch[Scene[Unit]] =
     NonEmptyBatch(Scene.empty)
 
   /** This first thing we need is a definition of the animation. That is, data that tells Indigo
