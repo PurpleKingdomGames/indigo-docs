@@ -5,15 +5,12 @@ import indigoexamples.generated.Config
 import indigoexamples.generated.Assets
 import indigoexamples.generated.CaptainAnim
 
-import scala.scalajs.js.annotation.JSExportTopLevel
-
 /** ## Embedding the pirate captain
   *
   * In this example, we're going to embed the pirate captain, convert him to Clip instances, and
   * play one of them.
   */
-@JSExportTopLevel("IndigoGame")
-object AsepriteEmbeddedExample extends Game[Unit, StartupData, StartupData]:
+class AsepriteEmbeddedExample() extends Game[Unit, StartupData, StartupData]:
 
   def gameId: GameId = GameId("AsepriteEmbeddedExample")
 

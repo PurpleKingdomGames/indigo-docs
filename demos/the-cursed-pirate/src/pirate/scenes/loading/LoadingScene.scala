@@ -7,26 +7,19 @@ import indigoextras.subsystems.*
 import pirate.core.Assets
 import pirate.core.StartupData
 import indigo.scenes.SceneEvent.JumpTo
-import pirate.core.{Model, ViewModel}
+import pirate.core.Model
 import pirate.scenes.level.LevelScene
 
 final case class LoadingScene(assetPath: String, screenDimensions: Rectangle)
-    extends Scene[StartupData, Model, ViewModel]:
+    extends Scene[StartupData, Model]:
 
-  type SceneModel     = LoadingState
-  type SceneViewModel = Unit
+  type SceneModel = Model
 
   val name: SceneName =
     SceneName("loading")
 
-  val modelLens: Lens[Model, LoadingState] =
-    Lens(
-      m => m.loadingScene,
-      (m, sm) => m.copy(loadingScene = sm)
-    )
-
-  val viewModelLens: Lens[ViewModel, Unit] =
-    Lens(_ => (), (vm, _) => vm)
+  val modelLens: Lens[Model, Model] =
+    Lens.keepLatest
 
   val eventFilters: EventFilters =
     EventFilters.Restricted
@@ -35,50 +28,42 @@ final case class LoadingScene(assetPath: String, screenDimensions: Rectangle)
     Set(AssetBundleLoader[Model])
 
   def updateModel(
-      context: SceneContext[StartupData],
-      loadingState: LoadingState
-  ): GlobalEvent => Outcome[LoadingState] =
+      context: SceneContext,
+      model: Model
+  ): GlobalEvent => Outcome[Model] =
     case FrameTick =>
-      loadingState match
+      model.loadingScene match
         case LoadingState.NotStarted =>
-          Outcome(LoadingState.InProgress(0))
+          Outcome(model.copy(loadingScene = LoadingState.InProgress(0)))
             .addGlobalEvents(
               AssetBundleLoaderEvent.Load(BindingKey("Loading"), Assets.remainingAssets(assetPath))
             )
 
         case _ =>
-          Outcome(loadingState)
+          Outcome(model)
 
     case AssetBundleLoaderEvent.LoadProgress(_, percent, _, _) =>
-      Outcome(LoadingState.InProgress(percent))
+      Outcome(model.copy(loadingScene = LoadingState.InProgress(percent)))
 
     case AssetBundleLoaderEvent.Success(_) =>
-      Outcome(LoadingState.Complete)
+      Outcome(model.copy(loadingScene = LoadingState.Complete))
         .addGlobalEvents(JumpTo(LevelScene.name))
 
     case AssetBundleLoaderEvent.Failure(_, _) =>
-      Outcome(LoadingState.Error)
+      Outcome(model.copy(loadingScene = LoadingState.Error))
 
     case _ =>
-      Outcome(loadingState)
-
-  def updateViewModel(
-      context: SceneContext[StartupData],
-      loadingState: LoadingState,
-      viewModel: Unit
-  ): GlobalEvent => Outcome[Unit] =
-    _ => Outcome(viewModel)
+      Outcome(model)
 
   def present(
-      context: SceneContext[StartupData],
-      loadingState: LoadingState,
-      viewModel: Unit
+      context: SceneContext,
+      model: Model
   ): Outcome[SceneUpdateFragment] =
     val x = screenDimensions.horizontalCenter
     val y = screenDimensions.verticalCenter
 
     val message: String =
-      loadingState match
+      model.loadingScene match
         case LoadingState.NotStarted =>
           "Loading..."
 
@@ -103,8 +88,8 @@ final case class LoadingScene(assetPath: String, screenDimensions: Rectangle)
     Outcome(
       SceneUpdateFragment(
         loadingText,
-        context.startUpData.captainLoading.moveTo(x, y)
-      )
+        model.startupData.captainLoading.moveTo(x, y)
+      ).withMagnification(2)
     )
 
 enum LoadingState:

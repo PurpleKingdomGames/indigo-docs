@@ -8,8 +8,6 @@ import indigoextras.ui.*
 
 import generated.*
 
-import scala.scalajs.js.annotation.*
-
 final case class BootData()
 object BootData:
   val empty: BootData =
@@ -272,8 +270,7 @@ object CustomUI:
   * that here.
   */
 // ```scala
-@JSExportTopLevel("IndigoGame")
-object WindowExample extends Game[BootData, StartUpData, Model]:
+class WindowExample() extends Game[BootData, StartUpData, Model]:
 // ````
 
   def gameId: GameId = GameId("WindowExample")

@@ -9,7 +9,6 @@ import pirate.core.PirateClips
 import pirate.scenes.level.model.PirateState
 import pirate.scenes.level.model.Pirate
 import pirate.scenes.level.model.LevelModel
-import pirate.scenes.level.viewmodel.LevelViewModel
 import pirate.scenes.level.viewmodel.PirateViewState
 import pirate.generated.Assets.*
 import pirate.core.LayerKeys
@@ -20,7 +19,6 @@ object LevelView:
   def draw(
       gameTime: GameTime,
       model: LevelModel.Ready,
-      viewModel: LevelViewModel.Ready,
       captainClips: PirateClips,
       levelDataStore: Option[LevelDataStore]
   ): SceneUpdateFragment =
@@ -36,19 +34,18 @@ object LevelView:
       } yield Level.draw(
         levelDataStore,
         chestCollider,
-        viewModel.spaceConvertors
+        model.spaceConvertors
       ) |+|
         PirateCaptain.draw(
           gameTime,
           model.pirate,
           pirateCollider,
-          viewModel.pirateViewState,
+          model.pirateViewState,
           captainClips,
-          viewModel.spaceConvertors
+          model.spaceConvertors
         )
 
     maybeScene.getOrElse(SceneUpdateFragment.empty)
-
 
   object Level:
 

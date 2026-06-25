@@ -4,16 +4,13 @@ import indigo.*
 import indigoexamples.generated.Config
 import indigoexamples.generated.Assets
 
-import scala.scalajs.js.annotation.JSExportTopLevel
-
 /** ## How to use a Sprite
   *
   * Unlike Clips, which can be used directly in the SceneUpdateFragment, Sprites require a little
   * more wiring a set up. This is because they are stateful and the state needs to be stored and
   * referenced.
   */
-@JSExportTopLevel("IndigoGame")
-object SpriteExample extends Game[Unit, Unit, Unit]:
+class SpriteExample() extends Game[Unit, Unit, Unit]:
 
   def gameId: GameId = GameId("SpriteExample")
 

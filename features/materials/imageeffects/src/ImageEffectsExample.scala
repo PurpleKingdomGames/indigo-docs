@@ -4,10 +4,7 @@ import indigo.*
 import generated.Config
 import generated.Assets
 
-import scala.scalajs.js.annotation.*
-
-@JSExportTopLevel("IndigoGame")
-object ImageEffectsExample extends Game[Unit, Unit, Unit]:
+class ImageEffectsExample() extends Game[Unit, Unit, Unit]:
 
   def gameId: GameId = GameId("ImageEffectsExample")
 

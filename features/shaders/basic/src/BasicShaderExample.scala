@@ -12,11 +12,9 @@ import ultraviolet.syntax.*
 import generated.Config
 import generated.Assets
 
-import scala.scalajs.js.annotation.*
 import scala.annotation.nowarn
 
-@JSExportTopLevel("IndigoGame")
-object BasicShaderExample extends Game[Unit, Unit, Unit]:
+class BasicShaderExample() extends Game[Unit, Unit, Unit]:
 
   def gameId: GameId = GameId("BasicShaderExample")
 

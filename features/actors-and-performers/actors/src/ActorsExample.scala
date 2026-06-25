@@ -7,8 +7,6 @@ import indigoextras.actors.*
 
 import generated.*
 
-import scala.scalajs.js.annotation.*
-
 final case class CustomSceneModel(
     spawned: Boolean,
     target: Point,
@@ -141,8 +139,7 @@ object CustomScene extends Scene[StartUpData, Model]:
       )
     }
 
-@JSExportTopLevel("IndigoGame")
-object ActorsExample extends Game[BootData, StartUpData, Model]:
+class ActorsExample() extends Game[BootData, StartUpData, Model]:
 
   def gameId: GameId = GameId("ActorsExample")
 

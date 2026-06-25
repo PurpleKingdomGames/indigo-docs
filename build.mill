@@ -14,39 +14,6 @@ import mill.scalalib.scalafmt.*
 import indigoplugin.*
 import org.typelevel.scalacoptions.*
 
-  // object `the-cursed-pirate` extends GameModule {
-
-  //   override def indigoAssets =
-  //     Task.Source(workspaceDir / os.RelPath("demos/the-cursed-pirate/assets"))
-
-  //   def indigoOptions(assetsDirectory: os.Path): IndigoOptions =
-  //     makeIndigoOptions("The Cursed Pirate - Made with Indigo")
-  //       .withWindowWidth(1280)
-  //       .withWindowHeight(720)
-  //       .withBackgroundColor("black")
-  //       .excludeAssetPaths {
-  //         case p if p.contains("unused")                       => true
-  //         case p if p.contains("Captain Clown Nose Data.json") => true
-  //       }
-  //       .excludeAssets {
-  //         case p if p.toString.endsWith(".DS_Store") => true
-  //         case _                                     => false
-  //       }
-
-  //   override def indigoGenerators(assetsDirectory: os.Path): IndigoGenerators =
-  //     IndigoGenerators("pirate.generated")
-  //       .listAssets("Assets")
-  //       .generateConfig("Config")
-  //       .embedAseprite(
-  //         "CaptainAnim",
-  //         workspaceDir / "demos" / "the-cursed-pirate" / "assets" / "captain" / "Captain Clown Nose Data.json"
-  //       )
-
-  //   override def mvnDeps =
-  //     super.mvnDeps() ++ Seq(mvn"org.scalacheck::scalacheck:1.15.3")
-  // }
-
-
 trait GameModule extends MillIndigoJS with ScalafmtModule {
   def scalaVersion   = "3.8.3"
   def scalaJSVersion = "1.21.0"

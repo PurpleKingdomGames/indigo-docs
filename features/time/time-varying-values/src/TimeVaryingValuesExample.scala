@@ -5,8 +5,6 @@ import generated.Config
 import generated.Assets
 import indigoextras.datatypes.IncreaseTo
 
-import scala.scalajs.js.annotation.*
-
 /** ## Tracking a lumberjack's progress
   *
   * You have a lumberjack, he walks over to a tree and is now going to cut it down. Work is effort
@@ -41,8 +39,7 @@ object LumberJack:
     )
 // ```
 
-@JSExportTopLevel("IndigoGame")
-object TimeVaryingValuesExample extends Game[Unit, Unit, LumberJack]:
+class TimeVaryingValuesExample() extends Game[Unit, Unit, LumberJack]:
 
   def gameId: GameId = GameId("TimeVaryingValuesExample")
 

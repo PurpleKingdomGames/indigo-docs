@@ -4,8 +4,6 @@ import indigo.*
 import generated.Config
 import generated.Assets
 
-import scala.scalajs.js.annotation.*
-
 /** ## Signals in Action
   *
   * Let's set up a contrived set of signal functions and println the results. In our example
@@ -19,8 +17,7 @@ import scala.scalajs.js.annotation.*
   * > Please note that this demo does not show anything visual on the screen, please see the JS
   * console in your browser for the output.
   */
-@JSExportTopLevel("IndigoGame")
-object SignalsExample extends Game[Unit, Unit, Boolean]:
+class SignalsExample() extends Game[Unit, Unit, Boolean]:
 
   def gameId: GameId = GameId("SignalsExample")
 

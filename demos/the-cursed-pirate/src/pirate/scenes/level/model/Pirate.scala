@@ -39,21 +39,33 @@ object Pirate:
       Combo.withGamepadInputs(
         GamepadInput.LEFT_ANALOG(_ < -0.5, _ => true, false),
         GamepadInput.Cross
-      )                                                                             -> Vector2(-xSpeed, ySpeed),
-      Combo.withGamepadInputs(GamepadInput.LEFT_ANALOG(_ < -0.5, _ => true, false)) -> Vector2(-xSpeed, 0.0d),
+      ) -> Vector2(-xSpeed, ySpeed),
+      Combo.withGamepadInputs(GamepadInput.LEFT_ANALOG(_ < -0.5, _ => true, false)) -> Vector2(
+        -xSpeed,
+        0.0d
+      ),
       Combo.withGamepadInputs(
         GamepadInput.LEFT_ANALOG(_ > 0.5, _ => true, false),
         GamepadInput.Cross
-      )                                                                            -> Vector2(xSpeed, ySpeed),
-      Combo.withGamepadInputs(GamepadInput.LEFT_ANALOG(_ > 0.5, _ => true, false)) -> Vector2(xSpeed, 0.0d),
-      Combo.withGamepadInputs(GamepadInput.Cross)                                  -> Vector2(0.0d, ySpeed)
+      ) -> Vector2(xSpeed, ySpeed),
+      Combo.withGamepadInputs(GamepadInput.LEFT_ANALOG(_ > 0.5, _ => true, false)) -> Vector2(
+        xSpeed,
+        0.0d
+      ),
+      Combo.withGamepadInputs(GamepadInput.Cross) -> Vector2(0.0d, ySpeed)
     )
   }
 
-  def decideNextState(state: PirateState, velocity: Vector2, appliedForce: Vector2, yDiff: Double): PirateState =
+  def decideNextState(
+      state: PirateState,
+      velocity: Vector2,
+      appliedForce: Vector2,
+      yDiff: Double
+  ): PirateState =
     val stateAcceptable = state.isFalling || state.isGrounded
 
-    if (velocity.y > -0.01 && velocity.y < 0.01 && stateAcceptable && yDiff < 0.00001) || yDiff < 0.00001 then nextStanding(appliedForce.x)
+    if (velocity.y > -0.01 && velocity.y < 0.01 && stateAcceptable && yDiff < 0.00001) || yDiff < 0.00001
+    then nextStanding(appliedForce.x)
     else if velocity.y > 0.001 then nextFalling(state)(velocity.x)
     else nextJumping(state)(velocity.x)
 

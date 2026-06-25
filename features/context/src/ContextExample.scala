@@ -2,12 +2,10 @@ package indigoexamples
 
 import indigo.*
 
-import scala.scalajs.js.annotation.*
 import scala.annotation.nowarn
 
 @nowarn("msg=unused")
-@JSExportTopLevel("IndigoGame")
-object ContextExample extends Game[Unit, Unit, Boolean]:
+class ContextExample() extends Game[Unit, Unit, Boolean]:
 
   def boot(flags: Map[String, String]): Outcome[BootResult[Unit, Boolean]] =
     Outcome(BootResult.default)

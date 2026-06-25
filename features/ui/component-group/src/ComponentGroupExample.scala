@@ -15,8 +15,6 @@ import indigoextras.ui.syntax.*
 
 import generated.*
 
-import scala.scalajs.js.annotation.*
-
 /** ### Defining some custom components
   *
   * We're going to need a couple of components to go in our component group. We'll define a button
@@ -133,8 +131,7 @@ object Model:
     )
 // ```
 
-@JSExportTopLevel("IndigoGame")
-object ComponentGroupExample extends Game[Unit, Unit, Model]:
+class ComponentGroupExample() extends Game[Unit, Unit, Model]:
 
   def gameId: GameId = GameId("ComponentGroupExample")
 

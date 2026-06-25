@@ -5,7 +5,6 @@ import generated.Config
 import generated.Assets
 import ultraviolet.syntax.*
 
-import scala.scalajs.js.annotation.*
 import scala.annotation.nowarn
 
 /** ## Setting up a BlankEntity with a custom shader
@@ -30,8 +29,7 @@ object CustomShader:
     }
 // ```
 
-@JSExportTopLevel("IndigoGame")
-object BlankEntityExample extends Game[Unit, Unit, Unit]:
+class BlankEntityExample() extends Game[Unit, Unit, Unit]:
 
   def gameId: GameId = GameId("BlankEntityExample")
   // Then we need to register the shader. In an IndigoDemo/Game you'll need to do this on the boot result object.

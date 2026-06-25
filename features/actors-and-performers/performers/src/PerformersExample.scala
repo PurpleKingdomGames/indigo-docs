@@ -7,8 +7,6 @@ import generated.Config
 import generated.Assets
 import generated.DefaultFont
 
-import scala.scalajs.js.annotation.*
-
 final case class CustomSceneModel(spawned: Boolean)
 object CustomSceneModel:
   val initial: CustomSceneModel =
@@ -108,8 +106,7 @@ object Constants:
     val player: LayerKey  = LayerKey("player")
     val message: LayerKey = LayerKey("message")
 
-@JSExportTopLevel("IndigoGame")
-object PerformersExample extends Game[BootData, StartUpData, Model]:
+class PerformersExample() extends Game[BootData, StartUpData, Model]:
 
   def gameId: GameId = GameId("PerformersExample")
 

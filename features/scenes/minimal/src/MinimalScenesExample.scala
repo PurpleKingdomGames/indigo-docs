@@ -5,8 +5,6 @@ import indigo.scenes.*
 
 import generated.*
 
-import scala.scalajs.js.annotation.*
-
 final case class CustomSceneModel()
 
 final case class BootData()
@@ -65,8 +63,7 @@ object CustomScene extends Scene[StartUpData, Model]:
       )
     )
 
-@JSExportTopLevel("IndigoGame")
-object MinimalScenesExample extends Game[BootData, StartUpData, Model]:
+class MinimalScenesExample() extends Game[BootData, StartUpData, Model]:
 
   def gameId: GameId = GameId("minimal-scenes")
 

@@ -7,8 +7,6 @@ import generated.Config
 import generated.Assets
 import generated.DefaultFont
 
-import scala.scalajs.js.annotation.*
-
 /** ## How to set up a simple physics simulation
   *
   * This example shows how to set up and run a simple physics simulation in Indigo, and render the
@@ -128,8 +126,7 @@ object Model:
 
 /** ### Step 3: Defining the rest of the game.
   */
-@JSExportTopLevel("IndigoGame")
-object BasicPhysicsExample extends Game[Unit, Unit, Model]:
+class BasicPhysicsExample() extends Game[Unit, Unit, Model]:
 
   def gameId: GameId = GameId("BasicPhysicsExample")
 

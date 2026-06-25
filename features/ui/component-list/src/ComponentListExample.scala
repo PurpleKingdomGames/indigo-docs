@@ -16,8 +16,6 @@ import indigoextras.ui.syntax.*
 
 import generated.*
 
-import scala.scalajs.js.annotation.*
-
 /** ### Defining our component list
   *
   * We're going to set up a component list of labels. It isn't necessary, but in this example our
@@ -72,8 +70,7 @@ object Model:
     Model(4, CustomComponents.listOfLabels)
 // ```
 
-@JSExportTopLevel("IndigoGame")
-object ComponentListExample extends Game[Unit, Unit, Model]:
+class ComponentListExample() extends Game[Unit, Unit, Model]:
 
   def gameId: GameId = GameId("ComponentListExample")
 

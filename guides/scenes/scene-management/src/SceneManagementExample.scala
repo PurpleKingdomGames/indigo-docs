@@ -11,8 +11,6 @@ import indigo.scenes.*
 
 import generated.*
 
-import scala.scalajs.js.annotation.*
-
 /** Scene's can either use the main game model and view model, or they can have their own. Custom
   * models are made up of data stored in the main models. In this case, we'll define a simple model
   * for each.
@@ -178,8 +176,7 @@ object SceneB extends Scene[StartUpData, Model]:
   *      helpful for dealing with any events that are not specific to any one scene, or presenting
   *      graphics that should appear all the time.
   */
-@JSExportTopLevel("IndigoGame")
-object SceneManagementExample extends Game[BootData, StartUpData, Model]:
+class SceneManagementExample() extends Game[BootData, StartUpData, Model]:
 
   def gameId: GameId = GameId("SceneManagementExample")
 

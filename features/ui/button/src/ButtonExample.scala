@@ -16,8 +16,6 @@ import indigoextras.ui.syntax.*
 import generated.Config
 import generated.Assets
 
-import scala.scalajs.js.annotation.*
-
 /** ### Defining a custom button
   *
   * To keep the code nice and tidy, we'll define our custom button in a separate object.
@@ -101,8 +99,7 @@ object Model:
     )
 // ```
 
-@JSExportTopLevel("IndigoGame")
-object ButtonExample extends Game[Unit, Unit, Model]:
+class ButtonExample() extends Game[Unit, Unit, Model]:
 
   def gameId: GameId = GameId("ButtonExample")
 

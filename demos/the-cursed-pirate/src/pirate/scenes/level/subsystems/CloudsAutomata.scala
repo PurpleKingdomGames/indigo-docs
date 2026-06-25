@@ -32,7 +32,7 @@ object CloudsAutomata:
       ),
       Seconds.zero,
       signal,
-      _ => Nil
+      _ => Batch.empty
     )
 
   val poolKey: AutomataPoolKey = AutomataPoolKey("cloud")
