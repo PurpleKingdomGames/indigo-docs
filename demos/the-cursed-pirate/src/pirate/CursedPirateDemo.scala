@@ -1,26 +1,25 @@
 package pirate
 
 import indigo.*
-import indigo.scenes.*
 import pirate.scenes.loading.LoadingScene
 import pirate.scenes.level.LevelScene
-import pirate.core.{Model, ViewModel}
+import pirate.core.Model
 import pirate.core.BootInformation
 import pirate.core.LayerKeys
 import pirate.generated.Config
 
 import pirate.core.{Assets, InitialLoad, StartupData}
 
-import scala.scalajs.js.annotation.JSExportTopLevel
 import indigoextras.subsystems.FPSCounter
 
-@JSExportTopLevel("IndigoGame")
-object CursedPirateDemo extends IndigoGame[BootInformation, StartupData, Model, ViewModel]:
+class CursedPirateDemo() extends Game[BootInformation, StartupData, Model]:
+
+  def gameId: GameId = GameId("CursedPirateDemo")
 
   def initialScene(bootInfo: BootInformation): Option[SceneName] =
     None
 
-  def scenes(bootInfo: BootInformation): NonEmptyBatch[Scene[StartupData, Model, ViewModel]] =
+  def scenes(bootInfo: BootInformation): NonEmptyBatch[Scene[StartupData, Model]] =
     NonEmptyBatch(
       LoadingScene(bootInfo.assetPath, bootInfo.screenDimensions),
       LevelScene(bootInfo.screenDimensions.width)
@@ -36,12 +35,13 @@ object CursedPirateDemo extends IndigoGame[BootInformation, StartupData, Model, 
 
       val config =
         Config.config
-          .withMagnification(2)
-          .noResize
+
+      val screenDimensions =
+        Rectangle(0, 0, 640, 360)
 
       BootResult(
         config,
-        BootInformation(assetPath, config.screenDimensions)
+        BootInformation(assetPath, screenDimensions)
       ).withAssets(Assets.initialAssets(assetPath))
         .withFonts(Assets.Fonts.fontInfo)
         .withSubSystems(
@@ -60,33 +60,22 @@ object CursedPirateDemo extends IndigoGame[BootInformation, StartupData, Model, 
     InitialLoad.setup(bootInfo.screenDimensions, assetCollection)
 
   def initialModel(startupData: StartupData): Outcome[Model] =
-    Outcome(Model.initial)
+    Outcome(Model.initial(startupData))
 
-  def initialViewModel(startupData: StartupData, model: Model): Outcome[ViewModel] =
-    Outcome(ViewModel.initial)
-
-  def updateModel(context: Context[StartupData], model: Model): GlobalEvent => Outcome[Model] =
+  def updateModel(context: Context, model: Model): GlobalEvent => Outcome[Model] =
     _ => Outcome(model)
 
-  def updateViewModel(
-      context: Context[StartupData],
-      model: Model,
-      viewModel: ViewModel
-  ): GlobalEvent => Outcome[ViewModel] =
-    _ => Outcome(viewModel)
-
   def present(
-      context: Context[StartupData],
-      model: Model,
-      viewModel: ViewModel
+      context: Context,
+      model: Model
   ): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment.empty
         .withLayers(
-          LayerKeys.background  -> Layer.empty,
-          LayerKeys.bigClouds   -> Layer.empty,
-          LayerKeys.smallClouds -> Layer.empty,
-          LayerKeys.game        -> Layer.empty,
-          LayerKeys.fps         -> Layer.empty
+          LayerKeys.background  -> Layer.empty.withMagnificationForAll(2),
+          LayerKeys.bigClouds   -> Layer.empty.withMagnificationForAll(2),
+          LayerKeys.smallClouds -> Layer.empty.withMagnificationForAll(2),
+          LayerKeys.game        -> Layer.empty.withMagnificationForAll(2),
+          LayerKeys.fps         -> Layer.empty.withMagnificationForAll(2)
         )
     )

@@ -5,10 +5,7 @@ import generated.Config
 import generated.Assets
 import generated.KiwiSodaFont
 
-import scala.scalajs.js.annotation.*
-
-@JSExportTopLevel("IndigoGame")
-object TextExample extends Game[Unit, Unit, Unit]:
+class TextExample() extends Game[Unit, Unit, Unit]:
 
   def gameId: GameId = GameId("TextExample")
 

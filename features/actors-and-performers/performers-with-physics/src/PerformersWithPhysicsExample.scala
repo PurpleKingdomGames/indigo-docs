@@ -8,8 +8,6 @@ import indigoextras.performers.*
 
 import generated.*
 
-import scala.scalajs.js.annotation.*
-
 final case class CustomSceneModel(spawned: Boolean, target: Point)
 object CustomSceneModel:
   val initial: CustomSceneModel =
@@ -113,8 +111,7 @@ object Constants:
     val background: LayerKey = LayerKey("background")
     val game: LayerKey       = LayerKey("game")
 
-@JSExportTopLevel("IndigoGame")
-object PerformersWithPhysicsExample extends Game[BootData, StartUpData, Model]:
+class PerformersWithPhysicsExample() extends Game[BootData, StartUpData, Model]:
 
   def gameId: GameId = GameId("PerformersWithPhysicsExample")
 

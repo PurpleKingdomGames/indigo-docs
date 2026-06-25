@@ -7,8 +7,6 @@ import indigoextras.ui.syntax.*
 import generated.Config
 import generated.Assets
 
-import scala.scalajs.js.annotation.*
-
 object CustomComponents:
 
   val component: Switch[Unit] =
@@ -51,8 +49,7 @@ object Model:
       CustomComponents.component
     )
 
-@JSExportTopLevel("IndigoGame")
-object SwitchExample extends Game[Unit, Unit, Model]:
+class SwitchExample() extends Game[Unit, Unit, Model]:
 
   def gameId: GameId = GameId("SwitchExample")
 

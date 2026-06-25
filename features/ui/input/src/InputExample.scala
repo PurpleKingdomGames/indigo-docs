@@ -6,8 +6,6 @@ import indigoextras.ui.syntax.*
 
 import generated.*
 
-import scala.scalajs.js.annotation.*
-
 object CustomComponents:
 
   private val text =
@@ -94,8 +92,7 @@ object Model:
 
 final case class Log(message: String) extends GlobalEvent
 
-@JSExportTopLevel("IndigoGame")
-object HitAreaExample extends Game[Unit, Unit, Model]:
+class InputExample() extends Game[Unit, Unit, Model]:
 
   def gameId: GameId = GameId("HitAreaExample")
 

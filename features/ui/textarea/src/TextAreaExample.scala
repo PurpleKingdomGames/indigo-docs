@@ -6,8 +6,6 @@ import indigoextras.ui.syntax.*
 
 import generated.*
 
-import scala.scalajs.js.annotation.*
-
 object CustomComponents:
 
   val text =
@@ -44,8 +42,7 @@ object Model:
   val initial: Model =
     Model(CustomComponents.component)
 
-@JSExportTopLevel("IndigoGame")
-object TextAreaExample extends Game[Unit, Unit, Model]:
+class TextAreaExample() extends Game[Unit, Unit, Model]:
 
   def gameId: GameId = GameId("TextAreaExample")
 

@@ -4,10 +4,7 @@ import indigo.*
 import indigoexamples.generated.Config
 import indigoexamples.generated.Assets
 
-import scala.scalajs.js.annotation.JSExportTopLevel
-
-@JSExportTopLevel("IndigoGame")
-object ClipExample extends Game[Unit, Unit, Unit]:
+class ClipExample() extends Game[Unit, Unit, Unit]:
 
   def gameId: GameId = GameId("ClipExample")
 

@@ -4,13 +4,10 @@ import indigo.*
 import generated.Config
 import generated.Assets
 
-import scala.scalajs.js.annotation.*
-
 /** This example shows how to create a simple graphic and display it on the screen. It demonstrates
   * a number of transformations.
   */
-@JSExportTopLevel("IndigoGame")
-object GraphicExample extends Game[Unit, Unit, Unit]:
+class GraphicExample() extends Game[Unit, Unit, Unit]:
 
   def gameId: GameId = GameId("GraphicExample")
 

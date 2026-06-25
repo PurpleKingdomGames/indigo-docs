@@ -5,22 +5,29 @@ import indigo.physics.World
 import pirate.generated.Assets.*
 import indigo.physics.*
 import pirate.core.SpaceConvertors
+import pirate.scenes.level.viewmodel.PirateViewState
 
 enum LevelModel:
   case NotReady
-  case Ready(pirate: Pirate, mapHeight: Int, world: World[String])
+  case Ready(
+      pirate: Pirate,
+      mapHeight: Int,
+      world: World[String],
+      spaceConvertors: SpaceConvertors,
+      pirateViewState: PirateViewState
+  )
 
   def notReady: Boolean =
     this match
-      case NotReady       => true
-      case Ready(_, _, _) => false
+      case NotReady             => true
+      case Ready(_, _, _, _, _) => false
 
   def update(gameTime: GameTime, inputState: InputState): Outcome[LevelModel] =
     this match
       case NotReady =>
         Outcome(this)
 
-      case Ready(pirate, mapHeight, world) =>
+      case Ready(pirate, mapHeight, world, spaceConvertors, pirateViewState) =>
         val inputForce =
           inputState.mapInputs(Pirate.inputMappings(pirate.state.inMidAir), Vector2.zero)
 
@@ -44,7 +51,7 @@ enum LevelModel:
           .flatMap { w =>
             w.findByTag("pirate").headOption match
               case None =>
-                Outcome(Ready(pirate, mapHeight, w))
+                Outcome(Ready(pirate, mapHeight, w, spaceConvertors, pirateViewState))
 
               case Some(p) =>
                 val yDiff =
@@ -68,7 +75,11 @@ enum LevelModel:
                     Outcome(Pirate(nextState, pirate.lastRespawn))
                       .addGlobalEvents(maybeJumpSound)
 
-                nextPirate.map(p => Ready(p, mapHeight, w))
+                nextPirate.flatMap { np =>
+                  pirateViewState
+                    .update(gameTime, np)
+                    .map(pvs => Ready(np, mapHeight, w, spaceConvertors, pvs))
+                }
           }
 
 object LevelModel:
@@ -107,5 +118,7 @@ object LevelModel:
               BoundingBox(Vertex(5, 6), spaceConvertors.ScreenToWorld.convert(Point(30, 25)))
             )
             .withRestitution(Restitution(0))
-        )
+        ),
+      spaceConvertors,
+      PirateViewState.initial
     )

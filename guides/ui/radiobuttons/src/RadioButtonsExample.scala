@@ -7,8 +7,6 @@ import indigoextras.ui.syntax.*
 
 import generated.*
 
-import scala.scalajs.js.annotation.*
-
 object CustomComponents:
 
   val text =
@@ -90,8 +88,7 @@ object Model:
       CustomComponents.component
     )
 
-@JSExportTopLevel("IndigoGame")
-object RadioButtonsExample extends Game[Unit, Unit, Model]:
+class RadioButtonsExample() extends Game[Unit, Unit, Model]:
 
   def gameId: GameId = GameId("RadioButtonsExample")
 

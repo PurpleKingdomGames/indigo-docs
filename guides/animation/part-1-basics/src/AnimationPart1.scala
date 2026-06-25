@@ -4,8 +4,6 @@ import indigo.*
 import generated.Config
 import generated.Assets
 
-import scala.scalajs.js.annotation.*
-
 /** ## Example of procedural animation
   *
   * Let's look at a real example and illustrate some of the problems a challenges we need to
@@ -48,8 +46,7 @@ import scala.scalajs.js.annotation.*
 final case class Model(position: Vertex)
 // ```
 
-@JSExportTopLevel("IndigoGame")
-object AnimationPart1 extends Game[Unit, Unit, Model]:
+class AnimationPart1() extends Game[Unit, Unit, Model]:
 
   def gameId: GameId = GameId("AnimationPart1")
 

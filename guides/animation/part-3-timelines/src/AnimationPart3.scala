@@ -6,10 +6,7 @@ import indigo.syntax.animations.*
 import generated.Config
 import generated.Assets
 
-import scala.scalajs.js.annotation.*
-
-@JSExportTopLevel("IndigoGame")
-object AnimationPart3 extends Game[Unit, Unit, Unit]:
+class AnimationPart3() extends Game[Unit, Unit, Unit]:
 
   def gameId: GameId = GameId("AnimationPart3")
 

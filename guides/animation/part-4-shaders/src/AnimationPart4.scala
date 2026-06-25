@@ -6,7 +6,6 @@ import generated.Config
 import generated.Assets
 import ultraviolet.syntax.*
 
-import scala.scalajs.js.annotation.*
 import scala.annotation.nowarn
 
 /** ## Animating with shaders
@@ -144,8 +143,7 @@ object CustomShader:
         // ```
     }
 
-@JSExportTopLevel("IndigoGame")
-object AnimationPart4 extends Game[Unit, Unit, Unit]:
+class AnimationPart4() extends Game[Unit, Unit, Unit]:
 
   def gameId: GameId = GameId("AnimationPart4")
 

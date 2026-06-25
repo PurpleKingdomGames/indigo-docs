@@ -15,8 +15,6 @@ import indigoextras.ui.syntax.*
 
 import generated.*
 
-import scala.scalajs.js.annotation.*
-
 /** ### Defining a custom label
   *
   * To keep the code nice and tidy, we'll define our custom label in a separate object.
@@ -69,8 +67,7 @@ object Model:
     )
 // ```
 
-@JSExportTopLevel("IndigoGame")
-object LabelExample extends Game[Unit, Unit, Model]:
+class LabelExample() extends Game[Unit, Unit, Model]:
 
   def gameId: GameId = GameId("LabelExample")
 

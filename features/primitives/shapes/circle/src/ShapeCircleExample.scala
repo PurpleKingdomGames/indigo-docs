@@ -4,10 +4,7 @@ import indigo.*
 import generated.Config
 import generated.Assets
 
-import scala.scalajs.js.annotation.*
-
-@JSExportTopLevel("IndigoGame")
-object ShapeCircleExample extends Game[Unit, Unit, Unit]:
+class ShapeCircleExample() extends Game[Unit, Unit, Unit]:
 
   def gameId: GameId = GameId("ShapeCircleExample")
 

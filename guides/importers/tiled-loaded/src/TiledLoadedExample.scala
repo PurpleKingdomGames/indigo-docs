@@ -5,8 +5,6 @@ import indigo.json.Json
 import generated.Config
 import generated.Assets
 
-import scala.scalajs.js.annotation.*
-
 /** ## How to load and use a Tiled map
   */
 
@@ -40,8 +38,7 @@ enum MapTile:
   case Platform, Empty
 // ```
 
-@JSExportTopLevel("IndigoGame")
-object TiledLoadedExample extends Game[Unit, TiledMap, Model]:
+class TiledLoadedExample() extends Game[Unit, TiledMap, Model]:
 
   def gameId: GameId = GameId("TiledLoadedExample")
 

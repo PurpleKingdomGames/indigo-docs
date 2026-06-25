@@ -15,8 +15,6 @@ import indigoextras.ui.*
 import generated.Config
 import generated.Assets
 
-import scala.scalajs.js.annotation.*
-
 final case class BootData()
 object BootData:
   val empty: BootData =
@@ -157,8 +155,7 @@ object CustomUI:
       .add(ColourfulCircle(RGBA.Magenta, Bounds.zero))
   // ```
 
-@JSExportTopLevel("IndigoGame")
-object CustomComponentExample extends Game[BootData, StartUpData, Model]:
+class CustomComponentExample() extends Game[BootData, StartUpData, Model]:
 
   def gameId: GameId = GameId("CustomComponentExample")
 

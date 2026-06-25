@@ -8,8 +8,6 @@ import indigoextras.ui.*
 import indigoextras.ui.syntax.*
 import generated.*
 
-import scala.scalajs.js.annotation.*
-
 /** Much like the other examples, we need to define our components, and they've been placed in a
   * separate object.
   *
@@ -61,8 +59,7 @@ object Model:
       CustomComponents.pane
     )
 
-@JSExportTopLevel("IndigoGame")
-object MaskedPaneExample extends Game[Unit, Unit, Model]:
+class MaskedPaneExample() extends Game[Unit, Unit, Model]:
 
   def gameId: GameId = GameId("MaskedPaneExample")
 

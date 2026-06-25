@@ -8,10 +8,7 @@ import preloader.core.BootInformation
 import preloader.generated.Config
 import preloader.core.{Assets, InitialLoad, StartupData}
 
-import scala.scalajs.js.annotation.JSExportTopLevel
-
-@JSExportTopLevel("IndigoGame")
-object PreloaderExample extends Game[BootInformation, StartupData, Model]:
+class PreloaderExample() extends Game[BootInformation, StartupData, Model]:
 
   def gameId: GameId = GameId("PreloaderExample")
 

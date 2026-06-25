@@ -5,11 +5,9 @@ import generated.Config
 import generated.Assets
 import ultraviolet.syntax.*
 
-import scala.scalajs.js.annotation.*
 import scala.annotation.nowarn
 
-@JSExportTopLevel("IndigoGame")
-object BlendingExample extends Game[Unit, Unit, Unit]:
+class BlendingExample() extends Game[Unit, Unit, Unit]:
 
   def gameId: GameId = GameId("BlendingExample")
 

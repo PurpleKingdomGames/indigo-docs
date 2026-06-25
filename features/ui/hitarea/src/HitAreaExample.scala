@@ -7,8 +7,6 @@ import indigoextras.ui.syntax.*
 import generated.Config
 import generated.Assets
 
-import scala.scalajs.js.annotation.*
-
 object CustomComponents:
 
   val component: HitArea[Unit] =
@@ -28,8 +26,7 @@ object Model:
 
 final case class Log(message: String) extends GlobalEvent
 
-@JSExportTopLevel("IndigoGame")
-object HitAreaExample extends Game[Unit, Unit, Model]:
+class HitAreaExample() extends Game[Unit, Unit, Model]:
 
   def gameId: GameId = GameId("HitAreaExample")
 
