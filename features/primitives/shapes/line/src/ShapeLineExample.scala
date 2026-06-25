@@ -16,7 +16,7 @@ class ShapeLineExample() extends Game[Unit, Unit, Unit]:
 
   def initialScene(bootData: Unit): Option[SceneName] = None
 
-  def scenes(bootData: Unit): NonEmptyBatch[Scene[Unit, Unit]] =
+  def scenes(bootData: Unit): NonEmptyBatch[Scene[Unit]] =
     NonEmptyBatch(Scene.empty)
 
   def eventFilters: EventFilters = EventFilters.Permissive
@@ -32,7 +32,7 @@ class ShapeLineExample() extends Game[Unit, Unit, Unit]:
 
   def present(context: Context, model: Unit): Outcome[SceneUpdateFragment] =
     val viewportCenter =
-      (context.frame.viewport / 2).toPoint
+      context.frame.viewport.center
 
     val start = Point(10, 20)
     val end   = Point(100, 80)

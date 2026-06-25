@@ -111,7 +111,7 @@ class ButtonExample() extends Game[Unit, Unit, Model]:
 
   def initialScene(bootData: Unit): Option[SceneName] = None
 
-  def scenes(bootData: Unit): NonEmptyBatch[Scene[Unit, Model]] =
+  def scenes(bootData: Unit): NonEmptyBatch[Scene[Model]] =
     NonEmptyBatch(Scene.empty)
 
   def eventFilters: EventFilters = EventFilters.Permissive

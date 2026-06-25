@@ -5,13 +5,12 @@ import indigo.scenes.*
 import indigoextras.subsystems.*
 
 import pirate.core.Assets
-import pirate.core.StartupData
 import indigo.scenes.SceneEvent.JumpTo
 import pirate.core.Model
 import pirate.scenes.level.LevelScene
 
 final case class LoadingScene(assetPath: String, screenDimensions: Rectangle)
-    extends Scene[StartupData, Model]:
+    extends Scene[Model]:
 
   type SceneModel = Model
 

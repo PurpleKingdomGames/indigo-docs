@@ -19,7 +19,7 @@ class ContextExample() extends Game[Unit, Unit, Boolean]:
   def initialScene(bootData: Unit): Option[SceneName] =
     None
 
-  def scenes(bootData: Unit): NonEmptyBatch[Scene[Unit, Boolean]] =
+  def scenes(bootData: Unit): NonEmptyBatch[Scene[Boolean]] =
     NonEmptyBatch(Scene.empty)
 
   def setup(bootData: Unit, assetCollection: AssetCollection, dice: Dice): Outcome[Startup[Unit]] =
@@ -109,7 +109,7 @@ class ContextExample() extends Game[Unit, Unit, Boolean]:
       model: Boolean
   ): Outcome[SceneUpdateFragment] =
     val viewportCenter =
-      (context.frame.viewport / 2).toPoint
+      context.frame.viewport.center
 
     Outcome(
       SceneUpdateFragment(

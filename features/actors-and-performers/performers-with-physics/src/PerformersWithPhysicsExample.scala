@@ -35,7 +35,7 @@ object ViewModel:
   val initial: ViewModel =
     ViewModel()
 
-object CustomScene extends Scene[StartUpData, Model]:
+object CustomScene extends Scene[Model]:
 
   val name: SceneName = SceneName("Custom Scene")
 
@@ -66,7 +66,7 @@ object CustomScene extends Scene[StartUpData, Model]:
       context: SceneContext,
       sceneModel: CustomSceneModel
   ): GlobalEvent => Outcome[CustomSceneModel] =
-    case FrameTick if !sceneModel.spawned && context.frame.viewport != Size.zero =>
+    case FrameTick if !sceneModel.spawned && context.frame.viewport != Rectangle.zero =>
       val viewportSize =
         context.frame.viewport
 
@@ -115,7 +115,7 @@ class PerformersWithPhysicsExample() extends Game[BootData, StartUpData, Model]:
 
   def gameId: GameId = GameId("PerformersWithPhysicsExample")
 
-  def scenes(bootData: BootData): NonEmptyBatch[Scene[StartUpData, Model]] =
+  def scenes(bootData: BootData): NonEmptyBatch[Scene[Model]] =
     NonEmptyBatch(CustomScene)
 
   def initialScene(bootData: BootData): Option[SceneName] =

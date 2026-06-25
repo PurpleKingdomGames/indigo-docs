@@ -6,13 +6,13 @@ import indigo.physics.*
 
 import pirate.scenes.level.subsystems.CloudsAutomata
 import pirate.scenes.level.subsystems.CloudsSubSystem
-import pirate.core.{StartupData, Model}
+import pirate.core.Model
 import pirate.scenes.level.model.LevelModel
 import pirate.scenes.level.model.Pirate
 import pirate.scenes.level.model.PirateRespawn
 import pirate.core.SpaceConvertors
 
-final case class LevelScene(screenWidth: Int) extends Scene[StartupData, Model]:
+final case class LevelScene(screenWidth: Int) extends Scene[Model]:
   type SceneModel = Model
 
   val name: SceneName = LevelScene.name

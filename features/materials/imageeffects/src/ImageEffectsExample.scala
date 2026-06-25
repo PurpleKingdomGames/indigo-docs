@@ -16,7 +16,7 @@ class ImageEffectsExample() extends Game[Unit, Unit, Unit]:
 
   def initialScene(bootData: Unit): Option[SceneName] = None
 
-  def scenes(bootData: Unit): NonEmptyBatch[Scene[Unit, Unit]] =
+  def scenes(bootData: Unit): NonEmptyBatch[Scene[Unit]] =
     NonEmptyBatch(Scene.empty)
 
   def eventFilters: EventFilters = EventFilters.Permissive
@@ -48,7 +48,7 @@ class ImageEffectsExample() extends Game[Unit, Unit, Unit]:
     Assets.assets.junctionboxAlbedoMaterial.toImageEffects
 
   val graphic: Graphic[Material.ImageEffects] =
-    Graphic(Rectangle(0, 0, 40, 40), material)
+    Graphic(40, 40, material)
       .withRef(20, 20)
 
   val viewCenter: Point = (Point(550, 400) / 4) + Point(0, -25)

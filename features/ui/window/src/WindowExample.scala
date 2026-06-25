@@ -277,7 +277,7 @@ class WindowExample() extends Game[BootData, StartUpData, Model]:
 
   def initialScene(bootData: BootData): Option[SceneName] = None
 
-  def scenes(bootData: BootData): NonEmptyBatch[Scene[StartUpData, Model]] =
+  def scenes(bootData: BootData): NonEmptyBatch[Scene[Model]] =
     NonEmptyBatch(Scene.empty)
 
   def eventFilters: EventFilters =

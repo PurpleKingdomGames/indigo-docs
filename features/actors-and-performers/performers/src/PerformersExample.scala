@@ -36,7 +36,7 @@ object ViewModel:
   val initial: ViewModel =
     ViewModel()
 
-object CustomScene extends Scene[StartUpData, Model]:
+object CustomScene extends Scene[Model]:
 
   val name: SceneName = SceneName("Custom Scene")
 
@@ -110,7 +110,7 @@ class PerformersExample() extends Game[BootData, StartUpData, Model]:
 
   def gameId: GameId = GameId("PerformersExample")
 
-  def scenes(bootData: BootData): NonEmptyBatch[Scene[StartUpData, Model]] =
+  def scenes(bootData: BootData): NonEmptyBatch[Scene[Model]] =
     NonEmptyBatch(CustomScene)
 
   def initialScene(bootData: BootData): Option[SceneName] =

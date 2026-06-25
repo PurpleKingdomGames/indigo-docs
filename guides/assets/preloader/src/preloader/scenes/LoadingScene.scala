@@ -6,9 +6,9 @@ import indigoextras.subsystems.*
 
 import preloader.core.Assets
 import indigo.scenes.SceneEvent.JumpTo
-import preloader.core.{Model, StartupData}
+import preloader.core.Model
 
-object LoadingScene extends Scene[StartupData, Model]:
+object LoadingScene extends Scene[Model]:
 
   type SceneModel = Model
 
@@ -60,7 +60,7 @@ object LoadingScene extends Scene[StartupData, Model]:
       model: Model
   ): Outcome[SceneUpdateFragment] =
     val viewportCenter =
-      (context.frame.viewport / 2).toPoint
+      context.frame.viewport.center
 
     val message: String =
       model.loadingScene match

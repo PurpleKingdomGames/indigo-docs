@@ -1,5 +1,5 @@
 //| mvnDeps:
-//|   - "io.indigoengine:mill-indigo_mill1_3:0.30.0-M1-PREVIEW"
+//|   - "io.indigoengine:mill-indigo_mill1_3:0.30.0-M4-PREVIEW"
 //|   - "org.typelevel::scalac-options:0.1.11"
 
 package build
@@ -15,8 +15,8 @@ import indigoplugin.*
 import org.typelevel.scalacoptions.*
 
 trait GameModule extends MillIndigoJS with ScalafmtModule {
-  def scalaVersion   = "3.8.3"
-  def scalaJSVersion = "1.21.0"
+  def scalaVersion   = "3.8.4"
+  def scalaJSVersion = "1.22.0"
 
   override def scalacOptions = Task {
     val baseOptions = ScalacOptions.tokensForVersion(
@@ -24,7 +24,7 @@ trait GameModule extends MillIndigoJS with ScalafmtModule {
       ScalacOptions.default ++
         ScalacOptions.fatalWarningOptions
     )
-    
+
     // "-Xfatal-warnings" removed because it's been replaced with "-Werror"
     val excluded = Set(
       "-Xfatal-warnings",
@@ -73,7 +73,7 @@ trait GameModule extends MillIndigoJS with ScalafmtModule {
       )
       .listAssets("Assets")
 
-  val indigoVersion = "0.30.0-M1-PREVIEW"
+  val indigoVersion = "0.30.0-M4-PREVIEW"
 
   def mvnDeps =
     Seq(

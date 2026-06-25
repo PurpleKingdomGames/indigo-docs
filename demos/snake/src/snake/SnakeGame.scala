@@ -16,7 +16,7 @@ final class SnakeGame() extends Game[ViewConfig, StartupData, GameModel]:
   def initialScene(bootData: ViewConfig): Option[SceneName] =
     Option(StartScene.name)
 
-  def scenes(bootData: ViewConfig): NonEmptyBatch[Scene[StartupData, GameModel]] =
+  def scenes(bootData: ViewConfig): NonEmptyBatch[Scene[GameModel]] =
     NonEmptyBatch(StartScene, ControlsScene, GameScene, GameOverScene)
 
   val eventFilters: EventFilters =

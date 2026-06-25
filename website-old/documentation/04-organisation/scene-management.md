@@ -43,7 +43,7 @@ final case class StartUpData(viewport: Size)
 final case class Model(inventory: List[String])
 final case class ViewModel(items: List[String])
 
-def scenes(bootData: BootData): NonEmptyList[Scene[StartUpData, Model, ViewModel]] = ???
+def scenes(bootData: BootData): NonEmptyList[Scene[Model]] = ???
 def initialScene(bootData: BootData): Option[SceneName] = ???
 ```
 
@@ -54,10 +54,10 @@ These mean that you...
 
 ## Building a Scene
 
-A scene is built by creating an object (or class) that extends `Scene[StartupData, GameModel, ViewModel]`. Here's the trait:
+A scene is built by creating an object (or class) that extends `Scene[GameModel]`. Here's the trait:
 
 ```scala
-trait Scene[StartUpData, GameModel, ViewModel] derives CanEqual {
+trait Scene[GameModel] derives CanEqual {
   type SceneModel
   type SceneViewModel
 
@@ -76,9 +76,9 @@ trait Scene[StartUpData, GameModel, ViewModel] derives CanEqual {
 As you can hopefully see, mostly this is very much like a normal game, but for a few exceptions:
 
 1. No initialization, animations or fonts, that all happens in the main game (shown in the previous section).
-1. Scenes have a name, which is important for navigation.
-1. Scenes have their own models and view models, more on that later.
-1. The game can have global sub systems, and scenes can also have their own subsystems too.
+2. Scenes have a name, which is important for navigation.
+3. Scenes have their own models and view models, more on that later.
+4. The game can have global sub systems, and scenes can also have their own subsystems too.
 
 ## Funny types
 
@@ -103,7 +103,7 @@ The non-empty list of scenes in the original declaration is static, and cannot b
 Here's the one from Snake:
 
 ```scala
-def scenes(bootData: GameViewport): NonEmptyList[Scene[SnakeStartupData, SnakeGameModel, SnakeViewModel]] =
+def scenes(bootData: GameViewport): NonEmptyList[Scene[SnakeGameModel]] =
     NonEmptyList(StartScene, ControlsScene, GameScene, GameOverScene)
 ```
 
@@ -156,7 +156,7 @@ Lens[DungeonGameModel, LevelModel](
 Let's declare a scene that is using this fictional model:
 
 ```scala
-object LevelScene extends Scene[Unit, DungeonGameModel, Unit]:
+object LevelScene extends Scene[DungeonGameModel]:
   type SceneModel = LevelModel
   type SceneViewModel = Unit
 

@@ -16,7 +16,7 @@ class AnimationPart2() extends Game[Unit, Unit, Unit]:
 
   def initialScene(bootData: Unit): Option[SceneName] = None
 
-  def scenes(bootData: Unit): NonEmptyBatch[Scene[Unit, Unit]] =
+  def scenes(bootData: Unit): NonEmptyBatch[Scene[Unit]] =
     NonEmptyBatch(Scene.empty)
 
   def eventFilters: EventFilters = EventFilters.Permissive
@@ -91,7 +91,7 @@ class AnimationPart2() extends Game[Unit, Unit, Unit]:
       */
     // ```scala
     val circle2 =
-      Signal.Orbit((context.frame.viewport / 2).toPoint + Point(0, 200), 50).map { position =>
+      Signal.Orbit(context.frame.viewport.center + Point(0, 200), 50).map { position =>
         circle.moveTo(position.toPoint)
       }
     // ```

@@ -51,7 +51,7 @@ class TimeVaryingValuesExample() extends Game[Unit, Unit, LumberJack]:
 
   def initialScene(bootData: Unit): Option[SceneName] = None
 
-  def scenes(bootData: Unit): NonEmptyBatch[Scene[Unit, LumberJack]] =
+  def scenes(bootData: Unit): NonEmptyBatch[Scene[LumberJack]] =
     NonEmptyBatch(Scene.empty)
 
   def eventFilters: EventFilters = EventFilters.Permissive
@@ -85,7 +85,7 @@ class TimeVaryingValuesExample() extends Game[Unit, Unit, LumberJack]:
     Outcome(
       SceneUpdateFragment(
         lumberJack.present(
-          (context.frame.viewport / 2).toPoint
+          context.frame.viewport.center
         )
       ).withMagnification(2)
     )

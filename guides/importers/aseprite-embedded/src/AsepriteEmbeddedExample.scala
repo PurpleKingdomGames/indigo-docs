@@ -32,7 +32,7 @@ class AsepriteEmbeddedExample() extends Game[Unit, StartupData, StartupData]:
 
   def initialScene(bootData: Unit): Option[SceneName] = None
 
-  def scenes(bootData: Unit): NonEmptyBatch[Scene[StartupData, StartupData]] =
+  def scenes(bootData: Unit): NonEmptyBatch[Scene[StartupData]] =
     NonEmptyBatch(Scene.empty)
 
   def setup(
@@ -53,7 +53,7 @@ class AsepriteEmbeddedExample() extends Game[Unit, StartupData, StartupData]:
       model: StartupData
   ): Outcome[SceneUpdateFragment] =
     val viewportCenter =
-      (context.frame.viewport / 2).toPoint
+      context.frame.viewport.center
 
     Outcome(
       SceneUpdateFragment(

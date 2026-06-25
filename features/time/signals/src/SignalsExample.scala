@@ -29,7 +29,7 @@ class SignalsExample() extends Game[Unit, Unit, Boolean]:
 
   def initialScene(bootData: Unit): Option[SceneName] = None
 
-  def scenes(bootData: Unit): NonEmptyBatch[Scene[Unit, Boolean]] =
+  def scenes(bootData: Unit): NonEmptyBatch[Scene[Boolean]] =
     NonEmptyBatch(Scene.empty)
 
   def eventFilters: EventFilters = EventFilters.Permissive

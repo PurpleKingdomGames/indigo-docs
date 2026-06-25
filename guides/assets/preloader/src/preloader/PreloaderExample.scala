@@ -15,7 +15,7 @@ class PreloaderExample() extends Game[BootInformation, StartupData, Model]:
   def initialScene(bootInfo: BootInformation): Option[SceneName] =
     None
 
-  def scenes(bootInfo: BootInformation): NonEmptyBatch[Scene[StartupData, Model]] =
+  def scenes(bootInfo: BootInformation): NonEmptyBatch[Scene[Model]] =
     NonEmptyBatch(
       LoadingScene,
       LevelScene

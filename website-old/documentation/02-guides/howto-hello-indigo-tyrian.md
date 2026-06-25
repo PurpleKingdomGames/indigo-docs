@@ -77,7 +77,7 @@ final case class HelloIndigo(tyrianSubSystem: TyrianSubSystem[IO, Int]) extends 
   def initialScene(bootData: Unit): Option[SceneName] =
     None
 
-  def scenes(bootData: Unit): NonEmptyList[Scene[Unit, Model, Unit]] =
+  def scenes(bootData: Unit): NonEmptyList[Scene[Model]] =
     NonEmptyList(Scene.empty)
 
   val eventFilters: EventFilters =

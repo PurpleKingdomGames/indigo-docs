@@ -43,7 +43,7 @@ object ViewModel:
   val initial: ViewModel =
     ViewModel()
 
-object CustomScene extends Scene[StartUpData, Model]:
+object CustomScene extends Scene[Model]:
 
   val name: SceneName = SceneName("Custom Scene")
 
@@ -104,7 +104,7 @@ object CustomScene extends Scene[StartUpData, Model]:
           .affectTime(2.0)
           .flatMap { d =>
             Signal.Orbit(
-              (context.frame.viewport / 2).toPoint,
+              (context.frame.viewport / 2).size.toPoint,
               (250 * d) + 25
             )
           }
@@ -143,7 +143,7 @@ class ActorsExample() extends Game[BootData, StartUpData, Model]:
 
   def gameId: GameId = GameId("ActorsExample")
 
-  def scenes(bootData: BootData): NonEmptyBatch[Scene[StartUpData, Model]] =
+  def scenes(bootData: BootData): NonEmptyBatch[Scene[Model]] =
     NonEmptyBatch(CustomScene)
 
   def initialScene(bootData: BootData): Option[SceneName] =
