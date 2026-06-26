@@ -10,11 +10,8 @@ class FillTypeExample() extends Game[Unit, Unit, Unit]:
 
   def boot(flags: Map[String, String]): Outcome[BootResult[Unit, Unit]] =
     Outcome(
-      BootResult(config, ())
-        .withAssets(assets)
-        .withFonts(fonts)
-        .withAnimations(animations)
-        .withShaders(shaders)
+      BootResult(Config.config, ())
+        .withAssets(Assets.assets.assetSetRelative)
     )
 
   def initialScene(bootData: Unit): Option[SceneName] = None
@@ -23,16 +20,6 @@ class FillTypeExample() extends Game[Unit, Unit, Unit]:
     NonEmptyBatch(Scene.empty)
 
   def eventFilters: EventFilters = EventFilters.Permissive
-
-  val config: EngineConfig =
-    Config.config
-
-  val assets: Set[AssetType] =
-    Assets.assets.assetSetRelative
-
-  val fonts: Set[FontInfo]        = Set()
-  val animations: Set[Animation]  = Set()
-  val shaders: Set[ShaderProgram] = Set()
 
   def setup(bootData: Unit, assetCollection: AssetCollection, dice: Dice): Outcome[Startup[Unit]] =
     Outcome(Startup.Success(()))

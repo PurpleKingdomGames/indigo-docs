@@ -9,8 +9,7 @@ import indigo.scenes.SceneEvent.JumpTo
 import pirate.core.Model
 import pirate.scenes.level.LevelScene
 
-final case class LoadingScene(assetPath: String, screenDimensions: Rectangle)
-    extends Scene[Model]:
+final case class LoadingScene(assetPath: String, screenDimensions: Rectangle) extends Scene[Model]:
 
   type SceneModel = Model
 

@@ -15,6 +15,10 @@ class BlendingExample() extends Game[Unit, Unit, Unit]:
     Outcome(
       BootResult(Config.config, ())
         .withAssets(Assets.assets.assetSetRelative)
+        .withShaders(
+          CustomEntityShader.shader,
+          CustomBlendShader.shader
+        )
     )
 
   def initialScene(bootData: Unit): Option[SceneName] = None
@@ -23,12 +27,6 @@ class BlendingExample() extends Game[Unit, Unit, Unit]:
     NonEmptyBatch(Scene.empty)
 
   def eventFilters: EventFilters = EventFilters.Permissive
-
-  val shaders: Set[ShaderProgram] =
-    Set(
-      CustomEntityShader.shader,
-      CustomBlendShader.shader
-    )
 
   def setup(bootData: Unit, assetCollection: AssetCollection, dice: Dice): Outcome[Startup[Unit]] =
     Outcome(Startup.Success(()))
