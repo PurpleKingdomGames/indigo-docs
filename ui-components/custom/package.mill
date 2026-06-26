@@ -1,0 +1,9 @@
+package build.`ui-components`.custom
+
+import indigoplugin.*
+import build.GameModule
+
+object `package` extends GameModule:
+
+  def indigoOptions(assetsDirectory: os.Path): IndigoOptions =
+    makeIndigoOptions("UI Components - Custom Components")

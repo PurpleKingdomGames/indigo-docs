@@ -1,0 +1,3 @@
+package build.`ui-components`
+
+object `package` extends mill.Module

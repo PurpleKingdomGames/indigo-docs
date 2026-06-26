@@ -13,10 +13,10 @@ object Runtime extends BasicGameRuntime[Unit]:
 
   def settings: Settings =
     Settings.default
-    
+
   def init(flags: Map[String, String]): Result[Unit] =
     Result(())
-    
+
   def update(model: Unit): GlobalMsg => Result[Unit] =
     case _ => Result(model)
 

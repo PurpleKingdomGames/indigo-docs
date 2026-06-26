@@ -21,6 +21,13 @@ website:
     - demos
     - guides
     - features
+    - ui-components
+  navigationMappings:
+    documentation: Documentation
+    demos: Demos
+    guides: Guides
+    features: Features
+    ui-components: UI Components
 docsRepo:
   name: Docs
   url: https://github.com/PurpleKingdomGames/indigo-docs
@@ -33,5 +40,5 @@ discord:
   name: Discord
   url: https://discord.gg/3E2r9FwwHu
 demo:
-  width: 400
-  height: 400
+  width: 800
+  height: 600
