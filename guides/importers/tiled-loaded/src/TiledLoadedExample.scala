@@ -125,7 +125,9 @@ class TiledLoadedExample() extends Game[Unit, TiledMap, Model]:
   def present(context: Context, model: Model): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment(
-        model.tiledMap.toGroup(Assets.assets.terrain)
+        LayerKey("demo") -> Layer(
+          model.tiledMap.toGroup(Assets.assets.terrain)
+        )
       )
     )
   // ```

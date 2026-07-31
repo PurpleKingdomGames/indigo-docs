@@ -44,30 +44,32 @@ class GroupExample() extends Game[Unit, Unit, Unit]:
 
     Outcome(
       SceneUpdateFragment(
-        Group(
-          Shape
-            .Circle(
-              Circle(Point.zero, radius),
-              Fill.Color(RGBA.Red.withAlpha(0.75)),
-              Stroke(2, RGBA.White)
-            )
-            .moveTo(Point(0, -25)),
-          Shape
-            .Circle(
-              Circle(Point.zero, radius),
-              Fill.Color(RGBA.Green.withAlpha(0.75)),
-              Stroke(2, RGBA.White)
-            )
-            .moveTo(Point(25, 25)),
-          Shape
-            .Circle(
-              Circle(Point.zero, radius),
-              Fill.Color(RGBA.Blue.withAlpha(0.75)),
-              Stroke(2, RGBA.White)
-            )
-            .moveTo(Point(-25, 25))
-        ).moveTo(viewportCenter)
-          .withRef(25, 25)
+        LayerKey("demo") -> Layer(
+          Group(
+            Shape
+              .Circle(
+                Circle(Point.zero, radius),
+                Fill.Color(RGBA.Red.withAlpha(0.75)),
+                Stroke(2, RGBA.White)
+              )
+              .moveTo(Point(0, -25)),
+            Shape
+              .Circle(
+                Circle(Point.zero, radius),
+                Fill.Color(RGBA.Green.withAlpha(0.75)),
+                Stroke(2, RGBA.White)
+              )
+              .moveTo(Point(25, 25)),
+            Shape
+              .Circle(
+                Circle(Point.zero, radius),
+                Fill.Color(RGBA.Blue.withAlpha(0.75)),
+                Stroke(2, RGBA.White)
+              )
+              .moveTo(Point(-25, 25))
+          ).moveTo(viewportCenter)
+            .withRef(25, 25)
+        )
       )
     )
   // ```

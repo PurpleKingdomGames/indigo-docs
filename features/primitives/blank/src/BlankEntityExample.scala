@@ -63,8 +63,10 @@ class BlankEntityExample() extends Game[Unit, Unit, Unit]:
   def present(context: Context, model: Unit): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment(
-        BlankEntity(Size(200, 200), ShaderData(CustomShader.shader.id))
-          .moveTo(20, 20)
+        LayerKey("demo") -> Layer(
+          BlankEntity(Size(200, 200), ShaderData(CustomShader.shader.id))
+            .moveTo(20, 20)
+        )
       )
     )
   // ```

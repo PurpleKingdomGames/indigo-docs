@@ -56,43 +56,45 @@ class ImageEffectsExample() extends Game[Unit, Unit, Unit]:
   def present(context: Context, model: Unit): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment(
-        graphic
-          .moveTo(viewCenter)
-          .moveBy(0, -40)
-          .modifyMaterial(_.withTint(RGBA.Red)),
-        graphic
-          .moveTo(viewCenter)
-          .moveBy(-60, -40)
-          .modifyMaterial(_.withAlpha(0.5)),
-        graphic
-          .moveTo(viewCenter)
-          .moveBy(-30, -40)
-          .modifyMaterial(_.withSaturation(0.0)),
-        graphic
-          .moveTo(viewCenter)
-          .moveBy(30, -40)
-          .modifyMaterial(_.withOverlay(Fill.Color(RGBA.Magenta.withAmount(0.75)))),
-        graphic
-          .moveTo(viewCenter)
-          .moveBy(60, -40)
-          .modifyMaterial(
-            _.withOverlay(
-              Fill.LinearGradient(Point.zero, RGBA.Magenta, Point(40), RGBA.Cyan.withAmount(0.5))
-            )
-          ),
-        graphic
-          .moveTo(viewCenter)
-          .moveBy(-60, 10)
-          .modifyMaterial(
-            _.withOverlay(
-              Fill.RadialGradient(
-                Point(20),
-                10,
-                RGBA.Magenta.withAmount(0.5),
-                RGBA.Cyan.withAmount(0.25)
+        LayerKey("demo") -> Layer(
+          graphic
+            .moveTo(viewCenter)
+            .moveBy(0, -40)
+            .modifyMaterial(_.withTint(RGBA.Red)),
+          graphic
+            .moveTo(viewCenter)
+            .moveBy(-60, -40)
+            .modifyMaterial(_.withAlpha(0.5)),
+          graphic
+            .moveTo(viewCenter)
+            .moveBy(-30, -40)
+            .modifyMaterial(_.withSaturation(0.0)),
+          graphic
+            .moveTo(viewCenter)
+            .moveBy(30, -40)
+            .modifyMaterial(_.withOverlay(Fill.Color(RGBA.Magenta.withAmount(0.75)))),
+          graphic
+            .moveTo(viewCenter)
+            .moveBy(60, -40)
+            .modifyMaterial(
+              _.withOverlay(
+                Fill.LinearGradient(Point.zero, RGBA.Magenta, Point(40), RGBA.Cyan.withAmount(0.5))
+              )
+            ),
+          graphic
+            .moveTo(viewCenter)
+            .moveBy(-60, 10)
+            .modifyMaterial(
+              _.withOverlay(
+                Fill.RadialGradient(
+                  Point(20),
+                  10,
+                  RGBA.Magenta.withAmount(0.5),
+                  RGBA.Cyan.withAmount(0.25)
+                )
               )
             )
-          )
-      ).withMagnification(2)
+        )
+      ).withMagnification(Magnification.x2)
     )
   // ```

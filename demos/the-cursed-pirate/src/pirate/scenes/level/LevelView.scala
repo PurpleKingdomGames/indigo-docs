@@ -22,7 +22,6 @@ object LevelView:
       captainClips: PirateClips,
       levelDataStore: Option[LevelDataStore]
   ): SceneUpdateFragment =
-
     val asBox: Collider[String] => Option[Collider.Box[String]] =
       case collider: Collider.Box[_] => Option(collider)
       case _                         => None
@@ -57,18 +56,17 @@ object LevelView:
       levelDataStore
         .map { levelAssets =>
           SceneUpdateFragment.empty
-            .addLayer(
-              LayerKeys.background -> Layer.Content(
+            .addLayer(LayerKeys.background)(
+              Layer.Content(
                 Batch(Graphic(640, 360, assets.static.bgMaterial)) ++
                   drawWater(levelAssets.waterReflections)
               )
             )
-            .addLayer(
-              LayerKeys.game ->
-                Layer.Content(
-                  drawForeground(levelAssets)
-                    ++ drawChest(chestCollider, spaceConvertors)
-                )
+            .addLayer(LayerKeys.game)(
+              Layer.Content(
+                drawForeground(levelAssets)
+                  ++ drawChest(chestCollider, spaceConvertors)
+              )
             )
             .withAudio(
               assets.sounds.bgmusicSceneAudio
@@ -123,15 +121,14 @@ object LevelView:
         spaceConvertors: SpaceConvertors
     ): SceneUpdateFragment =
       SceneUpdateFragment.empty
-        .addLayer(
-          LayerKeys.game ->
-            Layer.Content(
-              respawnEffect(
-                gameTime,
-                pirate.lastRespawn,
-                updatedCaptain(pirate, collider, pirateViewState, captainClips, spaceConvertors)
-              )
+        .addLayer(LayerKeys.game)(
+          Layer.Content(
+            respawnEffect(
+              gameTime,
+              pirate.lastRespawn,
+              updatedCaptain(pirate, collider, pirateViewState, captainClips, spaceConvertors)
             )
+          )
         )
 
     val respawnFlashSignal: Seconds => Signal[(Boolean, Boolean)] =

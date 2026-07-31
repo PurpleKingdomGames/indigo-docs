@@ -38,12 +38,14 @@ class ShapeCircleExample() extends Game[Unit, Unit, Unit]:
 
     Outcome(
       SceneUpdateFragment(
-        Shape
-          .Circle(
-            Circle(Point.zero, radius),
-            Fill.LinearGradient(Point.zero, RGBA.Cyan, Point(radius * 2), RGBA.Magenta),
-            Stroke(2, RGBA.White)
-          )
-          .moveTo(viewportCenter)
+        LayerKey("demo") -> Layer(
+          Shape
+            .Circle(
+              Circle(Point.zero, radius),
+              Fill.LinearGradient(Point.zero, RGBA.Cyan, Point(radius * 2), RGBA.Magenta),
+              Stroke(2, RGBA.White)
+            )
+            .moveTo(viewportCenter)
+        )
       )
     )

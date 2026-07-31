@@ -15,8 +15,8 @@ object GameView:
   ): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment.empty
-        .addLayer(
-          LayerKey("game") -> Layer(
+        .addLayer(LayerKey("game"))(
+          Layer(
             gameLayer(
               viewConfig,
               model,

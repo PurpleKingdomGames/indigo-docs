@@ -1,5 +1,5 @@
 //| mvnDeps:
-//|   - "io.indigoengine:mill-indigo_mill1_3:0.30.0-M4-PREVIEW"
+//|   - "io.indigoengine:mill-indigo_mill1_3:0.30.0-M5-PREVIEW"
 //|   - "org.typelevel::scalac-options:0.1.11"
 
 package build
@@ -73,7 +73,7 @@ trait GameModule extends MillIndigoJS with ScalafmtModule {
       )
       .listAssets("Assets")
 
-  val indigoVersion = "0.30.0-M4-PREVIEW"
+  val indigoVersion = "0.30.0-M5-PREVIEW"
 
   def mvnDeps =
     Seq(

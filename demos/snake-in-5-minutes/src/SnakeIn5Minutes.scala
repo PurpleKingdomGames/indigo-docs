@@ -68,13 +68,17 @@ final class SnakeIn5Minutes() extends Game[Unit, Unit, SnakeModel]:
     val boxSize = Rectangle(1, 1, 18, 18)
     Outcome(
       SceneUpdateFragment(
-        Shape.Box(boxSize, Fill.Color(RGBA.Red)).moveTo(model.apple * model.gridSize) :: model.trail
-          .map(coords =>
-            Shape
-              .Box(boxSize, Fill.Color(RGBA.fromHexString("00ff1b")))
-              .moveTo(coords * model.gridSize)
-          )
-          .toBatch
+        LayerKey("game") -> Layer.Content(
+          Shape
+            .Box(boxSize, Fill.Color(RGBA.Red))
+            .moveTo(model.apple * model.gridSize) :: model.trail
+            .map(coords =>
+              Shape
+                .Box(boxSize, Fill.Color(RGBA.fromHexString("00ff1b")))
+                .moveTo(coords * model.gridSize)
+            )
+            .toBatch
+        )
       )
     )
 

@@ -41,8 +41,8 @@ object GameOverScene extends Scene[GameModel]:
       val verticalMiddle: Int   = model.center.y
 
       SceneUpdateFragment.empty
-        .addLayer(
-          LayerKey("ui") -> Layer(
+        .addLayer(LayerKey("ui"))(
+          Layer(
             Text(
               "Game Over!",
               horizontalCenter,

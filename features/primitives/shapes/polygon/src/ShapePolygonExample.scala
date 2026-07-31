@@ -36,12 +36,14 @@ class ShapePolygonExample() extends Game[Unit, Unit, Unit]:
 
     Outcome(
       SceneUpdateFragment(
-        Shape
-          .Polygon(
-            Batch(Point(0, 0), Point(64, 32), Point(64, 64), Point(0, 32)),
-            Fill.LinearGradient(Point.zero, RGBA.Cyan, Point(64), RGBA.Magenta),
-            Stroke(2, RGBA.White)
-          )
-          .moveTo(viewportCenter - Point(32))
+        LayerKey("demo") -> Layer(
+          Shape
+            .Polygon(
+              Batch(Point(0, 0), Point(64, 32), Point(64, 64), Point(0, 32)),
+              Fill.LinearGradient(Point.zero, RGBA.Cyan, Point(64), RGBA.Magenta),
+              Stroke(2, RGBA.White)
+            )
+            .moveTo(viewportCenter - Point(32))
+        )
       )
     )

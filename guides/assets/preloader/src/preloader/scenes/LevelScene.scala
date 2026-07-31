@@ -31,7 +31,7 @@ object LevelScene extends Scene[Model]:
       model: Model
   ): Outcome[SceneUpdateFragment] =
     val viewportCenter =
-      context.frame.viewport.center
+      context.frame.viewport.center / 2
 
     val loadingText =
       Text(
@@ -43,6 +43,8 @@ object LevelScene extends Scene[Model]:
 
     Outcome(
       SceneUpdateFragment(
-        loadingText
-      ).withMagnification(2)
+        LayerKey("level") -> Layer(
+          loadingText
+        )
+      ).withMagnification(Magnification.x2)
     )

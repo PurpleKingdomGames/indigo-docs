@@ -167,11 +167,13 @@ object CustomScene extends Scene[Model]:
   ): Outcome[SceneUpdateFragment] =
     sceneModel.actorPool.present(context.context, Map.empty).map { zombies =>
       SceneUpdateFragment(
-        Layer.Content(
-          Shape.Circle(Circle(sceneModel.target, 16), Fill.Color(RGBA.Red), Stroke(2, RGBA.White))
-        ),
-        Layer.Content(
-          zombies
+        LayerKey("demo") -> Layer.Stack(
+          Layer.Content(
+            Shape.Circle(Circle(sceneModel.target, 16), Fill.Color(RGBA.Red), Stroke(2, RGBA.White))
+          ),
+          Layer.Content(
+            zombies
+          )
         )
       )
     }

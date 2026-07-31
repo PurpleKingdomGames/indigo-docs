@@ -111,5 +111,11 @@ class SpriteExample() extends Game[Unit, Unit, Unit]:
     val sprite =
       Sprite(mySprite, 0, 0, flagAnimationKey, Assets.assets.FlagMaterial).play()
 
-    Outcome(SceneUpdateFragment(sprite).withMagnification(2))
+    Outcome(
+      SceneUpdateFragment(
+        LayerKey("demo") -> Layer(
+          sprite
+        )
+      ).withMagnification(Magnification.x2)
+    )
   // ```

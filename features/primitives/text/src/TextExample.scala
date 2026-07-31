@@ -35,11 +35,13 @@ class TextExample() extends Game[Unit, Unit, Unit]:
   def present(context: Context, model: Unit): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment(
-        Text(
-          "Hello, Indigo!",
-          KiwiSodaFont.fontKey,
-          Assets.assets.generated.KiwiSodaFontMaterial.toImageEffects
-            .withOverlay(Fill.Color(RGBA.Magenta))
-        ).moveTo(10, 10)
-      ).withMagnification(3)
+        LayerKey("demo") -> Layer(
+          Text(
+            "Hello, Indigo!",
+            KiwiSodaFont.fontKey,
+            Assets.assets.generated.KiwiSodaFontMaterial.toImageEffects
+              .withOverlay(Fill.Color(RGBA.Magenta))
+          ).moveTo(10, 10)
+        )
+      ).withMagnification(Magnification.x3)
     )

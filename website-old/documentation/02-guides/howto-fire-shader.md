@@ -150,7 +150,7 @@ object Assets:
     Set(AssetType.Text(fireProgram, AssetPath("assets/shader.frag")))
 
 BootResult
-  .noData(GameConfig.default.withViewport(384, 384).withMagnification(2))
+  .noData(GameConfig.default.withViewport(384, 384).withMagnification(Magnification.x2))
   .withShaders(Fire.shader(Assets.fireProgram))
   .withAssets(Assets.assets)
 ```

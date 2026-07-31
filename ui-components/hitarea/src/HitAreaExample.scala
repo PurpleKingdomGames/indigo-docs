@@ -55,7 +55,7 @@ class HitAreaExample() extends Game[Unit, Unit, Model]:
       Outcome(model)
 
     case e =>
-      val ctx = UIContext(context, 1)
+      val ctx = UIContext(context)
         .moveParentBy(Coords(50, 50))
 
       model.component.update(ctx)(e).map { c =>
@@ -63,9 +63,13 @@ class HitAreaExample() extends Game[Unit, Unit, Model]:
       }
 
   def present(context: Context, model: Model): Outcome[SceneUpdateFragment] =
-    val ctx = UIContext(context, 1)
+    val ctx = UIContext(context)
       .moveParentBy(Coords(50, 50))
 
     model.component
       .present(ctx)
-      .map(l => SceneUpdateFragment(l))
+      .map { l =>
+        SceneUpdateFragment(
+          LayerKey("demo") -> l
+        )
+      }

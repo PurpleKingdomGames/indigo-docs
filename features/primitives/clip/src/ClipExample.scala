@@ -48,5 +48,11 @@ class ClipExample() extends Game[Unit, Unit, Unit]:
     val clip: Clip[Material.Bitmap] =
       Clip(Size(64, 128), ClipSheet(9, FPS(10)), ClipPlayMode.default, Assets.assets.FlagMaterial)
 
-    Outcome(SceneUpdateFragment(clip).withMagnification(2))
+    Outcome(
+      SceneUpdateFragment(
+        LayerKey("demo") -> Layer(
+          clip
+        )
+      ).withMagnification(Magnification.x2)
+    )
     // ```

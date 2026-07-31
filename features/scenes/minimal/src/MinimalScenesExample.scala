@@ -52,14 +52,16 @@ object CustomScene extends Scene[Model]:
   ): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment(
-        Shape
-          .Box(
-            Rectangle(0, 0, 60, 60),
-            Fill.LinearGradient(Point(0), RGBA.Magenta, Point(45), RGBA.Cyan)
-          )
-          .withRef(30, 30)
-          .moveTo(100, 100)
-          .rotateTo(Radians.fromSeconds(context.frame.time.running * 0.25))
+        LayerKey("demo") -> Layer(
+          Shape
+            .Box(
+              Rectangle(0, 0, 60, 60),
+              Fill.LinearGradient(Point(0), RGBA.Magenta, Point(45), RGBA.Cyan)
+            )
+            .withRef(30, 30)
+            .moveTo(100, 100)
+            .rotateTo(Radians.fromSeconds(context.frame.time.running * 0.25))
+        )
       )
     )
 
