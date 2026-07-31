@@ -43,7 +43,7 @@ Inside the game itself you are required to configure your game by supplying a `G
 ```scala
 GameConfig.default
   .withViewport(Size(800, 600))
-  .withMagnification(2)
+  .withMagnification(Magnification.x2)
 ```
 
 Most of the config options are pretty self explanatory, but there are a couple of things to know:

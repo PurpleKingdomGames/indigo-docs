@@ -60,7 +60,7 @@ object LoadingScene extends Scene[Model]:
       model: Model
   ): Outcome[SceneUpdateFragment] =
     val viewportCenter =
-      context.frame.viewport.center
+      context.frame.viewport.center / 2
 
     val message: String =
       model.loadingScene match
@@ -86,9 +86,11 @@ object LoadingScene extends Scene[Model]:
 
     Outcome(
       SceneUpdateFragment(
-        loadingText,
-        model.startupData.captainLoading.moveTo(viewportCenter)
-      ).withMagnification(2)
+        LayerKey("loading") -> Layer(
+          loadingText,
+          model.startupData.captainLoading.moveTo(viewportCenter)
+        )
+      ).withMagnification(Magnification.x2)
     )
 
 enum LoadingState:

@@ -3,6 +3,7 @@ package indigoexamples
 import indigo.*
 import generated.Config
 import generated.Assets
+import generated.DefaultFont
 
 /** ## Signals in Action
   *
@@ -24,7 +25,11 @@ class SignalsExample() extends Game[Unit, Unit, Boolean]:
   def boot(flags: Map[String, String]): Outcome[BootResult[Unit, Boolean]] =
     Outcome(
       BootResult(Config.config, ())
-        .withAssets(Assets.assets.assetSetRelative)
+        .withAssets(
+          Assets.assets.assetSetRelative ++
+            Assets.assets.generated.assetSetRelative
+        )
+        .withFonts(DefaultFont.fontInfo)
     )
 
   def initialScene(bootData: Unit): Option[SceneName] = None
@@ -112,10 +117,19 @@ class SignalsExample() extends Game[Unit, Unit, Boolean]:
       Outcome(hasRunOnce)
   // ```
 
+  val text =
+    Text(
+      "This code-only demo doesn't render anything.",
+      DefaultFont.fontKey,
+      Assets.assets.generated.DefaultFontMaterial
+    ).moveTo(10, 10)
+
   def present(
       context: Context,
       hasRunOnce: Boolean
   ): Outcome[SceneUpdateFragment] =
     Outcome(
-      SceneUpdateFragment.empty
+      SceneUpdateFragment(
+        LayerKey("demo") -> Layer(text)
+      )
     )

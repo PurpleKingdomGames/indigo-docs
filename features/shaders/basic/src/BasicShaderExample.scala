@@ -52,7 +52,9 @@ class BasicShaderExample() extends Game[Unit, Unit, Unit]:
   def present(context: Context, model: Unit): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment(
-        BlankEntity(10, 10, 200, 200, ShaderData(CustomShader.shader.id))
+        LayerKey("demo") -> Layer(
+          BlankEntity(10, 10, 200, 200, ShaderData(CustomShader.shader.id))
+        )
       )
     )
   // ```

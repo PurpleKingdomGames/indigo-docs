@@ -114,7 +114,9 @@ object SceneA extends Scene[Model]:
       )
 
     Outcome(
-      SceneUpdateFragment(text)
+      SceneUpdateFragment(
+        LayerKey("demo") -> Layer(text)
+      )
     )
 
 object SceneB extends Scene[Model]:
@@ -161,7 +163,11 @@ object SceneB extends Scene[Model]:
         Assets.assets.generated.DefaultFontMaterial
       )
 
-    Outcome(SceneUpdateFragment(text))
+    Outcome(
+      SceneUpdateFragment(
+        LayerKey("demo") -> Layer(text)
+      )
+    )
 
 /** The main game functions of an `IndigoGame` entry point are largely the same as you'd find in an
   * `IndigoGame`, but there are two things to note:

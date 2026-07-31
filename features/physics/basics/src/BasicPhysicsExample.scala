@@ -191,34 +191,36 @@ class BasicPhysicsExample() extends Game[Unit, Unit, Model]:
   def present(context: Context, model: Model): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment(
-        model.world.present {
-          case c: Collider.Circle[_] =>
-            Shape.Circle(
-              c.bounds.position.toPoint,
-              c.bounds.radius.toInt,
-              Fill.Color(RGBA.White.withAlpha(0.2)),
-              Stroke(1, RGBA.White)
-            )
+        LayerKey("demo") -> Layer(
+          model.world.present {
+            case c: Collider.Circle[_] =>
+              Shape.Circle(
+                c.bounds.position.toPoint,
+                c.bounds.radius.toInt,
+                Fill.Color(RGBA.White.withAlpha(0.2)),
+                Stroke(1, RGBA.White)
+              )
 
-          case c: Collider.Box[_] =>
-            Shape.Box(
-              c.bounds.toRectangle,
-              Fill.Color(RGBA.White.withAlpha(0.2)),
-              Stroke(1, RGBA.White)
-            )
-        } ++
-          Signal
-            .Pulse(1.seconds)
-            .map { show =>
-              if show then
-                val bounds = context.services.bounds.find(message).getOrElse(Rectangle.zero)
+            case c: Collider.Box[_] =>
+              Shape.Box(
+                c.bounds.toRectangle,
+                Fill.Color(RGBA.White.withAlpha(0.2)),
+                Stroke(1, RGBA.White)
+              )
+          } ++
+            Signal
+              .Pulse(1.seconds)
+              .map { show =>
+                if show then
+                  val bounds = context.services.bounds.find(message).getOrElse(Rectangle.zero)
 
-                Batch(
-                  message.moveTo((800 - bounds.width) / 2, 600 - bounds.height - 10)
-                )
-              else Batch.empty
-            }
-            .at(context.frame.time.running)
+                  Batch(
+                    message.moveTo((800 - bounds.width) / 2, 600 - bounds.height - 10)
+                  )
+                else Batch.empty
+              }
+              .at(context.frame.time.running)
+        )
       )
     )
   // ```

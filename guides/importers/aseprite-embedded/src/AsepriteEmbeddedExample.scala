@@ -53,12 +53,14 @@ class AsepriteEmbeddedExample() extends Game[Unit, StartupData, StartupData]:
       model: StartupData
   ): Outcome[SceneUpdateFragment] =
     val viewportCenter =
-      context.frame.viewport.center
+      context.frame.viewport.center / Magnification.x2.toInt
 
     Outcome(
       SceneUpdateFragment(
-        model.captainLoading.moveTo(viewportCenter)
-      ).withMagnification(2)
+        LayerKey("demo") -> Layer(
+          model.captainLoading.moveTo(viewportCenter)
+        )
+      ).withMagnification(Magnification.x2)
     )
 
 object InitialLoad:

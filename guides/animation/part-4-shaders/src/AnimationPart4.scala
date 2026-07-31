@@ -195,8 +195,10 @@ class AnimationPart4() extends Game[Unit, Unit, Unit]:
   def present(context: Context, model: Unit): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment(
-        grid :+
-          BlankEntity(tileSize + Size(10), ShaderData(CustomShader.shader.id))
-            .moveTo(Point(64) + offset + Point(-5))
+        LayerKey("demo") -> Layer(
+          grid :+
+            BlankEntity(tileSize + Size(10), ShaderData(CustomShader.shader.id))
+              .moveTo(Point(64) + offset + Point(-5))
+        )
       )
     )

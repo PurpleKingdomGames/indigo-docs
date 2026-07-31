@@ -113,6 +113,8 @@ class ContextExample() extends Game[Unit, Unit, Boolean]:
 
     Outcome(
       SceneUpdateFragment(
-        boxShape.moveTo(viewportCenter - boxSize.toPoint / 2)
+        LayerKey("demo") -> Layer(
+          boxShape.moveTo(viewportCenter - boxSize.toPoint / 2)
+        )
       )
     )

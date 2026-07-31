@@ -85,9 +85,11 @@ final case class LoadingScene(assetPath: String, screenDimensions: Rectangle) ex
 
     Outcome(
       SceneUpdateFragment(
-        loadingText,
-        model.startupData.captainLoading.moveTo(x, y)
-      ).withMagnification(2)
+        LayerKey("loading") -> Layer(
+          loadingText,
+          model.startupData.captainLoading.moveTo(x, y)
+        )
+      ).withMagnification(Magnification.x2)
     )
 
 enum LoadingState:

@@ -164,11 +164,13 @@ class AnimationPart2() extends Game[Unit, Unit, Unit]:
 
     Outcome(
       SceneUpdateFragment(
-        circle1,
-        circle2.at(context.frame.time.running),
-        circle3.at(context.frame.time.running),
-        circle4.at(context.frame.time.running),
-        circleSignal.at(context.frame.time.running)
+        LayerKey("demo") -> Layer(
+          circle1,
+          circle2.at(context.frame.time.running),
+          circle3.at(context.frame.time.running),
+          circle4.at(context.frame.time.running),
+          circleSignal.at(context.frame.time.running)
+        )
       )
     )
 

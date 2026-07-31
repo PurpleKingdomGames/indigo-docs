@@ -178,7 +178,7 @@ class CustomComponentExample() extends Game[BootData, StartUpData, Model]:
         .withSubSystems(
           WindowManager[Unit, Model, Unit](
             id = SubSystemId("window-manager"),
-            magnification = 1,
+            magnification = Magnification.x1,
             snapGrid = Size(1),
             extractReference = _ => (),
             startUpData = (),

@@ -324,7 +324,7 @@ class WindowExample() extends Game[BootData, StartUpData, Model]:
         .withSubSystems(
           WindowManager[Unit, Model, Int](
             id = SubSystemId("window-manager"),
-            magnification = 1,
+            magnification = Magnification.x1,
             snapGrid = Size(1),
             extractReference = _.num,
             startUpData = (),

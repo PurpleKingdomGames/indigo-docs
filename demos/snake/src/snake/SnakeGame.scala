@@ -37,8 +37,7 @@ final class SnakeGame() extends Game[ViewConfig, StartupData, GameModel]:
         .withAssets(GameAssets.assets(assetPath))
         .withFonts(GameAssets.fontInfo)
         .withSubSystems(
-          FPSCounter(GameAssets.fontKey, Assets.assets.boxyFontSmall)
-            .withLayerKey(LayerKey("fps"))
+          FPSCounter(GameAssets.fontKey, Assets.assets.boxyFontSmall, LayerKey("fps"))
             .moveTo(Point(5, 5))
         )
     }
@@ -70,11 +69,11 @@ final class SnakeGame() extends Game[ViewConfig, StartupData, GameModel]:
   ): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment(
-        LayerKey("game")  -> Layer.empty.withMagnificationForAll(2),
-        LayerKey("score") -> Layer.empty.withMagnificationForAll(2),
-        LayerKey("ui")    -> Layer.empty.withMagnificationForAll(2),
-        LayerKey("fps")   -> Layer.empty.withMagnificationForAll(2)
-      )
+        LayerKey("game")  -> Layer.empty,
+        LayerKey("score") -> Layer.empty,
+        LayerKey("ui")    -> Layer.empty,
+        LayerKey("fps")   -> Layer.empty
+      ).withMagnification(Magnification.x2)
     )
 
 case object GameReset extends GlobalEvent

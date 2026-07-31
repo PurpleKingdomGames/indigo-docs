@@ -26,7 +26,7 @@ class CursedPirateDemo() extends Game[BootInformation, StartupData, Model]:
     )
 
   val eventFilters: EventFilters =
-    EventFilters.BlockAll
+    EventFilters.Permissive
 
   def boot(flags: Map[String, String]): Outcome[BootResult[BootInformation, Model]] =
     Outcome {
@@ -47,8 +47,9 @@ class CursedPirateDemo() extends Game[BootInformation, StartupData, Model]:
         .withSubSystems(
           FPSCounter[Model](
             Assets.Fonts.fontKey,
-            pirate.generated.Assets.assets.fonts.boxyFontSmall
-          ).withLayerKey(LayerKeys.fps)
+            pirate.generated.Assets.assets.fonts.boxyFontSmall,
+            LayerKeys.fps
+          )
         )
     }
 
@@ -57,13 +58,27 @@ class CursedPirateDemo() extends Game[BootInformation, StartupData, Model]:
       assetCollection: AssetCollection,
       dice: Dice
   ): Outcome[Startup[StartupData]] =
-    InitialLoad.setup(bootInfo.screenDimensions, assetCollection)
+    InitialLoad
+      .setup(bootInfo.screenDimensions, assetCollection)
+      .createGlobalEvents {
+        case Startup.Failure(_) =>
+          Batch.empty
+
+        case Startup.Success(startupData, _, _, _) =>
+          Batch(ReplaceStartupData(startupData))
+      }
 
   def initialModel(startupData: StartupData): Outcome[Model] =
     Outcome(Model.initial(startupData))
 
   def updateModel(context: Context, model: Model): GlobalEvent => Outcome[Model] =
-    _ => Outcome(model)
+    case ReplaceStartupData(newStartupData) =>
+      Outcome(
+        model.copy(startupData = newStartupData)
+      )
+
+    case _ =>
+      Outcome(model)
 
   def present(
       context: Context,
@@ -72,10 +87,13 @@ class CursedPirateDemo() extends Game[BootInformation, StartupData, Model]:
     Outcome(
       SceneUpdateFragment.empty
         .withLayers(
-          LayerKeys.background  -> Layer.empty.withMagnificationForAll(2),
-          LayerKeys.bigClouds   -> Layer.empty.withMagnificationForAll(2),
-          LayerKeys.smallClouds -> Layer.empty.withMagnificationForAll(2),
-          LayerKeys.game        -> Layer.empty.withMagnificationForAll(2),
-          LayerKeys.fps         -> Layer.empty.withMagnificationForAll(2)
+          LayerKeys.background  -> Layer.empty,
+          LayerKeys.bigClouds   -> Layer.empty,
+          LayerKeys.smallClouds -> Layer.empty,
+          LayerKeys.game        -> Layer.empty,
+          LayerKeys.fps         -> Layer.empty
         )
+        .withMagnification(Magnification.x2)
     )
+
+final case class ReplaceStartupData(startupData: StartupData) extends GlobalEvent

@@ -84,8 +84,10 @@ class TimeVaryingValuesExample() extends Game[Unit, Unit, LumberJack]:
   ): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment(
-        lumberJack.present(
-          context.frame.viewport.center
+        LayerKey("demo") -> Layer(
+          lumberJack.present(
+            context.frame.viewport.center / 2
+          )
         )
-      ).withMagnification(2)
+      ).withMagnification(Magnification.x2)
     )

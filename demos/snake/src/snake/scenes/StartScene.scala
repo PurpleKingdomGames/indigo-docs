@@ -49,8 +49,8 @@ object StartScene extends Scene[GameModel]:
       val verticalMiddle: Int   = center.y
 
       SceneUpdateFragment.empty
-        .addLayer(
-          LayerKey("ui") -> Layer(
+        .addLayer(LayerKey("ui"))(
+          Layer(
             drawTitleText(horizontalCenter, verticalMiddle) ++
               SharedElements.drawHitSpaceToStart(horizontalCenter, Seconds(1), context.frame.time)
           )

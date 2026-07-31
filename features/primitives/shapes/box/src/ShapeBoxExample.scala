@@ -38,12 +38,14 @@ class ShapeBoxExample() extends Game[Unit, Unit, Unit]:
 
     Outcome(
       SceneUpdateFragment(
-        Shape
-          .Box(
-            Rectangle(Point.zero, size),
-            Fill.LinearGradient(Point.zero, RGBA.Cyan, size.toPoint, RGBA.Magenta),
-            Stroke(2, RGBA.White)
-          )
-          .moveTo(viewportCenter - size.toPoint / 2)
+        LayerKey("demo") -> Layer(
+          Shape
+            .Box(
+              Rectangle(Point.zero, size),
+              Fill.LinearGradient(Point.zero, RGBA.Cyan, size.toPoint, RGBA.Magenta),
+              Stroke(2, RGBA.White)
+            )
+            .moveTo(viewportCenter - size.toPoint / 2)
+        )
       )
     )

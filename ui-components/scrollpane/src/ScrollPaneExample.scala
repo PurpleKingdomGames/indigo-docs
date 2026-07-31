@@ -162,8 +162,8 @@ class ScrollPaneExample() extends Game[Unit, Unit, Model]:
 
   def updateModel(context: Context, model: Model): GlobalEvent => Outcome[Model] =
     case e =>
-      val ctx = UIContext(context, 1)
-        .withMagnification(2)
+      val ctx = UIContext(context)
+        .withMagnification(Magnification.x2)
         .moveParentBy(Coords(50, 50))
         .copy(reference = model.count)
 
@@ -176,8 +176,8 @@ class ScrollPaneExample() extends Game[Unit, Unit, Model]:
     */
   // ```scala
   def present(context: Context, model: Model): Outcome[SceneUpdateFragment] =
-    val ctx = UIContext(context, 1)
-      .withMagnification(2)
+    val ctx = UIContext(context)
+      .withMagnification(Magnification.x2)
       .moveParentBy(Coords(50, 50))
       .copy(reference = model.count)
 
@@ -190,5 +190,14 @@ class ScrollPaneExample() extends Game[Unit, Unit, Model]:
 
     model.component
       .present(ctx)
-      .map(c => SceneUpdateFragment(c).addLayer(scrollPaneBorder))
+      .map { l =>
+        SceneUpdateFragment(
+          LayerKey("demo") -> Layer.Stack(
+            l,
+            Layer(
+              scrollPaneBorder
+            )
+          )
+        ).withMagnification(Magnification.x2)
+      }
   // ```

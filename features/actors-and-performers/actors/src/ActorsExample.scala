@@ -130,10 +130,10 @@ object CustomScene extends Scene[Model]:
   ): Outcome[SceneUpdateFragment] =
     sceneModel.actorPool.present(context.context, sceneModel.target).map { followers =>
       SceneUpdateFragment(
-        Layer.Content(
+        LayerKey("target") -> Layer.Content(
           Shape.Circle(Circle(sceneModel.target, 8), Fill.Color(RGBA.Cyan))
         ),
-        Layer.Content(
+        LayerKey("followers") -> Layer.Content(
           followers
         )
       )

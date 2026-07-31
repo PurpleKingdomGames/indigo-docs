@@ -36,8 +36,10 @@ class BitmapExample() extends Game[Unit, Unit, Unit]:
   def present(context: Context, model: Unit): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment(
-        Graphic(0, 0, 64, 64, Material.Bitmap(Assets.assets.nineslice))
-          .moveTo(10, 10)
+        LayerKey("demo") -> Layer(
+          Graphic(0, 0, 64, 64, Material.Bitmap(Assets.assets.nineslice))
+            .moveTo(10, 10)
+        )
       )
     )
   // ```

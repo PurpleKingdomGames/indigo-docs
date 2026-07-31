@@ -13,6 +13,7 @@ object Runtime extends BasicGameRuntime[Unit]:
 
   def settings: Settings =
     Settings.default
+      .withFrameRatePolicy(FrameRatePolicy.Skip(FPS(144)))
 
   def init(flags: Map[String, String]): Result[Unit] =
     Result(())
