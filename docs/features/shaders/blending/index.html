@@ -138,19 +138,19 @@
     <li class="level2 nav-node"><a href="../../time/">Time</a></li>
     <li class="level3 nav-leaf"><a href="../../time/signals/">Signals &amp; Signal Functions</a></li>
     <li class="level3 nav-leaf"><a href="../../time/time-varying-values/">Time Varying Values</a></li>
-    <li class="level2 nav-node"><a href="../../ui/">Ui</a></li>
-    <li class="level3 nav-leaf"><a href="../../ui/button/">UI Components: Button</a></li>
-    <li class="level3 nav-leaf"><a href="../../ui/component-group/">UI Components: Component Group</a></li>
-    <li class="level3 nav-leaf"><a href="../../ui/component-list/">UI Components: Component List</a></li>
-    <li class="level3 nav-leaf"><a href="../../ui/custom/">UI Components: Custom Components</a></li>
-    <li class="level3 nav-leaf"><a href="../../ui/hitarea/">UI Components: HitArea</a></li>
-    <li class="level3 nav-leaf"><a href="../../ui/input/">UI Components: Input</a></li>
-    <li class="level3 nav-leaf"><a href="../../ui/label/">UI Components: Label</a></li>
-    <li class="level3 nav-leaf"><a href="../../ui/maskedpane/">UI Components: Masked Pane</a></li>
-    <li class="level3 nav-leaf"><a href="../../ui/scrollpane/">UI Components: Scroll Pane</a></li>
-    <li class="level3 nav-leaf"><a href="../../ui/switch/">UI Components: Switch</a></li>
-    <li class="level3 nav-leaf"><a href="../../ui/textarea/">UI Components: TextArea</a></li>
-    <li class="level3 nav-leaf"><a href="../../ui/window/">UI Components: Windows</a></li>
+    <li class="level1 nav-node"><a href="../../../ui-components/">UI Components</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/button/">Button</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/component-group/">Component Group</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/component-list/">Component List</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/custom/">Custom Components</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/hitarea/">HitArea</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/input/">Input</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/label/">Label</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/maskedpane/">Masked Pane</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/scrollpane/">Scroll Pane</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/switch/">Switch</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/textarea/">TextArea</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/window/">Windows</a></li>
   </ul>
 
 </nav>
@@ -182,12 +182,12 @@
         <p>See <a href="https://ultraviolet.indigoengine.io/">Ultraviolets docs</a> for more information on Shaders and shader writing.</p>
         
         <h2 id="demo" class="section"><a class="anchor-link left" href="#demo"><i class="icofont-laika link">&#xef71;</i></a>Demo</h2>
-        <div id="live-demo" style="border:2px solid #e400ff;width:400px;height:400px;background:#a888db33;color: #e400ff;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+        <div id="live-demo" style="border:2px solid #e400ff;width:800px;height:600px;background:#a888db33;color: #e400ff;display:flex;align-items:center;justify-content:center;cursor:pointer;">
           ▶  Click to play
         </div>
         <script>
   document.getElementById("live-demo").addEventListener("click", function() {
-    this.innerHTML = '<iframe width="396" height="396" src="/live_demos/features/shaders/blending/index.html" frameborder="0" allow="autoplay; encrypted-media" scrolling="no"></iframe>';
+    this.innerHTML = '<iframe width="796" height="596" src="/live_demos/features/shaders/blending/index.html" frameborder="0" allow="autoplay; encrypted-media" scrolling="no"></iframe>';
   });
 </script>
         
@@ -211,41 +211,45 @@
         <p>In this instance the example shows all the arguments you can supply to a <code>Blending</code> instance,
         but you can also construct them with only the <code>BlendMaterial</code>, or even skip it and replace
         <code>withBlending</code> with <code>withBlendMaterial</code>.</p>
-        <pre><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">present</span><span>(</span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>[</span><span class="type-name">Unit</span><span>], </span><span class="identifier">model</span><span>: </span><span class="type-name">Unit</span><span>): </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">SceneUpdateFragment</span><span>] =
+        <pre><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">present</span><span>(</span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>, </span><span class="identifier">model</span><span>: </span><span class="type-name">Unit</span><span>): </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">SceneUpdateFragment</span><span>] =
   </span><span class="keyword">val</span><span> </span><span class="identifier">gap</span><span> = </span><span class="number-literal">2</span><span>
 
   </span><span class="type-name">Outcome</span><span>(
     </span><span class="type-name">SceneUpdateFragment</span><span>(
-      </span><span class="type-name">Layer</span><span>(
-        </span><span class="type-name">Graphic</span><span>(</span><span class="number-literal">0</span><span>, </span><span class="number-literal">0</span><span>, </span><span class="number-literal">64</span><span>, </span><span class="number-literal">64</span><span>, </span><span class="type-name">Material</span><span>.</span><span class="type-name">Bitmap</span><span>(</span><span class="type-name">Assets</span><span>.</span><span class="identifier">assets</span><span>.</span><span class="identifier">nineslice</span><span>))
-          .</span><span class="identifier">moveTo</span><span>(</span><span class="number-literal">10</span><span>, </span><span class="number-literal">10</span><span>)
-      ),
-      </span><span class="type-name">Layer</span><span>(
-        </span><span class="type-name">BlankEntity</span><span>(</span><span class="number-literal">0</span><span>, </span><span class="number-literal">0</span><span>, </span><span class="number-literal">64</span><span>, </span><span class="number-literal">64</span><span>, </span><span class="type-name">ShaderData</span><span>(</span><span class="type-name">CustomEntityShader</span><span>.</span><span class="identifier">shader</span><span>.</span><span class="identifier">id</span><span>))
-          .</span><span class="identifier">moveTo</span><span>(</span><span class="number-literal">10</span><span> + </span><span class="number-literal">64</span><span> + </span><span class="identifier">gap</span><span>, </span><span class="number-literal">10</span><span>)
-      ),
-      </span><span class="type-name">Layer</span><span>(
-        </span><span class="type-name">Graphic</span><span>(</span><span class="number-literal">0</span><span>, </span><span class="number-literal">0</span><span>, </span><span class="number-literal">64</span><span>, </span><span class="number-literal">64</span><span>, </span><span class="type-name">Material</span><span>.</span><span class="type-name">Bitmap</span><span>(</span><span class="type-name">Assets</span><span>.</span><span class="identifier">assets</span><span>.</span><span class="identifier">nineslice</span><span>))
-          .</span><span class="identifier">moveTo</span><span>(</span><span class="number-literal">10</span><span> + </span><span class="number-literal">64</span><span> + </span><span class="identifier">gap</span><span> + </span><span class="number-literal">64</span><span> + </span><span class="identifier">gap</span><span>, </span><span class="number-literal">10</span><span>)
-      ),
-      </span><span class="type-name">Layer</span><span>(
-        </span><span class="type-name">BlankEntity</span><span>(</span><span class="number-literal">0</span><span>, </span><span class="number-literal">0</span><span>, </span><span class="number-literal">64</span><span>, </span><span class="number-literal">64</span><span>, </span><span class="type-name">ShaderData</span><span>(</span><span class="type-name">CustomEntityShader</span><span>.</span><span class="identifier">shader</span><span>.</span><span class="identifier">id</span><span>))
-          .</span><span class="identifier">moveTo</span><span>(</span><span class="number-literal">10</span><span> + </span><span class="number-literal">64</span><span> + </span><span class="identifier">gap</span><span> + </span><span class="number-literal">64</span><span> + </span><span class="identifier">gap</span><span>, </span><span class="number-literal">10</span><span>)
-      ).</span><span class="identifier">withBlending</span><span>(
-        </span><span class="type-name">Blending</span><span>(
-          </span><span class="identifier">entity</span><span> = </span><span class="type-name">Blend</span><span>.</span><span class="type-name">Normal</span><span>,
-          </span><span class="identifier">layer</span><span> = </span><span class="type-name">Blend</span><span>.</span><span class="type-name">Normal</span><span>,
-          </span><span class="identifier">blendMaterial</span><span> = </span><span class="type-name">CustomBlendMaterial</span><span>(),
-          </span><span class="identifier">clearColor</span><span> = </span><span class="type-name">None</span><span>
-        )
+      </span><span class="type-name">LayerKey</span><span>(</span><span class="string-literal">&quot;demo&quot;</span><span>) -&gt; </span><span class="type-name">Layer</span><span>.</span><span class="type-name">Stack</span><span>(
+        </span><span class="type-name">Layer</span><span>.</span><span class="type-name">Content</span><span>(
+          </span><span class="type-name">Graphic</span><span>(</span><span class="number-literal">0</span><span>, </span><span class="number-literal">0</span><span>, </span><span class="number-literal">64</span><span>, </span><span class="number-literal">64</span><span>, </span><span class="type-name">Material</span><span>.</span><span class="type-name">Bitmap</span><span>(</span><span class="type-name">Assets</span><span>.</span><span class="identifier">assets</span><span>.</span><span class="identifier">nineslice</span><span>))
+            .</span><span class="identifier">moveTo</span><span>(</span><span class="number-literal">10</span><span>, </span><span class="number-literal">10</span><span>)
+        ),
+        </span><span class="type-name">Layer</span><span>.</span><span class="type-name">Content</span><span>(
+          </span><span class="type-name">BlankEntity</span><span>(</span><span class="number-literal">0</span><span>, </span><span class="number-literal">0</span><span>, </span><span class="number-literal">64</span><span>, </span><span class="number-literal">64</span><span>, </span><span class="type-name">ShaderData</span><span>(</span><span class="type-name">CustomEntityShader</span><span>.</span><span class="identifier">shader</span><span>.</span><span class="identifier">id</span><span>))
+            .</span><span class="identifier">moveTo</span><span>(</span><span class="number-literal">10</span><span> + </span><span class="number-literal">64</span><span> + </span><span class="identifier">gap</span><span>, </span><span class="number-literal">10</span><span>)
+        ),
+        </span><span class="type-name">Layer</span><span>.</span><span class="type-name">Content</span><span>(
+          </span><span class="type-name">Graphic</span><span>(</span><span class="number-literal">0</span><span>, </span><span class="number-literal">0</span><span>, </span><span class="number-literal">64</span><span>, </span><span class="number-literal">64</span><span>, </span><span class="type-name">Material</span><span>.</span><span class="type-name">Bitmap</span><span>(</span><span class="type-name">Assets</span><span>.</span><span class="identifier">assets</span><span>.</span><span class="identifier">nineslice</span><span>))
+            .</span><span class="identifier">moveTo</span><span>(</span><span class="number-literal">10</span><span> + </span><span class="number-literal">64</span><span> + </span><span class="identifier">gap</span><span> + </span><span class="number-literal">64</span><span> + </span><span class="identifier">gap</span><span>, </span><span class="number-literal">10</span><span>)
+        ),
+        </span><span class="type-name">Layer</span><span>
+          .</span><span class="type-name">Content</span><span>(
+            </span><span class="type-name">BlankEntity</span><span>(</span><span class="number-literal">0</span><span>, </span><span class="number-literal">0</span><span>, </span><span class="number-literal">64</span><span>, </span><span class="number-literal">64</span><span>, </span><span class="type-name">ShaderData</span><span>(</span><span class="type-name">CustomEntityShader</span><span>.</span><span class="identifier">shader</span><span>.</span><span class="identifier">id</span><span>))
+              .</span><span class="identifier">moveTo</span><span>(</span><span class="number-literal">10</span><span> + </span><span class="number-literal">64</span><span> + </span><span class="identifier">gap</span><span> + </span><span class="number-literal">64</span><span> + </span><span class="identifier">gap</span><span>, </span><span class="number-literal">10</span><span>)
+          )
+          .</span><span class="identifier">withBlending</span><span>(
+            </span><span class="type-name">Blending</span><span>(
+              </span><span class="identifier">entity</span><span> = </span><span class="type-name">Blend</span><span>.</span><span class="type-name">Normal</span><span>,
+              </span><span class="identifier">layer</span><span> = </span><span class="type-name">Blend</span><span>.</span><span class="type-name">Normal</span><span>,
+              </span><span class="identifier">blendMaterial</span><span> = </span><span class="type-name">CustomBlendMaterial</span><span>(),
+              </span><span class="identifier">clearColor</span><span> = </span><span class="type-name">None</span><span>
+            )
+          )
       )
-    )
+    ).</span><span class="identifier">withMagnification</span><span>(</span><span class="type-name">Magnification</span><span>.</span><span class="identifier">x2</span><span>)
   )</span></code></pre>
         <p>A <code>BlendMaterial</code> is nothing more than a class that provides the <code>ShaderData</code> used to tell
         Indigo how to merge one layer down onto the layer below it.</p>
         <p>In terms of the process, each layer is first rendered, and then the blending is performed. In
         effect, you are combining to images of the same size in the same location.</p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">final</span><span> </span><span class="keyword">case</span><span> </span><span class="keyword">class</span><span> </span><span class="type-name">CustomBlendMaterial</span><span>() </span><span class="keyword">extends</span><span> </span><span class="type-name">BlendMaterial</span><span>:
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">final</span><span> </span><span class="keyword">case</span><span> </span><span class="keyword">class</span><span> </span><span class="type-name">CustomBlendMaterial</span><span>() </span><span class="keyword">extends</span><span> </span><span class="type-name">BlendMaterial</span><span>.</span><span class="type-name">SrcAndDst</span><span>:
   </span><span class="keyword">def</span><span> </span><span class="declaration-name">toShaderData</span><span>: </span><span class="type-name">ShaderData</span><span> =
     </span><span class="type-name">ShaderData</span><span>(</span><span class="type-name">CustomBlendShader</span><span>.</span><span class="identifier">shader</span><span>.</span><span class="identifier">id</span><span>)</span></code></pre>
         <p>The structure of a blend shader is <em>very</em> similar that seen in the basic entity shader example.

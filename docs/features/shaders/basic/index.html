@@ -138,19 +138,19 @@
     <li class="level2 nav-node"><a href="../../time/">Time</a></li>
     <li class="level3 nav-leaf"><a href="../../time/signals/">Signals &amp; Signal Functions</a></li>
     <li class="level3 nav-leaf"><a href="../../time/time-varying-values/">Time Varying Values</a></li>
-    <li class="level2 nav-node"><a href="../../ui/">Ui</a></li>
-    <li class="level3 nav-leaf"><a href="../../ui/button/">UI Components: Button</a></li>
-    <li class="level3 nav-leaf"><a href="../../ui/component-group/">UI Components: Component Group</a></li>
-    <li class="level3 nav-leaf"><a href="../../ui/component-list/">UI Components: Component List</a></li>
-    <li class="level3 nav-leaf"><a href="../../ui/custom/">UI Components: Custom Components</a></li>
-    <li class="level3 nav-leaf"><a href="../../ui/hitarea/">UI Components: HitArea</a></li>
-    <li class="level3 nav-leaf"><a href="../../ui/input/">UI Components: Input</a></li>
-    <li class="level3 nav-leaf"><a href="../../ui/label/">UI Components: Label</a></li>
-    <li class="level3 nav-leaf"><a href="../../ui/maskedpane/">UI Components: Masked Pane</a></li>
-    <li class="level3 nav-leaf"><a href="../../ui/scrollpane/">UI Components: Scroll Pane</a></li>
-    <li class="level3 nav-leaf"><a href="../../ui/switch/">UI Components: Switch</a></li>
-    <li class="level3 nav-leaf"><a href="../../ui/textarea/">UI Components: TextArea</a></li>
-    <li class="level3 nav-leaf"><a href="../../ui/window/">UI Components: Windows</a></li>
+    <li class="level1 nav-node"><a href="../../../ui-components/">UI Components</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/button/">Button</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/component-group/">Component Group</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/component-list/">Component List</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/custom/">Custom Components</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/hitarea/">HitArea</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/input/">Input</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/label/">Label</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/maskedpane/">Masked Pane</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/scrollpane/">Scroll Pane</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/switch/">Switch</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/textarea/">TextArea</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/window/">Windows</a></li>
   </ul>
 
 </nav>
@@ -179,12 +179,12 @@
         <p>See <a href="https://ultraviolet.indigoengine.io/">Ultraviolets docs</a> for more information on Shaders and shader writing.</p>
         
         <h2 id="demo" class="section"><a class="anchor-link left" href="#demo"><i class="icofont-laika link">&#xef71;</i></a>Demo</h2>
-        <div id="live-demo" style="border:2px solid #e400ff;width:400px;height:400px;background:#a888db33;color: #e400ff;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+        <div id="live-demo" style="border:2px solid #e400ff;width:800px;height:600px;background:#a888db33;color: #e400ff;display:flex;align-items:center;justify-content:center;cursor:pointer;">
           ▶  Click to play
         </div>
         <script>
   document.getElementById("live-demo").addEventListener("click", function() {
-    this.innerHTML = '<iframe width="396" height="396" src="/live_demos/features/shaders/basic/index.html" frameborder="0" allow="autoplay; encrypted-media" scrolling="no"></iframe>';
+    this.innerHTML = '<iframe width="796" height="596" src="/live_demos/features/shaders/basic/index.html" frameborder="0" allow="autoplay; encrypted-media" scrolling="no"></iframe>';
   });
 </script>
         
@@ -200,14 +200,21 @@
         <p>We&#39;ll need an extra import for shader writing with Ultraviolet:</p>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">ultraviolet</span><span>.</span><span class="identifier">syntax</span><span>.*</span></code></pre>
         <p>We then need to add our custom shader to the list of shaders:</p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">shaders</span><span>: </span><span class="type-name">Set</span><span>[</span><span class="type-name">ShaderProgram</span><span>] = </span><span class="type-name">Set</span><span>(</span><span class="type-name">CustomShader</span><span>.</span><span class="identifier">shader</span><span>)</span></code></pre>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">boot</span><span>(</span><span class="identifier">flags</span><span>: </span><span class="type-name">Map</span><span>[</span><span class="type-name">String</span><span>, </span><span class="type-name">String</span><span>]): </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">BootResult</span><span>[</span><span class="type-name">Unit</span><span>, </span><span class="type-name">Unit</span><span>]] =
+  </span><span class="type-name">Outcome</span><span>(
+    </span><span class="type-name">BootResult</span><span>(</span><span class="type-name">Config</span><span>.</span><span class="identifier">config</span><span>, ())
+      .</span><span class="identifier">withAssets</span><span>(</span><span class="type-name">Assets</span><span>.</span><span class="identifier">assets</span><span>.</span><span class="identifier">assetSetRelative</span><span>)
+      .</span><span class="identifier">withShaders</span><span>(</span><span class="type-name">CustomShader</span><span>.</span><span class="identifier">shader</span><span>)
+  )</span></code></pre>
         <p>A <code>BlankEntity</code> is then used to display the shader. A BlankEntity is the most basic form of
         entity, literally just registering a space on the screen, with no notion of how to paint into
         it until you supply a shader to do the work.</p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">present</span><span>(</span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>[</span><span class="type-name">Unit</span><span>], </span><span class="identifier">model</span><span>: </span><span class="type-name">Unit</span><span>): </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">SceneUpdateFragment</span><span>] =
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">present</span><span>(</span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>, </span><span class="identifier">model</span><span>: </span><span class="type-name">Unit</span><span>): </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">SceneUpdateFragment</span><span>] =
   </span><span class="type-name">Outcome</span><span>(
     </span><span class="type-name">SceneUpdateFragment</span><span>(
-      </span><span class="type-name">BlankEntity</span><span>(</span><span class="number-literal">10</span><span>, </span><span class="number-literal">10</span><span>, </span><span class="number-literal">200</span><span>, </span><span class="number-literal">200</span><span>, </span><span class="type-name">ShaderData</span><span>(</span><span class="type-name">CustomShader</span><span>.</span><span class="identifier">shader</span><span>.</span><span class="identifier">id</span><span>))
+      </span><span class="type-name">LayerKey</span><span>(</span><span class="string-literal">&quot;demo&quot;</span><span>) -&gt; </span><span class="type-name">Layer</span><span>.</span><span class="type-name">Content</span><span>(
+        </span><span class="type-name">BlankEntity</span><span>(</span><span class="number-literal">10</span><span>, </span><span class="number-literal">10</span><span>, </span><span class="number-literal">200</span><span>, </span><span class="number-literal">200</span><span>, </span><span class="type-name">ShaderData</span><span>(</span><span class="type-name">CustomShader</span><span>.</span><span class="identifier">shader</span><span>.</span><span class="identifier">id</span><span>))
+      )
     )
   )</span></code></pre>
         <p>The job of our shader is to manufacture a colour for each fragment (read: pixel - kinda..),

@@ -138,19 +138,19 @@
     <li class="level2 nav-node"><a href="../time/">Time</a></li>
     <li class="level3 nav-leaf"><a href="../time/signals/">Signals &amp; Signal Functions</a></li>
     <li class="level3 nav-leaf"><a href="../time/time-varying-values/">Time Varying Values</a></li>
-    <li class="level2 nav-node"><a href="../ui/">Ui</a></li>
-    <li class="level3 nav-leaf"><a href="../ui/button/">UI Components: Button</a></li>
-    <li class="level3 nav-leaf"><a href="../ui/component-group/">UI Components: Component Group</a></li>
-    <li class="level3 nav-leaf"><a href="../ui/component-list/">UI Components: Component List</a></li>
-    <li class="level3 nav-leaf"><a href="../ui/custom/">UI Components: Custom Components</a></li>
-    <li class="level3 nav-leaf"><a href="../ui/hitarea/">UI Components: HitArea</a></li>
-    <li class="level3 nav-leaf"><a href="../ui/input/">UI Components: Input</a></li>
-    <li class="level3 nav-leaf"><a href="../ui/label/">UI Components: Label</a></li>
-    <li class="level3 nav-leaf"><a href="../ui/maskedpane/">UI Components: Masked Pane</a></li>
-    <li class="level3 nav-leaf"><a href="../ui/scrollpane/">UI Components: Scroll Pane</a></li>
-    <li class="level3 nav-leaf"><a href="../ui/switch/">UI Components: Switch</a></li>
-    <li class="level3 nav-leaf"><a href="../ui/textarea/">UI Components: TextArea</a></li>
-    <li class="level3 nav-leaf"><a href="../ui/window/">UI Components: Windows</a></li>
+    <li class="level1 nav-node"><a href="../../ui-components/">UI Components</a></li>
+    <li class="level2 nav-leaf"><a href="../../ui-components/button/">Button</a></li>
+    <li class="level2 nav-leaf"><a href="../../ui-components/component-group/">Component Group</a></li>
+    <li class="level2 nav-leaf"><a href="../../ui-components/component-list/">Component List</a></li>
+    <li class="level2 nav-leaf"><a href="../../ui-components/custom/">Custom Components</a></li>
+    <li class="level2 nav-leaf"><a href="../../ui-components/hitarea/">HitArea</a></li>
+    <li class="level2 nav-leaf"><a href="../../ui-components/input/">Input</a></li>
+    <li class="level2 nav-leaf"><a href="../../ui-components/label/">Label</a></li>
+    <li class="level2 nav-leaf"><a href="../../ui-components/maskedpane/">Masked Pane</a></li>
+    <li class="level2 nav-leaf"><a href="../../ui-components/scrollpane/">Scroll Pane</a></li>
+    <li class="level2 nav-leaf"><a href="../../ui-components/switch/">Switch</a></li>
+    <li class="level2 nav-leaf"><a href="../../ui-components/textarea/">TextArea</a></li>
+    <li class="level2 nav-leaf"><a href="../../ui-components/window/">Windows</a></li>
   </ul>
 
 </nav>
@@ -168,8 +168,6 @@
     <li class="level1 nav-node"><a href="#services">Services</a></li>
     <li class="level2 nav-leaf"><a href="#random">Random</a></li>
     <li class="level2 nav-leaf"><a href="#boundary-locator">Boundary Locator</a></li>
-    <li class="level2 nav-leaf"><a href="#screen-capture">Screen capture</a></li>
-    <li class="level1 nav-leaf"><a href="#everything-else">Everything else!</a></li>
   </ul>
 
   <p class="footer"></p>
@@ -179,15 +177,15 @@
       <main class="content">
 
         <h1 id="context" class="title">Context</h1>
-        <p>The frame <code>Context</code> object comes in numerous forms, but its purpose is to provide common data and services that are very regularly required during game development.</p>
+        <p>The frame <code>Context</code> object comes in numerous forms, but its purpose is to provide common data points and services, that are regularly required during game development.</p>
         
         <h2 id="demo" class="section"><a class="anchor-link left" href="#demo"><i class="icofont-laika link">&#xef71;</i></a>Demo</h2>
-        <div id="live-demo" style="border:2px solid #e400ff;width:400px;height:400px;background:#a888db33;color: #e400ff;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+        <div id="live-demo" style="border:2px solid #e400ff;width:800px;height:600px;background:#a888db33;color: #e400ff;display:flex;align-items:center;justify-content:center;cursor:pointer;">
           ▶  Click to play
         </div>
         <script>
   document.getElementById("live-demo").addEventListener("click", function() {
-    this.innerHTML = '<iframe width="396" height="396" src="/live_demos/features/context/index.html" frameborder="0" allow="autoplay; encrypted-media" scrolling="no"></iframe>';
+    this.innerHTML = '<iframe width="796" height="596" src="/live_demos/features/context/index.html" frameborder="0" allow="autoplay; encrypted-media" scrolling="no"></iframe>';
   });
 </script>
         
@@ -198,9 +196,6 @@
         <ul>
           <li><a href="../../live_demos/features/context/">Live demo</a></li>
         </ul>
-        <p>In this example we&#39;re going to need an example of some start up data, so that we can see how to
-        access it via the context object. Here is its definition:</p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">final</span><span> </span><span class="keyword">case</span><span> </span><span class="keyword">class</span><span> </span><span class="type-name">ExampleCustomStartupData</span><span>(</span><span class="identifier">count</span><span>: </span><span class="type-name">Int</span><span>)</span></code></pre>
         <p>For this example, we&#39;ll also need a primitive whose bounds we can measure.</p>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">boxSize</span><span> = </span><span class="type-name">Size</span><span>(</span><span class="number-literal">100</span><span>)
 </span><span class="keyword">val</span><span> </span><span class="identifier">boxShape</span><span>: </span><span class="type-name">Shape</span><span>.</span><span class="type-name">Box</span><span> =
@@ -218,9 +213,7 @@
         transparent values and utilities. Which means that you can safely reference them without
         adding much burden should you need to write unit tests.</p>
         <p>Below are some examples.</p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="identifier">context</span><span>.</span><span class="identifier">frame</span><span>.</span><span class="identifier">globalMagnification</span><span>
-</span><span class="identifier">context</span><span>.</span><span class="identifier">frame</span><span>.</span><span class="identifier">viewport</span><span>
-</span><span class="identifier">context</span><span>.</span><span class="identifier">frame</span><span>.</span><span class="identifier">viewport</span><span>.</span><span class="identifier">giveDimensions</span><span>(</span><span class="identifier">context</span><span>.</span><span class="identifier">frame</span><span>.</span><span class="identifier">globalMagnification</span><span>)
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="identifier">context</span><span>.</span><span class="identifier">frame</span><span>.</span><span class="identifier">viewport</span><span>
 </span><span class="identifier">context</span><span>.</span><span class="identifier">frame</span><span>.</span><span class="identifier">dice</span><span>.</span><span class="identifier">roll</span><span>(</span><span class="number-literal">6</span><span>)
 </span><span class="identifier">context</span><span>.</span><span class="identifier">frame</span><span>.</span><span class="identifier">dice</span><span>.</span><span class="identifier">rollDouble</span><span>
 </span><span class="identifier">context</span><span>.</span><span class="identifier">frame</span><span>.</span><span class="identifier">dice</span><span>.</span><span class="identifier">rollAlphaNumeric</span><span>(</span><span class="number-literal">16</span><span>)
@@ -247,28 +240,6 @@
         for example, requires the bounds calculation of every glyph, and then the total bounds of
         all the arranged glyphs.</p>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="identifier">context</span><span>.</span><span class="identifier">services</span><span>.</span><span class="identifier">bounds</span><span>.</span><span class="identifier">find</span><span>(</span><span class="identifier">boxShape</span><span>)</span></code></pre>
-        
-        <h3 id="screen-capture" class="section"><a class="anchor-link left" href="#screen-capture"><i class="icofont-laika link">&#xef71;</i></a>Screen capture</h3>
-        <p>The screen capture is unusual in as much as it runs the side effect <em>right now</em>(!) and
-        returns either an error message or the result. You can capture one or several screeshots
-        at once, each with a different configuration. For example, you might want one at 1:1 scale
-        and another smaller one for a save game thumbnail.</p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">val</span><span> </span><span class="identifier">screenshots</span><span>: </span><span class="type-name">Set</span><span>[</span><span class="type-name">AssetType</span><span>] =
-  </span><span class="identifier">context</span><span>.</span><span class="identifier">services</span><span>.</span><span class="identifier">screen</span><span>
-    .</span><span class="identifier">capture</span><span>(</span><span class="type-name">Batch</span><span>(</span><span class="type-name">ScreenCaptureConfig</span><span>.</span><span class="keyword">default</span><span>))
-    .</span><span class="identifier">collect</span><span> { </span><span class="keyword">case</span><span> </span><span class="type-name">Right</span><span>(</span><span class="identifier">image</span><span>) =&gt; </span><span class="identifier">image</span><span> }
-    .</span><span class="identifier">toSet</span></code></pre>
-        <p>In order to use screenshots, you need to tell Indigo to load the assets and make them
-        available as textures, and then listen for their availability using events like the ones
-        below.</p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">AssetEvent</span><span>.</span><span class="type-name">LoadAssetBatch</span><span>(</span><span class="identifier">screenshots</span><span>, </span><span class="type-name">BindingKey</span><span>(</span><span class="string-literal">&quot;captureScreen&quot;</span><span>), </span><span class="boolean-literal">true</span><span>)
-</span><span class="type-name">AssetEvent</span><span>.</span><span class="type-name">AssetBatchLoaded</span><span>(</span><span class="type-name">BindingKey</span><span>(</span><span class="string-literal">&quot;captureScreen&quot;</span><span>), </span><span class="identifier">assets</span><span> = </span><span class="type-name">Set</span><span>(), </span><span class="identifier">available</span><span> = </span><span class="boolean-literal">true</span><span>)</span></code></pre>
-        
-        <h2 id="everything-else" class="section"><a class="anchor-link left" href="#everything-else"><i class="icofont-laika link">&#xef71;</i></a>Everything else!</h2>
-        <p>The &#39;everything else&#39; varies depending on the nature of the context object, a
-        <code>SceneContext</code> for example will provide scene specific information. A standard context
-        object contains the startup data, so that it can be referenced from anywhere.</p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="identifier">context</span><span>.</span><span class="identifier">startUpData</span></code></pre>
 
         
 <hr class="footer-rule"/>

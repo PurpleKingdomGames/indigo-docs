@@ -138,19 +138,19 @@
     <li class="level2 nav-node"><a href="../../../features/time/">Time</a></li>
     <li class="level3 nav-leaf"><a href="../../../features/time/signals/">Signals &amp; Signal Functions</a></li>
     <li class="level3 nav-leaf"><a href="../../../features/time/time-varying-values/">Time Varying Values</a></li>
-    <li class="level2 nav-node"><a href="../../../features/ui/">Ui</a></li>
-    <li class="level3 nav-leaf"><a href="../../../features/ui/button/">UI Components: Button</a></li>
-    <li class="level3 nav-leaf"><a href="../../../features/ui/component-group/">UI Components: Component Group</a></li>
-    <li class="level3 nav-leaf"><a href="../../../features/ui/component-list/">UI Components: Component List</a></li>
-    <li class="level3 nav-leaf"><a href="../../../features/ui/custom/">UI Components: Custom Components</a></li>
-    <li class="level3 nav-leaf"><a href="../../../features/ui/hitarea/">UI Components: HitArea</a></li>
-    <li class="level3 nav-leaf"><a href="../../../features/ui/input/">UI Components: Input</a></li>
-    <li class="level3 nav-leaf"><a href="../../../features/ui/label/">UI Components: Label</a></li>
-    <li class="level3 nav-leaf"><a href="../../../features/ui/maskedpane/">UI Components: Masked Pane</a></li>
-    <li class="level3 nav-leaf"><a href="../../../features/ui/scrollpane/">UI Components: Scroll Pane</a></li>
-    <li class="level3 nav-leaf"><a href="../../../features/ui/switch/">UI Components: Switch</a></li>
-    <li class="level3 nav-leaf"><a href="../../../features/ui/textarea/">UI Components: TextArea</a></li>
-    <li class="level3 nav-leaf"><a href="../../../features/ui/window/">UI Components: Windows</a></li>
+    <li class="level1 nav-node"><a href="../../../ui-components/">UI Components</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/button/">Button</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/component-group/">Component Group</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/component-list/">Component List</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/custom/">Custom Components</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/hitarea/">HitArea</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/input/">Input</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/label/">Label</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/maskedpane/">Masked Pane</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/scrollpane/">Scroll Pane</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/switch/">Switch</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/textarea/">TextArea</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/window/">Windows</a></li>
   </ul>
 
 </nav>
@@ -177,12 +177,12 @@
         <p>Scene&#39;s are a really handy way to organise your game into distinct &#39;scenes&#39; or &#39;screens&#39;, such as a menu screen or a loading screen or the main game scene. The benefit is that, although they do not stop you from having full access to everything, they allow you to minify and encapsulate each screens functionality and data to keep it small and easy to reason about.</p>
         
         <h2 id="demo" class="section"><a class="anchor-link left" href="#demo"><i class="icofont-laika link">&#xef71;</i></a>Demo</h2>
-        <div id="live-demo" style="border:2px solid #e400ff;width:400px;height:400px;background:#a888db33;color: #e400ff;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+        <div id="live-demo" style="border:2px solid #e400ff;width:800px;height:600px;background:#a888db33;color: #e400ff;display:flex;align-items:center;justify-content:center;cursor:pointer;">
           ▶  Click to play
         </div>
         <script>
   document.getElementById("live-demo").addEventListener("click", function() {
-    this.innerHTML = '<iframe width="396" height="396" src="/live_demos/guides/scenes/scene-management/index.html" frameborder="0" allow="autoplay; encrypted-media" scrolling="no"></iframe>';
+    this.innerHTML = '<iframe width="796" height="596" src="/live_demos/guides/scenes/scene-management/index.html" frameborder="0" allow="autoplay; encrypted-media" scrolling="no"></iframe>';
   });
 </script>
         
@@ -205,29 +205,25 @@
         <p>Scenes are simple objects then extend the Scene type.</p>
         <p>Scenes are another instance of the TEA patterm themselves follow a very pattern to the main game
         functions, defining their own <code>updateModel</code>, <code>updateViewModel</code>, and <code>present</code> and so on.</p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">object</span><span> </span><span class="type-name">SceneA</span><span> </span><span class="keyword">extends</span><span> </span><span class="type-name">Scene</span><span>[</span><span class="type-name">StartUpData</span><span>, </span><span class="type-name">Model</span><span>, </span><span class="type-name">ViewModel</span><span>]:</span></code></pre>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">object</span><span> </span><span class="type-name">SceneA</span><span> </span><span class="keyword">extends</span><span> </span><span class="type-name">Scene</span><span>[</span><span class="type-name">Model</span><span>]:</span></code></pre>
         <p>The way that scene&#39;s get their own models and view models is via &#39;lenses&#39;.</p>
         <p>First We tell the scene what the type of it&#39;s own model and view models are. We then define
         lenses that tell the scene how to &#39;get&#39; and &#39;set&#39; those models from the main game models.</p>
         <p>Scene models can be a piece of data that lives in a field on the main model, as in this
         example. They can also be ephemeral data types aggregated from various main model data points
         and pulled together each frame, as needed.</p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">type</span><span> </span><span class="type-name">SceneModel</span><span>     = </span><span class="type-name">SceneModelA</span><span>
-</span><span class="keyword">type</span><span> </span><span class="type-name">SceneViewModel</span><span> = </span><span class="type-name">ViewModel</span><span>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">type</span><span> </span><span class="type-name">SceneModel</span><span> = </span><span class="type-name">SceneModelA</span><span>
 
 </span><span class="keyword">val</span><span> </span><span class="identifier">modelLens</span><span>: </span><span class="type-name">Lens</span><span>[</span><span class="type-name">Model</span><span>, </span><span class="type-name">SceneModelA</span><span>] =
   </span><span class="type-name">Lens</span><span>(
     </span><span class="identifier">model</span><span> =&gt; </span><span class="identifier">model</span><span>.</span><span class="identifier">sceneA</span><span>,
     (</span><span class="identifier">model</span><span>, </span><span class="identifier">newMessage</span><span>) =&gt; </span><span class="identifier">model</span><span>.</span><span class="identifier">copy</span><span>(</span><span class="identifier">sceneA</span><span> = </span><span class="identifier">newMessage</span><span>)
-  )
-
-</span><span class="keyword">val</span><span> </span><span class="identifier">viewModelLens</span><span>: </span><span class="type-name">Lens</span><span>[</span><span class="type-name">ViewModel</span><span>, </span><span class="type-name">ViewModel</span><span>] =
-  </span><span class="type-name">Lens</span><span>.</span><span class="identifier">keepLatest</span></code></pre>
+  )</span></code></pre>
         <p>There are a number of <code>SceneEvent</code>s that you can experiment with, here we listen to the
         <code>SceneChange</code> event and use the <code>JumpTo</code> event to go to the scene we want, but there are
         others such as <code>Next</code> and <code>Previous</code> to explore.</p>
         <pre><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">updateModel</span><span>(
-    </span><span class="identifier">context</span><span>: </span><span class="type-name">SceneContext</span><span>[</span><span class="type-name">StartUpData</span><span>],
+    </span><span class="identifier">context</span><span>: </span><span class="type-name">SceneContext</span><span>,
     </span><span class="identifier">sceneModel</span><span>: </span><span class="type-name">SceneModelA</span><span>
 ): </span><span class="type-name">GlobalEvent</span><span> =&gt; </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">SceneModelA</span><span>] =
   </span><span class="keyword">case</span><span> </span><span class="type-name">SceneEvent</span><span>.</span><span class="type-name">SceneChange</span><span>(</span><span class="identifier">from</span><span>, </span><span class="identifier">to</span><span>, </span><span class="identifier">at</span><span>) =&gt;
@@ -253,11 +249,11 @@
           helpful for dealing with any events that are not specific to any one scene, or presenting
           graphics that should appear all the time.</li>
         </ol>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">scenes</span><span>(</span><span class="identifier">bootData</span><span>: </span><span class="type-name">BootData</span><span>): </span><span class="type-name">NonEmptyBatch</span><span>[</span><span class="type-name">Scene</span><span>[</span><span class="type-name">StartUpData</span><span>, </span><span class="type-name">Model</span><span>, </span><span class="type-name">ViewModel</span><span>]] =
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">scenes</span><span>(</span><span class="identifier">bootData</span><span>: </span><span class="type-name">BootData</span><span>): </span><span class="type-name">NonEmptyBatch</span><span>[</span><span class="type-name">Scene</span><span>[</span><span class="type-name">Model</span><span>]] =
   </span><span class="type-name">NonEmptyBatch</span><span>(</span><span class="type-name">SceneA</span><span>, </span><span class="type-name">SceneB</span><span>)
 
 </span><span class="keyword">def</span><span> </span><span class="declaration-name">initialScene</span><span>(</span><span class="identifier">bootData</span><span>: </span><span class="type-name">BootData</span><span>): </span><span class="type-name">Option</span><span>[</span><span class="type-name">SceneName</span><span>] = </span><span class="type-name">Option</span><span>(</span><span class="type-name">SceneA</span><span>.</span><span class="identifier">name</span><span>)</span></code></pre>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">updateModel</span><span>(</span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>[</span><span class="type-name">StartUpData</span><span>], </span><span class="identifier">model</span><span>: </span><span class="type-name">Model</span><span>): </span><span class="type-name">GlobalEvent</span><span> =&gt; </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">Model</span><span>] =
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">updateModel</span><span>(</span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>, </span><span class="identifier">model</span><span>: </span><span class="type-name">Model</span><span>): </span><span class="type-name">GlobalEvent</span><span> =&gt; </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">Model</span><span>] =
   </span><span class="keyword">case</span><span> </span><span class="identifier">_</span><span> =&gt; </span><span class="type-name">Outcome</span><span>(</span><span class="identifier">model</span><span>)</span></code></pre>
 
         

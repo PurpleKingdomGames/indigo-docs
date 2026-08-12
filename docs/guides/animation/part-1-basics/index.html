@@ -138,19 +138,19 @@
     <li class="level2 nav-node"><a href="../../../features/time/">Time</a></li>
     <li class="level3 nav-leaf"><a href="../../../features/time/signals/">Signals &amp; Signal Functions</a></li>
     <li class="level3 nav-leaf"><a href="../../../features/time/time-varying-values/">Time Varying Values</a></li>
-    <li class="level2 nav-node"><a href="../../../features/ui/">Ui</a></li>
-    <li class="level3 nav-leaf"><a href="../../../features/ui/button/">UI Components: Button</a></li>
-    <li class="level3 nav-leaf"><a href="../../../features/ui/component-group/">UI Components: Component Group</a></li>
-    <li class="level3 nav-leaf"><a href="../../../features/ui/component-list/">UI Components: Component List</a></li>
-    <li class="level3 nav-leaf"><a href="../../../features/ui/custom/">UI Components: Custom Components</a></li>
-    <li class="level3 nav-leaf"><a href="../../../features/ui/hitarea/">UI Components: HitArea</a></li>
-    <li class="level3 nav-leaf"><a href="../../../features/ui/input/">UI Components: Input</a></li>
-    <li class="level3 nav-leaf"><a href="../../../features/ui/label/">UI Components: Label</a></li>
-    <li class="level3 nav-leaf"><a href="../../../features/ui/maskedpane/">UI Components: Masked Pane</a></li>
-    <li class="level3 nav-leaf"><a href="../../../features/ui/scrollpane/">UI Components: Scroll Pane</a></li>
-    <li class="level3 nav-leaf"><a href="../../../features/ui/switch/">UI Components: Switch</a></li>
-    <li class="level3 nav-leaf"><a href="../../../features/ui/textarea/">UI Components: TextArea</a></li>
-    <li class="level3 nav-leaf"><a href="../../../features/ui/window/">UI Components: Windows</a></li>
+    <li class="level1 nav-node"><a href="../../../ui-components/">UI Components</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/button/">Button</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/component-group/">Component Group</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/component-list/">Component List</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/custom/">Custom Components</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/hitarea/">HitArea</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/input/">Input</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/label/">Label</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/maskedpane/">Masked Pane</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/scrollpane/">Scroll Pane</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/switch/">Switch</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/textarea/">TextArea</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/window/">Windows</a></li>
   </ul>
 
 </nav>
@@ -208,12 +208,12 @@
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="identifier">sprite</span><span>.</span><span class="identifier">moveBy</span><span>(</span><span class="identifier">totalDistance</span><span> * </span><span class="identifier">frameDelta</span><span>, </span><span class="number-literal">0</span><span>)</span></code></pre>
         
         <h2 id="demo" class="section"><a class="anchor-link left" href="#demo"><i class="icofont-laika link">&#xef71;</i></a>Demo</h2>
-        <div id="live-demo" style="border:2px solid #e400ff;width:400px;height:400px;background:#a888db33;color: #e400ff;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+        <div id="live-demo" style="border:2px solid #e400ff;width:800px;height:600px;background:#a888db33;color: #e400ff;display:flex;align-items:center;justify-content:center;cursor:pointer;">
           ▶  Click to play
         </div>
         <script>
   document.getElementById("live-demo").addEventListener("click", function() {
-    this.innerHTML = '<iframe width="396" height="396" src="/live_demos/guides/animation/part-1-basics/index.html" frameborder="0" allow="autoplay; encrypted-media" scrolling="no"></iframe>';
+    this.innerHTML = '<iframe width="796" height="596" src="/live_demos/guides/animation/part-1-basics/index.html" frameborder="0" allow="autoplay; encrypted-media" scrolling="no"></iframe>';
   });
 </script>
         
@@ -236,9 +236,9 @@
         animation position based only on the initial conditions and the running time. More on that
         later, for now, we&#39;re going to update a known position.</p>
         <p>The position is wrapped in a model case class in a nod to realism, but curiously, the position
-        is modelled as a <code>Vertex</code>, which takes <code>Double</code>s, rather that a <code>Point</code> which uses <code>Int</code> as
-        its unit type. What is going on? <code>Point</code> would seem to be the obvious choice, since we&#39;re
-        moving across the screen in pixels, but let&#39;s do the math:</p>
+        is modelled as a <code>Vertex</code>, which takes <code>Double</code>s, rather that a <code>Point</code> which uses <code>Int</code> as its
+        unit type. What is going on? <code>Point</code> would seem to be the obvious choice, since we&#39;re moving
+        across the screen in pixels, but let&#39;s do the math:</p>
         <ol class="arabic">
           <li>We want to move across the screen at 50 pixels per second, and our game runs at 60 frames
           per second.</li>
@@ -258,7 +258,7 @@
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">initialModel</span><span>(</span><span class="identifier">startupData</span><span>: </span><span class="type-name">Unit</span><span>): </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">Model</span><span>] =
   </span><span class="type-name">Outcome</span><span>(</span><span class="type-name">Model</span><span>(</span><span class="type-name">Vertex</span><span>(</span><span class="number-literal">60</span><span>, </span><span class="number-literal">120</span><span>)))</span></code></pre>
         <p>During update we do our now familiar bit of maths, multiplying the speed by the frame delta</p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">updateModel</span><span>(</span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>[</span><span class="type-name">Unit</span><span>], </span><span class="identifier">model</span><span>: </span><span class="type-name">Model</span><span>): </span><span class="type-name">GlobalEvent</span><span> =&gt; </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">Model</span><span>] =
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">updateModel</span><span>(</span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>, </span><span class="identifier">model</span><span>: </span><span class="type-name">Model</span><span>): </span><span class="type-name">GlobalEvent</span><span> =&gt; </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">Model</span><span>] =
   </span><span class="identifier">_</span><span> =&gt;
     </span><span class="keyword">val</span><span> </span><span class="identifier">pixelsPerSecond</span><span> = </span><span class="number-literal">50</span><span>
 
@@ -270,7 +270,7 @@
       )
     )</span></code></pre>
         <p>When we draw the circle, we simply move it to the position held in the model.</p>
-        <pre><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">present</span><span>(</span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>[</span><span class="type-name">Unit</span><span>], </span><span class="identifier">model</span><span>: </span><span class="type-name">Model</span><span>): </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">SceneUpdateFragment</span><span>] =
+        <pre><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">present</span><span>(</span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>, </span><span class="identifier">model</span><span>: </span><span class="type-name">Model</span><span>): </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">SceneUpdateFragment</span><span>] =
   </span><span class="keyword">val</span><span> </span><span class="identifier">circle</span><span> =
     </span><span class="type-name">Shape</span><span>.</span><span class="type-name">Circle</span><span>(
       </span><span class="type-name">Circle</span><span>(</span><span class="type-name">Point</span><span>.</span><span class="identifier">zero</span><span>, </span><span class="number-literal">50</span><span>),
@@ -280,7 +280,9 @@
 
   </span><span class="type-name">Outcome</span><span>(
     </span><span class="type-name">SceneUpdateFragment</span><span>(
-      </span><span class="identifier">circle</span><span>.</span><span class="identifier">moveTo</span><span>(</span><span class="identifier">model</span><span>.</span><span class="identifier">position</span><span>.</span><span class="identifier">toPoint</span><span>)
+      </span><span class="type-name">LayerKey</span><span>(</span><span class="string-literal">&quot;demo&quot;</span><span>) -&gt; </span><span class="type-name">Layer</span><span>.</span><span class="type-name">Content</span><span>(
+        </span><span class="identifier">circle</span><span>.</span><span class="identifier">moveTo</span><span>(</span><span class="identifier">model</span><span>.</span><span class="identifier">position</span><span>.</span><span class="identifier">toPoint</span><span>)
+      )
     )
   )</span></code></pre>
         <p>Gosh that was hard work! Imagine trying to do that for every moving thing on the screen! There must be another way, surely?</p>

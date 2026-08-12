@@ -138,19 +138,19 @@
     <li class="level2 nav-node"><a href="../../time/">Time</a></li>
     <li class="level3 nav-leaf"><a href="../../time/signals/">Signals &amp; Signal Functions</a></li>
     <li class="level3 nav-leaf"><a href="../../time/time-varying-values/">Time Varying Values</a></li>
-    <li class="level2 nav-node"><a href="../../ui/">Ui</a></li>
-    <li class="level3 nav-leaf"><a href="../../ui/button/">UI Components: Button</a></li>
-    <li class="level3 nav-leaf"><a href="../../ui/component-group/">UI Components: Component Group</a></li>
-    <li class="level3 nav-leaf"><a href="../../ui/component-list/">UI Components: Component List</a></li>
-    <li class="level3 nav-leaf"><a href="../../ui/custom/">UI Components: Custom Components</a></li>
-    <li class="level3 nav-leaf"><a href="../../ui/hitarea/">UI Components: HitArea</a></li>
-    <li class="level3 nav-leaf"><a href="../../ui/input/">UI Components: Input</a></li>
-    <li class="level3 nav-leaf"><a href="../../ui/label/">UI Components: Label</a></li>
-    <li class="level3 nav-leaf"><a href="../../ui/maskedpane/">UI Components: Masked Pane</a></li>
-    <li class="level3 nav-leaf"><a href="../../ui/scrollpane/">UI Components: Scroll Pane</a></li>
-    <li class="level3 nav-leaf"><a href="../../ui/switch/">UI Components: Switch</a></li>
-    <li class="level3 nav-leaf"><a href="../../ui/textarea/">UI Components: TextArea</a></li>
-    <li class="level3 nav-leaf"><a href="../../ui/window/">UI Components: Windows</a></li>
+    <li class="level1 nav-node"><a href="../../../ui-components/">UI Components</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/button/">Button</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/component-group/">Component Group</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/component-list/">Component List</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/custom/">Custom Components</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/hitarea/">HitArea</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/input/">Input</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/label/">Label</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/maskedpane/">Masked Pane</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/scrollpane/">Scroll Pane</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/switch/">Switch</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/textarea/">TextArea</a></li>
+    <li class="level2 nav-leaf"><a href="../../../ui-components/window/">Windows</a></li>
   </ul>
 
 </nav>
@@ -179,12 +179,12 @@
         <h1 id="basic-physics-example" class="title">Basic Physics Example</h1>
         
         <h2 id="demo" class="section"><a class="anchor-link left" href="#demo"><i class="icofont-laika link">&#xef71;</i></a>Demo</h2>
-        <div id="live-demo" style="border:2px solid #e400ff;width:400px;height:400px;background:#a888db33;color: #e400ff;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+        <div id="live-demo" style="border:2px solid #e400ff;width:800px;height:600px;background:#a888db33;color: #e400ff;display:flex;align-items:center;justify-content:center;cursor:pointer;">
           ▶  Click to play
         </div>
         <script>
   document.getElementById("live-demo").addEventListener("click", function() {
-    this.innerHTML = '<iframe width="396" height="396" src="/live_demos/features/physics/basics/index.html" frameborder="0" allow="autoplay; encrypted-media" scrolling="no"></iframe>';
+    this.innerHTML = '<iframe width="796" height="596" src="/live_demos/features/physics/basics/index.html" frameborder="0" allow="autoplay; encrypted-media" scrolling="no"></iframe>';
   });
 </script>
         
@@ -294,7 +294,7 @@
   </span><span class="type-name">Outcome</span><span>(</span><span class="type-name">Model</span><span>.</span><span class="identifier">initial</span><span>)</span></code></pre>
         <p>Then during update, if the game is running, update the simulation by supplying the frame delta
         time, and updating the model with the new version of the world.</p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">updateModel</span><span>(</span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>[</span><span class="type-name">Unit</span><span>], </span><span class="identifier">model</span><span>: </span><span class="type-name">Model</span><span>): </span><span class="type-name">GlobalEvent</span><span> =&gt; </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">Model</span><span>] =
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">updateModel</span><span>(</span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>, </span><span class="identifier">model</span><span>: </span><span class="type-name">Model</span><span>): </span><span class="type-name">GlobalEvent</span><span> =&gt; </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">Model</span><span>] =
   </span><span class="keyword">case</span><span> </span><span class="type-name">FrameTick</span><span> </span><span class="keyword">if</span><span> </span><span class="identifier">model</span><span>.</span><span class="identifier">running</span><span> =&gt;
     </span><span class="identifier">model</span><span>.</span><span class="identifier">world</span><span>
       .</span><span class="identifier">update</span><span>(</span><span class="identifier">context</span><span>.</span><span class="identifier">frame</span><span>.</span><span class="identifier">time</span><span>.</span><span class="identifier">delta</span><span>)
@@ -310,37 +310,39 @@
         produce a <code>Batch</code> of <code>Shapes</code> for ease.</p>
         <p>Below that, the flashing text is created using a <code>Signal</code> that pulses every second and renders
         the text, or not.</p>
-        <pre><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">present</span><span>(</span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>[</span><span class="type-name">Unit</span><span>], </span><span class="identifier">model</span><span>: </span><span class="type-name">Model</span><span>): </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">SceneUpdateFragment</span><span>] =
+        <pre><code class="nohighlight"><span class="keyword">def</span><span> </span><span class="declaration-name">present</span><span>(</span><span class="identifier">context</span><span>: </span><span class="type-name">Context</span><span>, </span><span class="identifier">model</span><span>: </span><span class="type-name">Model</span><span>): </span><span class="type-name">Outcome</span><span>[</span><span class="type-name">SceneUpdateFragment</span><span>] =
   </span><span class="type-name">Outcome</span><span>(
     </span><span class="type-name">SceneUpdateFragment</span><span>(
-      </span><span class="identifier">model</span><span>.</span><span class="identifier">world</span><span>.</span><span class="identifier">present</span><span> {
-        </span><span class="keyword">case</span><span> </span><span class="identifier">c</span><span>: </span><span class="type-name">Collider</span><span>.</span><span class="type-name">Circle</span><span>[</span><span class="identifier">_</span><span>] =&gt;
-          </span><span class="type-name">Shape</span><span>.</span><span class="type-name">Circle</span><span>(
-            </span><span class="identifier">c</span><span>.</span><span class="identifier">bounds</span><span>.</span><span class="identifier">position</span><span>.</span><span class="identifier">toPoint</span><span>,
-            </span><span class="identifier">c</span><span>.</span><span class="identifier">bounds</span><span>.</span><span class="identifier">radius</span><span>.</span><span class="identifier">toInt</span><span>,
-            </span><span class="type-name">Fill</span><span>.</span><span class="type-name">Color</span><span>(</span><span class="type-name">RGBA</span><span>.</span><span class="type-name">White</span><span>.</span><span class="identifier">withAlpha</span><span>(</span><span class="number-literal">0.2</span><span>)),
-            </span><span class="type-name">Stroke</span><span>(</span><span class="number-literal">1</span><span>, </span><span class="type-name">RGBA</span><span>.</span><span class="type-name">White</span><span>)
-          )
+      </span><span class="type-name">LayerKey</span><span>(</span><span class="string-literal">&quot;demo&quot;</span><span>) -&gt; </span><span class="type-name">Layer</span><span>.</span><span class="type-name">Content</span><span>(
+        </span><span class="identifier">model</span><span>.</span><span class="identifier">world</span><span>.</span><span class="identifier">present</span><span> {
+          </span><span class="keyword">case</span><span> </span><span class="identifier">c</span><span>: </span><span class="type-name">Collider</span><span>.</span><span class="type-name">Circle</span><span>[</span><span class="identifier">_</span><span>] =&gt;
+            </span><span class="type-name">Shape</span><span>.</span><span class="type-name">Circle</span><span>(
+              </span><span class="identifier">c</span><span>.</span><span class="identifier">bounds</span><span>.</span><span class="identifier">position</span><span>.</span><span class="identifier">toPoint</span><span>,
+              </span><span class="identifier">c</span><span>.</span><span class="identifier">bounds</span><span>.</span><span class="identifier">radius</span><span>.</span><span class="identifier">toInt</span><span>,
+              </span><span class="type-name">Fill</span><span>.</span><span class="type-name">Color</span><span>(</span><span class="type-name">RGBA</span><span>.</span><span class="type-name">White</span><span>.</span><span class="identifier">withAlpha</span><span>(</span><span class="number-literal">0.2</span><span>)),
+              </span><span class="type-name">Stroke</span><span>(</span><span class="number-literal">1</span><span>, </span><span class="type-name">RGBA</span><span>.</span><span class="type-name">White</span><span>)
+            )
 
-        </span><span class="keyword">case</span><span> </span><span class="identifier">c</span><span>: </span><span class="type-name">Collider</span><span>.</span><span class="type-name">Box</span><span>[</span><span class="identifier">_</span><span>] =&gt;
-          </span><span class="type-name">Shape</span><span>.</span><span class="type-name">Box</span><span>(
-            </span><span class="identifier">c</span><span>.</span><span class="identifier">bounds</span><span>.</span><span class="identifier">toRectangle</span><span>,
-            </span><span class="type-name">Fill</span><span>.</span><span class="type-name">Color</span><span>(</span><span class="type-name">RGBA</span><span>.</span><span class="type-name">White</span><span>.</span><span class="identifier">withAlpha</span><span>(</span><span class="number-literal">0.2</span><span>)),
-            </span><span class="type-name">Stroke</span><span>(</span><span class="number-literal">1</span><span>, </span><span class="type-name">RGBA</span><span>.</span><span class="type-name">White</span><span>)
-          )
-      } ++
-        </span><span class="type-name">Signal</span><span>
-          .</span><span class="type-name">Pulse</span><span>(</span><span class="number-literal">1</span><span>.</span><span class="identifier">seconds</span><span>)
-          .</span><span class="identifier">map</span><span> { </span><span class="identifier">show</span><span> =&gt;
-            </span><span class="keyword">if</span><span> </span><span class="identifier">show</span><span> </span><span class="identifier">then</span><span>
-              </span><span class="keyword">val</span><span> </span><span class="identifier">bounds</span><span> = </span><span class="identifier">context</span><span>.</span><span class="identifier">services</span><span>.</span><span class="identifier">bounds</span><span>.</span><span class="identifier">find</span><span>(</span><span class="identifier">message</span><span>).</span><span class="identifier">getOrElse</span><span>(</span><span class="type-name">Rectangle</span><span>.</span><span class="identifier">zero</span><span>)
+          </span><span class="keyword">case</span><span> </span><span class="identifier">c</span><span>: </span><span class="type-name">Collider</span><span>.</span><span class="type-name">Box</span><span>[</span><span class="identifier">_</span><span>] =&gt;
+            </span><span class="type-name">Shape</span><span>.</span><span class="type-name">Box</span><span>(
+              </span><span class="identifier">c</span><span>.</span><span class="identifier">bounds</span><span>.</span><span class="identifier">toRectangle</span><span>,
+              </span><span class="type-name">Fill</span><span>.</span><span class="type-name">Color</span><span>(</span><span class="type-name">RGBA</span><span>.</span><span class="type-name">White</span><span>.</span><span class="identifier">withAlpha</span><span>(</span><span class="number-literal">0.2</span><span>)),
+              </span><span class="type-name">Stroke</span><span>(</span><span class="number-literal">1</span><span>, </span><span class="type-name">RGBA</span><span>.</span><span class="type-name">White</span><span>)
+            )
+        } ++
+          </span><span class="type-name">Signal</span><span>
+            .</span><span class="type-name">Pulse</span><span>(</span><span class="number-literal">1</span><span>.</span><span class="identifier">seconds</span><span>)
+            .</span><span class="identifier">map</span><span> { </span><span class="identifier">show</span><span> =&gt;
+              </span><span class="keyword">if</span><span> </span><span class="identifier">show</span><span> </span><span class="identifier">then</span><span>
+                </span><span class="keyword">val</span><span> </span><span class="identifier">bounds</span><span> = </span><span class="identifier">context</span><span>.</span><span class="identifier">services</span><span>.</span><span class="identifier">bounds</span><span>.</span><span class="identifier">find</span><span>(</span><span class="identifier">message</span><span>).</span><span class="identifier">getOrElse</span><span>(</span><span class="type-name">Rectangle</span><span>.</span><span class="identifier">zero</span><span>)
 
-              </span><span class="type-name">Batch</span><span>(
-                </span><span class="identifier">message</span><span>.</span><span class="identifier">moveTo</span><span>((</span><span class="number-literal">800</span><span> - </span><span class="identifier">bounds</span><span>.</span><span class="identifier">width</span><span>) / </span><span class="number-literal">2</span><span>, </span><span class="number-literal">600</span><span> - </span><span class="identifier">bounds</span><span>.</span><span class="identifier">height</span><span> - </span><span class="number-literal">10</span><span>)
-              )
-            </span><span class="keyword">else</span><span> </span><span class="type-name">Batch</span><span>.</span><span class="identifier">empty</span><span>
-          }
-          .</span><span class="identifier">at</span><span>(</span><span class="identifier">context</span><span>.</span><span class="identifier">frame</span><span>.</span><span class="identifier">time</span><span>.</span><span class="identifier">running</span><span>)
+                </span><span class="type-name">Batch</span><span>(
+                  </span><span class="identifier">message</span><span>.</span><span class="identifier">moveTo</span><span>((</span><span class="number-literal">800</span><span> - </span><span class="identifier">bounds</span><span>.</span><span class="identifier">width</span><span>) / </span><span class="number-literal">2</span><span>, </span><span class="number-literal">600</span><span> - </span><span class="identifier">bounds</span><span>.</span><span class="identifier">height</span><span> - </span><span class="number-literal">10</span><span>)
+                )
+              </span><span class="keyword">else</span><span> </span><span class="type-name">Batch</span><span>.</span><span class="identifier">empty</span><span>
+            }
+            .</span><span class="identifier">at</span><span>(</span><span class="identifier">context</span><span>.</span><span class="identifier">frame</span><span>.</span><span class="identifier">time</span><span>.</span><span class="identifier">running</span><span>)
+      )
     )
   )</span></code></pre>
 
