@@ -26,7 +26,7 @@ object CustomComponents:
               Switch[Int](BoundsType.fixed[Int](20, 20))(
                 (ctx, switch) =>
                   Outcome(
-                    Layer(
+                    Layer.Content(
                       Shape
                         .Circle(
                           switch.bounds.unsafeToRectangle.toIncircle,
@@ -38,7 +38,7 @@ object CustomComponents:
                   ),
                 (ctx, switch) =>
                   Outcome(
-                    Layer(
+                    Layer.Content(
                       Shape
                         .Circle(
                           switch.bounds.unsafeToRectangle.toIncircle,
@@ -65,7 +65,7 @@ object CustomComponents:
                 (_, _) => Bounds(0, 0, 150, 18)
               ) { case (ctx, label) =>
                 Outcome(
-                  Layer(
+                  Layer.Content(
                     text
                       .withText(label.text(ctx))
                       .moveTo(ctx.parent.coords.unsafeToPoint)

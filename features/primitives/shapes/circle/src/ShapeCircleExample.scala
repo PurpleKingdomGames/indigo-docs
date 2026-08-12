@@ -38,7 +38,7 @@ class ShapeCircleExample() extends Game[Unit, Unit, Unit]:
 
     Outcome(
       SceneUpdateFragment(
-        LayerKey("demo") -> Layer(
+        LayerKey("demo") -> Layer.Content(
           Shape
             .Circle(
               Circle(Point.zero, radius),

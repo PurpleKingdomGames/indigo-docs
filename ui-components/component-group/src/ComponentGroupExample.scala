@@ -43,7 +43,7 @@ object CustomComponents:
   val customButton: Button[Unit] =
     Button[Unit](Bounds(32, 32)) { (ctx, btn) =>
       Outcome(
-        Layer(
+        Layer.Content(
           Shape
             .Box(
               btn.bounds.unsafeToRectangle,
@@ -56,7 +56,7 @@ object CustomComponents:
     }
       .presentDown { (ctx, btn) =>
         Outcome(
-          Layer(
+          Layer.Content(
             Shape
               .Box(
                 btn.bounds.unsafeToRectangle,
@@ -69,7 +69,7 @@ object CustomComponents:
       }
       .presentOver((ctx, btn) =>
         Outcome(
-          Layer(
+          Layer.Content(
             Shape
               .Box(
                 btn.bounds.unsafeToRectangle,
@@ -97,7 +97,7 @@ object CustomComponents:
       (_, _) => Bounds(0, 0, 150, 12)
     ) { case (ctx, label) =>
       Outcome(
-        Layer(
+        Layer.Content(
           text
             .withText(label.text(ctx))
             .moveTo(ctx.parent.coords.unsafeToPoint)

@@ -43,7 +43,7 @@ object LevelScene extends Scene[Model]:
 
     Outcome(
       SceneUpdateFragment(
-        LayerKey("level") -> Layer(
+        LayerKey("level") -> Layer.Content(
           loadingText
         )
       ).withMagnification(Magnification.x2)

@@ -41,7 +41,7 @@ object CustomComponents:
           (_, _) => Bounds(0, 0, 250, 20)
         ) { case (ctx, label) =>
           Outcome(
-            Layer(
+            Layer.Content(
               text
                 .withText(label.text(ctx))
                 .moveTo(ctx.parent.coords.unsafeToPoint)
@@ -55,7 +55,7 @@ object CustomComponents:
   val scrollButton: Button[Unit] =
     Button[Unit](Bounds(16, 16)) { (ctx, btn) =>
       Outcome(
-        Layer(
+        Layer.Content(
           Shape
             .Box(
               Rectangle(
@@ -70,7 +70,7 @@ object CustomComponents:
     }
       .presentDown { (ctx, btn) =>
         Outcome(
-          Layer(
+          Layer.Content(
             Shape
               .Box(
                 Rectangle(
@@ -85,7 +85,7 @@ object CustomComponents:
       }
       .presentOver((ctx, btn) =>
         Outcome(
-          Layer(
+          Layer.Content(
             Shape
               .Box(
                 Rectangle(
@@ -107,7 +107,7 @@ object CustomComponents:
       scrollButton
     )
       .withScrollBackground { bounds =>
-        Layer(
+        Layer.Content(
           Shape.Box(
             bounds.unsafeToRectangle,
             Fill.Color(RGBA.Yellow.mix(RGBA.Black)),
@@ -194,7 +194,7 @@ class ScrollPaneExample() extends Game[Unit, Unit, Model]:
         SceneUpdateFragment(
           LayerKey("demo") -> Layer.Stack(
             l,
-            Layer(
+            Layer.Content(
               scrollPaneBorder
             )
           )

@@ -35,7 +35,7 @@ class TextExample() extends Game[Unit, Unit, Unit]:
   def present(context: Context, model: Unit): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment(
-        LayerKey("demo") -> Layer(
+        LayerKey("demo") -> Layer.Content(
           Text(
             "Hello, Indigo!",
             KiwiSodaFont.fontKey,

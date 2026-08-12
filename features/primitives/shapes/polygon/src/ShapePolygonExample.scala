@@ -36,7 +36,7 @@ class ShapePolygonExample() extends Game[Unit, Unit, Unit]:
 
     Outcome(
       SceneUpdateFragment(
-        LayerKey("demo") -> Layer(
+        LayerKey("demo") -> Layer.Content(
           Shape
             .Polygon(
               Batch(Point(0, 0), Point(64, 32), Point(64, 64), Point(0, 32)),

@@ -115,7 +115,7 @@ object SceneA extends Scene[Model]:
 
     Outcome(
       SceneUpdateFragment(
-        LayerKey("demo") -> Layer(text)
+        LayerKey("demo") -> Layer.Content(text)
       )
     )
 
@@ -165,7 +165,7 @@ object SceneB extends Scene[Model]:
 
     Outcome(
       SceneUpdateFragment(
-        LayerKey("demo") -> Layer(text)
+        LayerKey("demo") -> Layer.Content(text)
       )
     )
 

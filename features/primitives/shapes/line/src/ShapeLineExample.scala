@@ -39,7 +39,7 @@ class ShapeLineExample() extends Game[Unit, Unit, Unit]:
 
     Outcome(
       SceneUpdateFragment(
-        LayerKey("demo") -> Layer(
+        LayerKey("demo") -> Layer.Content(
           Shape.Line(start, end, Stroke(2, RGBA.White))
         )
       )

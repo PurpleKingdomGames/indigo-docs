@@ -87,11 +87,11 @@ class CursedPirateDemo() extends Game[BootInformation, StartupData, Model]:
     Outcome(
       SceneUpdateFragment.empty
         .withLayers(
-          LayerKeys.background  -> Layer.empty,
-          LayerKeys.bigClouds   -> Layer.empty,
-          LayerKeys.smallClouds -> Layer.empty,
-          LayerKeys.game        -> Layer.empty,
-          LayerKeys.fps         -> Layer.empty
+          LayerKeys.background  -> Layer.Content.empty,
+          LayerKeys.bigClouds   -> Layer.Content.empty,
+          LayerKeys.smallClouds -> Layer.Content.empty,
+          LayerKeys.game        -> Layer.Content.empty,
+          LayerKeys.fps         -> Layer.Content.empty
         )
         .withMagnification(Magnification.x2)
     )

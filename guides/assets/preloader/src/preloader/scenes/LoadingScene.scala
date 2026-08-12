@@ -86,7 +86,7 @@ object LoadingScene extends Scene[Model]:
 
     Outcome(
       SceneUpdateFragment(
-        LayerKey("loading") -> Layer(
+        LayerKey("loading") -> Layer.Content(
           loadingText,
           model.startupData.captainLoading.moveTo(viewportCenter)
         )

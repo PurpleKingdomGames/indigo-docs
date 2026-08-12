@@ -40,32 +40,31 @@ object GameOverScene extends Scene[GameModel]:
       val horizontalCenter: Int = model.center.x
       val verticalMiddle: Int   = model.center.y
 
-      SceneUpdateFragment.empty
-        .addLayer(LayerKey("ui"))(
-          Layer(
-            Text(
-              "Game Over!",
-              horizontalCenter,
-              verticalMiddle - 20,
-              GameAssets.fontKey,
-              GameAssets.fontMaterial
-            ).alignCenter,
-            Text(
-              s"You scored: ${model.pointsScored.toString()} pts!",
-              horizontalCenter,
-              verticalMiddle - 5,
-              GameAssets.fontKey,
-              GameAssets.fontMaterial
-            ).alignCenter,
-            Text(
-              "(hit space to restart)",
-              horizontalCenter,
-              220,
-              GameAssets.fontKey,
-              GameAssets.fontMaterial
-            ).alignCenter
-          )
+      SceneUpdateFragment(
+        LayerKey("ui") -> Layer.Content(
+          Text(
+            "Game Over!",
+            horizontalCenter,
+            verticalMiddle - 20,
+            GameAssets.fontKey,
+            GameAssets.fontMaterial
+          ).alignCenter,
+          Text(
+            s"You scored: ${model.pointsScored.toString()} pts!",
+            horizontalCenter,
+            verticalMiddle - 5,
+            GameAssets.fontKey,
+            GameAssets.fontMaterial
+          ).alignCenter,
+          Text(
+            "(hit space to restart)",
+            horizontalCenter,
+            220,
+            GameAssets.fontKey,
+            GameAssets.fontMaterial
+          ).alignCenter
         )
+      )
     }
 
   final case class Model(pointsScored: Int, center: Point)

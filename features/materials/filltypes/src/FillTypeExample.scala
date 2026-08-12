@@ -43,7 +43,7 @@ class FillTypeExample() extends Game[Unit, Unit, Unit]:
   def present(context: Context, model: Unit): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment(
-        LayerKey("demo") -> Layer(
+        LayerKey("demo") -> Layer.Content(
           Graphic(0, 0, 128, 128, material.normal).moveTo(0, 0),
           Graphic(0, 0, 128, 128, material.tile).moveTo(128, 0),
           Graphic(0, 0, 128, 128, material.stretch).moveTo(0, 128),

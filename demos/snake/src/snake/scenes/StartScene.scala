@@ -48,13 +48,12 @@ object StartScene extends Scene[GameModel]:
       val horizontalCenter: Int = center.x
       val verticalMiddle: Int   = center.y
 
-      SceneUpdateFragment.empty
-        .addLayer(LayerKey("ui"))(
-          Layer(
-            drawTitleText(horizontalCenter, verticalMiddle) ++
-              SharedElements.drawHitSpaceToStart(horizontalCenter, Seconds(1), context.frame.time)
-          )
+      SceneUpdateFragment(
+        LayerKey("ui") -> Layer.Content(
+          drawTitleText(horizontalCenter, verticalMiddle) ++
+            SharedElements.drawHitSpaceToStart(horizontalCenter, Seconds(1), context.frame.time)
         )
+      )
         .withAudio(
           Assets.assets.introSceneAudio
         )

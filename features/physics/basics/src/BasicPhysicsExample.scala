@@ -191,7 +191,7 @@ class BasicPhysicsExample() extends Game[Unit, Unit, Model]:
   def present(context: Context, model: Model): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment(
-        LayerKey("demo") -> Layer(
+        LayerKey("demo") -> Layer.Content(
           model.world.present {
             case c: Collider.Circle[_] =>
               Shape.Circle(

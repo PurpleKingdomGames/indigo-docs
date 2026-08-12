@@ -34,7 +34,7 @@ object CustomComponents:
       (_, _) => labelBounds
     ) { case (ctx, label) =>
       Outcome(
-        Layer(
+        Layer.Content(
           text
             .withText(label.text(ctx))
             .moveTo(ctx.parent.coords.unsafeToPoint)
@@ -140,7 +140,7 @@ class MaskedPaneExample() extends Game[Unit, Unit, Model]:
         SceneUpdateFragment(
           LayerKey("demo") -> Layer.Stack(
             l,
-            Layer(
+            Layer.Content(
               labelBorder,
               maskBorder
             )

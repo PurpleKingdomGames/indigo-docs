@@ -92,7 +92,7 @@ object ColourfulCircle:
         model: ColourfulCircle
     ): Outcome[Layer] =
       Outcome(
-        Layer(
+        Layer.Content(
           Shape
             .Circle(
               Circle(

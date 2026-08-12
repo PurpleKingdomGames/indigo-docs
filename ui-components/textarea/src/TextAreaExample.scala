@@ -21,7 +21,7 @@ object CustomComponents:
       (ctx, txt) => Bounds(ctx.services.bounds.get(text.withText(txt)))
     ) { (ctx, textArea) =>
       Outcome(
-        Layer(
+        Layer.Content(
           text
             .withText(textArea.text(ctx))
             .moveTo(ctx.parent.coords.unsafeToPoint),

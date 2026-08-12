@@ -82,7 +82,7 @@ class AnimationPart3() extends Game[Unit, Unit, Unit]:
   def present(context: Context, model: Unit): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment(
-        LayerKey("demo") -> Layer(
+        LayerKey("demo") -> Layer.Content(
           myTimelineAnimation(context.frame.viewport.size)
             .atOrLast(context.frame.time.running)(circle)
             .toBatch
