@@ -56,7 +56,7 @@ class ImageEffectsExample() extends Game[Unit, Unit, Unit]:
   def present(context: Context, model: Unit): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment(
-        LayerKey("demo") -> Layer(
+        LayerKey("demo") -> Layer.Content(
           graphic
             .moveTo(viewCenter)
             .moveBy(0, -40)

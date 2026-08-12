@@ -14,17 +14,16 @@ object GameView:
       staticAssets: StaticAssets
   ): Outcome[SceneUpdateFragment] =
     Outcome(
-      SceneUpdateFragment.empty
-        .addLayer(LayerKey("game"))(
-          Layer(
-            gameLayer(
-              viewConfig,
-              model,
-              staticAssets,
-              walls
-            )
+      SceneUpdateFragment(
+        LayerKey("game") -> Layer.Content(
+          gameLayer(
+            viewConfig,
+            model,
+            staticAssets,
+            walls
           )
         )
+      )
     )
 
   def gameLayer(

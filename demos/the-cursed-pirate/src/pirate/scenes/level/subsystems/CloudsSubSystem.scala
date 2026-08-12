@@ -66,26 +66,25 @@ final case class CloudsSubSystem(screenWidth: Int) extends SubSystem[Model]:
       model: SubSystemModel
   ): Outcome[SceneUpdateFragment] =
     Outcome(
-      SceneUpdateFragment.empty
-        .addLayer(LayerKeys.bigClouds)(
-          Layer(
-            Assets.Clouds.bigCloudsGraphic
-              .moveTo(
-                model.bigCloudPosition.toInt - Assets.Clouds.bigCloudsWidth,
-                verticalCenter
-              ),
-            Assets.Clouds.bigCloudsGraphic
-              .moveTo(
-                model.bigCloudPosition.toInt,
-                verticalCenter
-              ),
-            Assets.Clouds.bigCloudsGraphic
-              .moveTo(
-                model.bigCloudPosition.toInt + Assets.Clouds.bigCloudsWidth,
-                verticalCenter
-              )
-          )
+      SceneUpdateFragment(
+        LayerKeys.bigClouds -> Layer.Content(
+          Assets.Clouds.bigCloudsGraphic
+            .moveTo(
+              model.bigCloudPosition.toInt - Assets.Clouds.bigCloudsWidth,
+              verticalCenter
+            ),
+          Assets.Clouds.bigCloudsGraphic
+            .moveTo(
+              model.bigCloudPosition.toInt,
+              verticalCenter
+            ),
+          Assets.Clouds.bigCloudsGraphic
+            .moveTo(
+              model.bigCloudPosition.toInt + Assets.Clouds.bigCloudsWidth,
+              verticalCenter
+            )
         )
+      )
     )
 
 object CloudsSubSystem:

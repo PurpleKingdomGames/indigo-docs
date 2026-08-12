@@ -46,14 +46,13 @@ object ControlsScene extends Scene[GameModel]:
       val horizontalCenter: Int = model.center.x
       val verticalMiddle: Int   = model.center.y
 
-      SceneUpdateFragment.empty
-        .addLayer(LayerKey("ui"))(
-          Layer(
-            drawControlsText(24, verticalMiddle, model.scheme) ++
-              Batch(drawSelectText(horizontalCenter)) ++
-              SharedElements.drawHitSpaceToStart(horizontalCenter, Seconds(1), context.frame.time)
-          )
+      SceneUpdateFragment(
+        LayerKey("ui") -> Layer.Content(
+          drawControlsText(24, verticalMiddle, model.scheme) ++
+            Batch(drawSelectText(horizontalCenter)) ++
+            SharedElements.drawHitSpaceToStart(horizontalCenter, Seconds(1), context.frame.time)
         )
+      )
     }
 
   def drawControlsText(center: Int, middle: Int, controlScheme: ControlScheme): Batch[SceneNode] =

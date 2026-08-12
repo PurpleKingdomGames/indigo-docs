@@ -164,7 +164,7 @@ class AnimationPart2() extends Game[Unit, Unit, Unit]:
 
     Outcome(
       SceneUpdateFragment(
-        LayerKey("demo") -> Layer(
+        LayerKey("demo") -> Layer.Content(
           circle1,
           circle2.at(context.frame.time.running),
           circle3.at(context.frame.time.running),

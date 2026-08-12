@@ -67,8 +67,8 @@ class GraphicExample() extends Game[Unit, Unit, Unit]:
 
   def present(context: Context, model: Unit): Outcome[SceneUpdateFragment] =
     Outcome(
-      SceneUpdateFragment.empty
-        .addLayer(LayerKey("demo"))(
+      SceneUpdateFragment(
+        LayerKey("demo") -> Layer.Content(
           basic.modifyMaterial(_.withAlpha(0.5)),
           basic
             .rotateTo(Radians(Math.PI / 8))
@@ -101,4 +101,5 @@ class GraphicExample() extends Game[Unit, Unit, Unit]:
             .moveTo(137 * 3, 300)
             .scaleBy(2.0, 2.0)
         )
+      )
     )

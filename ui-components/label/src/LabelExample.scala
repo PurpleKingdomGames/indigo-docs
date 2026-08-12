@@ -42,7 +42,7 @@ object CustomComponents:
       (ctx, label) => Bounds(ctx.services.bounds.get(text.withText(label)))
     ) { case (ctx, label) =>
       Outcome(
-        Layer(
+        Layer.Content(
           text
             .withText(label.text(ctx))
             .moveTo(ctx.parent.coords.unsafeToPoint)

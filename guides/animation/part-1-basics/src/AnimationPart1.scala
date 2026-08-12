@@ -99,7 +99,7 @@ class AnimationPart1() extends Game[Unit, Unit, Model]:
 
     Outcome(
       SceneUpdateFragment(
-        LayerKey("demo") -> Layer(
+        LayerKey("demo") -> Layer.Content(
           circle.moveTo(model.position.toPoint)
         )
       )

@@ -85,7 +85,7 @@ final case class LoadingScene(assetPath: String, screenDimensions: Rectangle) ex
 
     Outcome(
       SceneUpdateFragment(
-        LayerKey("loading") -> Layer(
+        LayerKey("loading") -> Layer.Content(
           loadingText,
           model.startupData.captainLoading.moveTo(x, y)
         )

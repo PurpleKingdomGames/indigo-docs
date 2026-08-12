@@ -50,7 +50,7 @@ class ClipExample() extends Game[Unit, Unit, Unit]:
 
     Outcome(
       SceneUpdateFragment(
-        LayerKey("demo") -> Layer(
+        LayerKey("demo") -> Layer.Content(
           clip
         )
       ).withMagnification(Magnification.x2)

@@ -55,15 +55,14 @@ object LevelView:
     ): SceneUpdateFragment =
       levelDataStore
         .map { levelAssets =>
-          SceneUpdateFragment.empty
-            .addLayer(LayerKeys.background)(
-              Layer.Content(
-                Batch(Graphic(640, 360, assets.static.bgMaterial)) ++
-                  drawWater(levelAssets.waterReflections)
-              )
+          SceneUpdateFragment(
+            LayerKeys.background -> Layer.Content(
+              Batch(Graphic(640, 360, assets.static.bgMaterial)) ++
+                drawWater(levelAssets.waterReflections)
             )
-            .addLayer(LayerKeys.game)(
-              Layer.Content(
+          )
+            .addLayers(
+              LayerKeys.game -> Layer.Content(
                 drawForeground(levelAssets)
                   ++ drawChest(chestCollider, spaceConvertors)
               )
@@ -120,16 +119,15 @@ object LevelView:
         captainClips: PirateClips,
         spaceConvertors: SpaceConvertors
     ): SceneUpdateFragment =
-      SceneUpdateFragment.empty
-        .addLayer(LayerKeys.game)(
-          Layer.Content(
-            respawnEffect(
-              gameTime,
-              pirate.lastRespawn,
-              updatedCaptain(pirate, collider, pirateViewState, captainClips, spaceConvertors)
-            )
+      SceneUpdateFragment(
+        LayerKeys.game -> Layer.Content(
+          respawnEffect(
+            gameTime,
+            pirate.lastRespawn,
+            updatedCaptain(pirate, collider, pirateViewState, captainClips, spaceConvertors)
           )
         )
+      )
 
     val respawnFlashSignal: Seconds => Signal[(Boolean, Boolean)] =
       lastRespawn => Signal(_ < lastRespawn + Seconds(1.2)) |*| Signal.Pulse(Seconds(0.1))

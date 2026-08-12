@@ -13,7 +13,7 @@ object CustomComponents:
     Switch[Unit](Bounds(40, 40))(
       (ctx, switch) =>
         Outcome(
-          Layer(
+          Layer.Content(
             Shape
               .Box(
                 switch.bounds.unsafeToRectangle,
@@ -25,7 +25,7 @@ object CustomComponents:
         ),
       (ctx, switch) =>
         Outcome(
-          Layer(
+          Layer.Content(
             Shape
               .Box(
                 switch.bounds.unsafeToRectangle,

@@ -59,29 +59,31 @@ class BlendingExample() extends Game[Unit, Unit, Unit]:
     Outcome(
       SceneUpdateFragment(
         LayerKey("demo") -> Layer.Stack(
-          Layer(
+          Layer.Content(
             Graphic(0, 0, 64, 64, Material.Bitmap(Assets.assets.nineslice))
               .moveTo(10, 10)
           ),
-          Layer(
+          Layer.Content(
             BlankEntity(0, 0, 64, 64, ShaderData(CustomEntityShader.shader.id))
               .moveTo(10 + 64 + gap, 10)
           ),
-          Layer(
+          Layer.Content(
             Graphic(0, 0, 64, 64, Material.Bitmap(Assets.assets.nineslice))
               .moveTo(10 + 64 + gap + 64 + gap, 10)
           ),
-          Layer(
-            BlankEntity(0, 0, 64, 64, ShaderData(CustomEntityShader.shader.id))
-              .moveTo(10 + 64 + gap + 64 + gap, 10)
-          ).withBlending(
-            Blending(
-              entity = Blend.Normal,
-              layer = Blend.Normal,
-              blendMaterial = CustomBlendMaterial(),
-              clearColor = None
+          Layer
+            .Content(
+              BlankEntity(0, 0, 64, 64, ShaderData(CustomEntityShader.shader.id))
+                .moveTo(10 + 64 + gap + 64 + gap, 10)
             )
-          )
+            .withBlending(
+              Blending(
+                entity = Blend.Normal,
+                layer = Blend.Normal,
+                blendMaterial = CustomBlendMaterial(),
+                clearColor = None
+              )
+            )
         )
       ).withMagnification(Magnification.x2)
     )

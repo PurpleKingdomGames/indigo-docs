@@ -57,7 +57,7 @@ class AsepriteEmbeddedExample() extends Game[Unit, StartupData, StartupData]:
 
     Outcome(
       SceneUpdateFragment(
-        LayerKey("demo") -> Layer(
+        LayerKey("demo") -> Layer.Content(
           model.captainLoading.moveTo(viewportCenter)
         )
       ).withMagnification(Magnification.x2)

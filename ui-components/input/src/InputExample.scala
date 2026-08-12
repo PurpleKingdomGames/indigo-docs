@@ -64,7 +64,7 @@ object CustomComponents:
         else Batch.empty
 
       Outcome(
-        Layer(
+        Layer.Content(
           Batch(
             text
               .withText(input.text)

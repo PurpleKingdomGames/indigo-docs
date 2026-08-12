@@ -38,7 +38,7 @@ class ShapeBoxExample() extends Game[Unit, Unit, Unit]:
 
     Outcome(
       SceneUpdateFragment(
-        LayerKey("demo") -> Layer(
+        LayerKey("demo") -> Layer.Content(
           Shape
             .Box(
               Rectangle(Point.zero, size),

@@ -113,7 +113,7 @@ class SpriteExample() extends Game[Unit, Unit, Unit]:
 
     Outcome(
       SceneUpdateFragment(
-        LayerKey("demo") -> Layer(
+        LayerKey("demo") -> Layer.Content(
           sprite
         )
       ).withMagnification(Magnification.x2)

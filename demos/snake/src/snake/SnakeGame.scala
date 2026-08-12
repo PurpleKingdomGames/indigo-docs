@@ -69,10 +69,10 @@ final class SnakeGame() extends Game[ViewConfig, StartupData, GameModel]:
   ): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment(
-        LayerKey("game")  -> Layer.empty,
-        LayerKey("score") -> Layer.empty,
-        LayerKey("ui")    -> Layer.empty,
-        LayerKey("fps")   -> Layer.empty
+        LayerKey("game")  -> Layer.Content.empty,
+        LayerKey("score") -> Layer.Content.empty,
+        LayerKey("ui")    -> Layer.Content.empty,
+        LayerKey("fps")   -> Layer.Content.empty
       ).withMagnification(Magnification.x2)
     )
 

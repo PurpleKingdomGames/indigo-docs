@@ -52,7 +52,7 @@ object CustomScene extends Scene[Model]:
   ): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment(
-        LayerKey("demo") -> Layer(
+        LayerKey("demo") -> Layer.Content(
           Shape
             .Box(
               Rectangle(0, 0, 60, 60),

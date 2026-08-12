@@ -130,6 +130,6 @@ class SignalsExample() extends Game[Unit, Unit, Boolean]:
   ): Outcome[SceneUpdateFragment] =
     Outcome(
       SceneUpdateFragment(
-        LayerKey("demo") -> Layer(text)
+        LayerKey("demo") -> Layer.Content(text)
       )
     )
