@@ -11,15 +11,28 @@ import generated.*
 final case class CustomSceneModel(
     spawned: Boolean,
     target: Point,
-    actorPool: ActorPool[Map[Int, Point], ZombieActor],
+    actorPool: ActorPool[Map[Int, Point], ZombieActor, CloneBatchData],
     world: World[ZombieSimTag]
 )
 object CustomSceneModel:
+
+  private val blank =
+    CloneBlank(
+      CloneId("zombie-clone"),
+      Shape.Circle(Circle(Point.zero, 5), Fill.Color(RGBA.SlateGray), Stroke(1, RGBA.White))
+    )
+
   val initial: CustomSceneModel =
     CustomSceneModel(
       false,
       Point.zero,
-      ActorPool.empty,
+      ActorPool(cloneData =>
+        SceneUpdateFragment(
+          LayerKey("demo") -> Layer.Content(
+            CloneBatch(blank.id, cloneData)
+          )
+        ).addCloneBlanks(blank)
+      ),
       World.empty.withResistance(Resistance(0.25))
     )
 
@@ -170,12 +183,9 @@ object CustomScene extends Scene[Model]:
         LayerKey("demo") -> Layer.Stack(
           Layer.Content(
             Shape.Circle(Circle(sceneModel.target, 16), Fill.Color(RGBA.Red), Stroke(2, RGBA.White))
-          ),
-          Layer.Content(
-            zombies
           )
         )
-      )
+      ) |+| zombies
     }
 
 class ActorsWithPhysicsExample() extends Game[BootData, StartUpData, Model]:
@@ -230,7 +240,7 @@ object ZombieActor:
   given Ordering[ZombieActor] =
     Ordering.by(_.depth)
 
-  given Actor[Map[Int, Point], ZombieActor] with
+  given Actor[Map[Int, Point], ZombieActor, CloneBatchData] with
 
     def update(
         context: ActorContext[Map[Int, Point], ZombieActor],
@@ -252,17 +262,9 @@ object ZombieActor:
     def present(
         context: ActorContext[Map[Int, Point], ZombieActor],
         actor: ZombieActor
-    ): Outcome[Batch[SceneNode]] =
-      val color =
-        actor.index % 3 match
-          case 0 => RGBA.Cyan
-          case 1 => RGBA.Yellow
-          case _ => RGBA.SlateGray
-
+    ): Outcome[CloneBatchData] =
       Outcome(
-        Batch(
-          Shape.Circle(Circle(actor.position, 5), Fill.Color(color), Stroke(1, RGBA.White))
-        )
+        CloneBatchData(actor.position.x, actor.position.y)
       )
 
 enum ZombieSimTag derives CanEqual:

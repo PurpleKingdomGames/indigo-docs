@@ -10,14 +10,20 @@ import generated.*
 final case class CustomSceneModel(
     spawned: Boolean,
     target: Point,
-    actorPool: ActorPool[Point, FollowingActor]
+    actorPool: ActorPool[Point, FollowingActor, Shape.Circle]
 )
 object CustomSceneModel:
   val initial: CustomSceneModel =
     CustomSceneModel(
       false,
       Point.zero,
-      ActorPool.empty
+      ActorPool { followers =>
+        SceneUpdateFragment(
+          LayerKey("followers") -> Layer.Content(
+            followers
+          )
+        )
+      }
     )
 
 final case class BootData()
@@ -132,11 +138,8 @@ object CustomScene extends Scene[Model]:
       SceneUpdateFragment(
         LayerKey("target") -> Layer.Content(
           Shape.Circle(Circle(sceneModel.target, 8), Fill.Color(RGBA.Cyan))
-        ),
-        LayerKey("followers") -> Layer.Content(
-          followers
         )
-      )
+      ) |+| followers
     }
 
 class ActorsExample() extends Game[BootData, StartUpData, Model]:
@@ -219,7 +222,7 @@ object FollowingActor:
   given Ordering[FollowingActor] =
     Ordering.by(_.depthIndex)
 
-  given Actor[Point, FollowingActor] with
+  given Actor[Point, FollowingActor, Shape.Circle] with
 
     def update(
         context: ActorContext[Point, FollowingActor],
@@ -244,13 +247,11 @@ object FollowingActor:
     def present(
         context: ActorContext[Point, FollowingActor],
         actor: FollowingActor
-    ): Outcome[Batch[SceneNode]] =
+    ): Outcome[Shape.Circle] =
       Outcome(
-        Batch(
-          Shape.Circle(
-            Circle(actor.location.toPoint, actor.radius),
-            Fill.Color(actor.colour),
-            Stroke(2, RGBA.Black)
-          )
+        Shape.Circle(
+          Circle(actor.location.toPoint, actor.radius),
+          Fill.Color(actor.colour),
+          Stroke(2, RGBA.Black)
         )
       )

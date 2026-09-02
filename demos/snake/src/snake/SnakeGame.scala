@@ -37,7 +37,8 @@ final class SnakeGame() extends Game[ViewConfig, StartupData, GameModel]:
         .withAssets(GameAssets.assets(assetPath))
         .withFonts(GameAssets.fontInfo)
         .withSubSystems(
-          FPSCounter(GameAssets.fontKey, Assets.assets.boxyFontSmall, LayerKey("fps"))
+          FPSCounter
+            .tint(LayerKey("fps"), GameAssets.fontKey, Assets.assets.boxyFontSmall)
             .moveTo(Point(5, 5))
         )
     }

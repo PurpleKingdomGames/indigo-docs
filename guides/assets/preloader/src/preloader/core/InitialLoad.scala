@@ -16,10 +16,10 @@ object InitialLoad:
             captainClips
           )
         } match
-        case None =>
+        case Left(_) =>
           Startup.Failure("Failed to start")
 
-        case Some(success) =>
+        case Right(success) =>
           success
     )
 

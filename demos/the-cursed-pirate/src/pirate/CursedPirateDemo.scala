@@ -45,10 +45,10 @@ class CursedPirateDemo() extends Game[BootInformation, StartupData, Model]:
       ).withAssets(Assets.initialAssets(assetPath))
         .withFonts(Assets.Fonts.fontInfo)
         .withSubSystems(
-          FPSCounter[Model](
+          FPSCounter.tint[Model](
+            LayerKeys.fps,
             Assets.Fonts.fontKey,
-            pirate.generated.Assets.assets.fonts.boxyFontSmall,
-            LayerKeys.fps
+            pirate.generated.Assets.assets.fonts.boxyFontSmall
           )
         )
     }
