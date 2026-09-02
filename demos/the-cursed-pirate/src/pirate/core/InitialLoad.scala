@@ -5,6 +5,7 @@ import indigo.json.Json
 import indigo.shared.formats.TiledGridMap
 import pirate.generated.Assets.*
 import pirate.generated.CaptainAnim
+import indigo.shared.formats.AsepriteError
 
 object InitialLoad:
 
@@ -21,10 +22,10 @@ object InitialLoad:
             levelDataStore(screenDimensions, assetCollection)
           )
         } match
-        case None =>
+        case Left(_: AsepriteError) =>
           Startup.Failure("Failed to start The Cursed Pirate")
 
-        case Some(success) =>
+        case Right(success) =>
           success
     )
 
@@ -156,7 +157,7 @@ object InitialLoad:
     for {
       json     <- assetCollection.findTextDataByName(jsonRef)
       aseprite <- Json.asepriteFromJson(json)
-      clips    <- aseprite.toClips(name)
+      clips    <- aseprite.toClips(name).toOption
       clip     <- clips.get(CycleLabel(cycleName))
     } yield clip
 

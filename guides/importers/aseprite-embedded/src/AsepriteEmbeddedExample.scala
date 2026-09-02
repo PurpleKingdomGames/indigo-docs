@@ -70,10 +70,10 @@ object InitialLoad:
       CaptainAnim.aseprite
         .toClips(Assets.assets.CaptainClownNose)
         .map(makeStartupData) match
-        case None =>
+        case Left(_) =>
           Startup.Failure("Failed to start")
 
-        case Some(success) =>
+        case Right(success) =>
           success
     )
 
